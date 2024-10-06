@@ -37,6 +37,15 @@ namespace BM
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Look"",
+                    ""type"": ""Value"",
+                    ""id"": ""aad726e6-956f-4f15-9b04-25448593dde9"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -149,6 +158,17 @@ namespace BM
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7a1508cd-fb02-4acf-b961-d58406ab51d8"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";PC"",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -175,6 +195,7 @@ namespace BM
             // Character
             m_Character = asset.FindActionMap("Character", throwIfNotFound: true);
             m_Character_Move = m_Character.FindAction("Move", throwIfNotFound: true);
+            m_Character_Look = m_Character.FindAction("Look", throwIfNotFound: true);
         }
 
         ~@IA_InputActions()
@@ -242,11 +263,13 @@ namespace BM
         private readonly InputActionMap m_Character;
         private List<ICharacterActions> m_CharacterActionsCallbackInterfaces = new List<ICharacterActions>();
         private readonly InputAction m_Character_Move;
+        private readonly InputAction m_Character_Look;
         public struct CharacterActions
         {
             private @IA_InputActions m_Wrapper;
             public CharacterActions(@IA_InputActions wrapper) { m_Wrapper = wrapper; }
             public InputAction @Move => m_Wrapper.m_Character_Move;
+            public InputAction @Look => m_Wrapper.m_Character_Look;
             public InputActionMap Get() { return m_Wrapper.m_Character; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -259,6 +282,9 @@ namespace BM
                 @Move.started += instance.OnMove;
                 @Move.performed += instance.OnMove;
                 @Move.canceled += instance.OnMove;
+                @Look.started += instance.OnLook;
+                @Look.performed += instance.OnLook;
+                @Look.canceled += instance.OnLook;
             }
 
             private void UnregisterCallbacks(ICharacterActions instance)
@@ -266,6 +292,9 @@ namespace BM
                 @Move.started -= instance.OnMove;
                 @Move.performed -= instance.OnMove;
                 @Move.canceled -= instance.OnMove;
+                @Look.started -= instance.OnLook;
+                @Look.performed -= instance.OnLook;
+                @Look.canceled -= instance.OnLook;
             }
 
             public void RemoveCallbacks(ICharacterActions instance)
@@ -295,6 +324,7 @@ namespace BM
         public interface ICharacterActions
         {
             void OnMove(InputAction.CallbackContext context);
+            void OnLook(InputAction.CallbackContext context);
         }
     }
 }
