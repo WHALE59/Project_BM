@@ -1,0 +1,63 @@
+using UnityEngine;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
+namespace BM
+{
+	/// <summary>
+	/// 모든 상호작용 가능한 오브젝트의 상호작용 내역은, 아래 컴포넌트를 상속하여 구현.
+	/// </summary>
+	[DisallowMultipleComponent]
+	public class InteractableObject : MonoBehaviour, IInteractableObject
+	{
+		void IInteractableObject.BeginHover()
+		{
+			_isHovering = true;
+		}
+
+		void IInteractableObject.BeginInteract()
+		{
+			_isInteracting = true;
+		}
+
+		void IInteractableObject.EndHovering()
+		{
+			_isHovering = false;
+		}
+
+		void IInteractableObject.EndInteract()
+		{
+			_isInteracting = false;
+		}
+
+#if UNITY_EDITOR
+		[DrawGizmo(GizmoType.Active | GizmoType.NotInSelectionHierarchy)]
+		static void DrawInteractableObjectGizmo(InteractableObject target, GizmoType _)
+		{
+			var label = $"* 상호작용 가능 객체: {target.gameObject.name}";
+			label += $"\n* 호버링: {target._isHovering}";
+			label += $"\n* 상호작용: {target._isInteracting}";
+
+			var style = new GUIStyle();
+
+			style.normal.textColor = Color.white;
+
+			if (target._isHovering)
+			{
+				style.normal.textColor = Color.cyan;
+			}
+			if (target._isInteracting)
+			{
+				style.normal.textColor = Color.magenta;
+			}
+
+			Handles.Label(target.transform.position, label, style);
+		}
+#endif
+
+		protected bool _isHovering = false;
+		protected bool _isInteracting = false;
+	}
+}

@@ -46,6 +46,24 @@ namespace BM
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""f397bd11-62db-42b8-8c32-fe69b1f338e0"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Use"",
+                    ""type"": ""Button"",
+                    ""id"": ""d51d99fb-36dc-4682-bceb-36584ced80bd"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -169,6 +187,28 @@ namespace BM
                     ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1591fb6e-f241-47d4-878e-91ca641e55f8"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";PC"",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""927ff8e2-1389-438b-95db-ccab8bc0e98c"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";PC"",
+                    ""action"": ""Use"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -196,6 +236,8 @@ namespace BM
             m_Character = asset.FindActionMap("Character", throwIfNotFound: true);
             m_Character_Move = m_Character.FindAction("Move", throwIfNotFound: true);
             m_Character_Look = m_Character.FindAction("Look", throwIfNotFound: true);
+            m_Character_Interact = m_Character.FindAction("Interact", throwIfNotFound: true);
+            m_Character_Use = m_Character.FindAction("Use", throwIfNotFound: true);
         }
 
         ~@IA_InputActions()
@@ -264,12 +306,16 @@ namespace BM
         private List<ICharacterActions> m_CharacterActionsCallbackInterfaces = new List<ICharacterActions>();
         private readonly InputAction m_Character_Move;
         private readonly InputAction m_Character_Look;
+        private readonly InputAction m_Character_Interact;
+        private readonly InputAction m_Character_Use;
         public struct CharacterActions
         {
             private @IA_InputActions m_Wrapper;
             public CharacterActions(@IA_InputActions wrapper) { m_Wrapper = wrapper; }
             public InputAction @Move => m_Wrapper.m_Character_Move;
             public InputAction @Look => m_Wrapper.m_Character_Look;
+            public InputAction @Interact => m_Wrapper.m_Character_Interact;
+            public InputAction @Use => m_Wrapper.m_Character_Use;
             public InputActionMap Get() { return m_Wrapper.m_Character; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -285,6 +331,12 @@ namespace BM
                 @Look.started += instance.OnLook;
                 @Look.performed += instance.OnLook;
                 @Look.canceled += instance.OnLook;
+                @Interact.started += instance.OnInteract;
+                @Interact.performed += instance.OnInteract;
+                @Interact.canceled += instance.OnInteract;
+                @Use.started += instance.OnUse;
+                @Use.performed += instance.OnUse;
+                @Use.canceled += instance.OnUse;
             }
 
             private void UnregisterCallbacks(ICharacterActions instance)
@@ -295,6 +347,12 @@ namespace BM
                 @Look.started -= instance.OnLook;
                 @Look.performed -= instance.OnLook;
                 @Look.canceled -= instance.OnLook;
+                @Interact.started -= instance.OnInteract;
+                @Interact.performed -= instance.OnInteract;
+                @Interact.canceled -= instance.OnInteract;
+                @Use.started -= instance.OnUse;
+                @Use.performed -= instance.OnUse;
+                @Use.canceled -= instance.OnUse;
             }
 
             public void RemoveCallbacks(ICharacterActions instance)
@@ -325,6 +383,8 @@ namespace BM
         {
             void OnMove(InputAction.CallbackContext context);
             void OnLook(InputAction.CallbackContext context);
+            void OnInteract(InputAction.CallbackContext context);
+            void OnUse(InputAction.CallbackContext context);
         }
     }
 }
