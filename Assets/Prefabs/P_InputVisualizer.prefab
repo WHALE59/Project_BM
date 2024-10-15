@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8332625965985667508}
   - component: {fileID: 7799663455113736825}
   - component: {fileID: 1693648289208892001}
+  - component: {fileID: 723933790590607671}
   m_Layer: 0
   m_Name: P_InputVisualizer
   m_TagString: Untagged
@@ -131,7 +132,7 @@ MonoBehaviour:
   m_TimeWindow: 3
   m_Rect:
     serializedVersion: 2
-    x: 250
+    x: 310
     y: 70
     width: 50
     height: 50
@@ -163,6 +164,32 @@ MonoBehaviour:
     height: 50
   m_Visualization: 1
   m_ActionReference: {fileID: -3596725613555016963, guid: 99473f1924180e24386d8e89df2e08a6,
+    type: 3}
+  m_ActionName: 
+  m_ShowControlName: 0
+--- !u!114 &723933790590607671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3978607366003787952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 939ce9f3839b54466af594f7854ed222, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Label: "\uAC77\uAE30"
+  m_HistorySamples: 500
+  m_TimeWindow: 3
+  m_Rect:
+    serializedVersion: 2
+    x: 250
+    y: 70
+    width: 50
+    height: 50
+  m_Visualization: 1
+  m_ActionReference: {fileID: -1553808050672233506, guid: 99473f1924180e24386d8e89df2e08a6,
     type: 3}
   m_ActionName: 
   m_ShowControlName: 0

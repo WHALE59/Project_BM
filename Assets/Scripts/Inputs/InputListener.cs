@@ -21,23 +21,39 @@ namespace BM
 
 			// 각 입력을 캐릭터 행동 컴포넌트와 바인딩
 
+			// Move
 			_moveAction = GetComponent<MoveAction>();
 
+			// Interact
 			_interactAction = GetComponent<InteractAction>();
-			var interactInputAsset = _inputActions.Character.Interact;
-			interactInputAsset.performed += OnInteractInputPerformed;
-			interactInputAsset.canceled += OnInteractInputCancled;
+			var interactInputAction = _inputActions.Character.Interact;
+			interactInputAction.performed += OnInteractInputPerformed;
+			interactInputAction.canceled += OnInteractInputCancled;
 
+			// Crouch
 			_crouchAction = GetComponent<CrouchAction>();
-			var crouchInputAsset = _inputActions.Character.Crouch;
+			var crouchInputAction = _inputActions.Character.Crouch;
 			if (!_crouchInputIsToggle)
 			{
-				crouchInputAsset.performed += OnCrouchInputPerformed;
-				crouchInputAsset.canceled += OnCrouchInputCancled;
+				crouchInputAction.performed += OnCrouchInputPerformed;
+				crouchInputAction.canceled += OnCrouchInputCanceled;
 			}
 			else
 			{
-				crouchInputAsset.performed += OnCrouchInputToggled;
+				crouchInputAction.performed += OnCrouchInputToggled;
+			}
+
+			// Walk
+			_walkAction = GetComponent<WalkAction>();
+			var walkInputAction = _inputActions.Character.Walk;
+			if (!_walkInputIsToggle)
+			{
+				walkInputAction.performed += OnWalkInputPerformed;
+				walkInputAction.canceled += OnWalkInputCanceled;
+			}
+			else
+			{
+				walkInputAction.performed += OnWalkInputToggled;
 			}
 
 #if UNITY_EDITOR
@@ -59,6 +75,30 @@ namespace BM
 		}
 
 		// 구독 해제와 일관성 유지를 위해 래핑함
+
+		void OnWalkInputPerformed(InputAction.CallbackContext context)
+		{
+			_walkAction.StartWalk();
+		}
+
+		void OnWalkInputCanceled(InputAction.CallbackContext context)
+		{
+			_walkAction.FinishWalk();
+		}
+
+		void OnWalkInputToggled(InputAction.CallbackContext context)
+		{
+			if (!_isWalkInputPerformed)
+			{
+				_walkAction.StartWalk();
+			}
+			else
+			{
+				_walkAction.FinishWalk();
+			}
+
+			_isWalkInputPerformed = !_isWalkInputPerformed;
+		}
 
 		void OnInteractInputPerformed(InputAction.CallbackContext context)
 		{
@@ -89,7 +129,7 @@ namespace BM
 			_isCrouchInputPerformed = !_isCrouchInputPerformed;
 		}
 
-		void OnCrouchInputCancled(InputAction.CallbackContext context)
+		void OnCrouchInputCanceled(InputAction.CallbackContext context)
 		{
 			_crouchAction.FinishCrouch();
 		}
@@ -114,23 +154,39 @@ namespace BM
 				return;
 			}
 
-			// 에디터에서 플레이 중 _crouchInputIsToggle 체크시, 바로 반영 하기 위한 코드
+			// 에디터에서 플레이 중 Toggle 설정 변경을 바로 반영하기 위한 코드
+
 			var crouchInputAsset = _inputActions.Character.Crouch;
 			if (!_crouchInputIsToggle)
 			{
 				crouchInputAsset.performed -= OnCrouchInputToggled;
 
 				crouchInputAsset.performed += OnCrouchInputPerformed;
-				crouchInputAsset.canceled += OnCrouchInputCancled;
+				crouchInputAsset.canceled += OnCrouchInputCanceled;
 			}
 			else
 			{
 				crouchInputAsset.performed -= OnCrouchInputPerformed;
-				crouchInputAsset.canceled -= OnCrouchInputCancled;
+				crouchInputAsset.canceled -= OnCrouchInputCanceled;
 
 				crouchInputAsset.performed += OnCrouchInputToggled;
 			}
 
+			var walkInputAsset = _inputActions.Character.Walk;
+			if (!_walkInputIsToggle)
+			{
+				walkInputAsset.performed -= OnWalkInputToggled;
+
+				walkInputAsset.performed += OnWalkInputPerformed;
+				walkInputAsset.canceled += OnWalkInputCanceled;
+			}
+			else
+			{
+				walkInputAsset.performed -= OnWalkInputPerformed;
+				walkInputAsset.canceled -= OnWalkInputCanceled;
+
+				walkInputAsset.performed += OnWalkInputToggled;
+			}
 		}
 #endif
 
@@ -151,16 +207,27 @@ namespace BM
 
 		IA_InputActions _inputActions;
 
+		// Move
 		MoveAction _moveAction;
 
+		// Interact
 		InteractAction _interactAction;
 
+		// Crouch
 		CrouchAction _crouchAction;
 
 		[Tooltip("Crouch 입력을 토글로 받을지에 대한 여부입니다.")]
 		[SerializeField] bool _crouchInputIsToggle = false;
 
 		bool _isCrouchInputPerformed = false;
+
+		// Walk
+		WalkAction _walkAction;
+
+		[Tooltip("Walk 입력을 토글로 받을지에 대한 여부입니다.")]
+		[SerializeField] bool _walkInputIsToggle = false;
+
+		bool _isWalkInputPerformed = false;
 
 #if UNITY_EDITOR
 		[Header("[DEBUG] Visualize Inputs")]

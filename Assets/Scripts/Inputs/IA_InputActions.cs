@@ -73,6 +73,15 @@ namespace BM
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Walk"",
+                    ""type"": ""Button"",
+                    ""id"": ""33c591bc-2824-4d5a-a8e2-71f227d54358"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -240,6 +249,17 @@ namespace BM
                     ""action"": ""Crouch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8c9bfdc9-8203-4689-a783-97012bdc13d7"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";PC"",
+                    ""action"": ""Walk"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -270,6 +290,7 @@ namespace BM
             m_Character_Interact = m_Character.FindAction("Interact", throwIfNotFound: true);
             m_Character_Use = m_Character.FindAction("Use", throwIfNotFound: true);
             m_Character_Crouch = m_Character.FindAction("Crouch", throwIfNotFound: true);
+            m_Character_Walk = m_Character.FindAction("Walk", throwIfNotFound: true);
         }
 
         ~@IA_InputActions()
@@ -341,6 +362,7 @@ namespace BM
         private readonly InputAction m_Character_Interact;
         private readonly InputAction m_Character_Use;
         private readonly InputAction m_Character_Crouch;
+        private readonly InputAction m_Character_Walk;
         public struct CharacterActions
         {
             private @IA_InputActions m_Wrapper;
@@ -350,6 +372,7 @@ namespace BM
             public InputAction @Interact => m_Wrapper.m_Character_Interact;
             public InputAction @Use => m_Wrapper.m_Character_Use;
             public InputAction @Crouch => m_Wrapper.m_Character_Crouch;
+            public InputAction @Walk => m_Wrapper.m_Character_Walk;
             public InputActionMap Get() { return m_Wrapper.m_Character; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -374,6 +397,9 @@ namespace BM
                 @Crouch.started += instance.OnCrouch;
                 @Crouch.performed += instance.OnCrouch;
                 @Crouch.canceled += instance.OnCrouch;
+                @Walk.started += instance.OnWalk;
+                @Walk.performed += instance.OnWalk;
+                @Walk.canceled += instance.OnWalk;
             }
 
             private void UnregisterCallbacks(ICharacterActions instance)
@@ -393,6 +419,9 @@ namespace BM
                 @Crouch.started -= instance.OnCrouch;
                 @Crouch.performed -= instance.OnCrouch;
                 @Crouch.canceled -= instance.OnCrouch;
+                @Walk.started -= instance.OnWalk;
+                @Walk.performed -= instance.OnWalk;
+                @Walk.canceled -= instance.OnWalk;
             }
 
             public void RemoveCallbacks(ICharacterActions instance)
@@ -426,6 +455,7 @@ namespace BM
             void OnInteract(InputAction.CallbackContext context);
             void OnUse(InputAction.CallbackContext context);
             void OnCrouch(InputAction.CallbackContext context);
+            void OnWalk(InputAction.CallbackContext context);
         }
     }
 }
