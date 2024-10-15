@@ -17,6 +17,10 @@ namespace BM
 		/// </summary>
 		void FixedUpdate()
 		{
+			/*
+			 * 호버링 기능 덕분에 단순 레이캐스트로 구현할 수 없었고, 이전 프레임에 무엇을 검출했는지 추적하는 코드가 필요했음.
+			 */
+
 			var ray = new Ray
 			(
 				origin: Camera.main.transform.position,
@@ -53,7 +57,7 @@ namespace BM
 						_isThereHitResultInLastFrame = true;
 						_rootGameObjectInLastFrame = rootGameObjectInCurrentFrame;
 
-						_interactableObject.BeginHover();
+						_interactableObject.StartHover();
 					}
 					else
 					{
@@ -95,16 +99,16 @@ namespace BM
 		{
 			if (_isHoveringInLastFrame)
 			{
-				_interactableObject?.EndHovering();
+				_interactableObject?.FinishHovering();
 			}
 
 			if (_isInteractingInLastFrame)
 			{
-				_interactableObject?.EndInteract();
+				_interactableObject?.FinishInteract();
 			}
 		}
 
-		public void BeginInteraction()
+		public void StartInteraction()
 		{
 			if (_isInteractingInLastFrame)
 			{
@@ -122,13 +126,13 @@ namespace BM
 			}
 
 			_isInteractingInLastFrame = true;
-			_interactableObject?.BeginInteract();
+			_interactableObject?.Startnteract();
 		}
 
-		public void EndInteraction()
+		public void FinishInteraction()
 		{
 			_isInteractingInLastFrame = false;
-			_interactableObject?.EndInteract();
+			_interactableObject?.FinishInteract();
 		}
 
 #if UNITY_EDITOR

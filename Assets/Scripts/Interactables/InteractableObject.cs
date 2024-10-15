@@ -12,22 +12,22 @@ namespace BM
 	[DisallowMultipleComponent]
 	public class InteractableObject : MonoBehaviour, IInteractableObject
 	{
-		void IInteractableObject.BeginHover()
+		void IInteractableObject.StartHover()
 		{
 			_isHovering = true;
 		}
 
-		void IInteractableObject.BeginInteract()
+		void IInteractableObject.Startnteract()
 		{
 			_isInteracting = true;
 		}
 
-		void IInteractableObject.EndHovering()
+		void IInteractableObject.FinishHovering()
 		{
 			_isHovering = false;
 		}
 
-		void IInteractableObject.EndInteract()
+		void IInteractableObject.FinishInteract()
 		{
 			_isInteracting = false;
 		}

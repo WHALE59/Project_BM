@@ -64,6 +64,15 @@ namespace BM
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Crouch"",
+                    ""type"": ""Button"",
+                    ""id"": ""023bab3f-7aa5-4b0d-b1cf-bdc02a9e5954"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -209,6 +218,28 @@ namespace BM
                     ""action"": ""Use"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""226b472b-1ba4-418a-a7d1-d3b075f2a567"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";PC"",
+                    ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""845ac320-a788-4888-9dc3-259668fb8f8e"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";PC"",
+                    ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -238,6 +269,7 @@ namespace BM
             m_Character_Look = m_Character.FindAction("Look", throwIfNotFound: true);
             m_Character_Interact = m_Character.FindAction("Interact", throwIfNotFound: true);
             m_Character_Use = m_Character.FindAction("Use", throwIfNotFound: true);
+            m_Character_Crouch = m_Character.FindAction("Crouch", throwIfNotFound: true);
         }
 
         ~@IA_InputActions()
@@ -308,6 +340,7 @@ namespace BM
         private readonly InputAction m_Character_Look;
         private readonly InputAction m_Character_Interact;
         private readonly InputAction m_Character_Use;
+        private readonly InputAction m_Character_Crouch;
         public struct CharacterActions
         {
             private @IA_InputActions m_Wrapper;
@@ -316,6 +349,7 @@ namespace BM
             public InputAction @Look => m_Wrapper.m_Character_Look;
             public InputAction @Interact => m_Wrapper.m_Character_Interact;
             public InputAction @Use => m_Wrapper.m_Character_Use;
+            public InputAction @Crouch => m_Wrapper.m_Character_Crouch;
             public InputActionMap Get() { return m_Wrapper.m_Character; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -337,6 +371,9 @@ namespace BM
                 @Use.started += instance.OnUse;
                 @Use.performed += instance.OnUse;
                 @Use.canceled += instance.OnUse;
+                @Crouch.started += instance.OnCrouch;
+                @Crouch.performed += instance.OnCrouch;
+                @Crouch.canceled += instance.OnCrouch;
             }
 
             private void UnregisterCallbacks(ICharacterActions instance)
@@ -353,6 +390,9 @@ namespace BM
                 @Use.started -= instance.OnUse;
                 @Use.performed -= instance.OnUse;
                 @Use.canceled -= instance.OnUse;
+                @Crouch.started -= instance.OnCrouch;
+                @Crouch.performed -= instance.OnCrouch;
+                @Crouch.canceled -= instance.OnCrouch;
             }
 
             public void RemoveCallbacks(ICharacterActions instance)
@@ -385,6 +425,7 @@ namespace BM
             void OnLook(InputAction.CallbackContext context);
             void OnInteract(InputAction.CallbackContext context);
             void OnUse(InputAction.CallbackContext context);
+            void OnCrouch(InputAction.CallbackContext context);
         }
     }
 }
