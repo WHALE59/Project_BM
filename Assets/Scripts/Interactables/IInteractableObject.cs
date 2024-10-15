@@ -9,5 +9,7 @@ namespace BM
 		void FinishInteract();
 		void StartHover();
 		void FinishHovering();
+
+		InteractableObjectData Data { get; }
 	}
 }

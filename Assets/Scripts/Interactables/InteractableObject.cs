@@ -37,8 +37,6 @@ namespace BM
 		static void DrawInteractableObjectGizmo(InteractableObject target, GizmoType _)
 		{
 			var label = $"* 상호작용 가능 객체: {target.gameObject.name}";
-			label += $"\n* 호버링: {target._isHovering}";
-			label += $"\n* 상호작용: {target._isInteracting}";
 
 			var style = new GUIStyle();
 
@@ -53,11 +51,18 @@ namespace BM
 				style.normal.textColor = Color.magenta;
 			}
 
+			label += $"\n* 표시 이름: {target._interactableObjectData.displayName}";
+			label += $"\n* 상호작용 이름: {target._interactableObjectData.interactionName}";
+
 			Handles.Label(target.transform.position, label, style);
 		}
 #endif
+		InteractableObjectData IInteractableObject.Data => _interactableObjectData;
+
+		[SerializeField] InteractableObjectData _interactableObjectData;
 
 		protected bool _isHovering = false;
 		protected bool _isInteracting = false;
+
 	}
 }

@@ -116,7 +116,7 @@ PrefabInstance:
     - target: {fileID: 3654139002840778117, guid: e6defa8b38c5df7409e0eceeedff85fe,
         type: 3}
       propertyPath: m_Name
-      value: Item_Cube
+      value: PV_InteractableObject_Cube
       objectReference: {fileID: 0}
     - target: {fileID: 3654139002840778117, guid: e6defa8b38c5df7409e0eceeedff85fe,
         type: 3}
@@ -173,6 +173,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8816579522675030651, guid: e6defa8b38c5df7409e0eceeedff85fe,
+        type: 3}
+      propertyPath: _interactableObjectData
+      value: 
+      objectReference: {fileID: 11400000, guid: d762230001c83cb40b412e5145eb88a1,
+        type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:

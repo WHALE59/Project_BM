@@ -42,7 +42,15 @@ namespace BM
 				if (rootGameObjectInCurrentFrame != _rootGameObjectInLastFrame)
 				{
 					// 이전 프레임 처리
-					ResetPreviousInteractionState();
+					if (_isHoveringInLastFrame)
+					{
+						FinishHovering(_interactableObject);
+					}
+
+					if (_isInteractingInLastFrame)
+					{
+						_interactableObject?.FinishInteract();
+					}
 
 					// 현재 프레임 처리
 					//   * 검출된 오브젝트가 상호작용 가능하다면, 호버링 처리하고 참조를 업데이트함
@@ -53,11 +61,10 @@ namespace BM
 					if (isThereInterface)
 					{
 						_interactableObject = interactableObject;
-						_isHoveringInLastFrame = true;
 						_isThereHitResultInLastFrame = true;
 						_rootGameObjectInLastFrame = rootGameObjectInCurrentFrame;
 
-						_interactableObject.StartHover();
+						StartHovering(interactableObject);
 					}
 					else
 					{
@@ -97,15 +104,6 @@ namespace BM
 
 		void ResetPreviousInteractionState()
 		{
-			if (_isHoveringInLastFrame)
-			{
-				_interactableObject?.FinishHovering();
-			}
-
-			if (_isInteractingInLastFrame)
-			{
-				_interactableObject?.FinishInteract();
-			}
 		}
 
 		public void StartInteraction()
@@ -133,6 +131,18 @@ namespace BM
 		{
 			_isInteractingInLastFrame = false;
 			_interactableObject?.FinishInteract();
+		}
+
+		void StartHovering(IInteractableObject interactableObject)
+		{
+			_isHoveringInLastFrame = true;
+			Debug.Log(_interactableObject.Data.displayName);
+			_interactableObject.StartHover();
+		}
+
+		void FinishHovering(IInteractableObject interactableObject)
+		{
+			_interactableObject?.FinishHovering();
 		}
 
 #if UNITY_EDITOR
@@ -183,8 +193,6 @@ namespace BM
 			var style = new GUIStyle();
 
 			var text = $"* 검출 객체: {(target._isThereHitResultInLastFrame ? target._hitResultInLastFrame.transform.name : "없음")}";
-			text += $"\n* 호버링: {target._isHoveringInLastFrame}";
-			text += $"\n* 상호작용: {target._isInteractingInLastFrame}";
 
 			var labelPivot = target._hitResultInLastFrame.point;
 
@@ -200,6 +208,12 @@ namespace BM
 			else
 			{
 				style.normal.textColor = Color.green;
+			}
+
+			if (target._interactableObject is not null)
+			{
+				text += $"\n* 표시 이름: {target._interactableObject.Data.displayName}";
+				text += $"\n* 상호작용 이름: {target._interactableObject.Data.interactionName}";
 			}
 
 			Handles.Label(labelPivot, text, style);
