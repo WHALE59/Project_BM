@@ -16,24 +16,40 @@ namespace BM
 		void Awake()
 		{
 			_characterController = GetComponent<CharacterController>();
+
 			_crouchAction = GetComponent<CrouchAction>();
+			_walkAction = GetComponent<WalkAction>();
+			if (!_walkAction)
+			{
+				Debug.LogWarning("못찾음");
+			}
 		}
 
 		void OnEnable()
 		{
-			_crouchAction.CrouchActionStarted += OnCrouchActionStarted;
-			_crouchAction.CrouchActionFinished += OnCrouchActionFinished;
+			_crouchAction.CrouchStarted += OnCrouchStarted;
+			_crouchAction.CrouchFinished += OnCrouchEnded;
+
+			_walkAction.WalkStarted += OnWalkStarted;
+			_walkAction.WalkFinished += OnWalkFinished;
 		}
 
 		void OnDisable()
 		{
-			_crouchAction.CrouchActionStarted -= OnCrouchActionStarted;
-			_crouchAction.CrouchActionFinished -= OnCrouchActionFinished;
+			_crouchAction.CrouchStarted -= OnCrouchStarted;
+			_crouchAction.CrouchFinished -= OnCrouchEnded;
+
+			_walkAction.WalkStarted -= OnWalkStarted;
+			_walkAction.WalkFinished -= OnWalkFinished;
 		}
 
-		void OnCrouchActionStarted() => _isCrouching = true;
+		void OnWalkStarted() => _isWalking = true;
 
-		void OnCrouchActionFinished() => _isCrouching = false;
+		void OnWalkFinished() => _isWalking = false;
+
+		void OnCrouchStarted() => _isCrouching = true;
+
+		void OnCrouchEnded() => _isCrouching = false;
 
 		public void MoveToInputDirection(in Vector3 inputDirection)
 		{
@@ -57,7 +73,7 @@ namespace BM
 		{
 			var worldDirection = Camera.main.transform.TransformDirection(localDirection).normalized;
 
-			_velocity = worldDirection * SpeedByStance;
+			_velocity = worldDirection * Speed;
 		}
 
 		void UpdateRotation()
@@ -88,7 +104,28 @@ namespace BM
 			Gizmos.DrawRay(target.transform.position, target.transform.forward * 1.0f);
 		}
 #endif
-		float SpeedByStance => !_isCrouching ? _speedOnStand : _speedOnCrouch;
+		float Speed
+		{
+			get
+			{
+				if (!_isCrouching && !_isWalking)
+				{
+					return _speedOnStandMovement;
+				}
+				else if (!_isCrouching && _isWalking)
+				{
+					return _speedOnStandWalkMovement;
+				}
+				else if (_isCrouching && !_isWalking)
+				{
+					return _speedOnCrouchMovement;
+				}
+				else // (_isCrouching && !_isWalking)
+				{
+					return _speedOnCrouchWalkMovement;
+				}
+			}
+		}
 
 		Vector3 _velocity;
 
@@ -97,11 +134,20 @@ namespace BM
 		CrouchAction _crouchAction;
 		bool _isCrouching = false;
 
+		WalkAction _walkAction;
+		bool _isWalking = false;
+
 		[Tooltip("캐릭터가 서 있을 때의 이동 속도입니다.")]
-		[SerializeField] float _speedOnStand = 10.0f;
+		[SerializeField] float _speedOnStandMovement = 10.0f;
 
 		[Tooltip("캐릭터가 앉아 있을 때의 이동 속도입니다.")]
-		[SerializeField] float _speedOnCrouch = 5.0f;
+		[SerializeField] float _speedOnCrouchMovement = 5.0f;
+
+		[Tooltip("캐릭터가 서 있고, 걸을 때의 이동 속도입니다.")]
+		[SerializeField] float _speedOnStandWalkMovement = 5.0f;
+
+		[Tooltip("캐릭터가 앉아 있고, 걸을 때의 이동 속도입니다.")]
+		[SerializeField] float _speedOnCrouchWalkMovement = 2.5f;
 
 		[Tooltip("캐릭터가 가진 질량입니다. 클수록 캐릭터는 중력의 영향을 크게 받습니다.")]
 		[SerializeField] float _mass = 50.0f;

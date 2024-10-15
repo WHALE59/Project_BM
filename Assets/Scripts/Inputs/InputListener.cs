@@ -156,36 +156,36 @@ namespace BM
 
 			// 에디터에서 플레이 중 Toggle 설정 변경을 바로 반영하기 위한 코드
 
-			var crouchInputAsset = _inputActions.Character.Crouch;
+			var crouchInputAction = _inputActions.Character.Crouch;
 			if (!_crouchInputIsToggle)
 			{
-				crouchInputAsset.performed -= OnCrouchInputToggled;
+				crouchInputAction.performed -= OnCrouchInputToggled;
 
-				crouchInputAsset.performed += OnCrouchInputPerformed;
-				crouchInputAsset.canceled += OnCrouchInputCanceled;
+				crouchInputAction.performed += OnCrouchInputPerformed;
+				crouchInputAction.canceled += OnCrouchInputCanceled;
 			}
 			else
 			{
-				crouchInputAsset.performed -= OnCrouchInputPerformed;
-				crouchInputAsset.canceled -= OnCrouchInputCanceled;
+				crouchInputAction.performed -= OnCrouchInputPerformed;
+				crouchInputAction.canceled -= OnCrouchInputCanceled;
 
-				crouchInputAsset.performed += OnCrouchInputToggled;
+				crouchInputAction.performed += OnCrouchInputToggled;
 			}
 
-			var walkInputAsset = _inputActions.Character.Walk;
+			var walkInputAction = _inputActions.Character.Walk;
 			if (!_walkInputIsToggle)
 			{
-				walkInputAsset.performed -= OnWalkInputToggled;
+				walkInputAction.performed -= OnWalkInputToggled;
 
-				walkInputAsset.performed += OnWalkInputPerformed;
-				walkInputAsset.canceled += OnWalkInputCanceled;
+				walkInputAction.performed += OnWalkInputPerformed;
+				walkInputAction.canceled += OnWalkInputCanceled;
 			}
 			else
 			{
-				walkInputAsset.performed -= OnWalkInputPerformed;
-				walkInputAsset.canceled -= OnWalkInputCanceled;
+				walkInputAction.performed -= OnWalkInputPerformed;
+				walkInputAction.canceled -= OnWalkInputCanceled;
 
-				walkInputAsset.performed += OnWalkInputToggled;
+				walkInputAction.performed += OnWalkInputToggled;
 			}
 		}
 #endif
@@ -230,7 +230,7 @@ namespace BM
 		bool _isWalkInputPerformed = false;
 
 #if UNITY_EDITOR
-		[Header("[DEBUG] Visualize Inputs")]
+		[Header("Visualize Inputs for Debug")]
 
 		InputVisualizer _inputVisualizer;
 		[SerializeField] InputVisualizer _inputVisualizerPrefab;

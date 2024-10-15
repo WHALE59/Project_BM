@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 7504193253473327663}
   - component: {fileID: 4786773339971439026}
   - component: {fileID: 7058819986290379560}
+  - component: {fileID: 2268783089294495326}
   m_Layer: 3
   m_Name: P_Character
   m_TagString: Untagged
@@ -52,6 +53,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _crouchInputIsToggle: 0
+  _walkInputIsToggle: 0
   _inputVisualizerPrefab: {fileID: 150004795554584939, guid: c917b8aab84e1084090517e0a6066bcb,
     type: 3}
   _shouldVisuzlieInputs: 1
@@ -105,7 +107,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 222d2e353ef8398418ea1c70010374b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 10
+  _speedOnStandMovement: 10
+  _speedOnCrouchMovement: 5
+  _speedOnStandWalkMovement: 5
+  _speedOnCrouchWalkMovement: 2.5
   _mass: 50
   _applyGravity: 1
 --- !u!114 &7504193253473327663
@@ -149,6 +154,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sceneNamesToLoad:
   - SC_SampleScene
+--- !u!114 &2268783089294495326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7093824059209778154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4565e5e099f065446a857083e36f785d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7658585729986315391
 GameObject:
   m_ObjectHideFlags: 0

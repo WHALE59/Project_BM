@@ -21,8 +21,8 @@ namespace BM
 		public event Action<Vector3, float, float> CapsuleSizeChanged;
 
 		// 아직 State 머신 같은게 없으므로, 일단은 임시로 이렇게 처리하는 것으로 합시다!
-		public event Action CrouchActionStarted;
-		public event Action CrouchActionFinished;
+		public event Action CrouchStarted;
+		public event Action CrouchFinished;
 
 		void Awake()
 		{
@@ -48,7 +48,7 @@ namespace BM
 
 		public void StartCrouch()
 		{
-			CrouchActionStarted?.Invoke();
+			CrouchStarted?.Invoke();
 
 			StopAllCoroutines();
 
@@ -61,7 +61,7 @@ namespace BM
 
 		public void FinishCrouch()
 		{
-			CrouchActionFinished?.Invoke();
+			CrouchFinished?.Invoke();
 
 			StopAllCoroutines();
 
