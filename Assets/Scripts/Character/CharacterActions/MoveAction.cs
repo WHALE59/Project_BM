@@ -14,8 +14,15 @@ namespace BM
 	[RequireComponent(typeof(InputListener))]
 	public class MoveAction : MonoBehaviour
 	{
-		Vector3 _moveDirection;
-		Vector3 _velocity;
+		/// <summary>
+		/// 카메라 방향을 고려하기 이전, 캐릭터 오브젝트의 지역 방향
+		/// </summary>
+		Vector3 _localMoveDirection;
+
+		/// <summary>
+		/// 카메라 방향과 캐릭터의 이동 속력까지 고려한, 캐릭터 오브젝트의 월드 방향
+		/// </summary>
+		Vector3 _worldVelocity;
 
 		CharacterController _characterController;
 		InputListener _inputListener;
@@ -26,6 +33,8 @@ namespace BM
 		WalkAction _walkAction;
 		bool _isWalking = false;
 
+		[Header("Move Speed Settings")]
+		[Space()]
 		[Tooltip("캐릭터가 서 있을 때의 이동 속도입니다.")]
 		[SerializeField] float _speedOnStandMovement = 10.0f;
 
@@ -37,6 +46,9 @@ namespace BM
 
 		[Tooltip("캐릭터가 앉아 있고, 걸을 때의 이동 속도입니다.")]
 		[SerializeField] float _speedOnCrouchWalkMovement = 2.5f;
+
+		[Header("Move Physical Property Settings")]
+		[Space()]
 
 		[Tooltip("캐릭터가 가진 질량입니다. 클수록 캐릭터는 중력의 영향을 크게 받습니다.")]
 		[SerializeField] float _mass = 50.0f;
@@ -51,16 +63,18 @@ namespace BM
 
 			_crouchAction = GetComponent<CrouchAction>();
 			_walkAction = GetComponent<WalkAction>();
-			if (!_walkAction)
+
+#if UNITY_EDITOR
+			if (!_walkAction || !_crouchAction)
 			{
-				Debug.LogWarning("못찾음");
+				Debug.LogWarning("CrouchAction 혹은 WalkAction을 찾을 수 없습니다.");
 			}
+#endif
 		}
 
 		void UpdateMovementInput(Vector2 moveInput)
 		{
-			var moveInput3 = new Vector3(moveInput.x, 0.0f, moveInput.y);
-			_moveDirection = Camera.main.transform.TransformDirection(moveInput3).normalized;
+			_localMoveDirection = new Vector3(moveInput.x, 0.0f, moveInput.y);
 		}
 
 		void OnEnable()
@@ -95,25 +109,26 @@ namespace BM
 
 		void FixedUpdate()
 		{
-			_velocity = _moveDirection * Speed;
+			var worldMoveDirection = Camera.main.transform.TransformDirection(_localMoveDirection).normalized;
+			_worldVelocity = worldMoveDirection * Speed;
 
 			if (_applyGravity)
 			{
 				if (_characterController.isGrounded)
 				{
-					_velocity.y = 0.0f;
+					_worldVelocity.y = 0.0f;
 				}
 				else
 				{
-					_velocity.y += _mass * Physics.gravity.y * Time.deltaTime;
+					_worldVelocity.y += _mass * Physics.gravity.y * Time.deltaTime;
 				}
 			}
 			else
 			{
-				_velocity.y = 0.0f;
+				_worldVelocity.y = 0.0f;
 			}
 
-			_characterController.Move(_velocity * Time.deltaTime);
+			_characterController.Move(_worldVelocity * Time.deltaTime);
 
 			var targetRotation = Camera.main.transform.eulerAngles.y;
 			transform.rotation = Quaternion.Euler(0.0f, targetRotation, 0.0f);
