@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5976178325819853717}
+  - component: {fileID: 5939859581474291341}
   - component: {fileID: 8012610672424311297}
   - component: {fileID: 676317188041148196}
   - component: {fileID: 4645497750645279393}
@@ -40,6 +41,145 @@ Transform:
   - {fileID: 2543932865098810727}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5939859581474291341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7093824059209778154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 99473f1924180e24386d8e89df2e08a6,
+    type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: BM.UIInteractableBehaviour, BM
+        m_MethodName: OnControlsChanged
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8012610672424311297}
+        m_TargetAssemblyTypeName: BM.InputListener, BM
+        m_MethodName: OnMove
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 3d7b0b2e-6e43-4af0-bfde-4639a02e1ae0
+    m_ActionName: Character/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow,/SwitchProControllerHID/leftStick/up,/XInputControllerWindows/leftStick/up,/SwitchProControllerHID/leftStick/down,/XInputControllerWindows/leftStick/down,/SwitchProControllerHID/leftStick/left,/XInputControllerWindows/leftStick/left,/SwitchProControllerHID/leftStick/right,/XInputControllerWindows/leftStick/right]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8012610672424311297}
+        m_TargetAssemblyTypeName: BM.InputListener, BM
+        m_MethodName: OnLook
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: aad726e6-956f-4f15-9b04-25448593dde9
+    m_ActionName: Character/Look[/Mouse/delta,/SwitchProControllerHID/rightStick/up,/XInputControllerWindows/rightStick/up,/SwitchProControllerHID/rightStick/down,/XInputControllerWindows/rightStick/down,/SwitchProControllerHID/rightStick/left,/XInputControllerWindows/rightStick/left,/SwitchProControllerHID/rightStick/right,/XInputControllerWindows/rightStick/right]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8012610672424311297}
+        m_TargetAssemblyTypeName: BM.InputListener, BM
+        m_MethodName: OnInteract
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: f397bd11-62db-42b8-8c32-fe69b1f338e0
+    m_ActionName: Character/Interact[/Keyboard/f]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8012610672424311297}
+        m_TargetAssemblyTypeName: BM.InputListener, BM
+        m_MethodName: OnUse
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: d51d99fb-36dc-4682-bceb-36584ced80bd
+    m_ActionName: Character/Use[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8012610672424311297}
+        m_TargetAssemblyTypeName: BM.InputListener, BM
+        m_MethodName: OnCrouch
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 023bab3f-7aa5-4b0d-b1cf-bdc02a9e5954
+    m_ActionName: Character/Crouch[/Keyboard/leftCtrl,/Keyboard/c]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8012610672424311297}
+        m_TargetAssemblyTypeName: BM.InputListener, BM
+        m_MethodName: OnWalk
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 33c591bc-2824-4d5a-a8e2-71f227d54358
+    m_ActionName: Character/Walk[/Keyboard/leftShift]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Character
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!114 &8012610672424311297
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -52,8 +192,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e79220c198b64ab4e9906f37742d64c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _crouchInputIsToggle: 0
-  _walkInputIsToggle: 0
+  _isCrouchToggle: 0
+  _isWalkToggle: 0
   _inputVisualizerPrefab: {fileID: 150004795554584939, guid: c917b8aab84e1084090517e0a6066bcb,
     type: 3}
   _shouldVisuzlieInputs: 1
@@ -126,6 +266,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxDistance: 10
+  _interactableUI: {fileID: 4425587487226262957, guid: d3ecb2cc5ae4c24459c6a0ce61dacead,
+    type: 3}
 --- !u!114 &4786773339971439026
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -16,20 +16,81 @@ namespace BM
 	/// </summary>
 	[DisallowMultipleComponent]
 	[RequireComponent(typeof(CharacterController))]
+	[RequireComponent(typeof(InputListener))]
 	public class CrouchAction : MonoBehaviour
 	{
 		public event Action<Vector3, float, float> CapsuleSizeChanged;
 
 		// 아직 State 머신 같은게 없으므로, 일단은 임시로 이렇게 처리하는 것으로 합시다!
-		public event Action CrouchStarted;
-		public event Action CrouchFinished;
+		public event Action CrouchStateStarted;
+		public event Action CrouchStateFinished;
+
+		InputListener _inputListener = default;
+
+		CharacterController _characterController;
+
+		float _normalCapsuleHeight;
+		Vector3 _normalCapsuleCenter;
+		Vector3 _normalVcamLocalPosition;
+
+		// TODO: 현재 임시로 "캐릭터(자기 자신)를 제외한 모든 레이어"로 설정해 두었음
+		int _layerMask = ~(1 << 3);
+
+		[Tooltip("앉기 동작을 수행하는 총 시간(초)")]
+		[SerializeField] float _crouchSpeed = 0.25f;
+
+		[Tooltip("서 있는 키에 대한, 앉은 키의 비율")]
+		[SerializeField][Range(0.0f, 1.0f)] float _crouchedRatio = 0.5f;
+
+#if UNITY_EDITOR
+		bool _isStucked = false;
+		RaycastHit _hitInfo;
+#endif
+
+		float CrouchedCapsuleHeight => _normalCapsuleHeight * _crouchedRatio;
+		Vector3 CrouchedCapsuleCenter
+		{
+			get
+			{
+				var netYPosOffset = _normalCapsuleHeight * (1 - _crouchedRatio) / 2.0f;
+				return _normalCapsuleCenter - new Vector3(0.0f, netYPosOffset, 0.0f);
+			}
+		}
+		bool IsStucked
+		{
+			get
+			{
+				var isHit =
+#if !UNITY_EDITOR
+					Physics.Raycast(transform.position, transform.up, _normalCapsuleHeight / 2.0f, _layerMask);
+#else
+					Physics.Raycast(transform.position, transform.up, out _hitInfo, _normalCapsuleHeight / 2.0f, _layerMask);
+				_isStucked = isHit;
+#endif
+				return isHit;
+			}
+		}
 
 		void Awake()
 		{
 			_characterController = GetComponent<CharacterController>();
+			_inputListener = GetComponent<InputListener>();
 
 			_normalCapsuleHeight = _characterController.height;
 			_normalCapsuleCenter = _characterController.center;
+
+		}
+
+		void OnEnable()
+		{
+			_inputListener.CrouchStarted += StartCrouch;
+			_inputListener.CrouchFinished += FinishCrouch;
+		}
+
+		void OnDisable()
+		{
+			_inputListener.CrouchStarted -= StartCrouch;
+			_inputListener.CrouchFinished -= FinishCrouch;
 		}
 
 		void OnValidate()
@@ -48,7 +109,7 @@ namespace BM
 
 		public void StartCrouch()
 		{
-			CrouchStarted?.Invoke();
+			CrouchStateStarted?.Invoke();
 
 			StopAllCoroutines();
 
@@ -61,7 +122,7 @@ namespace BM
 
 		public void FinishCrouch()
 		{
-			CrouchFinished?.Invoke();
+			CrouchStateFinished?.Invoke();
 
 			StopAllCoroutines();
 
@@ -114,7 +175,7 @@ namespace BM
 		/// 일어서다가 천장에 부딪히면, 부딪힌 지점을 표시한다.
 		/// </summary>
 		[DrawGizmo(GizmoType.Active | GizmoType.Selected)]
-		static void DrawStuckedGizmo(CrouchAction target, GizmoType _)
+		static void DrawStuckedPointGizmo(CrouchAction target, GizmoType _)
 		{
 			if (!target._isStucked)
 			{
@@ -124,59 +185,6 @@ namespace BM
 			Gizmos.color = Color.red;
 			Gizmos.DrawWireSphere(target._hitInfo.point, 0.1f);
 		}
-
 #endif
-		float CrouchedCapsuleHeight => _normalCapsuleHeight * _crouchedRatio;
-		Vector3 CrouchedCapsuleCenter
-		{
-			get
-			{
-				var netYPosOffset = _normalCapsuleHeight * (1 - _crouchedRatio) / 2.0f;
-				return _normalCapsuleCenter - new Vector3(0.0f, netYPosOffset, 0.0f);
-			}
-		}
-
-		CharacterController _characterController;
-
-		float _normalCapsuleHeight;
-		Vector3 _normalCapsuleCenter;
-		Vector3 _normalVcamLocalPosition;
-
-		// TODO: 현재 임시로 "캐릭터(자기 자신)를 제외한 모든 레이어"로 설정해 두었음
-		int _layerMask = ~(1 << 3);
-
-#if UNITY_EDITOR
-		bool _isStucked = false;
-#endif
-
-		bool IsStucked
-		{
-			get
-			{
-				return
-#if UNITY_EDITOR
-				_isStucked =
-#endif
-				Physics.Raycast(
-							transform.position,
-							transform.up,
-#if UNITY_EDITOR
-							out _hitInfo,
-#endif
-							_normalCapsuleHeight / 2.0f,
-							_layerMask
-				);
-			}
-		}
-
-#if UNITY_EDITOR
-		RaycastHit _hitInfo;
-#endif
-
-		[Tooltip("앉기 동작을 수행하는 총 시간(초)")]
-		[SerializeField] float _crouchSpeed = 0.25f;
-
-		[Tooltip("서 있는 키에 대한, 앉은 키의 비율")]
-		[SerializeField][Range(0.0f, 1.0f)] float _crouchedRatio = 0.5f;
 	}
 }

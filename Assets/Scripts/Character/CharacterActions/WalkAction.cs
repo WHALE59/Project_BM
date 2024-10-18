@@ -5,19 +5,39 @@ using UnityEngine;
 namespace BM
 {
 	[DisallowMultipleComponent]
+	[RequireComponent(typeof(InputListener))]
 	public class WalkAction : MonoBehaviour
 	{
-		public Action WalkStarted;
-		public Action WalkFinished;
+		public Action WalkStateStarted;
+		public Action WalkStateFinished;
 
-		public void StartWalk()
+		InputListener _inputListener;
+
+		void Awake()
 		{
-			WalkStarted?.Invoke();
+			_inputListener = GetComponent<InputListener>();
 		}
 
-		public void FinishWalk()
+		void OnEnable()
 		{
-			WalkFinished?.Invoke();
+			_inputListener.WalkStarted += StartWalk;
+			_inputListener.WalkFinished += FinishWalk;
+		}
+
+		void OnDisable()
+		{
+			_inputListener.WalkStarted -= StartWalk;
+			_inputListener.WalkFinished -= FinishWalk;
+		}
+
+		void StartWalk()
+		{
+			WalkStateStarted?.Invoke();
+		}
+
+		void FinishWalk()
+		{
+			WalkStateFinished?.Invoke();
 		}
 	}
 }

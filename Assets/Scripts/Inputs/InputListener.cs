@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Events;
+
 
 #if UNITY_EDITOR
 using UnityEngine.InputSystem.Samples;
@@ -14,53 +16,174 @@ namespace BM
 	[DisallowMultipleComponent]
 	public class InputListener : MonoBehaviour
 	{
-		void Awake()
-		{
-			// 입력 애셋을 실제로 생성함
-			_inputActions = new();
+		// Character ActionMap Events
+		// 참고: delegate {} 로 null이 아니게 만들어 줘야 매 입력받을 때마다 null 체크를 생략할 수 있음.
 
-			// 각 입력을 캐릭터 행동 컴포넌트와 바인딩
+		// Move
+		public event UnityAction<Vector2> Moved = delegate { };
+		public event UnityAction<Vector2> Looked = delegate { };
 
-			// Move
-			_moveAction = GetComponent<MoveAction>();
+		// Crouch
+		public event UnityAction CrouchStarted = delegate { };
+		public event UnityAction CrouchFinished = delegate { };
+		bool _isCrouchPerformed = false;
+		[Tooltip("Crouch 입력을 토글로 받을지에 대한 여부입니다.")]
+		[SerializeField] bool _isCrouchToggle = false;
 
-			// Interact
-			_interactAction = GetComponent<InteractAction>();
-			var interactInputAction = _inputActions.Character.Interact;
-			interactInputAction.performed += OnInteractInputPerformed;
-			interactInputAction.canceled += OnInteractInputCancled;
+		// Walk
+		public event UnityAction WalkStarted = delegate { };
+		public event UnityAction WalkFinished = delegate { };
+		bool _isWalkPerformed = false;
+		[Tooltip("Walk 입력을 토글로 받을지에 대한 여부입니다.")]
+		[SerializeField] bool _isWalkToggle = false;
 
-			// Crouch
-			_crouchAction = GetComponent<CrouchAction>();
-			var crouchInputAction = _inputActions.Character.Crouch;
-			if (!_crouchInputIsToggle)
-			{
-				crouchInputAction.performed += OnCrouchInputPerformed;
-				crouchInputAction.canceled += OnCrouchInputCanceled;
-			}
-			else
-			{
-				crouchInputAction.performed += OnCrouchInputToggled;
-			}
+		// Interact
+		public event UnityAction InteractStarted = delegate { };
+		public event UnityAction<double> InteractHolded = delegate { };
+		public event UnityAction InteractFinished = delegate { };
 
-			// Walk
-			_walkAction = GetComponent<WalkAction>();
-			var walkInputAction = _inputActions.Character.Walk;
-			if (!_walkInputIsToggle)
-			{
-				walkInputAction.performed += OnWalkInputPerformed;
-				walkInputAction.canceled += OnWalkInputCanceled;
-			}
-			else
-			{
-				walkInputAction.performed += OnWalkInputToggled;
-			}
+		// Use
+		public event UnityAction UseStarted = delegate { };
+		public event UnityAction<double> UseHolded = delegate { };
+		public event UnityAction UseFinished = delegate { };
 
 #if UNITY_EDITOR
-			// Input Visualizer를 일단 생성 후 설정에 따라 활성화/비활성화
+		[Header("Visualize Inputs for Debug")]
 
+		InputVisualizer _inputVisualizer;
+		[SerializeField] InputVisualizer _inputVisualizerPrefab;
+		[SerializeField] bool _shouldVisuzlieInputs = true;
+#endif
+		void Awake()
+		{
+			InstantiateInputVisualizer();
+		}
+
+#if UNITY_EDITOR
+		void OnValidate()
+		{
+			_inputVisualizer?.gameObject.SetActive(_shouldVisuzlieInputs);
+		}
+#endif
+
+		public void OnMove(InputAction.CallbackContext context)
+		{
+			Moved.Invoke(context.ReadValue<Vector2>());
+		}
+
+		public void OnLook(InputAction.CallbackContext context)
+		{
+			Looked.Invoke(context.ReadValue<Vector2>());
+		}
+
+		public void OnInteract(InputAction.CallbackContext context)
+		{
+			if (IsContextPerformed(context))
+			{
+				InteractStarted.Invoke();
+			}
+			else if (IsContextHolded(context))
+			{
+				InteractHolded.Invoke(context.duration);
+			}
+			else if (IsContextCancled(context))
+			{
+				InteractFinished.Invoke();
+			}
+		}
+
+		public void OnUse(InputAction.CallbackContext context)
+		{
+			if (IsContextPerformed(context))
+			{
+				UseStarted.Invoke();
+			}
+			else if (IsContextHolded(context))
+			{
+				UseHolded.Invoke(context.duration);
+			}
+			else if (IsContextCancled(context))
+			{
+				UseFinished.Invoke();
+			}
+		}
+
+		public void OnCrouch(InputAction.CallbackContext context)
+		{
+			if (!_isCrouchToggle)
+			{
+				if (IsContextPerformed(context))
+				{
+					CrouchStarted.Invoke();
+				}
+				else if (IsContextCancled(context))
+				{
+					CrouchFinished.Invoke();
+				}
+			}
+			else
+			{
+				if (IsContextPerformed(context))
+				{
+					if (!_isCrouchPerformed)
+					{
+						CrouchStarted.Invoke();
+					}
+					else
+					{
+						CrouchFinished.Invoke();
+					}
+
+					_isCrouchPerformed = !_isCrouchPerformed;
+				}
+			}
+		}
+
+		public void OnWalk(InputAction.CallbackContext context)
+		{
+			if (!_isWalkToggle)
+			{
+				if (IsContextPerformed(context))
+				{
+					WalkStarted.Invoke();
+				}
+				else if (IsContextCancled(context))
+				{
+					WalkFinished.Invoke();
+				}
+			}
+			else
+			{
+				if (IsContextPerformed(context))
+				{
+					if (!_isWalkPerformed)
+					{
+						WalkStarted.Invoke();
+					}
+					else
+					{
+						WalkFinished.Invoke();
+					}
+
+					_isWalkPerformed = !_isWalkPerformed;
+				}
+			}
+		}
+
+		bool IsContextPerformed(in InputAction.CallbackContext context) => context.phase == InputActionPhase.Performed;
+
+		bool IsContextCancled(in InputAction.CallbackContext context) => context.phase == InputActionPhase.Canceled;
+
+		// TODO : 의도한 대로 작동하지 않음
+		bool IsContextHolded(in InputAction.CallbackContext context) => InputActionPhase.Performed < context.phase && context.phase < InputActionPhase.Canceled;
+
+		[System.Diagnostics.Conditional("UNITY_EDITOR")]
+		void InstantiateInputVisualizer()
+		{
+#if UNITY_EDITOR
 			if (!_inputVisualizerPrefab)
 			{
+				Debug.LogWarning("입력 시각화 오브젝트가 할당되지 않았습니다.");
 				return;
 			}
 
@@ -73,168 +196,5 @@ namespace BM
 			}
 #endif
 		}
-
-		// 구독 해제와 일관성 유지를 위해 래핑함
-
-		void OnWalkInputPerformed(InputAction.CallbackContext context)
-		{
-			_walkAction.StartWalk();
-		}
-
-		void OnWalkInputCanceled(InputAction.CallbackContext context)
-		{
-			_walkAction.FinishWalk();
-		}
-
-		void OnWalkInputToggled(InputAction.CallbackContext context)
-		{
-			if (!_isWalkInputPerformed)
-			{
-				_walkAction.StartWalk();
-			}
-			else
-			{
-				_walkAction.FinishWalk();
-			}
-
-			_isWalkInputPerformed = !_isWalkInputPerformed;
-		}
-
-		void OnInteractInputPerformed(InputAction.CallbackContext context)
-		{
-			_interactAction.StartInteraction();
-		}
-
-		void OnInteractInputCancled(InputAction.CallbackContext context)
-		{
-			_interactAction.FinishInteraction();
-		}
-
-		void OnCrouchInputPerformed(InputAction.CallbackContext context)
-		{
-			_crouchAction.StartCrouch();
-		}
-
-		void OnCrouchInputToggled(InputAction.CallbackContext context)
-		{
-			if (!_isCrouchInputPerformed)
-			{
-				_crouchAction.StartCrouch();
-			}
-			else
-			{
-				_crouchAction.FinishCrouch();
-			}
-
-			_isCrouchInputPerformed = !_isCrouchInputPerformed;
-		}
-
-		void OnCrouchInputCanceled(InputAction.CallbackContext context)
-		{
-			_crouchAction.FinishCrouch();
-		}
-
-		void OnEnable()
-		{
-			_inputActions.Enable();
-		}
-
-		void OnDisable()
-		{
-			_inputActions.Disable();
-		}
-
-#if UNITY_EDITOR
-		void OnValidate()
-		{
-			_inputVisualizer?.gameObject.SetActive(_shouldVisuzlieInputs);
-
-			if (_inputActions is null)
-			{
-				return;
-			}
-
-			// 에디터에서 플레이 중 Toggle 설정 변경을 바로 반영하기 위한 코드
-
-			var crouchInputAction = _inputActions.Character.Crouch;
-			if (!_crouchInputIsToggle)
-			{
-				crouchInputAction.performed -= OnCrouchInputToggled;
-
-				crouchInputAction.performed += OnCrouchInputPerformed;
-				crouchInputAction.canceled += OnCrouchInputCanceled;
-			}
-			else
-			{
-				crouchInputAction.performed -= OnCrouchInputPerformed;
-				crouchInputAction.canceled -= OnCrouchInputCanceled;
-
-				crouchInputAction.performed += OnCrouchInputToggled;
-			}
-
-			var walkInputAction = _inputActions.Character.Walk;
-			if (!_walkInputIsToggle)
-			{
-				walkInputAction.performed -= OnWalkInputToggled;
-
-				walkInputAction.performed += OnWalkInputPerformed;
-				walkInputAction.canceled += OnWalkInputCanceled;
-			}
-			else
-			{
-				walkInputAction.performed -= OnWalkInputPerformed;
-				walkInputAction.canceled -= OnWalkInputCanceled;
-
-				walkInputAction.performed += OnWalkInputToggled;
-			}
-		}
-#endif
-
-		private void FixedUpdate()
-		{
-			if (!_moveAction)
-			{
-				return;
-			}
-
-			// 이동 입력은 지속적으로 폴링해야 하므로 어쩔 수 없이 FixedUpdate에 배치
-
-			var move2 = _inputActions.Character.Move.ReadValue<Vector2>();
-			var move3 = new Vector3(move2.x, 0.0f, move2.y);
-
-			_moveAction.MoveToInputDirection(move3);
-		}
-
-		IA_InputActions _inputActions;
-
-		// Move
-		MoveAction _moveAction;
-
-		// Interact
-		InteractAction _interactAction;
-
-		// Crouch
-		CrouchAction _crouchAction;
-
-		[Tooltip("Crouch 입력을 토글로 받을지에 대한 여부입니다.")]
-		[SerializeField] bool _crouchInputIsToggle = false;
-
-		bool _isCrouchInputPerformed = false;
-
-		// Walk
-		WalkAction _walkAction;
-
-		[Tooltip("Walk 입력을 토글로 받을지에 대한 여부입니다.")]
-		[SerializeField] bool _walkInputIsToggle = false;
-
-		bool _isWalkInputPerformed = false;
-
-#if UNITY_EDITOR
-		[Header("Visualize Inputs for Debug")]
-
-		InputVisualizer _inputVisualizer;
-		[SerializeField] InputVisualizer _inputVisualizerPrefab;
-		[SerializeField] bool _shouldVisuzlieInputs = true;
-#endif
 	}
 }

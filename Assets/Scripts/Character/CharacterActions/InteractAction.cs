@@ -1,5 +1,6 @@
 using UnityEngine;
 
+
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -10,8 +11,56 @@ namespace BM
 	/// 캐릭터가 상호작용 가능한 오브젝트를 검출하고 그들과 통신하는 것을 관장하는 컴포넌트
 	/// </summary>
 	[DisallowMultipleComponent]
+	[RequireComponent(typeof(InputListener))]
 	public class InteractAction : MonoBehaviour
 	{
+		InputListener _inputListener;
+
+		[Tooltip("상호작용이 가능한 최대 거리를 설정합니다.")]
+		[SerializeField] float _maxDistance = 10.0f;
+
+		int _layerMask = ~(1 << 3);
+
+		const string _interactionTargetTagName = "InteractionTarget";
+
+		bool _isThereHitResultInLastFrame = false;
+#if UNITY_EDITOR
+		RaycastHit _hitResultInLastFrame;
+#endif
+
+		GameObject _rootGameObjectInLastFrame;
+		bool _isHoveringInLastFrame = false;
+		bool _isInteractingInLastFrame = false;
+
+		IInteractableObject _interactableObject;
+
+		[SerializeField] UIInteractableBehaviour _interactableUI;
+
+		void Awake()
+		{
+			_inputListener = GetComponent<InputListener>();
+
+#if UNITY_EDITOR
+			if (!_interactableUI)
+			{
+				Debug.LogWarning("InteractAction에 InteractableUI 오브젝트가 할당되지 않았습니다.");
+			}
+#endif
+		}
+		void OnEnable()
+		{
+			_inputListener.InteractStarted += StartInteract;
+			_inputListener.InteractHolded += HoldInteract;
+			_inputListener.InteractFinished += FinishInteract;
+		}
+
+		void OnDisable()
+		{
+			_inputListener.InteractStarted -= StartInteract;
+			_inputListener.InteractHolded -= HoldInteract;
+			_inputListener.InteractFinished -= FinishInteract;
+		}
+
 		/// <summary>
 		/// 매 고정 프레임마다 레이캐스트를 진행하여 오브젝트를 검출
 		/// </summary>
@@ -87,8 +136,6 @@ namespace BM
 				//   이전에 호버링 하고 있었다면 호버링 종료
 				//   이전에 상호작용 하고 있었다면 상호작용 종료
 
-				ResetPreviousInteractionState();
-
 				// 현재 프레임 처리
 				_interactableObject = null;
 				_isThereHitResultInLastFrame = false;
@@ -102,11 +149,7 @@ namespace BM
 #endif
 		}
 
-		void ResetPreviousInteractionState()
-		{
-		}
-
-		public void StartInteraction()
+		void StartInteract()
 		{
 			if (_isInteractingInLastFrame)
 			{
@@ -127,7 +170,7 @@ namespace BM
 			_interactableObject?.Startnteract();
 		}
 
-		public void FinishInteraction()
+		void FinishInteract()
 		{
 			_isInteractingInLastFrame = false;
 			_interactableObject?.FinishInteract();
@@ -136,22 +179,29 @@ namespace BM
 		void StartHovering(IInteractableObject interactableObject)
 		{
 			_isHoveringInLastFrame = true;
-			Debug.Log(_interactableObject.Data.displayName);
+
+			_interactableUI.StartHoveringUI(interactableObject);
 			_interactableObject.StartHover();
 		}
 
 		void FinishHovering(IInteractableObject interactableObject)
 		{
+			_interactableUI.FinishHoveringUI(interactableObject);
 			_interactableObject?.FinishHovering();
 		}
 
-#if UNITY_EDITOR
+		void HoldInteract(double duration)
+		{
+			Debug.Log($"Interaction folded for {duration}");
+		}
 
+
+#if UNITY_EDITOR
 		/// <summary>
 		/// Raycast 경로를 그린다.
 		/// </summary>
 		[DrawGizmo(GizmoType.Active | GizmoType.Selected)]
-		static void DrawInteractionRayGizmo(InteractAction target, GizmoType _)
+		static void DrawRaycast(InteractAction target, GizmoType _)
 		{
 			if (!target._isThereHitResultInLastFrame)
 			{
@@ -219,22 +269,5 @@ namespace BM
 			Handles.Label(labelPivot, text, style);
 		}
 #endif
-
-		[SerializeField] float _maxDistance = 10.0f;
-
-		int _layerMask = ~(1 << 3);
-
-		const string _interactionTargetTagName = "InteractionTarget";
-
-		bool _isThereHitResultInLastFrame = false;
-#if UNITY_EDITOR
-		RaycastHit _hitResultInLastFrame;
-#endif
-
-		GameObject _rootGameObjectInLastFrame;
-		bool _isHoveringInLastFrame = false;
-		bool _isInteractingInLastFrame = false;
-
-		IInteractableObject _interactableObject;
 	}
 }

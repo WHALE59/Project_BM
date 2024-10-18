@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace BM
 {
-	[CreateAssetMenu(menuName = "BM/Data/Interactable Object Data", fileName = "InteractableObject_Name")]
+	[CreateAssetMenu(menuName = "BM/Data/Interactable Object Data", fileName = "InteractableObjectData_Name")]
 	public class InteractableObjectData : ScriptableObject
 	{
 		public string displayName = "표시 이름";

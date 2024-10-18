@@ -11,125 +11,14 @@ namespace BM
 	/// </summary>
 	[DisallowMultipleComponent]
 	[RequireComponent(typeof(CharacterController))]
+	[RequireComponent(typeof(InputListener))]
 	public class MoveAction : MonoBehaviour
 	{
-		void Awake()
-		{
-			_characterController = GetComponent<CharacterController>();
-
-			_crouchAction = GetComponent<CrouchAction>();
-			_walkAction = GetComponent<WalkAction>();
-			if (!_walkAction)
-			{
-				Debug.LogWarning("못찾음");
-			}
-		}
-
-		void OnEnable()
-		{
-			_crouchAction.CrouchStarted += OnCrouchStarted;
-			_crouchAction.CrouchFinished += OnCrouchEnded;
-
-			_walkAction.WalkStarted += OnWalkStarted;
-			_walkAction.WalkFinished += OnWalkFinished;
-		}
-
-		void OnDisable()
-		{
-			_crouchAction.CrouchStarted -= OnCrouchStarted;
-			_crouchAction.CrouchFinished -= OnCrouchEnded;
-
-			_walkAction.WalkStarted -= OnWalkStarted;
-			_walkAction.WalkFinished -= OnWalkFinished;
-		}
-
-		void OnWalkStarted() => _isWalking = true;
-
-		void OnWalkFinished() => _isWalking = false;
-
-		void OnCrouchStarted() => _isCrouching = true;
-
-		void OnCrouchEnded() => _isCrouching = false;
-
-		public void MoveToInputDirection(in Vector3 inputDirection)
-		{
-			UpdateHorizontalVelocity(inputDirection);
-
-			if (_applyGravity)
-			{
-				UpdateVerticalVelocity();
-			}
-			else
-			{
-				_velocity.y = 0.0f;
-			}
-
-			_characterController.Move(_velocity * Time.deltaTime);
-
-			UpdateRotation();
-		}
-
-		void UpdateHorizontalVelocity(in Vector3 localDirection)
-		{
-			var worldDirection = Camera.main.transform.TransformDirection(localDirection).normalized;
-
-			_velocity = worldDirection * Speed;
-		}
-
-		void UpdateRotation()
-		{
-			var targetRotation = Camera.main.transform.eulerAngles.y;
-			transform.rotation = Quaternion.Euler(0.0f, targetRotation, 0.0f);
-		}
-
-		void UpdateVerticalVelocity()
-		{
-			if (_characterController.isGrounded)
-			{
-				_velocity.y = 0.0f;
-				return;
-			}
-
-			_velocity.y += _mass * Physics.gravity.y * Time.deltaTime;
-		}
-
-#if UNITY_EDITOR
-		/// <summary>
-		/// 캐릭터의 전방을 그린다.
-		/// </summary>
-		[DrawGizmo(GizmoType.Active)]
-		static void DrawForwardGizmo(MoveAction target, GizmoType _)
-		{
-			Gizmos.color = Color.yellow;
-			Gizmos.DrawRay(target.transform.position, target.transform.forward * 1.0f);
-		}
-#endif
-		float Speed
-		{
-			get
-			{
-				if (!_isCrouching && !_isWalking)
-				{
-					return _speedOnStandMovement;
-				}
-				else if (!_isCrouching && _isWalking)
-				{
-					return _speedOnStandWalkMovement;
-				}
-				else if (_isCrouching && !_isWalking)
-				{
-					return _speedOnCrouchMovement;
-				}
-				else // (_isCrouching && !_isWalking)
-				{
-					return _speedOnCrouchWalkMovement;
-				}
-			}
-		}
-
+		Vector3 _moveDirection;
 		Vector3 _velocity;
 
 		CharacterController _characterController;
+		InputListener _inputListener;
 
 		CrouchAction _crouchAction;
 		bool _isCrouching = false;
@@ -154,5 +43,115 @@ namespace BM
 
 		[Tooltip("캐릭터에게 중력을 적용할 지에 대한 여부입니다.")]
 		[SerializeField] bool _applyGravity = true;
+
+		void Awake()
+		{
+			_characterController = GetComponent<CharacterController>();
+			_inputListener = GetComponent<InputListener>();
+
+			_crouchAction = GetComponent<CrouchAction>();
+			_walkAction = GetComponent<WalkAction>();
+			if (!_walkAction)
+			{
+				Debug.LogWarning("못찾음");
+			}
+		}
+
+		void UpdateMovementInput(Vector2 moveInput)
+		{
+			var moveInput3 = new Vector3(moveInput.x, 0.0f, moveInput.y);
+			_moveDirection = Camera.main.transform.TransformDirection(moveInput3).normalized;
+		}
+
+		void OnEnable()
+		{
+			_inputListener.Moved += UpdateMovementInput;
+
+			_crouchAction.CrouchStateStarted += OnCrouchStateStarted;
+			_crouchAction.CrouchStateFinished += OnCrouchStateFinished;
+
+			_walkAction.WalkStateStarted += OnWalkStateStarted;
+			_walkAction.WalkStateFinished += OnWalkStateFinished;
+		}
+
+		void OnDisable()
+		{
+			_inputListener.Moved -= UpdateMovementInput;
+
+			_crouchAction.CrouchStateStarted -= OnCrouchStateStarted;
+			_crouchAction.CrouchStateFinished -= OnCrouchStateFinished;
+
+			_walkAction.WalkStateStarted -= OnWalkStateStarted;
+			_walkAction.WalkStateFinished -= OnWalkStateFinished;
+		}
+
+		void OnWalkStateStarted() => _isWalking = true;
+
+		void OnWalkStateFinished() => _isWalking = false;
+
+		void OnCrouchStateStarted() => _isCrouching = true;
+
+		void OnCrouchStateFinished() => _isCrouching = false;
+
+		void FixedUpdate()
+		{
+			_velocity = _moveDirection * Speed;
+
+			if (_applyGravity)
+			{
+				if (_characterController.isGrounded)
+				{
+					_velocity.y = 0.0f;
+				}
+				else
+				{
+					_velocity.y += _mass * Physics.gravity.y * Time.deltaTime;
+				}
+			}
+			else
+			{
+				_velocity.y = 0.0f;
+			}
+
+			_characterController.Move(_velocity * Time.deltaTime);
+
+			var targetRotation = Camera.main.transform.eulerAngles.y;
+			transform.rotation = Quaternion.Euler(0.0f, targetRotation, 0.0f);
+		}
+
+#if UNITY_EDITOR
+		/// <summary>
+		/// 캐릭터의 전방을 그린다.
+		/// </summary>
+		[DrawGizmo(GizmoType.Active)]
+		static void DrawForwardGizmo(MoveAction target, GizmoType _)
+		{
+			Gizmos.color = Color.yellow;
+			Gizmos.DrawRay(target.transform.position, target.transform.forward * 1.0f);
+		}
+#endif
+		// 일단 이렇게 함 ㅋㅋ
+		float Speed
+		{
+			get
+			{
+				if (!_isCrouching && !_isWalking)
+				{
+					return _speedOnStandMovement;
+				}
+				else if (!_isCrouching && _isWalking)
+				{
+					return _speedOnStandWalkMovement;
+				}
+				else if (_isCrouching && !_isWalking)
+				{
+					return _speedOnCrouchMovement;
+				}
+				else // (_isCrouching && !_isWalking)
+				{
+					return _speedOnCrouchWalkMovement;
+				}
+			}
+		}
 	}
 }

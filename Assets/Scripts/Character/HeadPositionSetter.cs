@@ -5,6 +5,9 @@ namespace BM
 	[DisallowMultipleComponent]
 	public class HeadPositionSetter : MonoBehaviour
 	{
+		CharacterController _characterController;
+		CrouchAction _crouchAction;
+
 		void Awake()
 		{
 			// 캐릭터의 루트 오브젝트에 CrouchAction이 존재한다고 가정
@@ -37,8 +40,5 @@ namespace BM
 
 			transform.localPosition = targetLocalPosition;
 		}
-
-		CharacterController _characterController;
-		CrouchAction _crouchAction;
 	}
 }
