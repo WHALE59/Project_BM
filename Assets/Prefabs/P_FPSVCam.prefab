@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 5378715796022888471}
   - component: {fileID: 4255878177450496917}
   - component: {fileID: 4381396538832098766}
-  - component: {fileID: 2758253702653455030}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -122,23 +121,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Damping: 0
---- !u!114 &2758253702653455030
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 606924962533921867}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_NoiseProfile: {fileID: 11400000, guid: 356ac8cf3851ed247acaf4c0c252c22f, type: 2}
-  m_PivotOffset: {x: 0, y: 0, z: 0}
-  m_AmplitudeGain: 0
-  m_FrequencyGain: 0
-  mNoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &9152481037392610282
 GameObject:
   m_ObjectHideFlags: 0
@@ -150,6 +132,7 @@ GameObject:
   - component: {fileID: 9143089813706663566}
   - component: {fileID: 1263389807994823134}
   - component: {fileID: 5068393029518544073}
+  - component: {fileID: 4291421432094568655}
   m_Layer: 0
   m_Name: P_FPSVCam
   m_TagString: Untagged
@@ -228,3 +211,26 @@ MonoBehaviour:
   AutoEnableInputs: 0
   XYAxis: {fileID: -8181108963744638241, guid: 99473f1924180e24386d8e89df2e08a6, type: 3}
   ZAxis: {fileID: 0}
+--- !u!114 &4291421432094568655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9152481037392610282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b2d199b96b516448144ab30fb26aed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ApplyAfter: 3
+  m_ChannelMask: 1
+  m_Gain: 1
+  m_Use2DDistance: 0
+  m_UseCameraSpace: 1
+  m_ReactionSettings:
+    m_SecondaryNoise: {fileID: 0}
+    m_AmplitudeGain: 1
+    m_FrequencyGain: 1
+    m_Duration: 1
+    m_NoiseOffsets: {x: 0, y: 0, z: 0}
