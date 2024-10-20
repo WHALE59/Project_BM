@@ -45,7 +45,7 @@ namespace BM
 			// 후처리용 이미지의 사이즈 정의
 			int iWidth = m_eMode == ePixelScreenMode.Resize ? m_stTargetSize.iWidth : m_iScreenWidth / (int)m_iScreenScaleFactor;
 			int iHeight = m_eMode == ePixelScreenMode.Resize ? m_stTargetSize.iHeight : m_iScreenHeight / (int)m_iScreenScaleFactor;
-
+			
 			// 이미지 생성
 			m_cRenderTexture = new RenderTexture(iWidth, iHeight, 24)
 			{
@@ -56,6 +56,7 @@ namespace BM
 			// 이미지 적용
 			m_cRender_Camera.targetTexture = m_cRenderTexture;
 			m_cDisplay.texture = m_cRenderTexture;
+			
 		}
 
 		bool CheckScreenResize()
