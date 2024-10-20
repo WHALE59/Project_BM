@@ -1,4 +1,7 @@
 using UnityEngine;
+
+using UnityEngine.Events;
+
 using Cinemachine;
 
 #if UNITY_EDITOR
@@ -13,8 +16,22 @@ namespace BM
 	[DisallowMultipleComponent]
 	[RequireComponent(typeof(CharacterController))]
 	[RequireComponent(typeof(InputListener))]
+	[RequireComponent(typeof(CinemachineImpulseSource))]
 	public class MoveAction : MonoBehaviour
 	{
+		public event UnityAction<float> FootstepImpacted = delegate { };
+
+		// TODO : 제대로 된 스테이트 머신이 나오면 상태 관리를 더 세분화 할 것.
+		public enum EGaitState
+		{
+			Jog, Walk
+		}
+
+		public enum EStanceState
+		{
+			Stand, Crouched
+		}
+
 		/// <summary>
 		/// 카메라 방향을 고려하기 이전, 캐릭터 오브젝트의 지역 방향
 		/// </summary>
@@ -31,19 +48,16 @@ namespace BM
 		InputListener _inputListener;
 
 		CrouchAction _crouchAction;
-		bool _isCrouching = false;
+		EStanceState _stanceState = EStanceState.Stand;
 
 		WalkAction _walkAction;
-		bool _isWalking = false;
-
-		CinemachineBasicMultiChannelPerlin _noiseChannel;
-		NoiseSetting _currentNoise;
+		EGaitState _gaitState = EGaitState.Jog;
 
 		[Header("이동 속도 설정")]
 		[Space()]
-		[SerializeField] float _speedOnJog = 10.0f;
+		[SerializeField] float _speedOnStandJog = 10.0f;
 		[SerializeField] float _speedOnCrouchedJog = 5.0f;
-		[SerializeField] float _speedOnWalk = 5.0f;
+		[SerializeField] float _speedOnStandWalk = 5.0f;
 		[SerializeField] float _speedOnCrouchedWalk = 2.5f;
 
 		[Header("이동 주체의 물리적 특징 설정")]
@@ -55,28 +69,82 @@ namespace BM
 		[Tooltip("캐릭터에게 중력을 적용할 지에 대한 여부입니다.")]
 		[SerializeField] bool _applyGravity = true;
 
-		[Header("이동에 따른 진동 설정")]
+		// TODO : 아마 이 데이터를 관리하는 좀 더 합리적인 방법을 찾아야 할 것
+		[Header("Footstep 설정")]
 		[Space()]
 
-		[Tooltip("Cinemachine 가상 카메라에 적용할 노이즈 세팅입니다.")]
-		[SerializeField] NoiseSettings _cinemachineNoiseSettingsToApply;
-		[SerializeField] NoiseSetting _noiseOnIdle = new(0.0f, 0.0f);
-		[SerializeField] NoiseSetting _noiseOnJog = new(1.0f, 0.2f);
-		[SerializeField] NoiseSetting _noiseOnCrouchedJog = new(0.7f, 0.15f);
-		[SerializeField] NoiseSetting _noiseOnWalk = new(0.7f, 0.15f);
-		[SerializeField] NoiseSetting _noiseOnCrouchedWalk = new(0.5f, 0.1f);
+		[Tooltip("Footstep에 맞게 카메라를 흔들 지에 대한 여부입니다.")]
+		[SerializeField] bool _shakeCameraWithFootstep = true;
 
-		[System.Serializable]
-		struct NoiseSetting
+		[Tooltip("Footstep에 맞게 소리를 낼 지에 대한 여부입니다.")]
+		[SerializeField] bool _playFootstepSound = true;
+
+		[Header("Footstep 설정 - 주기")]
+		[Space()]
+
+		[SerializeField] float _footstepPeriodOnStandJog = 0.25f;
+		[SerializeField] float _footstepPeriodOnStandWalk = 0.4f;
+		[SerializeField] float _footstepPeriodOnCrouchedJog = 0.4f;
+		[SerializeField] float _footstepPeriodOnCrouchedWalk = 0.6f;
+
+		[Header("Footstep 설정 - 세기")]
+		[Space()]
+
+		[SerializeField] float _footstepForceOnStandJog = 1.0f;
+		[SerializeField] float _footstepForceOnStandWalk = 0.4f;
+		[SerializeField] float _footstepForceOnCrouchedJog = 0.4f;
+		[SerializeField] float _footstepForceOnCrouchedWalk = 0.3f;
+
+		CinemachineImpulseSource _impulseSource;
+		float _elapsedTimeAfterLastFootstep;
+
+		void OnWalkStateStarted() => _gaitState = EGaitState.Walk;
+
+		void OnWalkStateFinished() => _gaitState = EGaitState.Jog;
+
+		void OnCrouchStateStarted() => _stanceState = EStanceState.Crouched;
+
+		void OnCrouchStateFinished() => _stanceState = EStanceState.Stand;
+
+		float Speed
 		{
-			public NoiseSetting(float amplitude, float frequency)
+			get
 			{
-				this.amplitude = amplitude;
-				this.frequency = frequency;
+				if (_stanceState == EStanceState.Stand)
+				{
+					if (_gaitState == EGaitState.Jog)
+					{
+						return _speedOnStandJog;
+					}
+					else if (_gaitState == EGaitState.Walk)
+					{
+						return _speedOnStandWalk;
+					}
+				}
+				else if (_stanceState == EStanceState.Crouched)
+				{
+					if (_gaitState == EGaitState.Jog)
+					{
+						return _speedOnCrouchedJog;
+					}
+					else if (_gaitState == EGaitState.Walk)
+					{
+						return _speedOnCrouchedWalk;
+					}
+				}
+				return _speedOnStandJog;
 			}
+		}
 
-			public float amplitude;
-			public float frequency;
+		Vector3 WorldMoveDirection
+		{
+			get
+			{
+				var cameraYRotation = Quaternion.Euler(0.0f, Camera.main.transform.eulerAngles.y, 0);
+				var worldMoveDirection = (cameraYRotation * _localMoveDirection).normalized;
+
+				return worldMoveDirection;
+			}
 		}
 
 		void Awake()
@@ -87,29 +155,15 @@ namespace BM
 			_crouchAction = GetComponent<CrouchAction>();
 			_walkAction = GetComponent<WalkAction>();
 
+			_impulseSource = GetComponent<CinemachineImpulseSource>();
+			_impulseSource.m_DefaultVelocity = new(0.0f, -0.125f, 0.0f);
+
 #if UNITY_EDITOR
 			if (!_walkAction || !_crouchAction)
 			{
 				Debug.LogWarning("CrouchAction 혹은 WalkAction을 찾을 수 없습니다.");
 			}
 #endif
-		}
-
-		void Start()
-		{
-			var cine = Camera.main.gameObject.GetComponent<CinemachineBrain>();
-			var vcam = cine.ActiveVirtualCamera as CinemachineVirtualCamera;
-
-			_noiseChannel = vcam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
-
-			if (!_noiseChannel)
-			{
-				_noiseChannel = vcam.AddCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
-			}
-
-			_noiseChannel.m_NoiseProfile = _cinemachineNoiseSettingsToApply;
-
-			ApplyNoiseSetting(_noiseOnIdle);
 		}
 
 		void UpdateMovementInput(Vector2 moveInput) => _localMoveDirection = new Vector3(moveInput.x, 0.0f, moveInput.y);
@@ -136,23 +190,7 @@ namespace BM
 			_walkAction.WalkStateFinished -= OnWalkStateFinished;
 		}
 
-		void OnWalkStateStarted() => _isWalking = true;
 
-		void OnWalkStateFinished() => _isWalking = false;
-
-		void OnCrouchStateStarted() => _isCrouching = true;
-
-		void OnCrouchStateFinished() => _isCrouching = false;
-
-		Vector3 WorldMoveDirection
-		{
-			get
-			{
-				var cameraYRotation = Quaternion.Euler(0.0f, Camera.main.transform.eulerAngles.y, 0);
-				var worldMoveDirection = (cameraYRotation * _localMoveDirection).normalized;
-				return worldMoveDirection;
-			}
-		}
 
 		void FixedUpdate()
 		{
@@ -179,13 +217,9 @@ namespace BM
 			// 현재 프레임의 속도 계산 끝
 
 			var planeVelocity = new Vector3(_worldVelocity.x, 0.0f, _worldVelocity.z);
-			_isDesiredToMove = planeVelocity != Vector3.zero;
+			_isDesiredToMove = planeVelocity != Vector3.zero && _localMoveDirection != Vector3.zero;
 			_characterController.Move(_worldVelocity * Time.fixedDeltaTime);
 
-			// 카메라 노이즈 업데이트
-
-			var noise = _isDesiredToMove ? Noise : _noiseOnIdle;
-			ApplyNoiseSetting(noise);
 
 			// 회전 업데이트
 
@@ -193,11 +227,75 @@ namespace BM
 			transform.rotation = Quaternion.Euler(0.0f, targetRotation, 0.0f);
 		}
 
-		void ApplyNoiseSetting(in NoiseSetting noiseSetting)
+		void Update()
 		{
-			_noiseChannel.m_AmplitudeGain = noiseSetting.amplitude;
-			_noiseChannel.m_FrequencyGain = noiseSetting.frequency;
+			if (!_isDesiredToMove)
+			{
+				return;
+			}
+
+			if (!_shakeCameraWithFootstep)
+			{
+				return;
+			}
+
+			/* 
+			 * 현재 프레임에서 발소리 타이머에 도달했는지 판정,
+			 * 도달 했으면 카메라 셰이크 후 발자국 이벤트 발생
+			*/
+
+			float currentFootstepPeriod = default;
+			float currentFootstepForce = default;
+
+			if (_gaitState == EGaitState.Jog)
+			{
+				if (_stanceState == EStanceState.Stand)
+				{
+					currentFootstepForce = _footstepForceOnStandJog;
+					currentFootstepPeriod = _footstepPeriodOnStandJog;
+				}
+				else
+				{
+					currentFootstepForce = _footstepForceOnCrouchedJog;
+					currentFootstepPeriod = _footstepPeriodOnCrouchedJog;
+				}
+			}
+			else
+			{
+				if (_stanceState == EStanceState.Stand)
+				{
+					currentFootstepForce = _footstepForceOnStandWalk;
+					currentFootstepPeriod = _footstepPeriodOnStandWalk;
+				}
+				else
+				{
+					currentFootstepForce = _footstepForceOnCrouchedWalk;
+					currentFootstepPeriod = _footstepPeriodOnCrouchedWalk;
+				}
+			}
+
+			if (_elapsedTimeAfterLastFootstep < currentFootstepPeriod)
+			{
+				_elapsedTimeAfterLastFootstep += Time.deltaTime;
+
+				if (_elapsedTimeAfterLastFootstep >= currentFootstepPeriod)
+				{
+					_elapsedTimeAfterLastFootstep = 0.0f;
+					_impulseSource.GenerateImpulse(currentFootstepForce);
+
+					FootstepImpacted.Invoke(currentFootstepForce);
+				}
+			}
+
+			if (_elapsedTimeAfterLastFootstep >= currentFootstepPeriod)
+			{
+				_elapsedTimeAfterLastFootstep = 0.0f;
+				_impulseSource.GenerateImpulse(currentFootstepForce);
+
+				FootstepImpacted.Invoke(currentFootstepForce);
+			}
 		}
+
 
 #if UNITY_EDITOR
 		/// <summary>
@@ -210,50 +308,6 @@ namespace BM
 			Gizmos.DrawRay(target.transform.position, target.transform.forward * 1.0f);
 		}
 #endif
-		NoiseSetting Noise
-		{
-			get
-			{
-				if (!_isCrouching && !_isWalking)
-				{
-					return _noiseOnJog;
-				}
-				else if (!_isCrouching && _isWalking)
-				{
-					return _noiseOnWalk;
-				}
-				else if (_isCrouching && !_isWalking)
-				{
-					return _noiseOnCrouchedJog;
-				}
-				else // (_isCrouching && !_isWalking)
-				{
-					return _noiseOnCrouchedWalk;
-				}
-			}
-		}
 
-		float Speed
-		{
-			get
-			{
-				if (!_isCrouching && !_isWalking)
-				{
-					return _speedOnJog;
-				}
-				else if (!_isCrouching && _isWalking)
-				{
-					return _speedOnWalk;
-				}
-				else if (_isCrouching && !_isWalking)
-				{
-					return _speedOnCrouchedJog;
-				}
-				else // (_isCrouching && !_isWalking)
-				{
-					return _speedOnCrouchedWalk;
-				}
-			}
-		}
 	}
 }
