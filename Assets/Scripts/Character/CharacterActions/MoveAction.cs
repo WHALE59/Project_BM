@@ -81,6 +81,8 @@ namespace BM
 
 		[SerializeField] bool _playFootstepSound = true;
 		[SerializeField] FootstepAudioData _footstepAudioData;
+		[SerializeField][Range(0.0f, 1.0f)] float _footstepSoundStereoPanBias = 0.3f;
+		bool _isLeftFootstep = false;
 
 		[Header("Footstep 설정 - 주기")]
 		[Space()]
@@ -286,30 +288,41 @@ namespace BM
 
 				if (_elapsedTimeAfterLastFootstep >= currentFootstepPeriod)
 				{
+					GenerateFoostep(currentFootstepForce);
+
 					_elapsedTimeAfterLastFootstep = 0.0f;
-					_impulseSource.GenerateImpulse(currentFootstepForce);
-
-					_audioSource.clip = _footstepAudioData.GetProperFootstepClip();
-					_audioSource.volume = currentFootstepForce;
-
-					_audioSource.Play();
-
-					FootstepImpacted.Invoke(currentFootstepForce);
 				}
 			}
 
 			if (_elapsedTimeAfterLastFootstep >= currentFootstepPeriod)
 			{
+				GenerateFoostep(currentFootstepForce);
+
 				_elapsedTimeAfterLastFootstep = 0.0f;
-				_impulseSource.GenerateImpulse(currentFootstepForce);
-
-				_audioSource.clip = _footstepAudioData.GetProperFootstepClip();
-				_audioSource.volume = currentFootstepForce;
-
-				_audioSource.Play();
-
-				FootstepImpacted.Invoke(currentFootstepForce);
 			}
+		}
+
+		void GenerateFoostep(in float currentFootstepForce)
+		{
+			// Virtual Camera 가 수신할 수 있는 임펄스 발생
+
+			_impulseSource.GenerateImpulse(currentFootstepForce);
+
+			// 사운드 재생
+
+			_audioSource.clip = _footstepAudioData.GetProperFootstepClip();
+			_audioSource.volume = currentFootstepForce;
+
+			var bias = (_isLeftFootstep ? 1.0f : -1.0f) * _footstepSoundStereoPanBias;
+			_audioSource.panStereo = bias;
+
+			_isLeftFootstep = !_isLeftFootstep;
+
+			_audioSource.Play();
+
+			// 추가적인 발소리 이벤트 발생
+
+			FootstepImpacted.Invoke(currentFootstepForce);
 		}
 
 
