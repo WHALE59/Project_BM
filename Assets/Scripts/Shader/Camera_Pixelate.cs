@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace BM
 {
-	public enum ePixelScreenMode { Resize, Scale }
+	public enum EPixelScreenMode { Resize, Scale }
 	[System.Serializable]
 	public struct ScreenSize
 	{
@@ -32,7 +32,7 @@ namespace BM
 		void Initialize()
 		{
 			// m_cRender_Camera가 비어있을 시 카메라 컴포넌트 경로선언
-			if (!m_cRender_Camera) { m_cRender_Camera = GetComponent<Camera>(); }
+			if (!m_cRender_Camera) { m_cRender_Camera = this.GetComponent<Camera>(); }
 			// 현재 스크린의 사이즈 정보
 			m_iScreenWidth = Screen.width;
 			m_iScreenHeight = Screen.height;
@@ -43,8 +43,9 @@ namespace BM
 			//if (1 > m_stTargetSize.iHeight) { m_stTargetSize.iHeight = 1; }
 
 			// 후처리용 이미지의 사이즈 정의
-			int iWidth = m_eMode == ePixelScreenMode.Resize ? m_stTargetSize.iWidth : m_iScreenWidth / (int)m_iScreenScaleFactor;
-			int iHeight = m_eMode == ePixelScreenMode.Resize ? m_stTargetSize.iHeight : m_iScreenHeight / (int)m_iScreenScaleFactor;
+			
+			int iWidth = m_eMode == EPixelScreenMode.Resize ? m_stTargetSize.iWidth : m_iScreenWidth / (int)m_iScreenScaleFactor;
+			int iHeight = m_eMode == EPixelScreenMode.Resize ? m_stTargetSize.iHeight : m_iScreenHeight / (int)m_iScreenScaleFactor;
 			
 			// 이미지 생성
 			m_cRenderTexture = new RenderTexture(iWidth, iHeight, 24)
@@ -55,6 +56,7 @@ namespace BM
 
 			// 이미지 적용
 			m_cRender_Camera.targetTexture = m_cRenderTexture;
+			m_cDisplay.gameObject.SetActive(true);
 			m_cDisplay.texture = m_cRenderTexture;
 			
 		}
@@ -65,10 +67,10 @@ namespace BM
 		}
 
 		[Header("화면 스케일링 설정")]
-		public ePixelScreenMode m_eMode;
+		public EPixelScreenMode m_eMode;
 		public ScreenSize m_stTargetSize = new ScreenSize { iWidth = Screen.width, iHeight = Screen.height };
 		public uint m_iScreenScaleFactor = 1;
-
+		
 		private Camera m_cRender_Camera;
 		private RenderTexture m_cRenderTexture;
 		private int m_iScreenWidth;
