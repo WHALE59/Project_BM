@@ -17,6 +17,7 @@ namespace BM
 	[RequireComponent(typeof(CharacterController))]
 	[RequireComponent(typeof(InputListener))]
 	[RequireComponent(typeof(CinemachineImpulseSource))]
+	[RequireComponent(typeof(AudioSource))]
 	public class MoveAction : MonoBehaviour
 	{
 		public event UnityAction<float> FootstepImpacted = delegate { };
@@ -77,7 +78,9 @@ namespace BM
 		[SerializeField] bool _shakeCameraWithFootstep = true;
 
 		[Tooltip("Footstep에 맞게 소리를 낼 지에 대한 여부입니다.")]
+
 		[SerializeField] bool _playFootstepSound = true;
+		[SerializeField] FootstepAudioData _footstepAudioData;
 
 		[Header("Footstep 설정 - 주기")]
 		[Space()]
@@ -97,6 +100,7 @@ namespace BM
 
 		CinemachineImpulseSource _impulseSource;
 		float _elapsedTimeAfterLastFootstep;
+		AudioSource _audioSource;
 
 		void OnWalkStateStarted() => _gaitState = EGaitState.Walk;
 
@@ -157,6 +161,8 @@ namespace BM
 
 			_impulseSource = GetComponent<CinemachineImpulseSource>();
 			_impulseSource.m_DefaultVelocity = new(0.0f, -0.125f, 0.0f);
+
+			_audioSource = GetComponent<AudioSource>();
 
 #if UNITY_EDITOR
 			if (!_walkAction || !_crouchAction)
@@ -283,6 +289,11 @@ namespace BM
 					_elapsedTimeAfterLastFootstep = 0.0f;
 					_impulseSource.GenerateImpulse(currentFootstepForce);
 
+					_audioSource.clip = _footstepAudioData.GetProperFootstepClip();
+					_audioSource.volume = currentFootstepForce;
+
+					_audioSource.Play();
+
 					FootstepImpacted.Invoke(currentFootstepForce);
 				}
 			}
@@ -291,6 +302,11 @@ namespace BM
 			{
 				_elapsedTimeAfterLastFootstep = 0.0f;
 				_impulseSource.GenerateImpulse(currentFootstepForce);
+
+				_audioSource.clip = _footstepAudioData.GetProperFootstepClip();
+				_audioSource.volume = currentFootstepForce;
+
+				_audioSource.Play();
 
 				FootstepImpacted.Invoke(currentFootstepForce);
 			}
