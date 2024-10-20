@@ -77,13 +77,6 @@ namespace BM
 		[Tooltip("Footstep에 맞게 카메라를 흔들 지에 대한 여부입니다.")]
 		[SerializeField] bool _shakeCameraWithFootstep = true;
 
-		[Tooltip("Footstep에 맞게 소리를 낼 지에 대한 여부입니다.")]
-
-		[SerializeField] bool _playFootstepSound = true;
-		[SerializeField] FootstepAudioData _footstepAudioData;
-		[SerializeField][Range(0.0f, 1.0f)] float _footstepSoundStereoPanBias = 0.3f;
-		bool _isLeftFootstep = false;
-
 		[Header("Footstep 설정 - 주기")]
 		[Space()]
 
@@ -99,6 +92,21 @@ namespace BM
 		[SerializeField] float _footstepForceOnStandWalk = 0.4f;
 		[SerializeField] float _footstepForceOnCrouchedJog = 0.4f;
 		[SerializeField] float _footstepForceOnCrouchedWalk = 0.3f;
+
+		[Header("Footstep 설정 - 소리")]
+
+		[SerializeField][Range(0.0f, 1.0f)] float _footstepAudioMasterVolume = 1.0f;
+
+		[Tooltip("Footstep에 맞게 소리를 낼 지에 대한 여부입니다.")]
+		[SerializeField] bool _playFootstepSound = true;
+
+		[Tooltip("기본 발소리의 소리들을 담고 있는 사전입니다.")]
+		[SerializeField] FootstepAudioData _footstepAudioData;
+
+		[Tooltip("왼발과 오른발의 공간 편향이 어느정도인지 설정합니다.")]
+		[SerializeField][Range(0.0f, 1.0f)] float _footstepAudioStereoPanBias = 0.3f;
+
+		bool _isLeftFootstep = false;
 
 		CinemachineImpulseSource _impulseSource;
 		float _elapsedTimeAfterLastFootstep;
@@ -249,7 +257,7 @@ namespace BM
 
 			/* 
 			 * 현재 프레임에서 발소리 타이머에 도달했는지 판정,
-			 * 도달 했으면 카메라 셰이크 후 발자국 이벤트 발생
+			 * 도달 했으면 카메라 셰이크 후 발 이벤트 발생
 			*/
 
 			float currentFootstepPeriod = default;
@@ -310,15 +318,18 @@ namespace BM
 
 			// 사운드 재생
 
-			_audioSource.clip = _footstepAudioData.GetProperFootstepClip();
-			_audioSource.volume = currentFootstepForce;
+			if (_playFootstepSound)
+			{
+				_audioSource.clip = _footstepAudioData.GetProperFootstepClip();
+				_audioSource.volume = currentFootstepForce * _footstepAudioMasterVolume;
 
-			var bias = (_isLeftFootstep ? 1.0f : -1.0f) * _footstepSoundStereoPanBias;
-			_audioSource.panStereo = bias;
+				var bias = (_isLeftFootstep ? 1.0f : -1.0f) * _footstepAudioStereoPanBias;
+				_audioSource.panStereo = bias;
 
-			_isLeftFootstep = !_isLeftFootstep;
+				_isLeftFootstep = !_isLeftFootstep;
 
-			_audioSource.Play();
+				_audioSource.Play();
+			}
 
 			// 추가적인 발소리 이벤트 발생
 
