@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d7d75f3a115d814ca783a55501f14a7, type: 3}
+  m_Name: FootstepAudioData_OutdoorSteelPlate
+  m_EditorClassIdentifier: 
+  _data:
+  - {fileID: 8300000, guid: e24fc1bcf2e43d2459be9b3c6e297dca, type: 3}
+  - {fileID: 8300000, guid: beed2455b30c17a4eb21df1494a888fc, type: 3}
+  - {fileID: 8300000, guid: 99669e6017f150349bf6b204614c3a3b, type: 3}
+  - {fileID: 8300000, guid: 7b7583d21dfc81c4a9e0c31060291cf4, type: 3}
+  - {fileID: 8300000, guid: 39ef87e3726777a4786baa00db0878d6, type: 3}
+  - {fileID: 8300000, guid: b7511e1773afc1642abe49ac5bfe89a9, type: 3}
+  - {fileID: 8300000, guid: b3c2776a4af31df44ac0752931e76fd5, type: 3}
+  - {fileID: 8300000, guid: 0cb1715f7a653e24ab7e04c64032dd5c, type: 3}
+  - {fileID: 8300000, guid: 9fa2db2134d89fb4ba0a250e33f71ccb, type: 3}
+  - {fileID: 8300000, guid: 2a4bee07ce2233d4280def3a5fc7fd0b, type: 3}

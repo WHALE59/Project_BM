@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,22 +10,14 @@ namespace BM
 		public int iWidth;
 		public int iHeight;
 	}
-	
+
 	public class Camera_Pixelate : MonoBehaviour
-    {
-		
+	{
 
-		// Start is called before the first frame update
 		void Start()
-        {
+		{
 			Initialize();
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-			
-        }
+		}
 
 		void Initialize()
 		{

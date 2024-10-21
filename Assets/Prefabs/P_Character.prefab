@@ -255,18 +255,24 @@ MonoBehaviour:
   _speedOnCrouchedWalk: 2.5
   _mass: 50
   _applyGravity: 1
-  _shakeCameraWithFootstep: 1
-  _playFootstepSound: 1
-  _footstepAudioData: {fileID: 11400000, guid: 2f0841e52edb69a4dbe406db132d38c1, type: 2}
-  _footstepSoundStereoPanBias: 0.3
-  _footstepPeriodOnStandJog: 0.25
-  _footstepPeriodOnStandWalk: 0.4
-  _footstepPeriodOnCrouchedJog: 0.4
-  _footstepPeriodOnCrouchedWalk: 0.6
-  _footstepForceOnStandJog: 1
-  _footstepForceOnStandWalk: 0.4
-  _footstepForceOnCrouchedJog: 0.4
-  _footstepForceOnCrouchedWalk: 0.3
+  _footstepImpulsePeriodOnStandJog: 0.25
+  _footstepImpulsePeriodOnStandWalk: 0.4
+  _footstepImpulsePeriodOnCrouchedJog: 0.4
+  _footstepImpulsePeriodOnCrouchedWalk: 0.6
+  _footstepImpulseForceOnStandJog: 1
+  _footstepImpulseForceOnStandWalk: 0.4
+  _footstepImpulseForceOnCrouchedJog: 0.4
+  _footstepImpulseForceOnCrouchedWalk: 0.3
+  _applyFootstepSound: 1
+  _footstepAudioMasterVolume: 1
+  _footstepAudioStereoPan: 0.3
+  _footstepAudioDataFallback: {fileID: 11400000, guid: 8b11e80798cd2064b890c0c633bbe4de,
+    type: 2}
+  _applyFootstepCameraShake: 1
+  _footstepCameraShakeMasterForce: 1
+  _footstepCameraShakeShape: 1
+  _footstepCameraShakeDuration: 0.2
+  _footstepCameraShakeDefaultVelocity: {x: 0, y: -0.125, z: 0}
 --- !u!114 &7504193253473327663
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -335,7 +341,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ImpulseDefinition:
     m_ImpulseChannel: 1
-    m_ImpulseShape: 2
+    m_ImpulseShape: 1
     m_CustomImpulseShape:
       serializedVersion: 2
       m_Curve: []

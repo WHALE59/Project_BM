@@ -1,7 +1,5 @@
 using UnityEngine;
 
-using UnityEngine.Events;
-
 using Cinemachine;
 
 #if UNITY_EDITOR
@@ -18,10 +16,8 @@ namespace BM
 	[RequireComponent(typeof(InputListener))]
 	[RequireComponent(typeof(CinemachineImpulseSource))]
 	[RequireComponent(typeof(AudioSource))]
-	public class MoveAction : MonoBehaviour
+	public class MoveAction : MonoBehaviour, IFootstepAudioPlayer
 	{
-		public event UnityAction<float> FootstepImpacted = delegate { };
-
 		// TODO : 제대로 된 스테이트 머신이 나오면 상태 관리를 더 세분화 할 것.
 		public enum EGaitState
 		{
@@ -70,55 +66,63 @@ namespace BM
 		[Tooltip("캐릭터에게 중력을 적용할 지에 대한 여부입니다.")]
 		[SerializeField] bool _applyGravity = true;
 
-		// TODO : 아마 이 데이터를 관리하는 좀 더 합리적인 방법을 찾아야 할 것
+		// TODO : 아마 이 데이터들을 관리하는 좀 더 합리적인 방법을 찾아야 할 것
+
 		[Header("Footstep 설정")]
 		[Space()]
 
-		[Tooltip("Footstep에 맞게 카메라를 흔들 지에 대한 여부입니다.")]
-		[SerializeField] bool _shakeCameraWithFootstep = true;
-
-		[Header("Footstep 설정 - 주기")]
+		[Header("Footstep Impulse 설정 - 주기")]
 		[Space()]
 
-		[SerializeField] float _footstepPeriodOnStandJog = 0.25f;
-		[SerializeField] float _footstepPeriodOnStandWalk = 0.4f;
-		[SerializeField] float _footstepPeriodOnCrouchedJog = 0.4f;
-		[SerializeField] float _footstepPeriodOnCrouchedWalk = 0.6f;
+		[SerializeField] float _footstepImpulsePeriodOnStandJog = 0.25f;
+		[SerializeField] float _footstepImpulsePeriodOnStandWalk = 0.4f;
+		[SerializeField] float _footstepImpulsePeriodOnCrouchedJog = 0.4f;
+		[SerializeField] float _footstepImpulsePeriodOnCrouchedWalk = 0.6f;
 
-		[Header("Footstep 설정 - 세기")]
+		[Header("Footstep Impulse 설정 - 세기")]
 		[Space()]
 
-		[SerializeField] float _footstepForceOnStandJog = 1.0f;
-		[SerializeField] float _footstepForceOnStandWalk = 0.4f;
-		[SerializeField] float _footstepForceOnCrouchedJog = 0.4f;
-		[SerializeField] float _footstepForceOnCrouchedWalk = 0.3f;
+		[SerializeField] float _footstepImpulseForceOnStandJog = 1.0f;
+		[SerializeField] float _footstepImpulseForceOnStandWalk = 0.4f;
+		[SerializeField] float _footstepImpulseForceOnCrouchedJog = 0.4f;
+		[SerializeField] float _footstepImpulseForceOnCrouchedWalk = 0.3f;
 
-		[Header("Footstep 설정 - 소리")]
+		[Header("Footstep Audio 설정")]
+		[Space()]
+
+		[Tooltip("Footstep에 맞게 소리를 낼 지에 대한 여부입니다.")]
+		[SerializeField] bool _applyFootstepSound = true;
 
 		[SerializeField][Range(0.0f, 1.0f)] float _footstepAudioMasterVolume = 1.0f;
 
-		[Tooltip("Footstep에 맞게 소리를 낼 지에 대한 여부입니다.")]
-		[SerializeField] bool _playFootstepSound = true;
+		[Tooltip("왼발과 오른발의 공간 편향이 어느정도인지 설정합니다.")]
+		[SerializeField][Range(0.0f, 1.0f)] float _footstepAudioStereoPan = 0.3f;
 
 		[Tooltip("기본 발소리의 소리들을 담고 있는 사전입니다.")]
-		[SerializeField] FootstepAudioData _footstepAudioData;
+		[SerializeField] FootstepAudioData _footstepAudioDataFallback;
 
-		[Tooltip("왼발과 오른발의 공간 편향이 어느정도인지 설정합니다.")]
-		[SerializeField][Range(0.0f, 1.0f)] float _footstepAudioStereoPanBias = 0.3f;
+		[Header("Footstep Camera Shake 설정")]
+		[Space()]
+
+		[Tooltip("Footstep에 맞게 카메라를 흔들 지에 대한 여부입니다.")]
+		[SerializeField] bool _applyFootstepCameraShake = true;
+
+		[SerializeField][Range(0.0f, 1.0f)] float _footstepCameraShakeMasterForce = 1.0f;
+
+		[SerializeField] CinemachineImpulseDefinition.ImpulseShapes _footstepCameraShakeShape = CinemachineImpulseDefinition.ImpulseShapes.Recoil;
+		[SerializeField] float _footstepCameraShakeDuration = 0.2f;
+		[SerializeField] Vector3 _footstepCameraShakeDefaultVelocity = new(0.0f, -0.125f, 0.0f);
+
+		/// <summary>
+		/// 특정 볼륨 내에서 오버라이드되는 발소리
+		/// </summary>
+		FootstepAudioData _footstepAudioData;
 
 		bool _isLeftFootstep = false;
 
 		CinemachineImpulseSource _impulseSource;
-		float _elapsedTimeAfterLastFootstep;
+		float _elapsedTimeAfterLastFootstepImpulse;
 		AudioSource _audioSource;
-
-		void OnWalkStateStarted() => _gaitState = EGaitState.Walk;
-
-		void OnWalkStateFinished() => _gaitState = EGaitState.Jog;
-
-		void OnCrouchStateStarted() => _stanceState = EStanceState.Crouched;
-
-		void OnCrouchStateFinished() => _stanceState = EStanceState.Stand;
 
 		float Speed
 		{
@@ -150,6 +154,65 @@ namespace BM
 			}
 		}
 
+		float FootstepImpulsePeriod
+		{
+			get
+			{
+				if (_gaitState == EGaitState.Jog)
+				{
+					if (_stanceState == EStanceState.Stand)
+					{
+						return _footstepImpulsePeriodOnStandJog;
+					}
+					else
+					{
+						return _footstepImpulsePeriodOnCrouchedJog;
+					}
+				}
+				else
+				{
+					if (_stanceState == EStanceState.Stand)
+					{
+						return _footstepImpulsePeriodOnStandWalk;
+					}
+					else
+					{
+						return _footstepImpulsePeriodOnCrouchedWalk;
+					}
+				}
+			}
+		}
+
+		float FootstepImpulseForce
+		{
+			get
+			{
+				if (_gaitState == EGaitState.Jog)
+				{
+					if (_stanceState == EStanceState.Stand)
+					{
+						return _footstepImpulseForceOnStandJog;
+					}
+					else
+					{
+						return _footstepImpulseForceOnCrouchedJog;
+					}
+				}
+				else
+				{
+					if (_stanceState == EStanceState.Stand)
+					{
+						return _footstepImpulseForceOnStandWalk;
+					}
+					else
+					{
+						return _footstepImpulseForceOnCrouchedWalk;
+					}
+				}
+
+			}
+		}
+
 		Vector3 WorldMoveDirection
 		{
 			get
@@ -158,6 +221,103 @@ namespace BM
 				var worldMoveDirection = (cameraYRotation * _localMoveDirection).normalized;
 
 				return worldMoveDirection;
+			}
+		}
+
+		FootstepAudioData IFootstepAudioPlayer.FootstepAudioData
+		{
+			get
+			{
+				if (!_footstepAudioData)
+				{
+					return _footstepAudioDataFallback;
+				}
+				return _footstepAudioData;
+			}
+			set
+			{
+				_footstepAudioData = value;
+			}
+		}
+
+		void UpdateMovementInput(Vector2 moveInput) => _localMoveDirection = new Vector3(moveInput.x, 0.0f, moveInput.y);
+
+		void OnWalkStateStarted() => _gaitState = EGaitState.Walk;
+
+		void OnWalkStateFinished() => _gaitState = EGaitState.Jog;
+
+		void OnCrouchStateStarted() => _stanceState = EStanceState.Crouched;
+
+		void OnCrouchStateFinished() => _stanceState = EStanceState.Stand;
+
+		void GenerateFootstepImpulse()
+		{
+			// 지면에 닿아 있고, 플레이어가 수평으로 이동하고 있을 때에만 타이머에 따라 Footstep Impulse 생성
+
+			if (!_characterController.isGrounded)
+			{
+				return;
+			}
+
+			if (!_isDesiredToMove)
+			{
+				return;
+			}
+
+			/* 
+			 * 현재 프레임에서 발소리 타이머에 도달했는지 판정,
+			 * 도달 했으면, Footstep Impulse에 대한 Reaction 생성
+			*/
+
+			var currentFootstepImpulsePeriod = FootstepImpulsePeriod;
+			var currentFootstepImpulseForce = FootstepImpulseForce;
+
+			// 발소리 타이머
+
+			if (_elapsedTimeAfterLastFootstepImpulse < currentFootstepImpulsePeriod)
+			{
+				_elapsedTimeAfterLastFootstepImpulse += Time.deltaTime;
+
+				if (_elapsedTimeAfterLastFootstepImpulse >= currentFootstepImpulsePeriod)
+				{
+					GenerateFootstepReaction(currentFootstepImpulseForce);
+
+					_elapsedTimeAfterLastFootstepImpulse = 0.0f;
+				}
+			}
+
+			if (_elapsedTimeAfterLastFootstepImpulse >= currentFootstepImpulsePeriod)
+			{
+				GenerateFootstepReaction(currentFootstepImpulseForce);
+
+				_elapsedTimeAfterLastFootstepImpulse = 0.0f;
+			}
+		}
+
+		void GenerateFootstepReaction(in float currentFootstepForce)
+		{
+			// Virtual Camera 가 수신할 수 있는 임펄스 발생
+
+			if (_applyFootstepCameraShake)
+			{
+				_impulseSource.GenerateImpulse(currentFootstepForce * _footstepCameraShakeMasterForce);
+			}
+
+			// 사운드 재생
+
+			if (_applyFootstepSound)
+			{
+				var footstepAudioPlayer = (IFootstepAudioPlayer)this;
+
+				_audioSource.clip = footstepAudioPlayer.FootstepAudioData.GetProperFootstepClip();
+				_audioSource.volume = currentFootstepForce * _footstepAudioMasterVolume;
+
+				var bias = (_isLeftFootstep ? 1.0f : -1.0f) * _footstepAudioStereoPan;
+				_audioSource.panStereo = bias;
+
+				_isLeftFootstep = !_isLeftFootstep;
+
+				_audioSource.Play();
 			}
 		}
 
@@ -170,7 +330,10 @@ namespace BM
 			_walkAction = GetComponent<WalkAction>();
 
 			_impulseSource = GetComponent<CinemachineImpulseSource>();
-			_impulseSource.m_DefaultVelocity = new(0.0f, -0.125f, 0.0f);
+
+			_impulseSource.m_ImpulseDefinition.m_ImpulseShape = _footstepCameraShakeShape;
+			_impulseSource.m_ImpulseDefinition.m_ImpulseDuration = _footstepCameraShakeDuration;
+			_impulseSource.m_DefaultVelocity = _footstepCameraShakeDefaultVelocity;
 
 			_audioSource = GetComponent<AudioSource>();
 
@@ -179,10 +342,25 @@ namespace BM
 			{
 				Debug.LogWarning("CrouchAction 혹은 WalkAction을 찾을 수 없습니다.");
 			}
+
+			if (!_footstepAudioDataFallback)
+			{
+				Debug.LogWarning("FootstepAudioDataFallback이 할당되지 않았습니다.");
+			}
 #endif
 		}
 
-		void UpdateMovementInput(Vector2 moveInput) => _localMoveDirection = new Vector3(moveInput.x, 0.0f, moveInput.y);
+#if UNITY_EDITOR
+		void OnValidate()
+		{
+			if (_impulseSource)
+			{
+				_impulseSource.m_ImpulseDefinition.m_ImpulseShape = _footstepCameraShakeShape;
+				_impulseSource.m_ImpulseDefinition.m_ImpulseDuration = _footstepCameraShakeDuration;
+				_impulseSource.m_DefaultVelocity = _footstepCameraShakeDefaultVelocity;
+			}
+		}
+#endif
 
 		void OnEnable()
 		{
@@ -205,8 +383,6 @@ namespace BM
 			_walkAction.WalkStateStarted -= OnWalkStateStarted;
 			_walkAction.WalkStateFinished -= OnWalkStateFinished;
 		}
-
-
 
 		void FixedUpdate()
 		{
@@ -245,97 +421,8 @@ namespace BM
 
 		void Update()
 		{
-			if (!_isDesiredToMove)
-			{
-				return;
-			}
-
-			if (!_shakeCameraWithFootstep)
-			{
-				return;
-			}
-
-			/* 
-			 * 현재 프레임에서 발소리 타이머에 도달했는지 판정,
-			 * 도달 했으면 카메라 셰이크 후 발 이벤트 발생
-			*/
-
-			float currentFootstepPeriod = default;
-			float currentFootstepForce = default;
-
-			if (_gaitState == EGaitState.Jog)
-			{
-				if (_stanceState == EStanceState.Stand)
-				{
-					currentFootstepForce = _footstepForceOnStandJog;
-					currentFootstepPeriod = _footstepPeriodOnStandJog;
-				}
-				else
-				{
-					currentFootstepForce = _footstepForceOnCrouchedJog;
-					currentFootstepPeriod = _footstepPeriodOnCrouchedJog;
-				}
-			}
-			else
-			{
-				if (_stanceState == EStanceState.Stand)
-				{
-					currentFootstepForce = _footstepForceOnStandWalk;
-					currentFootstepPeriod = _footstepPeriodOnStandWalk;
-				}
-				else
-				{
-					currentFootstepForce = _footstepForceOnCrouchedWalk;
-					currentFootstepPeriod = _footstepPeriodOnCrouchedWalk;
-				}
-			}
-
-			if (_elapsedTimeAfterLastFootstep < currentFootstepPeriod)
-			{
-				_elapsedTimeAfterLastFootstep += Time.deltaTime;
-
-				if (_elapsedTimeAfterLastFootstep >= currentFootstepPeriod)
-				{
-					GenerateFoostep(currentFootstepForce);
-
-					_elapsedTimeAfterLastFootstep = 0.0f;
-				}
-			}
-
-			if (_elapsedTimeAfterLastFootstep >= currentFootstepPeriod)
-			{
-				GenerateFoostep(currentFootstepForce);
-
-				_elapsedTimeAfterLastFootstep = 0.0f;
-			}
+			GenerateFootstepImpulse();
 		}
-
-		void GenerateFoostep(in float currentFootstepForce)
-		{
-			// Virtual Camera 가 수신할 수 있는 임펄스 발생
-
-			_impulseSource.GenerateImpulse(currentFootstepForce);
-
-			// 사운드 재생
-
-			if (_playFootstepSound)
-			{
-				_audioSource.clip = _footstepAudioData.GetProperFootstepClip();
-				_audioSource.volume = currentFootstepForce * _footstepAudioMasterVolume;
-
-				var bias = (_isLeftFootstep ? 1.0f : -1.0f) * _footstepAudioStereoPanBias;
-				_audioSource.panStereo = bias;
-
-				_isLeftFootstep = !_isLeftFootstep;
-
-				_audioSource.Play();
-			}
-
-			// 추가적인 발소리 이벤트 발생
-
-			FootstepImpacted.Invoke(currentFootstepForce);
-		}
-
 
 #if UNITY_EDITOR
 		/// <summary>
