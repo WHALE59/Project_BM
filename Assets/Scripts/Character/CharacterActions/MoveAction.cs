@@ -52,10 +52,10 @@ namespace BM
 
 		[Header("이동 속도 설정")]
 		[Space()]
-		[SerializeField] float _speedOnStandJog = 10.0f;
-		[SerializeField] float _speedOnCrouchedJog = 5.0f;
-		[SerializeField] float _speedOnStandWalk = 5.0f;
-		[SerializeField] float _speedOnCrouchedWalk = 2.5f;
+		[SerializeField] float _speedOnStandJog = 7.0f; // 10.0f; 
+		[SerializeField] float _speedOnCrouchedJog = 2.0f; // 5.0f;
+		[SerializeField] float _speedOnStandWalk = 4.0f; // 5.0f;
+		[SerializeField] float _speedOnCrouchedWalk = 2.0f; // 2.5f;
 
 		[Header("이동 주체의 물리적 특징 설정")]
 		[Space()]
@@ -74,17 +74,17 @@ namespace BM
 		[Header("Footstep Impulse 설정 - 주기")]
 		[Space()]
 
-		[SerializeField] float _footstepImpulsePeriodOnStandJog = 0.25f;
-		[SerializeField] float _footstepImpulsePeriodOnStandWalk = 0.4f;
-		[SerializeField] float _footstepImpulsePeriodOnCrouchedJog = 0.4f;
-		[SerializeField] float _footstepImpulsePeriodOnCrouchedWalk = 0.6f;
+		[SerializeField] float _footstepImpulsePeriodOnStandJog = 0.35f; // 0.25f;
+		[SerializeField] float _footstepImpulsePeriodOnStandWalk = 0.6f; // 0.4f;
+		[SerializeField] float _footstepImpulsePeriodOnCrouchedJog = 0.8f; // 0.4f;
+		[SerializeField] float _footstepImpulsePeriodOnCrouchedWalk = 0.8f; // 0.6f;
 
 		[Header("Footstep Impulse 설정 - 세기")]
 		[Space()]
 
 		[SerializeField] float _footstepImpulseForceOnStandJog = 1.0f;
-		[SerializeField] float _footstepImpulseForceOnStandWalk = 0.4f;
-		[SerializeField] float _footstepImpulseForceOnCrouchedJog = 0.4f;
+		[SerializeField] float _footstepImpulseForceOnStandWalk = 0.7f / 0.4f; // 0.4f;
+		[SerializeField] float _footstepImpulseForceOnCrouchedJog = 0.4f / 0.7f; // 0.4f;
 		[SerializeField] float _footstepImpulseForceOnCrouchedWalk = 0.3f;
 
 		[Header("Footstep Audio 설정")]
