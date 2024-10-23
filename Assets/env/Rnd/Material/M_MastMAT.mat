@@ -104,7 +104,7 @@ Material:
     - _02_GrungeMap_BlendPower: 3
     - _02_GrungeMap_Tiling: -0.09
     - _AffineThreasgold: 11
-    - _ColorPrecision: 16
+    - _ColorPrecision: 21.5
     - _GrundgeMap_Mixin: 1
     - _IsLit: 1
     - _IsSpecular: 1
@@ -119,16 +119,16 @@ Material:
     - _RoughnessContrast: 0.5
     - _RoughnessPower: 0.5
     - _Smoothness: 0.5
-    - _TextureResolution: 256
+    - _TextureResolution: 25.3
     - _UseAffine: 1
     - _UseCameraClipping: 1
     - _UseColorPrecision: 1
     - _UsePixelation: 1
     - _UseVertexJitter: 1
-    - _VertexResolution: 16
+    - _VertexResolution: 18
     m_Colors:
     - _01_GrundgeMap_Offset: {r: 3.42, g: 1.94, b: -3.4, a: 0}
     - _02_GrundgeMap_Offset: {r: 1, g: 1, b: 1, a: 0}
-    - _Specular: {r: 1, g: 1, b: 1, a: 0}
+    - _Specular: {r: 0.9811321, g: 0.85617656, b: 0.85617656, a: 0}
     - _Tiling: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
