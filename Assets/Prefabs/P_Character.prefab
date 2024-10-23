@@ -249,14 +249,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 222d2e353ef8398418ea1c70010374b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speedOnStandJog: 7
+  _speedOnStandJog: 6
   _speedOnCrouchedJog: 2
   _speedOnStandWalk: 4
   _speedOnCrouchedWalk: 2
   _mass: 50
   _applyGravity: 1
-  _footstepImpulsePeriodOnStandJog: 0.35
-  _footstepImpulsePeriodOnStandWalk: 0.6
+  _footstepImpulsePeriodOnStandJog: 0.55
+  _footstepImpulsePeriodOnStandWalk: 0.7
   _footstepImpulsePeriodOnCrouchedJog: 0.8
   _footstepImpulsePeriodOnCrouchedWalk: 0.8
   _footstepImpulseForceOnStandJog: 0.7
@@ -265,13 +265,13 @@ MonoBehaviour:
   _footstepImpulseForceOnCrouchedWalk: 0.3
   _applyFootstepSound: 1
   _footstepAudioMasterVolume: 1
-  _footstepAudioStereoPan: 0.3
+  _footstepAudioStereoPan: 0.085
   _footstepAudioDataFallback: {fileID: 11400000, guid: 8b11e80798cd2064b890c0c633bbe4de,
     type: 2}
   _applyFootstepCameraShake: 1
-  _footstepCameraShakeMasterForce: 1
+  _footstepCameraShakeMasterForce: 0.55
   _footstepCameraShakeShape: 2
-  _footstepCameraShakeDuration: 0.2
+  _footstepCameraShakeDuration: 0.5
   _footstepCameraShakeDefaultVelocity: {x: 0, y: -0.125, z: 0}
 --- !u!114 &7504193253473327663
 MonoBehaviour:
@@ -341,14 +341,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ImpulseDefinition:
     m_ImpulseChannel: 1
-    m_ImpulseShape: 1
+    m_ImpulseShape: 2
     m_CustomImpulseShape:
       serializedVersion: 2
       m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    m_ImpulseDuration: 0.2
+    m_ImpulseDuration: 0.25
     m_ImpulseType: 0
     m_DissipationRate: 0.25
     m_RawSignal: {fileID: 0}
