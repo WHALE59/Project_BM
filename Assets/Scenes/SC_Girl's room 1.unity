@@ -14,10 +14,10 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 0
-  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  m_Fog: 1
+  m_FogColor: {r: 0, g: 0, b: 0, a: 1}
   m_FogMode: 3
-  m_FogDensity: 0.01
+  m_FogDensity: 0.3
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.122641504, g: 0.122641504, b: 0.122641504, a: 1}
@@ -124,6 +124,34 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &308385524 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -1807970279642858887, guid: 3c2bd645b1354684280004a94221d786,
+    type: 3}
+  m_PrefabInstance: {fileID: 1405394265}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &308385528
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 308385524}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 8733429697405204941, guid: 3c2bd645b1354684280004a94221d786, type: 3}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -500,97 +528,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &721515700
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: 10cf79db865cf494e8f1cf53bf42ce2d,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 5.9047637
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 10cf79db865cf494e8f1cf53bf42ce2d,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.654
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 10cf79db865cf494e8f1cf53bf42ce2d,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -84.89269
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 10cf79db865cf494e8f1cf53bf42ce2d,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 10cf79db865cf494e8f1cf53bf42ce2d,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 10cf79db865cf494e8f1cf53bf42ce2d,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 10cf79db865cf494e8f1cf53bf42ce2d,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 10cf79db865cf494e8f1cf53bf42ce2d,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 10cf79db865cf494e8f1cf53bf42ce2d,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 10cf79db865cf494e8f1cf53bf42ce2d,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -6657181474067151562, guid: 10cf79db865cf494e8f1cf53bf42ce2d,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: d7ea28319741b3243a8b6f5422203654, type: 2}
-    - target: {fileID: 919132149155446097, guid: 10cf79db865cf494e8f1cf53bf42ce2d,
-        type: 3}
-      propertyPath: m_Name
-      value: Mementomori01_sandwatch
-      objectReference: {fileID: 0}
-    - target: {fileID: 3616844112969948802, guid: 10cf79db865cf494e8f1cf53bf42ce2d,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: d7ea28319741b3243a8b6f5422203654, type: 2}
-    - target: {fileID: 7071182760956848314, guid: 10cf79db865cf494e8f1cf53bf42ce2d,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: d7ea28319741b3243a8b6f5422203654, type: 2}
-    - target: {fileID: 7202271454713460447, guid: 10cf79db865cf494e8f1cf53bf42ce2d,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: d7ea28319741b3243a8b6f5422203654, type: 2}
-    m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 7715626668051313982, guid: 10cf79db865cf494e8f1cf53bf42ce2d, type: 3}
-    - {fileID: -4841695797154171690, guid: 10cf79db865cf494e8f1cf53bf42ce2d, type: 3}
-    - {fileID: -8162554152744356606, guid: 10cf79db865cf494e8f1cf53bf42ce2d, type: 3}
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 10cf79db865cf494e8f1cf53bf42ce2d, type: 3}
 --- !u!43 &756316431
 Mesh:
   m_ObjectHideFlags: 0
@@ -2271,7 +2208,7 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.6132076, g: 0.6132076, b: 0.6132076, a: 1}
   m_Intensity: 10
   m_Range: 50
   m_SpotAngle: 30
@@ -2331,7 +2268,7 @@ Transform:
   m_GameObject: {fileID: 1324634198}
   serializedVersion: 2
   m_LocalRotation: {x: -0.053385384, y: 0.44926724, z: -0.105230324, w: 0.88557076}
-  m_LocalPosition: {x: 13.24, y: 2.264, z: -80.174}
+  m_LocalPosition: {x: 9.594, y: 2.947, z: -79.328}
   m_LocalScale: {x: 1.0884, y: 1.0884, z: 1.0884}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2728,6 +2665,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1888703816}
+    - targetCorrespondingSourceObject: {fileID: -1807970279642858887, guid: 3c2bd645b1354684280004a94221d786,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 308385528}
   m_SourcePrefab: {fileID: 100100000, guid: 3c2bd645b1354684280004a94221d786, type: 3}
 --- !u!43 &1417754601
 Mesh:
@@ -5834,4 +5775,3 @@ SceneRoots:
   - {fileID: 916356903}
   - {fileID: 987255207}
   - {fileID: 1405394265}
-  - {fileID: 721515700}

@@ -89,6 +89,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: 1dfbbf26576a7f740a9a1e6b004d5110, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Roghness:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Rougness:
         m_Texture: {fileID: 2800000, guid: 722412dda5f0b79408e493be04556e3a, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -120,7 +124,7 @@ Material:
     - _02_GrungeMap_BlendPower: 1.49
     - _02_GrungeMap_Tiling: 0.1
     - _AffineThreasgold: 11
-    - _ColorPrecision: 33.6
+    - _ColorPrecision: 25
     - _GrundgeMap_Mixin: 1.02
     - _IsLit: 1
     - _IsSpecular: 1
@@ -141,7 +145,7 @@ Material:
     - _UseColorPrecision: 1
     - _UsePixelation: 1
     - _UseVertexJitter: 1
-    - _VertexResolution: 64
+    - _VertexResolution: 32
     m_Colors:
     - _01_GrundgeMap_Offset: {r: 17.17, g: 1.94, b: -3.4, a: 0}
     - _02_GrundgeMap_Offset: {r: 1, g: 1, b: 1, a: 0}

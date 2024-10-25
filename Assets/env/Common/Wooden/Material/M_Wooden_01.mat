@@ -78,7 +78,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Metalic:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Normal:
@@ -120,12 +120,12 @@ Material:
     - _02_GrungeMap_BlendPower: -1.76
     - _02_GrungeMap_Tiling: 0.1
     - _AffineThreasgold: 11
-    - _ColorPrecision: 24
+    - _ColorPrecision: 25
     - _GrundgeMap_Mixin: 0.15
     - _IsLit: 1
     - _IsSpecular: 1
     - _IsUsedSecondTexture: 1
-    - _Normal_Intensity: 19.7
+    - _Normal_Intensity: 50
     - _Pixelize_Amount: 314
     - _Pixelize_Grunge: 2.5
     - _Pixelize_Grunge2: 2
@@ -141,7 +141,7 @@ Material:
     - _UseColorPrecision: 1
     - _UsePixelation: 1
     - _UseVertexJitter: 1
-    - _VertexResolution: 62.61
+    - _VertexResolution: 32
     m_Colors:
     - _01_GrundgeMap_Offset: {r: 1.14, g: 1.94, b: -3.4, a: 0}
     - _02_GrundgeMap_Offset: {r: 1, g: 1, b: 1, a: 0}
