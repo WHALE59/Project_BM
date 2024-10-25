@@ -122,11 +122,10 @@ namespace BM
 
 		public void FinishCrouch()
 		{
-			CrouchStateFinished?.Invoke();
-
 			StopAllCoroutines();
 
 			StartCoroutine(CrouchRoutine(up: true));
+
 		}
 
 		/// <param name="up">
@@ -152,7 +151,7 @@ namespace BM
 					yield return new WaitForFixedUpdate();
 				}
 
-				elapsedTime += Time.deltaTime;
+				elapsedTime += Time.fixedDeltaTime;
 
 				var ratio = elapsedTime / _crouchSpeed;
 
@@ -168,6 +167,9 @@ namespace BM
 			_characterController.center = endCapsuleCenter;
 
 			CapsuleSizeChanged?.Invoke(_characterController.center, _characterController.height, _characterController.radius);
+
+			if (up)
+				CrouchStateFinished?.Invoke();
 		}
 
 #if UNITY_EDITOR
