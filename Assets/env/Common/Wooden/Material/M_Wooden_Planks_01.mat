@@ -69,12 +69,13 @@ Material:
     m_Floats:
     - _01_GrungeMap_BlendAmount: 10
     - _01_GrungeMap_BlendContrast: 1
-    - _01_GrungeMap_BlendPower: 0.32
+    - _01_GrungeMap_BlendPower: 0.17
     - _01_GrungeMap_Tiling: 0.37
-    - _02_GrungeMap_BlendAmount: 6.49
+    - _02_GrungeMap_BlendAmount: 5.81
     - _02_GrungeMap_BlendContrast: 4
-    - _02_GrungeMap_BlendPower: 1.5
+    - _02_GrungeMap_BlendPower: 4.34
     - _02_GrungeMap_Tiling: -0.08
+    - _Depth: -12
     - _GrundgeMap_Mixin: -3.04
     - _IsUsedSecondTexture: 1
     - _Normal_Intensity: 5
@@ -84,5 +85,6 @@ Material:
     - _Pixelize_step: 5
     - _RoughnessContrast: 2
     - _RoughnessPower: 0.752
+    - _intersect_Contrast: 0.01
     m_Colors: []
   m_BuildTextureStacks: []

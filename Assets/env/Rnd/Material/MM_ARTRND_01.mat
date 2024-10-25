@@ -102,6 +102,7 @@ Material:
     - _Top_GrungeMap_power: 2.04
     - _Top_Grunge_BlendAmount: 10
     - _Top_Pixelize_step: 8.83
+    - _exe1: -16.7
     m_Colors:
     - _01_GrundgeMap_Offset: {r: 1, g: 1, b: 1, a: 0}
     - _02_GrundgeMap_Offset: {r: 1, g: 1, b: 1, a: 0}

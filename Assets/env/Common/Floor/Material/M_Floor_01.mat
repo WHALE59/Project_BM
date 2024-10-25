@@ -83,7 +83,9 @@ Material:
     - _02_GrungeMap_BlendContrast: 1.7
     - _02_GrungeMap_BlendPower: 1.49
     - _02_GrungeMap_Tiling: 0.1
+    - _Depth: -13.5
     - _GrundgeMap_Mixin: 1.02
+    - _Intersection_amount: 0
     - _IsUsedSecondTexture: 1
     - _Normal_Intensity: 8
     - _Pixelize_Amount: 337
@@ -92,6 +94,8 @@ Material:
     - _Pixelize_step: 42.1
     - _RoughnessContrast: 2
     - _RoughnessPower: 0.752
+    - _intersect_Contrast: 0
     m_Colors:
     - _01_GrundgeMap_Offset: {r: 17.17, g: 1.94, b: -3.4, a: 0}
+    - _intersect_Color: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []
