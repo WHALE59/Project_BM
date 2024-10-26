@@ -19,3 +19,5 @@ MonoBehaviour:
     displayData: {fileID: 11400000, guid: 8eb14dfc215815b47ac116f00eeb1b24, type: 2}
   - rawPath: XInputControllerWindows:/XInputControllerWindows
     displayData: {fileID: 11400000, guid: 10ec7e15020d85b44a9e05861385a5b2, type: 2}
+  - rawPath: XInputControllerWindows:/XInputControllerWindows
+    displayData: {fileID: 11400000, guid: 08d6046627a53fd4c9aa539c5ac8c20b, type: 2}

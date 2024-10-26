@@ -5,7 +5,7 @@ namespace BM
 	/// </summary>
 	public interface IInteractableObject
 	{
-		void Startnteract();
+		void StartInteract();
 		void FinishInteract();
 		void StartHover();
 		void FinishHovering();

@@ -14,259 +14,210 @@ namespace BM
 	[RequireComponent(typeof(InputListener))]
 	public class InteractAction : MonoBehaviour
 	{
-		InputListener _inputListener;
-
 		[Tooltip("상호작용이 가능한 최대 거리를 설정합니다.")]
-		[SerializeField] float _maxDistance = 10.0f;
+		[SerializeField] private float m_maxDistance = 10.0f;
 
-		int _layerMask = ~(1 << 3);
+		[SerializeField] private UIInteractableBehaviour m_interactableUI;
 
-		const string _interactionTargetTagName = "InteractionTarget";
+		private InputListener m_inputListener;
 
-		bool _isThereHitResultInLastFrame = false;
+		private const int m_layerMask = ~(1 << 3); // 자기 자신에 대한 레이캐스트 검출을 무시 (임시)
+
+		private bool m_isHit = false;
+		private GameObject m_hitRootGameObject;
+
+		private bool m_isInteracting = false;
+
+		private IInteractableObject m_hitInteractableObject;
+
 #if UNITY_EDITOR
-		RaycastHit _hitResultInLastFrame;
+		private RaycastHit m_hitResultInLastFrame;
 #endif
 
-		GameObject _rootGameObjectInLastFrame;
-		bool _isHoveringInLastFrame = false;
-		bool _isInteractingInLastFrame = false;
-
-		IInteractableObject _interactableObject;
-
-		[SerializeField] UIInteractableBehaviour _interactableUI;
-
-		void Awake()
+		private void StartInteract()
 		{
-			_inputListener = GetComponent<InputListener>();
+			if (m_isInteracting || !m_isHit || m_hitInteractableObject is null)
+			{
+				return;
+			}
+
+			m_isInteracting = true;
+
+			m_interactableUI.StartInteractUI(m_hitInteractableObject);
+			m_hitInteractableObject.StartInteract();
+		}
+
+		private void FinishInteract()
+		{
+			if (m_isInteracting && m_hitInteractableObject is not null)
+			{
+				m_isInteracting = false;
+				m_interactableUI.FinishInteractUI(m_hitInteractableObject);
+				m_hitInteractableObject.FinishInteract();
+			}
+		}
+
+		private void Awake()
+		{
+			m_inputListener = GetComponent<InputListener>();
 
 #if UNITY_EDITOR
-			if (!_interactableUI)
+			if (!m_interactableUI)
 			{
 				Debug.LogWarning("InteractAction에 InteractableUI 오브젝트가 할당되지 않았습니다.");
 			}
 #endif
 		}
-		void OnEnable()
+		private void OnEnable()
 		{
-			_inputListener.InteractStarted += StartInteract;
-			_inputListener.InteractHolded += HoldInteract;
-			_inputListener.InteractFinished += FinishInteract;
+			m_inputListener.InteractStarted += StartInteract;
+			m_inputListener.InteractFinished += FinishInteract;
 		}
 
-		void OnDisable()
+		private void OnDisable()
 		{
-			_inputListener.InteractStarted -= StartInteract;
-			_inputListener.InteractHolded -= HoldInteract;
-			_inputListener.InteractFinished -= FinishInteract;
+			m_inputListener.InteractStarted -= StartInteract;
+			m_inputListener.InteractFinished -= FinishInteract;
 		}
 
 		/// <summary>
 		/// 매 고정 프레임마다 레이캐스트를 진행하여 오브젝트를 검출
 		/// </summary>
-		void FixedUpdate()
+		private void FixedUpdate()
 		{
-			/*
-			 * 호버링 기능 덕분에 단순 레이캐스트로 구현할 수 없었고, 이전 프레임에 무엇을 검출했는지 추적하는 코드가 필요했음.
-			 */
-
 			var ray = new Ray
 			(
 				origin: Camera.main.transform.position,
 				direction: Camera.main.transform.forward
 			);
 
-			var isThereHitResultInCurrentFrame = Physics.Raycast(ray, out var resultInCurrentFrame, _maxDistance, _layerMask);
+			m_isHit = Physics.Raycast
+			(
+				ray: ray,
+				hitInfo: out var resultInCurrentFrame,
+				maxDistance: m_maxDistance,
+				layerMask: m_layerMask,
+				queryTriggerInteraction: QueryTriggerInteraction.Ignore
+			);
 
-			if (isThereHitResultInCurrentFrame)
+			if (m_isHit)
 			{
-				// 이번에 뭔가 검출 되었다면, 그 뭔가가 이전거랑 같은 대상인가?
-				// 만일 다른 대상이면:
-				//   * 이전에 호버링 하고 있었다면 호버링 종료
-				//   * 이전에 상호작용 하고 있었다면 상호작용 종료
+				var hitRootGameObject = resultInCurrentFrame.transform.root.gameObject;
 
-				var rootGameObjectInCurrentFrame = resultInCurrentFrame.transform.root.gameObject;
-
-				// 이전 프레임과는 다른 것이 검출되었다면:
-				if (rootGameObjectInCurrentFrame != _rootGameObjectInLastFrame)
+				if (hitRootGameObject != m_hitRootGameObject)
 				{
-					// 이전 프레임 처리
-					if (_isHoveringInLastFrame)
+					// 이전에 상호작용 가능 오브젝트를 조준 하고 있었으면, 조준 해제
+					if (m_hitInteractableObject is not null)
 					{
-						FinishHovering(_interactableObject);
+						// 심지어 상호작용 까지 하고 있었던 경우, 상호작용 해제
+						if (m_isInteracting)
+						{
+							m_hitInteractableObject.FinishInteract();
+							m_interactableUI.FinishInteractUI(m_hitInteractableObject);
+
+							m_isInteracting = false;
+						}
+
+						// 호버링 해제
+						m_hitInteractableObject.FinishHovering();
+						m_interactableUI.FinishHoveringUI(m_hitInteractableObject);
+
+						m_hitInteractableObject = null;
 					}
 
-					if (_isInteractingInLastFrame)
+					// 검출된게 상호작용 가능한지 확인
+					if (hitRootGameObject.TryGetComponent<IInteractableObject>(out m_hitInteractableObject))
 					{
-						_interactableObject?.FinishInteract();
+						m_hitInteractableObject.StartHover();
+						m_interactableUI.StartHoveringUI(m_hitInteractableObject);
 					}
 
-					// 현재 프레임 처리
-					//   * 검출된 오브젝트가 상호작용 가능하다면, 호버링 처리하고 참조를 업데이트함
-					//   * 상호작용 가능하지 않다면, 상태를 초기화
-
-					var isThereInterface = rootGameObjectInCurrentFrame.TryGetComponent<IInteractableObject>(out var interactableObject);
-
-					if (isThereInterface)
-					{
-						_interactableObject = interactableObject;
-						_isThereHitResultInLastFrame = true;
-						_rootGameObjectInLastFrame = rootGameObjectInCurrentFrame;
-
-						StartHovering(interactableObject);
-					}
-					else
-					{
-						_interactableObject = null;
-						_isHoveringInLastFrame = false;
-						_isThereHitResultInLastFrame = true;
-						_rootGameObjectInLastFrame = rootGameObjectInCurrentFrame;
-					}
+					// 검출된 것 업데이트
+					m_hitRootGameObject = hitRootGameObject;
 				}
-				else
-				{
-					// 같은 것이 검출되었다 ? ->  아무 것도 할 필요가 없다.
-				}
+				else { } // 이전 프레임이랑 같은 것이 검출된 경우 암것도 할 필요가 없음
 			}
 			else
 			{
-				// 이번에 아무것도 검출되지 않았다면,
-				// 이전에 뭔가 상호작용 가능하던게 검출되었었나?
-				// 만일 검출 되었으면:
-				//   이전에 호버링 하고 있었다면 호버링 종료
-				//   이전에 상호작용 하고 있었다면 상호작용 종료
+				// 암것도 안 검출된 경우 이전 프레임에서 하던 짓이 있다면 올 스톱.
+				if (m_hitInteractableObject is not null)
+				{
+					if (m_isInteracting)
+					{
+						m_hitInteractableObject.FinishInteract();
+						m_interactableUI.FinishInteractUI(m_hitInteractableObject);
+						m_isInteracting = false;
+					}
 
-				// 현재 프레임 처리
-				_interactableObject = null;
-				_isThereHitResultInLastFrame = false;
-				_isHoveringInLastFrame = false;
-				_isInteractingInLastFrame = false;
-				_rootGameObjectInLastFrame = null;
+					m_hitInteractableObject.FinishHovering();
+					m_interactableUI.FinishHoveringUI(m_hitInteractableObject);
+					m_hitInteractableObject = null;
+				}
+
+				m_hitRootGameObject = null;
 			}
 
 #if UNITY_EDITOR
-			_hitResultInLastFrame = resultInCurrentFrame;
+			m_hitResultInLastFrame = resultInCurrentFrame;
 #endif
-		}
-
-		void StartInteract()
-		{
-			if (_isInteractingInLastFrame)
-			{
-				return;
-			}
-
-			if (!_isHoveringInLastFrame)
-			{
-				return;
-			}
-
-			if (!_isThereHitResultInLastFrame)
-			{
-				return;
-			}
-
-			_isInteractingInLastFrame = true;
-			_interactableObject?.Startnteract();
-		}
-
-		void FinishInteract()
-		{
-			_isInteractingInLastFrame = false;
-			_interactableObject?.FinishInteract();
-		}
-
-		void StartHovering(IInteractableObject interactableObject)
-		{
-			_isHoveringInLastFrame = true;
-
-			_interactableUI.StartHoveringUI(interactableObject);
-			_interactableObject.StartHover();
-		}
-
-		void FinishHovering(IInteractableObject interactableObject)
-		{
-			_interactableUI.FinishHoveringUI(interactableObject);
-			_interactableObject?.FinishHovering();
-		}
-
-		void HoldInteract(double duration)
-		{
-			Debug.Log($"Interaction folded for {duration}");
 		}
 
 
 #if UNITY_EDITOR
 		/// <summary>
-		/// Raycast 경로를 그린다.
+		/// Interaction Raycast 경로를 그린다.
 		/// </summary>
 		[DrawGizmo(GizmoType.Active | GizmoType.Selected)]
-		static void DrawRaycast(InteractAction target, GizmoType _)
+		private static void DrawRaycast(InteractAction target, GizmoType _)
 		{
-			if (!target._isThereHitResultInLastFrame)
+			if (!target.m_isHit)
 			{
 				Gizmos.color = Color.white;
 			}
-			else if (target._isThereHitResultInLastFrame && !target._isHoveringInLastFrame)
+			else if (target.m_isHit && target.m_hitInteractableObject is null)
 			{
 				Gizmos.color = Color.yellow;
 			}
-			else if (target._isThereHitResultInLastFrame && target._isHoveringInLastFrame)
+			else if (target.m_isHit && target.m_hitInteractableObject is not null)
 			{
 				Gizmos.color = Color.green;
 			}
 
-			Gizmos.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * target._maxDistance);
+			Gizmos.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * target.m_maxDistance);
 		}
 
 		/// <summary>
 		/// Raycast 결과 중, InteractionTarget으로 검출된 것에 검출 결과를 그린다.
 		/// </summary>
 		[DrawGizmo(GizmoType.Active | GizmoType.Selected)]
-		static void DrawRaycastResult(InteractAction target, GizmoType _)
+		private static void DrawRaycastResult(InteractAction target, GizmoType _)
 		{
-			if (!target._isThereHitResultInLastFrame)
+			if (!target.m_isHit)
 			{
-				return;
+				Gizmos.color = Color.white;
+				Gizmos.DrawWireSphere(Camera.main.transform.position + Camera.main.transform.forward * target.m_maxDistance, 0.1f);
 			}
-
-			Gizmos.color = target._isHoveringInLastFrame ? Color.green : Color.yellow;
-
-			Gizmos.DrawWireSphere(target._hitResultInLastFrame.point, 0.1f);
-			Gizmos.DrawRay(target._hitResultInLastFrame.point, target._hitResultInLastFrame.normal * 0.5f);
-		}
-
-
-		[DrawGizmo(GizmoType.Active | GizmoType.Selected)]
-		static void DrawInteractionStatus(InteractAction target, GizmoType _)
-		{
-			var style = new GUIStyle();
-
-			var text = $"* 검출 객체: {(target._isThereHitResultInLastFrame ? target._hitResultInLastFrame.transform.name : "없음")}";
-
-			var labelPivot = target._hitResultInLastFrame.point;
-
-			if (!target._isThereHitResultInLastFrame)
+			else if (target.m_isHit)
 			{
-				style.normal.textColor = Color.white;
-				labelPivot = Camera.main.transform.position + Camera.main.transform.forward * target._maxDistance;
-			}
-			else if (!target._isHoveringInLastFrame)
-			{
-				style.normal.textColor = Color.yellow;
-			}
-			else
-			{
-				style.normal.textColor = Color.green;
-			}
+				if (target.m_isInteracting)
+				{
+					Gizmos.color = Color.magenta;
+				}
+				else
+				{
+					if (target.m_hitInteractableObject is null)
+					{
+						Gizmos.color = Color.yellow;
+					}
+					else
+					{
+						Gizmos.color = Color.green;
+					}
+				}
 
-			if (target._interactableObject is not null)
-			{
-				text += $"\n* 표시 이름: {target._interactableObject.Data.displayName}";
-				text += $"\n* 상호작용 이름: {target._interactableObject.Data.interactionName}";
+				Gizmos.DrawWireSphere(target.m_hitResultInLastFrame.point, 0.1f);
+				Gizmos.DrawRay(target.m_hitResultInLastFrame.point, target.m_hitResultInLastFrame.normal * 0.5f);
 			}
-
-			Handles.Label(labelPivot, text, style);
 		}
 #endif
 	}

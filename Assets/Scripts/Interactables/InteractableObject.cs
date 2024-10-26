@@ -1,7 +1,6 @@
 using UnityEngine;
 
 #if UNITY_EDITOR
-using UnityEditor;
 #endif
 
 namespace BM
@@ -12,57 +11,52 @@ namespace BM
 	[DisallowMultipleComponent]
 	public class InteractableObject : MonoBehaviour, IInteractableObject
 	{
+		[SerializeField] private InteractableObjectData m_interactableObjectData;
+		[SerializeField] private FresnelEffectData m_fresnelEffectData;
+
+		private Material m_propMaterial;
+
+		InteractableObjectData IInteractableObject.Data => m_interactableObjectData;
+
 		void IInteractableObject.StartHover()
 		{
-			_isHovering = true;
+			SetFresnel(true);
 		}
 
-		void IInteractableObject.Startnteract()
+		void IInteractableObject.StartInteract()
 		{
-			_isInteracting = true;
 		}
 
 		void IInteractableObject.FinishHovering()
 		{
-			_isHovering = false;
+			SetFresnel(false);
 		}
 
 		void IInteractableObject.FinishInteract()
 		{
-			_isInteracting = false;
 		}
 
-#if UNITY_EDITOR
-		[DrawGizmo(GizmoType.Active | GizmoType.NotInSelectionHierarchy)]
-		static void DrawInteractableObjectGizmo(InteractableObject target, GizmoType _)
+		private void SetFresnel(bool on)
 		{
-			var label = $"* 상호작용 가능 객체: {target.gameObject.name}";
-
-			var style = new GUIStyle();
-
-			style.normal.textColor = Color.white;
-
-			if (target._isHovering)
+			if (on)
 			{
-				style.normal.textColor = Color.cyan;
+				m_propMaterial.SetInt("_IsUsedFresnel", 1);
 			}
-			if (target._isInteracting)
+			else
 			{
-				style.normal.textColor = Color.magenta;
+				m_propMaterial.SetInt("_IsUsedFresnel", 0);
 			}
-
-			label += $"\n* 표시 이름: {target._interactableObjectData.displayName}";
-			label += $"\n* 상호작용 이름: {target._interactableObjectData.interactionName}";
-
-			Handles.Label(target.transform.position, label, style);
 		}
-#endif
-		InteractableObjectData IInteractableObject.Data => _interactableObjectData;
 
-		[SerializeField] InteractableObjectData _interactableObjectData;
+		private void Awake()
+		{
+			var meshRenderer = GetComponentInChildren<MeshRenderer>();
+			if (meshRenderer)
+			{
+				m_propMaterial = meshRenderer.material;
+			}
 
-		protected bool _isHovering = false;
-		protected bool _isInteracting = false;
-
+			FresnelEffectData.ApplySettingsToMaterial(m_propMaterial, m_fresnelEffectData);
+		}
 	}
 }
