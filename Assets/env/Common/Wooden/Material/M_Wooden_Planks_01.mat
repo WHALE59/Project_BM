@@ -1,0 +1,90 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-2071453089920603293
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 7
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: M_Wooden_Planks_01
+  m_Shader: {fileID: -6465566751694194690, guid: 33995dbfd006d294497ffef97b7b780d,
+    type: 3}
+  m_Parent: {fileID: 2100000, guid: b196c96840b6e4147a579b6e3999fc0c, type: 2}
+  m_ModifiedSerializedProperties: 2
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 2
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _01_BaseCol:
+        m_Texture: {fileID: 2800000, guid: babdc5a6d3009f749b2c568903003f19, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _01_Masked:
+        m_Texture: {fileID: 2800000, guid: af523d2875f1a3c4bb9dd39d9a82fd35, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _01_Normal:
+        m_Texture: {fileID: 2800000, guid: cfbc16fccc4685a47887f1054ba7cc8c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _02_BaseCol:
+        m_Texture: {fileID: 2800000, guid: aeb13aadb0bbf2041967884eea15adda, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _02_Masked:
+        m_Texture: {fileID: 2800000, guid: b0212030ec4cdab4aaedc4dbab0fc966, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _02_Normal:
+        m_Texture: {fileID: 2800000, guid: 5bb1cc685f109d84b865f6daef415dfa, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Normal:
+        m_Texture: {fileID: 2800000, guid: 8a9f27360671cf041b48d828d5a36a94, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _01_GrungeMap_BlendAmount: 10
+    - _01_GrungeMap_BlendContrast: 1
+    - _01_GrungeMap_BlendPower: 0.17
+    - _01_GrungeMap_Tiling: 0.37
+    - _02_GrungeMap_BlendAmount: 5.81
+    - _02_GrungeMap_BlendContrast: 4
+    - _02_GrungeMap_BlendPower: 4.34
+    - _02_GrungeMap_Tiling: -0.08
+    - _Depth: -12
+    - _GrundgeMap_Mixin: -3.04
+    - _IsUsedSecondTexture: 1
+    - _Normal_Intensity: 5
+    - _Pixelize_Amount: 200
+    - _Pixelize_Grunge: 18
+    - _Pixelize_Grunge2: 6.28
+    - _Pixelize_step: 5
+    - _RoughnessContrast: 2
+    - _RoughnessPower: 0.752
+    - _intersect_Contrast: 0.01
+    m_Colors: []
+  m_BuildTextureStacks: []
