@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2302de5de6689ec479d8cf1f41b1a651, type: 3}
+  m_Name: RandomAudioClipSet_FootstepResponse_IndoorWoodenCreak
+  m_EditorClassIdentifier: 
+  m_clips:
+  - {fileID: 8300000, guid: 83e8e8f7c78631749a9d343f55664d46, type: 3}
+  - {fileID: 8300000, guid: 7b860f1c248101d4ba3c14bc059a5178, type: 3}
+  - {fileID: 8300000, guid: 9df1a7c34cafb674cac95e06b59323f2, type: 3}
+  - {fileID: 8300000, guid: 86badee06a0f61a4dab8f4c91c9067b6, type: 3}
+  - {fileID: 8300000, guid: 21d016120cebf85458b63c07af594ffe, type: 3}
+  m_allowPickingSameClipInARow: 0
+  m_maxPickingTrialCount: 3

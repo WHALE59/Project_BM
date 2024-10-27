@@ -1,3 +1,5 @@
+using System;
+
 using UnityEngine;
 
 using Cinemachine;
@@ -16,8 +18,10 @@ namespace BM
 	[RequireComponent(typeof(InputListener))]
 	[RequireComponent(typeof(CinemachineImpulseSource))]
 	[RequireComponent(typeof(AudioSource))]
-	public class MoveAction : MonoBehaviour, IFootstepAudioPlayer
+	public class MoveAction : MonoBehaviour
 	{
+		public Action<float> Footstepped;
+
 		// TODO : 제대로 된 스테이트 머신이 나오면 상태 관리를 더 세분화 할 것.
 		public enum EGaitState
 		{
@@ -90,16 +94,18 @@ namespace BM
 		[Header("Footstep Audio 설정")]
 		[Space()]
 
-		[Tooltip("Footstep에 맞게 소리를 낼 지에 대한 여부입니다.")]
-		[SerializeField] private bool m_applyFootstepSound = true;
+		[Tooltip("FootstepBase 오디오 재생 여부입니다.")]
+		[SerializeField] private bool m_applyFootstepBaseAudio = true;
 
-		[SerializeField][Range(0.0f, 1.0f)] private float m_footstepAudioMasterVolume = 1.0f;
+		[SerializeField][Range(0.0f, 1.0f)] private float m_footstepBaseAudioMasterVolume = 1.0f;
 
 		[Tooltip("왼발과 오른발의 공간 편향이 어느정도인지 설정합니다.")]
-		[SerializeField][Range(0.0f, 1.0f)] private float m_footstepAudioStereoPan = 0.3f;
+		[SerializeField][Range(0.0f, 1.0f)] private float m_footstepAudioStereoPan = 0.085f;
 
-		[Tooltip("기본 발소리의 소리들을 담고 있는 사전입니다.")]
-		[SerializeField] private FootstepAudioData m_footstepAudioDataFallback;
+		[Tooltip("FootstepBase의 소리들을 담고 있는 사전입니다.")]
+		[SerializeField] private RandomAudioClipSet m_footstepBaseAudioDataFallback;
+
+		private RandomAudioClipSet m_footstepBaseAudioDataOverride;
 
 		[Header("Footstep Camera Shake 설정")]
 		[Space()]
@@ -113,16 +119,12 @@ namespace BM
 		[SerializeField] private float m_footstepCameraShakeDuration = 0.2f;
 		[SerializeField] private Vector3 m_footstepCameraShakeDefaultVelocity = new(0.0f, -0.125f, 0.0f);
 
-		/// <summary>
-		/// 특정 볼륨 내에서 오버라이드되는 발소리
-		/// </summary>
-		private FootstepAudioData m_footstepAudioData;
 
 		private bool m_isLeftFootstep = false;
 
 		private CinemachineImpulseSource m_impulseSource;
 		private float m_elapsedTimeAfterLastFootstepImpulse;
-		private AudioSource m_audioSource;
+		private AudioSource m_footstepAudioBaseSource;
 
 		private float Speed
 		{
@@ -224,19 +226,20 @@ namespace BM
 			}
 		}
 
-		FootstepAudioData IFootstepAudioPlayer.FootstepAudioData
+		public RandomAudioClipSet FootstepBaseAudioData
 		{
 			get
 			{
-				if (!m_footstepAudioData)
+				if (!m_footstepBaseAudioDataOverride)
 				{
-					return m_footstepAudioDataFallback;
+					return m_footstepBaseAudioDataFallback;
 				}
-				return m_footstepAudioData;
+
+				return m_footstepBaseAudioDataOverride;
 			}
 			set
 			{
-				m_footstepAudioData = value;
+				m_footstepBaseAudioDataOverride = value;
 			}
 		}
 
@@ -305,29 +308,35 @@ namespace BM
 
 			// 사운드 재생
 
-			if (m_applyFootstepSound)
+			var bias = (m_isLeftFootstep ? 1.0f : -1.0f) * m_footstepAudioStereoPan;
+
+			if (m_applyFootstepBaseAudio)
 			{
-				var footstepAudioPlayer = (IFootstepAudioPlayer)this;
+				m_footstepAudioBaseSource.volume = currentFootstepForce * m_footstepBaseAudioMasterVolume;
+				m_footstepAudioBaseSource.panStereo = bias;
 
-				m_audioSource.clip = footstepAudioPlayer.FootstepAudioData.GetProperFootstepClip();
-				m_audioSource.volume = currentFootstepForce * m_footstepAudioMasterVolume;
-
-				var bias = (m_isLeftFootstep ? 1.0f : -1.0f) * m_footstepAudioStereoPan;
-				m_audioSource.panStereo = bias;
-
-				m_isLeftFootstep = !m_isLeftFootstep;
-
-				m_audioSource.Play();
+				var data = FootstepBaseAudioData;
+				if (data)
+				{
+					var clip = data.PickClip();
+					if (clip is not null)
+					{
+						m_footstepAudioBaseSource.clip = clip;
+						m_footstepAudioBaseSource.Play();
+					}
+				}
 			}
+
+			Footstepped?.Invoke(currentFootstepForce);
+
+			m_isLeftFootstep = !m_isLeftFootstep;
 		}
 
 		private void Awake()
 		{
 			m_characterController = GetComponent<CharacterController>();
-			m_inputListener = GetComponent<InputListener>();
 
-			m_crouchAction = GetComponent<CrouchAction>();
-			m_walkAction = GetComponent<WalkAction>();
+			m_footstepAudioBaseSource = GetComponent<AudioSource>();
 
 			m_impulseSource = GetComponent<CinemachineImpulseSource>();
 
@@ -335,7 +344,10 @@ namespace BM
 			m_impulseSource.m_ImpulseDefinition.m_ImpulseDuration = m_footstepCameraShakeDuration;
 			m_impulseSource.m_DefaultVelocity = m_footstepCameraShakeDefaultVelocity;
 
-			m_audioSource = GetComponent<AudioSource>();
+			m_inputListener = GetComponent<InputListener>();
+
+			m_crouchAction = GetComponent<CrouchAction>();
+			m_walkAction = GetComponent<WalkAction>();
 
 #if UNITY_EDITOR
 			if (!m_walkAction || !m_crouchAction)
@@ -343,9 +355,9 @@ namespace BM
 				Debug.LogWarning("CrouchAction 혹은 WalkAction을 찾을 수 없습니다.");
 			}
 
-			if (!m_footstepAudioDataFallback)
+			if (!m_footstepBaseAudioDataFallback)
 			{
-				Debug.LogWarning("FootstepAudioDataFallback이 할당되지 않았습니다.");
+				Debug.LogWarning("FootstepBaseAudioDataFallback이 할당되지 않았습니다.");
 			}
 #endif
 		}
@@ -411,7 +423,6 @@ namespace BM
 			var planeVelocity = new Vector3(m_worldVelocity.x, 0.0f, m_worldVelocity.z);
 			m_isDesiredToMove = planeVelocity != Vector3.zero && m_localMoveDirection != Vector3.zero;
 			m_characterController.Move(m_worldVelocity * Time.fixedDeltaTime);
-
 
 			// 회전 업데이트
 
