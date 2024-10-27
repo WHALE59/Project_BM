@@ -1,3 +1,5 @@
+using System;
+
 using UnityEngine;
 
 using Cinemachine;
@@ -16,8 +18,10 @@ namespace BM
 	[RequireComponent(typeof(InputListener))]
 	[RequireComponent(typeof(CinemachineImpulseSource))]
 	[RequireComponent(typeof(AudioSource))]
-	public class MoveAction : MonoBehaviour, IFootstepAudioPlayer
+	public class MoveAction : MonoBehaviour
 	{
+		public Action<float> Footstepped;
+
 		// TODO : 제대로 된 스테이트 머신이 나오면 상태 관리를 더 세분화 할 것.
 		public enum EGaitState
 		{
@@ -32,39 +36,39 @@ namespace BM
 		/// <summary>
 		/// 카메라 방향을 고려하기 이전, 캐릭터 오브젝트의 지역 방향
 		/// </summary>
-		Vector3 _localMoveDirection;
+		private Vector3 m_localMoveDirection;
 
 		/// <summary>
 		/// 카메라 방향과 캐릭터의 이동 속력까지 고려한, 캐릭터 오브젝트의 월드 방향
 		/// </summary>
-		Vector3 _worldVelocity;
+		private Vector3 m_worldVelocity;
 
-		bool _isDesiredToMove;
+		private bool m_isDesiredToMove;
 
-		CharacterController _characterController;
-		InputListener _inputListener;
+		private CharacterController m_characterController;
+		private InputListener m_inputListener;
 
-		CrouchAction _crouchAction;
-		EStanceState _stanceState = EStanceState.Stand;
+		private CrouchAction m_crouchAction;
+		private EStanceState m_stanceState = EStanceState.Stand;
 
-		WalkAction _walkAction;
-		EGaitState _gaitState = EGaitState.Jog;
+		private WalkAction m_walkAction;
+		private EGaitState m_gaitState = EGaitState.Jog;
 
 		[Header("이동 속도 설정")]
 		[Space()]
-		[SerializeField] float _speedOnStandJog = 7.0f; // 10.0f; 
-		[SerializeField] float _speedOnCrouchedJog = 2.0f; // 5.0f;
-		[SerializeField] float _speedOnStandWalk = 4.0f; // 5.0f;
-		[SerializeField] float _speedOnCrouchedWalk = 2.0f; // 2.5f;
+		[SerializeField] private float m_speedOnStandJog = 7.0f; // 10.0f; 
+		[SerializeField] private float m_speedOnCrouchedJog = 2.0f; // 5.0f;
+		[SerializeField] private float m_speedOnStandWalk = 4.0f; // 5.0f;
+		[SerializeField] private float m_speedOnCrouchedWalk = 2.0f; // 2.5f;
 
 		[Header("이동 주체의 물리적 특징 설정")]
 		[Space()]
 
 		[Tooltip("캐릭터가 가진 질량입니다. 클수록 캐릭터는 중력의 영향을 크게 받습니다.")]
-		[SerializeField] float _mass = 50.0f;
+		[SerializeField] private float m_mass = 50.0f;
 
 		[Tooltip("캐릭터에게 중력을 적용할 지에 대한 여부입니다.")]
-		[SerializeField] bool _applyGravity = true;
+		[SerializeField] private bool m_applyGravity = true;
 
 		// TODO : 아마 이 데이터들을 관리하는 좀 더 합리적인 방법을 찾아야 할 것
 
@@ -74,192 +78,191 @@ namespace BM
 		[Header("Footstep Impulse 설정 - 주기")]
 		[Space()]
 
-		[SerializeField] float _footstepImpulsePeriodOnStandJog = 0.35f; // 0.25f;
-		[SerializeField] float _footstepImpulsePeriodOnStandWalk = 0.6f; // 0.4f;
-		[SerializeField] float _footstepImpulsePeriodOnCrouchedJog = 0.8f; // 0.4f;
-		[SerializeField] float _footstepImpulsePeriodOnCrouchedWalk = 0.8f; // 0.6f;
+		[SerializeField] private float m_footstepImpulsePeriodOnStandJog = 0.35f; // 0.25f;
+		[SerializeField] private float m_footstepImpulsePeriodOnStandWalk = 0.6f; // 0.4f;
+		[SerializeField] private float m_footstepImpulsePeriodOnCrouchedJog = 0.8f; // 0.4f;
+		[SerializeField] private float m_footstepImpulsePeriodOnCrouchedWalk = 0.8f; // 0.6f;
 
 		[Header("Footstep Impulse 설정 - 세기")]
 		[Space()]
 
-		[SerializeField] float _footstepImpulseForceOnStandJog = 1.0f;
-		[SerializeField] float _footstepImpulseForceOnStandWalk = 0.7f / 0.4f; // 0.4f;
-		[SerializeField] float _footstepImpulseForceOnCrouchedJog = 0.4f / 0.7f; // 0.4f;
-		[SerializeField] float _footstepImpulseForceOnCrouchedWalk = 0.3f;
+		[SerializeField] private float m_footstepImpulseForceOnStandJog = 1.0f;
+		[SerializeField] private float m_footstepImpulseForceOnStandWalk = 0.7f / 0.4f; // 0.4f;
+		[SerializeField] private float m_footstepImpulseForceOnCrouchedJog = 0.4f / 0.7f; // 0.4f;
+		[SerializeField] private float m_footstepImpulseForceOnCrouchedWalk = 0.3f;
 
 		[Header("Footstep Audio 설정")]
 		[Space()]
 
-		[Tooltip("Footstep에 맞게 소리를 낼 지에 대한 여부입니다.")]
-		[SerializeField] bool _applyFootstepSound = true;
+		[Tooltip("FootstepBase 오디오 재생 여부입니다.")]
+		[SerializeField] private bool m_applyFootstepBaseAudio = true;
 
-		[SerializeField][Range(0.0f, 1.0f)] float _footstepAudioMasterVolume = 1.0f;
+		[SerializeField][Range(0.0f, 1.0f)] private float m_footstepBaseAudioMasterVolume = 1.0f;
 
 		[Tooltip("왼발과 오른발의 공간 편향이 어느정도인지 설정합니다.")]
-		[SerializeField][Range(0.0f, 1.0f)] float _footstepAudioStereoPan = 0.3f;
+		[SerializeField][Range(0.0f, 1.0f)] private float m_footstepAudioStereoPan = 0.085f;
 
-		[Tooltip("기본 발소리의 소리들을 담고 있는 사전입니다.")]
-		[SerializeField] FootstepAudioData _footstepAudioDataFallback;
+		[Tooltip("FootstepBase의 소리들을 담고 있는 사전입니다.")]
+		[SerializeField] private RandomAudioClipSet m_footstepBaseAudioDataFallback;
+
+		private RandomAudioClipSet m_footstepBaseAudioDataOverride;
 
 		[Header("Footstep Camera Shake 설정")]
 		[Space()]
 
 		[Tooltip("Footstep에 맞게 카메라를 흔들 지에 대한 여부입니다.")]
-		[SerializeField] bool _applyFootstepCameraShake = true;
+		[SerializeField] private bool m_applyFootstepCameraShake = true;
 
-		[SerializeField][Range(0.0f, 1.0f)] float _footstepCameraShakeMasterForce = 1.0f;
+		[SerializeField][Range(0.0f, 1.0f)] private float m_footstepCameraShakeMasterForce = 1.0f;
 
-		[SerializeField] CinemachineImpulseDefinition.ImpulseShapes _footstepCameraShakeShape = CinemachineImpulseDefinition.ImpulseShapes.Recoil;
-		[SerializeField] float _footstepCameraShakeDuration = 0.2f;
-		[SerializeField] Vector3 _footstepCameraShakeDefaultVelocity = new(0.0f, -0.125f, 0.0f);
+		[SerializeField] CinemachineImpulseDefinition.ImpulseShapes m_footstepCameraShakeShape = CinemachineImpulseDefinition.ImpulseShapes.Recoil;
+		[SerializeField] private float m_footstepCameraShakeDuration = 0.2f;
+		[SerializeField] private Vector3 m_footstepCameraShakeDefaultVelocity = new(0.0f, -0.125f, 0.0f);
 
-		/// <summary>
-		/// 특정 볼륨 내에서 오버라이드되는 발소리
-		/// </summary>
-		FootstepAudioData _footstepAudioData;
 
-		bool _isLeftFootstep = false;
+		private bool m_isLeftFootstep = false;
 
-		CinemachineImpulseSource _impulseSource;
-		float _elapsedTimeAfterLastFootstepImpulse;
-		AudioSource _audioSource;
+		private CinemachineImpulseSource m_impulseSource;
+		private float m_elapsedTimeAfterLastFootstepImpulse;
+		private AudioSource m_footstepAudioBaseSource;
 
-		float Speed
+		private float Speed
 		{
 			get
 			{
-				if (_stanceState == EStanceState.Stand)
+				if (m_stanceState == EStanceState.Stand)
 				{
-					if (_gaitState == EGaitState.Jog)
+					if (m_gaitState == EGaitState.Jog)
 					{
-						return _speedOnStandJog;
+						return m_speedOnStandJog;
 					}
-					else if (_gaitState == EGaitState.Walk)
+					else if (m_gaitState == EGaitState.Walk)
 					{
-						return _speedOnStandWalk;
+						return m_speedOnStandWalk;
 					}
 				}
-				else if (_stanceState == EStanceState.Crouched)
+				else if (m_stanceState == EStanceState.Crouched)
 				{
-					if (_gaitState == EGaitState.Jog)
+					if (m_gaitState == EGaitState.Jog)
 					{
-						return _speedOnCrouchedJog;
+						return m_speedOnCrouchedJog;
 					}
-					else if (_gaitState == EGaitState.Walk)
+					else if (m_gaitState == EGaitState.Walk)
 					{
-						return _speedOnCrouchedWalk;
+						return m_speedOnCrouchedWalk;
 					}
 				}
-				return _speedOnStandJog;
+				return m_speedOnStandJog;
 			}
 		}
 
-		float FootstepImpulsePeriod
+		private float FootstepImpulsePeriod
 		{
 			get
 			{
-				if (_gaitState == EGaitState.Jog)
+				if (m_gaitState == EGaitState.Jog)
 				{
-					if (_stanceState == EStanceState.Stand)
+					if (m_stanceState == EStanceState.Stand)
 					{
-						return _footstepImpulsePeriodOnStandJog;
+						return m_footstepImpulsePeriodOnStandJog;
 					}
 					else
 					{
-						return _footstepImpulsePeriodOnCrouchedJog;
+						return m_footstepImpulsePeriodOnCrouchedJog;
 					}
 				}
 				else
 				{
-					if (_stanceState == EStanceState.Stand)
+					if (m_stanceState == EStanceState.Stand)
 					{
-						return _footstepImpulsePeriodOnStandWalk;
+						return m_footstepImpulsePeriodOnStandWalk;
 					}
 					else
 					{
-						return _footstepImpulsePeriodOnCrouchedWalk;
+						return m_footstepImpulsePeriodOnCrouchedWalk;
 					}
 				}
 			}
 		}
 
-		float FootstepImpulseForce
+		private float FootstepImpulseForce
 		{
 			get
 			{
-				if (_gaitState == EGaitState.Jog)
+				if (m_gaitState == EGaitState.Jog)
 				{
-					if (_stanceState == EStanceState.Stand)
+					if (m_stanceState == EStanceState.Stand)
 					{
-						return _footstepImpulseForceOnStandJog;
+						return m_footstepImpulseForceOnStandJog;
 					}
 					else
 					{
-						return _footstepImpulseForceOnCrouchedJog;
+						return m_footstepImpulseForceOnCrouchedJog;
 					}
 				}
 				else
 				{
-					if (_stanceState == EStanceState.Stand)
+					if (m_stanceState == EStanceState.Stand)
 					{
-						return _footstepImpulseForceOnStandWalk;
+						return m_footstepImpulseForceOnStandWalk;
 					}
 					else
 					{
-						return _footstepImpulseForceOnCrouchedWalk;
+						return m_footstepImpulseForceOnCrouchedWalk;
 					}
 				}
 
 			}
 		}
 
-		Vector3 WorldMoveDirection
+		private Vector3 WorldMoveDirection
 		{
 			get
 			{
 				var cameraYRotation = Quaternion.Euler(0.0f, Camera.main.transform.eulerAngles.y, 0);
-				var worldMoveDirection = (cameraYRotation * _localMoveDirection).normalized;
+				var worldMoveDirection = (cameraYRotation * m_localMoveDirection).normalized;
 
 				return worldMoveDirection;
 			}
 		}
 
-		FootstepAudioData IFootstepAudioPlayer.FootstepAudioData
+		public RandomAudioClipSet FootstepBaseAudioData
 		{
 			get
 			{
-				if (!_footstepAudioData)
+				if (!m_footstepBaseAudioDataOverride)
 				{
-					return _footstepAudioDataFallback;
+					return m_footstepBaseAudioDataFallback;
 				}
-				return _footstepAudioData;
+
+				return m_footstepBaseAudioDataOverride;
 			}
 			set
 			{
-				_footstepAudioData = value;
+				m_footstepBaseAudioDataOverride = value;
 			}
 		}
 
-		void UpdateMovementInput(Vector2 moveInput) => _localMoveDirection = new Vector3(moveInput.x, 0.0f, moveInput.y);
+		private void UpdateMovementInput(Vector2 moveInput) => m_localMoveDirection = new Vector3(moveInput.x, 0.0f, moveInput.y);
 
-		void OnWalkStateStarted() => _gaitState = EGaitState.Walk;
+		private void OnWalkStateStarted() => m_gaitState = EGaitState.Walk;
 
-		void OnWalkStateFinished() => _gaitState = EGaitState.Jog;
+		private void OnWalkStateFinished() => m_gaitState = EGaitState.Jog;
 
-		void OnCrouchStateStarted() => _stanceState = EStanceState.Crouched;
+		private void OnCrouchStateStarted() => m_stanceState = EStanceState.Crouched;
 
-		void OnCrouchStateFinished() => _stanceState = EStanceState.Stand;
+		private void OnCrouchStateFinished() => m_stanceState = EStanceState.Stand;
 
-		void GenerateFootstepImpulse()
+		private void GenerateFootstepImpulse()
 		{
 			// 지면에 닿아 있고, 플레이어가 수평으로 이동하고 있을 때에만 타이머에 따라 Footstep Impulse 생성
 
-			if (!_characterController.isGrounded)
+			if (!m_characterController.isGrounded)
 			{
 				return;
 			}
 
-			if (!_isDesiredToMove)
+			if (!m_isDesiredToMove)
 			{
 				return;
 			}
@@ -274,144 +277,152 @@ namespace BM
 
 			// 발소리 타이머
 
-			if (_elapsedTimeAfterLastFootstepImpulse < currentFootstepImpulsePeriod)
+			if (m_elapsedTimeAfterLastFootstepImpulse < currentFootstepImpulsePeriod)
 			{
-				_elapsedTimeAfterLastFootstepImpulse += Time.deltaTime;
+				m_elapsedTimeAfterLastFootstepImpulse += Time.deltaTime;
 
-				if (_elapsedTimeAfterLastFootstepImpulse >= currentFootstepImpulsePeriod)
+				if (m_elapsedTimeAfterLastFootstepImpulse >= currentFootstepImpulsePeriod)
 				{
 					GenerateFootstepReaction(currentFootstepImpulseForce);
 
-					_elapsedTimeAfterLastFootstepImpulse = 0.0f;
+					m_elapsedTimeAfterLastFootstepImpulse = 0.0f;
 				}
 			}
 
-			if (_elapsedTimeAfterLastFootstepImpulse >= currentFootstepImpulsePeriod)
+			if (m_elapsedTimeAfterLastFootstepImpulse >= currentFootstepImpulsePeriod)
 			{
 				GenerateFootstepReaction(currentFootstepImpulseForce);
 
-				_elapsedTimeAfterLastFootstepImpulse = 0.0f;
+				m_elapsedTimeAfterLastFootstepImpulse = 0.0f;
 			}
 		}
 
-		void GenerateFootstepReaction(in float currentFootstepForce)
+		private void GenerateFootstepReaction(in float currentFootstepForce)
 		{
 			// Virtual Camera 가 수신할 수 있는 임펄스 발생
 
-			if (_applyFootstepCameraShake)
+			if (m_applyFootstepCameraShake)
 			{
-				_impulseSource.GenerateImpulse(currentFootstepForce * _footstepCameraShakeMasterForce);
+				m_impulseSource.GenerateImpulse(currentFootstepForce * m_footstepCameraShakeMasterForce);
 			}
 
 			// 사운드 재생
 
-			if (_applyFootstepSound)
+			var bias = (m_isLeftFootstep ? 1.0f : -1.0f) * m_footstepAudioStereoPan;
+
+			if (m_applyFootstepBaseAudio)
 			{
-				var footstepAudioPlayer = (IFootstepAudioPlayer)this;
+				m_footstepAudioBaseSource.volume = currentFootstepForce * m_footstepBaseAudioMasterVolume;
+				m_footstepAudioBaseSource.panStereo = bias;
 
-				_audioSource.clip = footstepAudioPlayer.FootstepAudioData.GetProperFootstepClip();
-				_audioSource.volume = currentFootstepForce * _footstepAudioMasterVolume;
-
-				var bias = (_isLeftFootstep ? 1.0f : -1.0f) * _footstepAudioStereoPan;
-				_audioSource.panStereo = bias;
-
-				_isLeftFootstep = !_isLeftFootstep;
-
-				_audioSource.Play();
+				var data = FootstepBaseAudioData;
+				if (data)
+				{
+					var clip = data.PickClip();
+					if (clip is not null)
+					{
+						m_footstepAudioBaseSource.clip = clip;
+						m_footstepAudioBaseSource.Play();
+					}
+				}
 			}
+
+			Footstepped?.Invoke(currentFootstepForce);
+
+			m_isLeftFootstep = !m_isLeftFootstep;
 		}
 
-		void Awake()
+		private void Awake()
 		{
-			_characterController = GetComponent<CharacterController>();
-			_inputListener = GetComponent<InputListener>();
+			m_characterController = GetComponent<CharacterController>();
 
-			_crouchAction = GetComponent<CrouchAction>();
-			_walkAction = GetComponent<WalkAction>();
+			m_footstepAudioBaseSource = GetComponent<AudioSource>();
 
-			_impulseSource = GetComponent<CinemachineImpulseSource>();
+			m_impulseSource = GetComponent<CinemachineImpulseSource>();
 
-			_impulseSource.m_ImpulseDefinition.m_ImpulseShape = _footstepCameraShakeShape;
-			_impulseSource.m_ImpulseDefinition.m_ImpulseDuration = _footstepCameraShakeDuration;
-			_impulseSource.m_DefaultVelocity = _footstepCameraShakeDefaultVelocity;
+			m_impulseSource.m_ImpulseDefinition.m_ImpulseShape = m_footstepCameraShakeShape;
+			m_impulseSource.m_ImpulseDefinition.m_ImpulseDuration = m_footstepCameraShakeDuration;
+			m_impulseSource.m_DefaultVelocity = m_footstepCameraShakeDefaultVelocity;
 
-			_audioSource = GetComponent<AudioSource>();
+			m_inputListener = GetComponent<InputListener>();
+
+			m_crouchAction = GetComponent<CrouchAction>();
+			m_walkAction = GetComponent<WalkAction>();
 
 #if UNITY_EDITOR
-			if (!_walkAction || !_crouchAction)
+			if (!m_walkAction || !m_crouchAction)
 			{
 				Debug.LogWarning("CrouchAction 혹은 WalkAction을 찾을 수 없습니다.");
 			}
 
-			if (!_footstepAudioDataFallback)
+			if (!m_footstepBaseAudioDataFallback)
 			{
-				Debug.LogWarning("FootstepAudioDataFallback이 할당되지 않았습니다.");
+				Debug.LogWarning("FootstepBaseAudioDataFallback이 할당되지 않았습니다.");
 			}
 #endif
 		}
 
 #if UNITY_EDITOR
-		void OnValidate()
+		private void OnValidate()
 		{
-			if (_impulseSource)
+			if (m_impulseSource)
 			{
-				_impulseSource.m_ImpulseDefinition.m_ImpulseShape = _footstepCameraShakeShape;
-				_impulseSource.m_ImpulseDefinition.m_ImpulseDuration = _footstepCameraShakeDuration;
-				_impulseSource.m_DefaultVelocity = _footstepCameraShakeDefaultVelocity;
+				m_impulseSource.m_ImpulseDefinition.m_ImpulseShape = m_footstepCameraShakeShape;
+				m_impulseSource.m_ImpulseDefinition.m_ImpulseDuration = m_footstepCameraShakeDuration;
+				m_impulseSource.m_DefaultVelocity = m_footstepCameraShakeDefaultVelocity;
 			}
 		}
 #endif
 
-		void OnEnable()
+		private void OnEnable()
 		{
-			_inputListener.Moved += UpdateMovementInput;
+			m_inputListener.Moved += UpdateMovementInput;
 
-			_crouchAction.CrouchStateStarted += OnCrouchStateStarted;
-			_crouchAction.CrouchStateFinished += OnCrouchStateFinished;
+			m_crouchAction.CrouchStateStarted += OnCrouchStateStarted;
+			m_crouchAction.CrouchStateFinished += OnCrouchStateFinished;
 
-			_walkAction.WalkStateStarted += OnWalkStateStarted;
-			_walkAction.WalkStateFinished += OnWalkStateFinished;
+			m_walkAction.WalkStateStarted += OnWalkStateStarted;
+			m_walkAction.WalkStateFinished += OnWalkStateFinished;
 		}
 
-		void OnDisable()
+		private void OnDisable()
 		{
-			_inputListener.Moved -= UpdateMovementInput;
+			m_inputListener.Moved -= UpdateMovementInput;
 
-			_crouchAction.CrouchStateStarted -= OnCrouchStateStarted;
-			_crouchAction.CrouchStateFinished -= OnCrouchStateFinished;
+			m_crouchAction.CrouchStateStarted -= OnCrouchStateStarted;
+			m_crouchAction.CrouchStateFinished -= OnCrouchStateFinished;
 
-			_walkAction.WalkStateStarted -= OnWalkStateStarted;
-			_walkAction.WalkStateFinished -= OnWalkStateFinished;
+			m_walkAction.WalkStateStarted -= OnWalkStateStarted;
+			m_walkAction.WalkStateFinished -= OnWalkStateFinished;
 		}
 
-		void FixedUpdate()
+		private void FixedUpdate()
 		{
 			// 현재 프레임의 속도 계산 시작
 
-			_worldVelocity = WorldMoveDirection * Speed;
+			m_worldVelocity = WorldMoveDirection * Speed;
 
-			if (_applyGravity)
+			if (m_applyGravity)
 			{
-				if (_characterController.isGrounded)
+				if (m_characterController.isGrounded)
 				{
-					_worldVelocity.y = -0.1f;
+					m_worldVelocity.y = -0.1f;
 				}
 				else
 				{
-					_worldVelocity.y += _mass * Physics.gravity.y * Time.fixedDeltaTime;
+					m_worldVelocity.y += m_mass * Physics.gravity.y * Time.fixedDeltaTime;
 				}
 			}
 			else
 			{
-				_worldVelocity.y = 0.0f;
+				m_worldVelocity.y = 0.0f;
 			}
 
 			// 현재 프레임의 속도 계산 끝
 
-			var planeVelocity = new Vector3(_worldVelocity.x, 0.0f, _worldVelocity.z);
-			_isDesiredToMove = planeVelocity != Vector3.zero && _localMoveDirection != Vector3.zero;
-			_characterController.Move(_worldVelocity * Time.fixedDeltaTime);
-
+			var planeVelocity = new Vector3(m_worldVelocity.x, 0.0f, m_worldVelocity.z);
+			m_isDesiredToMove = planeVelocity != Vector3.zero && m_localMoveDirection != Vector3.zero;
+			m_characterController.Move(m_worldVelocity * Time.fixedDeltaTime);
 
 			// 회전 업데이트
 
@@ -419,7 +430,7 @@ namespace BM
 			transform.rotation = Quaternion.Euler(0.0f, targetRotation, 0.0f);
 		}
 
-		void Update()
+		private void Update()
 		{
 			GenerateFootstepImpulse();
 		}
@@ -429,7 +440,7 @@ namespace BM
 		/// 캐릭터의 전방을 그린다.
 		/// </summary>
 		[DrawGizmo(GizmoType.Active)]
-		static void DrawForwardGizmo(MoveAction target, GizmoType _)
+		private static void DrawForwardGizmo(MoveAction target, GizmoType _)
 		{
 			Gizmos.color = Color.yellow;
 			Gizmos.DrawRay(target.transform.position, target.transform.forward * 1.0f);

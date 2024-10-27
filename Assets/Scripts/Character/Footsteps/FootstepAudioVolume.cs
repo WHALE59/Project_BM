@@ -2,74 +2,54 @@ using UnityEngine;
 
 namespace BM
 {
-	[DisallowMultipleComponent]
 	[RequireComponent(typeof(BoxCollider))]
-	public class FoostepAudioVolume : MonoBehaviour
+	public abstract class FootstepAudioVolume : MonoBehaviour
 	{
-		[Tooltip("캐릭터가 볼륨 안에 진입했을 때, 재생할 발소리 정보입니다.")]
-		[SerializeField] FootstepAudioData _footstepAudioData;
+		[Header("오디오 설정")]
+		[Space()]
 
-		[Tooltip("캐릭터가 볼륨을 빠져 나갔을 때, 지정한 발소리를 잃을지에 대한 여부입니다.")]
-		[SerializeField] bool _doNotLoseDataWhenPlayerGoOutside = false;
-
-		void OnTriggerEnter(Collider other)
-		{
-			if (!other.TryGetComponent<IFootstepAudioPlayer>(out var footstepAudioPlayer))
-			{
-				return;
-			}
-
-			footstepAudioPlayer.FootstepAudioData = _footstepAudioData;
-		}
-
-		void OnTriggerExit(Collider other)
-		{
-			if (!other.TryGetComponent<IFootstepAudioPlayer>(out var footstepAudioPlayer))
-			{
-				return;
-			}
-
-			if (_doNotLoseDataWhenPlayerGoOutside)
-			{
-				return;
-			}
-
-			footstepAudioPlayer.FootstepAudioData = null;
-		}
+		[Tooltip("캐릭터가 볼륨 안에 진입했을 때, 재생할 오디오 클립 정보입니다.")]
+		[SerializeField] protected RandomAudioClipSet m_footstepAudioClipSet;
 
 #if UNITY_EDITOR
-		BoxCollider _boxCollider;
+		private BoxCollider m_boxCollider;
 
 		[Header("기즈모 설정")]
 		[Space()]
 
-		[SerializeField] Color _gizmoColor = Color.cyan;
-		[SerializeField] float _gizmoAlpha = 0.3f;
+		[SerializeField] private Color m_gizmoColor = Color.cyan;
+		[SerializeField] private float m_gizmoAlpha = 0.02f;
 
-		void Awake()
+		private void Awake()
 		{
-			_boxCollider = GetComponent<BoxCollider>();
+			m_boxCollider = GetComponent<BoxCollider>();
 		}
-
-		void OnDrawGizmos()
+		protected virtual void OnDrawGizmos()
 		{
-			if (!_boxCollider)
+			if (!m_boxCollider)
 			{
-				_boxCollider = GetComponent<BoxCollider>();
+				m_boxCollider = GetComponent<BoxCollider>();
 			}
 
 			// 외곽선
 
-			Gizmos.color = (!_doNotLoseDataWhenPlayerGoOutside ? _gizmoColor : Color.magenta) - new Color(0.0f, 0.0f, 0.0f, 1 - _gizmoAlpha);
-			Gizmos.DrawWireCube(transform.position + _boxCollider.center, _boxCollider.bounds.extents * 2);
+			Gizmos.color = m_gizmoColor - new Color(0.0f, 0.0f, 0.0f, 1 - m_gizmoAlpha);
+			Gizmos.DrawWireCube(transform.position + m_boxCollider.center, m_boxCollider.bounds.extents * 2);
 
 			// 내부
 
-			Gizmos.DrawCube(transform.position + _boxCollider.center, _boxCollider.bounds.extents * 2);
+			Gizmos.DrawCube(transform.position + m_boxCollider.center, m_boxCollider.bounds.extents * 2);
 
 			// 데이터 이름
 
-			UnityEditor.Handles.Label(transform.position + _boxCollider.center, _footstepAudioData.name);
+			if (m_footstepAudioClipSet)
+			{
+				UnityEditor.Handles.Label(transform.position + m_boxCollider.center, m_footstepAudioClipSet.name);
+			}
+			else
+			{
+				UnityEditor.Handles.Label(transform.position + m_boxCollider.center, "No Footstep Response Data Allocated");
+			}
 		}
 #endif
 	}

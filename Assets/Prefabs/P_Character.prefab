@@ -194,11 +194,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e79220c198b64ab4e9906f37742d64c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isCrouchToggle: 0
-  _isWalkToggle: 0
-  _inputVisualizerPrefab: {fileID: 150004795554584939, guid: c917b8aab84e1084090517e0a6066bcb,
+  m_isCrouchToggle: 0
+  m_isWalkToggle: 0
+  m_inputVisualizerPrefab: {fileID: 150004795554584939, guid: c917b8aab84e1084090517e0a6066bcb,
     type: 3}
-  _shouldVisuzlieInputs: 1
+  m_shouldVisuzlieInputs: 1
 --- !u!114 &676317188041148196
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249,30 +249,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 222d2e353ef8398418ea1c70010374b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speedOnStandJog: 6
-  _speedOnCrouchedJog: 2
-  _speedOnStandWalk: 4
-  _speedOnCrouchedWalk: 2
-  _mass: 50
-  _applyGravity: 1
-  _footstepImpulsePeriodOnStandJog: 0.55
-  _footstepImpulsePeriodOnStandWalk: 0.7
-  _footstepImpulsePeriodOnCrouchedJog: 0.8
-  _footstepImpulsePeriodOnCrouchedWalk: 0.8
-  _footstepImpulseForceOnStandJog: 0.7
-  _footstepImpulseForceOnStandWalk: 0.4
-  _footstepImpulseForceOnCrouchedJog: 0.3
-  _footstepImpulseForceOnCrouchedWalk: 0.3
-  _applyFootstepSound: 1
-  _footstepAudioMasterVolume: 1
-  _footstepAudioStereoPan: 0.085
-  _footstepAudioDataFallback: {fileID: 11400000, guid: 8b11e80798cd2064b890c0c633bbe4de,
+  m_speedOnStandJog: 7
+  m_speedOnCrouchedJog: 2
+  m_speedOnStandWalk: 4
+  m_speedOnCrouchedWalk: 2
+  m_mass: 50
+  m_applyGravity: 1
+  m_footstepImpulsePeriodOnStandJog: 0.35
+  m_footstepImpulsePeriodOnStandWalk: 0.6
+  m_footstepImpulsePeriodOnCrouchedJog: 0.8
+  m_footstepImpulsePeriodOnCrouchedWalk: 0.8
+  m_footstepImpulseForceOnStandJog: 1
+  m_footstepImpulseForceOnStandWalk: 1.75
+  m_footstepImpulseForceOnCrouchedJog: 0.5714286
+  m_footstepImpulseForceOnCrouchedWalk: 0.3
+  m_applyFootstepBaseAudio: 1
+  m_footstepBaseAudioMasterVolume: 0.7
+  m_footstepAudioStereoPan: 0.085
+  m_footstepBaseAudioDataFallback: {fileID: 11400000, guid: 38bfbe5285337db408bffae2c46ea3b8,
     type: 2}
-  _applyFootstepCameraShake: 1
-  _footstepCameraShakeMasterForce: 0.55
-  _footstepCameraShakeShape: 2
-  _footstepCameraShakeDuration: 0.5
-  _footstepCameraShakeDefaultVelocity: {x: 0, y: -0.125, z: 0}
+  m_applyFootstepCameraShake: 1
+  m_footstepCameraShakeMasterForce: 1
+  m_footstepCameraShakeShape: 1
+  m_footstepCameraShakeDuration: 0.2
+  m_footstepCameraShakeDefaultVelocity: {x: 0, y: -0.125, z: 0}
 --- !u!114 &7504193253473327663
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -285,8 +285,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39595121c1fd8ff41ba1c0bf38491f2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxDistance: 10
-  _interactableUI: {fileID: 0}
+  m_maxDistance: 10
+  m_interactableUI: {fileID: 0}
 --- !u!114 &4786773339971439026
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -341,14 +341,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ImpulseDefinition:
     m_ImpulseChannel: 1
-    m_ImpulseShape: 2
+    m_ImpulseShape: 1
     m_CustomImpulseShape:
       serializedVersion: 2
       m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    m_ImpulseDuration: 0.25
+    m_ImpulseDuration: 0.2
     m_ImpulseType: 0
     m_DissipationRate: 0.25
     m_RawSignal: {fileID: 0}
