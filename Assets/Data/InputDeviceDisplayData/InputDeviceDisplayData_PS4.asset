@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5266180533309c245ad991c1d311bed8, type: 3}
+  m_Name: InputDeviceDisplayData_PS4
+  m_EditorClassIdentifier: 
+  displayName: PlayStation4
+  ButtonNorth: {fileID: 21300000, guid: 72bbdf5c15867b941ac7f79185b77555, type: 3}
+  ButtonSouth: {fileID: 21300000, guid: 766e476b580fa2342a66ce531482d164, type: 3}
+  ButtonWest: {fileID: 21300000, guid: 5650772324f737c4692e4ee41e15c9da, type: 3}
+  ButtonEast: {fileID: 21300000, guid: 0cabbcedf5c82444b8cc57c6adfae34d, type: 3}
+  TriggerRightFront: {fileID: 21300000, guid: 844dc6b26ef8d404498a011f84d2352e, type: 3}
+  TriggerRightBack: {fileID: 21300000, guid: 74b024f118217924d99798bf923d2d2e, type: 3}
+  TriggerLeftFront: {fileID: 21300000, guid: c1d4a19b47662e843a6b4aac1dfbd7f0, type: 3}
+  TriggerLeftBack: {fileID: 21300000, guid: ac37aede1951f9e41860895428f801b1, type: 3}
+  ClickRightStick: {fileID: 21300000, guid: 5f16fc2f989c8b740a47647d285d867b, type: 3}
+  ClickLeftStick: {fileID: 21300000, guid: c9f67eb2a39c6104e85ea83d2a617c8f, type: 3}

@@ -16,53 +16,50 @@ namespace BM
 	[DisallowMultipleComponent]
 	public class InputListener : MonoBehaviour
 	{
-		// Character ActionMap Events
-		// 참고: delegate {} 로 null이 아니게 만들어 줘야 매 입력받을 때마다 null 체크를 생략할 수 있음.
-
-		// Move
 		public event UnityAction<Vector2> Moved = delegate { };
 		public event UnityAction<Vector2> Looked = delegate { };
 
-		// Crouch
 		public event UnityAction CrouchStarted = delegate { };
 		public event UnityAction CrouchFinished = delegate { };
-		bool _isCrouchPerformed = false;
-		[Tooltip("Crouch 입력을 토글로 받을지에 대한 여부입니다.")]
-		[SerializeField] bool _isCrouchToggle = false;
 
-		// Walk
 		public event UnityAction WalkStarted = delegate { };
 		public event UnityAction WalkFinished = delegate { };
-		bool _isWalkPerformed = false;
-		[Tooltip("Walk 입력을 토글로 받을지에 대한 여부입니다.")]
-		[SerializeField] bool _isWalkToggle = false;
 
-		// Interact
 		public event UnityAction InteractStarted = delegate { };
-		public event UnityAction<double> InteractHolded = delegate { };
 		public event UnityAction InteractFinished = delegate { };
 
-		// Use
 		public event UnityAction UseStarted = delegate { };
-		public event UnityAction<double> UseHolded = delegate { };
 		public event UnityAction UseFinished = delegate { };
+
+		private bool m_isCrouchPerformed = false;
+		private bool m_isWalkPerformed = false;
+
+		[Tooltip("Crouch 입력을 토글로 받을지에 대한 여부입니다.")]
+		[SerializeField] private bool m_isCrouchToggle = false;
+
+		[Tooltip("Walk 입력을 토글로 받을지에 대한 여부입니다.")]
+		[SerializeField] private bool m_isWalkToggle = false;
+
+		private bool IsContextPerformed(in InputAction.CallbackContext context) => context.phase == InputActionPhase.Performed;
+
+		private bool IsContextCancled(in InputAction.CallbackContext context) => context.phase == InputActionPhase.Canceled;
 
 #if UNITY_EDITOR
 		[Header("Visualize Inputs for Debug")]
 
-		InputVisualizer _inputVisualizer;
-		[SerializeField] InputVisualizer _inputVisualizerPrefab;
-		[SerializeField] bool _shouldVisuzlieInputs = true;
+		private InputVisualizer m_inputVisualizer;
+		[SerializeField] private InputVisualizer m_inputVisualizerPrefab;
+		[SerializeField] private bool m_shouldVisuzlieInputs = true;
 #endif
-		void Awake()
+		private void Awake()
 		{
 			InstantiateInputVisualizer();
 		}
 
 #if UNITY_EDITOR
-		void OnValidate()
+		private void OnValidate()
 		{
-			_inputVisualizer?.gameObject.SetActive(_shouldVisuzlieInputs);
+			m_inputVisualizer?.gameObject.SetActive(m_shouldVisuzlieInputs);
 		}
 #endif
 
@@ -82,10 +79,6 @@ namespace BM
 			{
 				InteractStarted.Invoke();
 			}
-			else if (IsContextHolded(context))
-			{
-				InteractHolded.Invoke(context.duration);
-			}
 			else if (IsContextCancled(context))
 			{
 				InteractFinished.Invoke();
@@ -98,10 +91,6 @@ namespace BM
 			{
 				UseStarted.Invoke();
 			}
-			else if (IsContextHolded(context))
-			{
-				UseHolded.Invoke(context.duration);
-			}
 			else if (IsContextCancled(context))
 			{
 				UseFinished.Invoke();
@@ -110,7 +99,7 @@ namespace BM
 
 		public void OnCrouch(InputAction.CallbackContext context)
 		{
-			if (!_isCrouchToggle)
+			if (!m_isCrouchToggle)
 			{
 				if (IsContextPerformed(context))
 				{
@@ -125,7 +114,7 @@ namespace BM
 			{
 				if (IsContextPerformed(context))
 				{
-					if (!_isCrouchPerformed)
+					if (!m_isCrouchPerformed)
 					{
 						CrouchStarted.Invoke();
 					}
@@ -134,14 +123,14 @@ namespace BM
 						CrouchFinished.Invoke();
 					}
 
-					_isCrouchPerformed = !_isCrouchPerformed;
+					m_isCrouchPerformed = !m_isCrouchPerformed;
 				}
 			}
 		}
 
 		public void OnWalk(InputAction.CallbackContext context)
 		{
-			if (!_isWalkToggle)
+			if (!m_isWalkToggle)
 			{
 				if (IsContextPerformed(context))
 				{
@@ -156,7 +145,7 @@ namespace BM
 			{
 				if (IsContextPerformed(context))
 				{
-					if (!_isWalkPerformed)
+					if (!m_isWalkPerformed)
 					{
 						WalkStarted.Invoke();
 					}
@@ -165,34 +154,28 @@ namespace BM
 						WalkFinished.Invoke();
 					}
 
-					_isWalkPerformed = !_isWalkPerformed;
+					m_isWalkPerformed = !m_isWalkPerformed;
 				}
 			}
 		}
 
-		bool IsContextPerformed(in InputAction.CallbackContext context) => context.phase == InputActionPhase.Performed;
-
-		bool IsContextCancled(in InputAction.CallbackContext context) => context.phase == InputActionPhase.Canceled;
-
-		// TODO : 의도한 대로 작동하지 않음
-		bool IsContextHolded(in InputAction.CallbackContext context) => InputActionPhase.Performed < context.phase && context.phase < InputActionPhase.Canceled;
 
 		[System.Diagnostics.Conditional("UNITY_EDITOR")]
 		void InstantiateInputVisualizer()
 		{
 #if UNITY_EDITOR
-			if (!_inputVisualizerPrefab)
+			if (!m_inputVisualizerPrefab)
 			{
 				Debug.LogWarning("입력 시각화 오브젝트가 할당되지 않았습니다.");
 				return;
 			}
 
-			_inputVisualizer = Instantiate(_inputVisualizerPrefab);
-			_inputVisualizer.transform.SetParent(transform);
+			m_inputVisualizer = Instantiate(m_inputVisualizerPrefab);
+			m_inputVisualizer.transform.SetParent(transform);
 
-			if (!_shouldVisuzlieInputs)
+			if (!m_shouldVisuzlieInputs)
 			{
-				_inputVisualizer.gameObject.SetActive(false);
+				m_inputVisualizer.gameObject.SetActive(false);
 			}
 #endif
 		}

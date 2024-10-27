@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0025bb4b948b0048bec4fd42b766f4c, type: 3}
+  m_Name: FresnelEffectData_Default
+  m_EditorClassIdentifier: 
+  m_primaryColor: {r: 1, g: 0, b: 0, a: 1}
+  m_secondaryColor: {r: 0, g: 1, b: 0.15721321, a: 1}
+  m_amount: 0.271
+  m_contrast: 4.66
+  m_range: 4.83
+  m_timeSpeed: 6.73

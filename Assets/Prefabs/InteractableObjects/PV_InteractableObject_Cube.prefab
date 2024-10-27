@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 32051836e4853ec499047ee247960653, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -126,22 +126,22 @@ PrefabInstance:
     - target: {fileID: 5573878110423444819, guid: e6defa8b38c5df7409e0eceeedff85fe,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.948748
+      value: 27.268
       objectReference: {fileID: 0}
     - target: {fileID: 5573878110423444819, guid: e6defa8b38c5df7409e0eceeedff85fe,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.99
+      value: 2.04
       objectReference: {fileID: 0}
     - target: {fileID: 5573878110423444819, guid: e6defa8b38c5df7409e0eceeedff85fe,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.9474504
+      value: -20.622
       objectReference: {fileID: 0}
     - target: {fileID: 5573878110423444819, guid: e6defa8b38c5df7409e0eceeedff85fe,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.938841
+      value: 0.97062016
       objectReference: {fileID: 0}
     - target: {fileID: 5573878110423444819, guid: e6defa8b38c5df7409e0eceeedff85fe,
         type: 3}
@@ -151,7 +151,7 @@ PrefabInstance:
     - target: {fileID: 5573878110423444819, guid: e6defa8b38c5df7409e0eceeedff85fe,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.344351
+      value: 0.24061695
       objectReference: {fileID: 0}
     - target: {fileID: 5573878110423444819, guid: e6defa8b38c5df7409e0eceeedff85fe,
         type: 3}
@@ -166,7 +166,7 @@ PrefabInstance:
     - target: {fileID: 5573878110423444819, guid: e6defa8b38c5df7409e0eceeedff85fe,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 40.284
+      value: 27.846
       objectReference: {fileID: 0}
     - target: {fileID: 5573878110423444819, guid: e6defa8b38c5df7409e0eceeedff85fe,
         type: 3}
@@ -176,6 +176,12 @@ PrefabInstance:
     - target: {fileID: 8816579522675030651, guid: e6defa8b38c5df7409e0eceeedff85fe,
         type: 3}
       propertyPath: _interactableObjectData
+      value: 
+      objectReference: {fileID: 11400000, guid: d762230001c83cb40b412e5145eb88a1,
+        type: 2}
+    - target: {fileID: 8816579522675030651, guid: e6defa8b38c5df7409e0eceeedff85fe,
+        type: 3}
+      propertyPath: m_interactableObjectData
       value: 
       objectReference: {fileID: 11400000, guid: d762230001c83cb40b412e5145eb88a1,
         type: 2}
