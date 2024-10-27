@@ -21,9 +21,9 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_Sandwatch_01
-  m_Shader: {fileID: -6465566751694194690, guid: 12aad2f7c5f1fa443a46e30d8854666d,
+  m_Shader: {fileID: -6465566751694194690, guid: 9225edde559a6b443aba3514ccc1e81e,
     type: 3}
-  m_Parent: {fileID: 2100000, guid: e0f43663f7198c34daeaa2dd02bed89c, type: 2}
+  m_Parent: {fileID: 2100000, guid: 1f7fcbcb2ed18874f8a2906666c55da8, type: 2}
   m_ModifiedSerializedProperties: 4
   m_ValidKeywords: []
   m_InvalidKeywords: []
