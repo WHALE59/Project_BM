@@ -75,22 +75,22 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _01_GrungeMap_BlendAmount: 1.25
-    - _01_GrungeMap_BlendContrast: 6.54
+    - _01_GrungeMap_BlendAmount: 1.5
+    - _01_GrungeMap_BlendContrast: 6.64
     - _01_GrungeMap_BlendPower: 0.21
-    - _01_GrungeMap_Tiling: 0.08
-    - _02_GrungeMap_BlendAmount: 2.06
-    - _02_GrungeMap_BlendContrast: 1.7
+    - _01_GrungeMap_Tiling: 0.21
+    - _02_GrungeMap_BlendAmount: 6.82
+    - _02_GrungeMap_BlendContrast: 0.71
     - _02_GrungeMap_BlendPower: 1.49
     - _02_GrungeMap_Tiling: 0.1
     - _Depth: -13.5
-    - _GrundgeMap_Mixin: 1.02
+    - _GrundgeMap_Mixin: 0.69
     - _Intersection_amount: 0
     - _IsUsedSecondTexture: 1
     - _Normal_Intensity: 8
-    - _Pixelize_Amount: 337
-    - _Pixelize_Grunge: 0.6
-    - _Pixelize_Grunge2: 4.12
+    - _Pixelize_Amount: 500
+    - _Pixelize_Grunge: 0
+    - _Pixelize_Grunge2: 3.27
     - _Pixelize_step: 42.1
     - _RoughnessContrast: 2
     - _RoughnessPower: 0.752

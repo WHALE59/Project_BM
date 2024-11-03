@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0705a54eca9de414e90fa1ef3bd38fcd
+guid: 5d53d549d69fa724aab670a45424188a
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,8 +7,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: default_material
-    second: {fileID: 2100000, guid: 0d83287ce7886704b95686184145e4d7, type: 2}
+      name: M_Emssive_01
+    second: {fileID: 2100000, guid: 73ba2d2f4d0438740a1544bb09d27358, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Metal_01
+    second: {fileID: 2100000, guid: 32e1a19ce75a08d4785b57eb54b1d13e, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -47,9 +52,9 @@ ModelImporter:
     sortHierarchyByName: 1
     importPhysicalCameras: 1
     importVisibility: 1
-    importBlendShapes: 0
-    importCameras: 0
-    importLights: 0
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
     nodeNameCollisionStrategy: 1
     fileIdsGeneration: 2
     swapUVChannels: 0

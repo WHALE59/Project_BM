@@ -7,38 +7,33 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MM_Billboard
-  m_Shader: {fileID: -6465566751694194690, guid: 5e47bc1831b707b41b00dd40ed19bddd,
+  m_Name: MM_Emssive
+  m_Shader: {fileID: -6465566751694194690, guid: 074425de975cb3640b6afa608442523c,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - _ALPHATEST_ON
-  - _SURFACE_TYPE_TRANSPARENT
+  m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
-  stringTagMap:
-    RenderType: Transparent
-  disabledShaderPasses:
-  - DepthOnly
-  - SHADOWCASTER
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _Basscol_alpha:
-        m_Texture: {fileID: 2800000, guid: 2c06594c4a6030149acd1208e6e00c66, type: 3}
+    - _01_BaseCol:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Mask:
-        m_Texture: {fileID: 2800000, guid: 2c06594c4a6030149acd1208e6e00c66, type: 3}
+    - _01_Masked:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Normal:
-        m_Texture: {fileID: 2800000, guid: 630030f202330754389835197856be3f, type: 3}
+    - _01_Normal:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -55,33 +50,19 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AlphaClip: 1
-    - _AlphaToMask: 0
-    - _Alpha_Contrast: 1
-    - _Alpha_amount: 0
-    - _Blend: 0
-    - _BlendModePreserveSpecular: 1
-    - _CastShadows: 0
-    - _Cull: 2
-    - _Depth_Alpha: -16
-    - _DstBlend: 10
-    - _Normal_Intensity: 1
-    - _PixelizeAmount: 50
+    - _Depth: -16
+    - _Emssive_Power: 0
+    - _IsUsedSecondTexture: 0
+    - _Normal_Intensity: 0
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _ReceiveShadows: 1
-    - _Roughnesss_Amount: 0
-    - _SrcBlend: 5
-    - _Surface: 1
-    - _WorkflowMode: 1
-    - _ZTest: 4
-    - _ZWrite: 0
-    - _ZWriteControl: 0
-    - _depth: 12
+    - _RoughnessContrast: 0.5
+    - _RoughnessPower: 0.5
     m_Colors:
-    - _Tint: {r: 1, g: 1, b: 1, a: 0}
+    - _Emissive_Color: {r: 0, g: 0, b: 0, a: 0}
+    - _Tint_Color: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []
---- !u!114 &1840986002488148669
+--- !u!114 &3008154213295037890
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}

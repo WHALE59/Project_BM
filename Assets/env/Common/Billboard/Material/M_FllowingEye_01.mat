@@ -14,13 +14,14 @@ Material:
   m_ModifiedSerializedProperties: 16
   m_ValidKeywords:
   - _ALPHATEST_ON
+  - _SURFACE_TYPE_TRANSPARENT
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2450
+  m_CustomRenderQueue: 3000
   stringTagMap:
-    RenderType: TransparentCutout
+    RenderType: Transparent
   disabledShaderPasses:
   - SHADOWCASTER
   m_LockedProperties: 
@@ -41,20 +42,25 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AlphaToMask: 1
-    - _Alpha_Contrast: 0.85
-    - _Alpha_amount: -0.45
+    - _AlphaClip: 1
+    - _AlphaToMask: 0
+    - _Alpha_Contrast: 1.14
+    - _Alpha_amount: -0.44
+    - _Blend: 2
     - _CastShadows: 0
+    - _Cull: 2
     - _Depth_Alpha: -100
-    - _DstBlend: 0
-    - _Normal_Intensity: 0
-    - _PixelizeAmount: 109
+    - _DstBlend: 1
+    - _Normal_Intensity: -0.74
+    - _PixelizeAmount: 913
     - _ReceiveShadows: 1
-    - _Roughnesss_Amount: -5
-    - _SrcBlend: 1
-    - _Surface: 0
+    - _Roughnesss_Amount: 0
+    - _SrcBlend: 5
+    - _Surface: 1
+    - _ZTest: 2
     - _ZWrite: 1
-    - _depth: 50
+    - _ZWriteControl: 1
+    - _depth: 100
     m_Colors: []
   m_BuildTextureStacks: []
 --- !u!114 &1352913229493725173
