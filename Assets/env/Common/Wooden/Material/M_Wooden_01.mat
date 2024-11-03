@@ -21,14 +21,14 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_Wooden_01
-  m_Shader: {fileID: -6465566751694194690, guid: 33995dbfd006d294497ffef97b7b780d,
+  m_Shader: {fileID: -6465566751694194690, guid: c42d45f6c2c41734cae712e2935c45a0,
     type: 3}
-  m_Parent: {fileID: 2100000, guid: b196c96840b6e4147a579b6e3999fc0c, type: 2}
-  m_ModifiedSerializedProperties: 10
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 2
-  m_EnableInstancingVariants: 0
+  m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
@@ -39,6 +39,14 @@ Material:
     m_TexEnvs:
     - _01_BaseCol:
         m_Texture: {fileID: 2800000, guid: 58ed44f0cd0232a42ad78d2bf5fa7a8e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _01_GrungeMap:
+        m_Texture: {fileID: 2800000, guid: d7d103b08c060684f902990f417741ce, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _01_GrungeMap01:
+        m_Texture: {fileID: 2800000, guid: b602c2eee6a072940b3c2f1933148657, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _01_Masked:
@@ -53,6 +61,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: a5af0dc9119c3084bafa1ecdfb57aae8, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _02_GrungeMap02:
+        m_Texture: {fileID: 2800000, guid: d7d103b08c060684f902990f417741ce, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _02_Masked:
         m_Texture: {fileID: 2800000, guid: e8879efc59cd69f4686a3b29524eee0c, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -61,8 +73,40 @@ Material:
         m_Texture: {fileID: 2800000, guid: bc98e5806b00ffb4890abe67518af673, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _MainTexture:
+        m_Texture: {fileID: 2800000, guid: 58ed44f0cd0232a42ad78d2bf5fa7a8e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Metalic:
+        m_Texture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Normal:
         m_Texture: {fileID: 2800000, guid: 8a9f27360671cf041b48d828d5a36a94, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalTexture:
+        m_Texture: {fileID: 2800000, guid: f08dde60f9a13fd4fa4315d7fc286c3b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Roghness:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_2a40aeaade004c329f2cc1c9103cacad_Out_0_Texture2D:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
@@ -81,7 +125,7 @@ Material:
     - _Intersection_amount: 0.5
     - _Intersection_power: 0.08
     - _IsUsedSecondTexture: 1
-    - _Normal_Intensity: 15
+    - _Normal_Intensity: 50
     - _Pixelize_Amount: 314
     - _Pixelize_Grunge: 2.5
     - _Pixelize_Grunge2: 2
