@@ -13,7 +13,7 @@ namespace BM
 				return;
 			}
 
-			if (!collider.TryGetComponent<MoveAction>(out var moveAction))
+			if (!collider.TryGetComponent<LocomotiveActions>(out var moveAction))
 			{
 				return;
 			}
@@ -33,7 +33,7 @@ namespace BM
 				return;
 			}
 
-			if (!collider.TryGetComponent<MoveAction>(out var moveAction))
+			if (!collider.TryGetComponent<LocomotiveActions>(out var moveAction))
 			{
 				return;
 			}

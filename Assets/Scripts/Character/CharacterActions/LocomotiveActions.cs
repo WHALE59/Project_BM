@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 
 using UnityEngine;
 
@@ -10,17 +11,16 @@ using UnityEditor;
 
 namespace BM
 {
-	/// <summary>
-	/// 입력으로부터 Vector3형 방향 정보를 받아서, 캐릭터를 해당 방향으로 지정 속도만큼 이동시킨다.
-	/// </summary>
 	[DisallowMultipleComponent]
 	[RequireComponent(typeof(CharacterController))]
-	[RequireComponent(typeof(InputListener))]
 	[RequireComponent(typeof(CinemachineImpulseSource))]
 	[RequireComponent(typeof(AudioSource))]
-	public class MoveAction : MonoBehaviour
+	public class LocomotiveActions : MonoBehaviour
 	{
-		public Action<float> Footstepped;
+		public event Action<float> Footstepped;
+		public event Action<Vector3, float, float> CharacterCapsuleSizeChanged;
+
+		[SerializeField] InputReader m_inputReader;
 
 		// TODO : 제대로 된 스테이트 머신이 나오면 상태 관리를 더 세분화 할 것.
 		public enum EGaitState
@@ -46,20 +46,15 @@ namespace BM
 		private bool m_isDesiredToMove;
 
 		private CharacterController m_characterController;
-		private InputListener m_inputListener;
-
-		private CrouchAction m_crouchAction;
 		private EStanceState m_stanceState = EStanceState.Stand;
-
-		private WalkAction m_walkAction;
 		private EGaitState m_gaitState = EGaitState.Jog;
 
 		[Header("이동 속도 설정")]
 		[Space()]
-		[SerializeField] private float m_speedOnStandJog = 7.0f; // 10.0f; 
-		[SerializeField] private float m_speedOnCrouchedJog = 2.0f; // 5.0f;
-		[SerializeField] private float m_speedOnStandWalk = 4.0f; // 5.0f;
-		[SerializeField] private float m_speedOnCrouchedWalk = 2.0f; // 2.5f;
+		[SerializeField] private float m_speedOnStandJog = 7.0f;
+		[SerializeField] private float m_speedOnCrouchedJog = 2.0f;
+		[SerializeField] private float m_speedOnStandWalk = 4.0f;
+		[SerializeField] private float m_speedOnCrouchedWalk = 2.0f;
 
 		[Header("이동 주체의 물리적 특징 설정")]
 		[Space()]
@@ -78,17 +73,17 @@ namespace BM
 		[Header("Footstep Impulse 설정 - 주기")]
 		[Space()]
 
-		[SerializeField] private float m_footstepImpulsePeriodOnStandJog = 0.35f; // 0.25f;
-		[SerializeField] private float m_footstepImpulsePeriodOnStandWalk = 0.6f; // 0.4f;
-		[SerializeField] private float m_footstepImpulsePeriodOnCrouchedJog = 0.8f; // 0.4f;
-		[SerializeField] private float m_footstepImpulsePeriodOnCrouchedWalk = 0.8f; // 0.6f;
+		[SerializeField] private float m_footstepImpulsePeriodOnStandJog = 0.35f;
+		[SerializeField] private float m_footstepImpulsePeriodOnStandWalk = 0.6f;
+		[SerializeField] private float m_footstepImpulsePeriodOnCrouchedJog = 0.8f;
+		[SerializeField] private float m_footstepImpulsePeriodOnCrouchedWalk = 0.8f;
 
 		[Header("Footstep Impulse 설정 - 세기")]
 		[Space()]
 
 		[SerializeField] private float m_footstepImpulseForceOnStandJog = 1.0f;
-		[SerializeField] private float m_footstepImpulseForceOnStandWalk = 0.7f / 0.4f; // 0.4f;
-		[SerializeField] private float m_footstepImpulseForceOnCrouchedJog = 0.4f / 0.7f; // 0.4f;
+		[SerializeField] private float m_footstepImpulseForceOnStandWalk = 0.7f / 0.4f;
+		[SerializeField] private float m_footstepImpulseForceOnCrouchedJog = 0.4f / 0.7f;
 		[SerializeField] private float m_footstepImpulseForceOnCrouchedWalk = 0.3f;
 
 		[Header("Footstep Audio 설정")]
@@ -119,12 +114,28 @@ namespace BM
 		[SerializeField] private float m_footstepCameraShakeDuration = 0.2f;
 		[SerializeField] private Vector3 m_footstepCameraShakeDefaultVelocity = new(0.0f, -0.125f, 0.0f);
 
+		[SerializeField] private Transform m_cameraTarget;
 
 		private bool m_isLeftFootstep = false;
 
 		private CinemachineImpulseSource m_impulseSource;
 		private float m_elapsedTimeAfterLastFootstepImpulse;
 		private AudioSource m_footstepAudioBaseSource;
+
+		private float m_normalCapsuleHeight;
+		private Vector3 m_normalCapsuleCenter;
+		private Vector3 m_normalVcamLocalPosition;
+
+		// TODO : 임시로 자기 자신을 제외한 모든 레이어로 설정
+		private int m_crouchCollisionLayerMask = ~(1 << 3);
+
+		[SerializeField] private float m_crouchDuration = 0.25f;
+		[SerializeField] private float m_crouchedRatio = 0.5f;
+
+#if UNITY_EDITOR
+		private bool m_isStuckedWhileCrouching = false;
+		private RaycastHit m_crouchHitInfo;
+#endif
 
 		private float Speed
 		{
@@ -243,15 +254,10 @@ namespace BM
 			}
 		}
 
-		private void UpdateMovementInput(Vector2 moveInput) => m_localMoveDirection = new Vector3(moveInput.x, 0.0f, moveInput.y);
-
-		private void OnWalkStateStarted() => m_gaitState = EGaitState.Walk;
-
-		private void OnWalkStateFinished() => m_gaitState = EGaitState.Jog;
-
-		private void OnCrouchStateStarted() => m_stanceState = EStanceState.Crouched;
-
-		private void OnCrouchStateFinished() => m_stanceState = EStanceState.Stand;
+		private void UpdateLocamMoveDirection(Vector2 moveInput)
+		{
+			m_localMoveDirection = new Vector3(moveInput.x, 0.0f, moveInput.y);
+		}
 
 		private void GenerateFootstepImpulse()
 		{
@@ -332,6 +338,99 @@ namespace BM
 			m_isLeftFootstep = !m_isLeftFootstep;
 		}
 
+		private void OnCapsuleSizeChanged(Vector3 capsuleCenter, float capsuleHeight, float capsuleRadius)
+		{
+			if (!m_cameraTarget)
+			{
+				return;
+			}
+
+			var targetLocalPosition = capsuleCenter;
+			targetLocalPosition.y += (capsuleHeight - capsuleRadius) / 2.0f;
+
+			m_cameraTarget.localPosition = targetLocalPosition;
+		}
+
+		private void StartCrouch()
+		{
+			m_stanceState = EStanceState.Crouched;
+
+			StopAllCoroutines();
+
+#if UNITY_EDITOR
+			m_isStuckedWhileCrouching = false;
+#endif
+			StartCoroutine(CrouchRoutine(isCrouchingUp: false));
+		}
+
+		private void FinishCrouch()
+		{
+			StopAllCoroutines();
+			StartCoroutine(CrouchRoutine(isCrouchingUp: true));
+		}
+
+		private void StartWalk()
+		{
+			m_gaitState = EGaitState.Walk;
+		}
+
+		private void FinishWalk()
+		{
+			m_gaitState = EGaitState.Jog;
+		}
+
+		private IEnumerator CrouchRoutine(bool isCrouchingUp)
+		{
+			var startCapsuleHeight = m_characterController.height;
+			var startCapsuleCenter = m_characterController.center;
+
+			var crouchedCapsuleHeight = m_normalCapsuleHeight * m_crouchedRatio;
+			var crouchedCapsuleCenter = m_normalCapsuleCenter - new Vector3(0.0f, m_normalCapsuleHeight * (1 - m_crouchedRatio) / 2.0f, 0.0f);
+
+			var endCapsuleHeight = isCrouchingUp ? m_normalCapsuleHeight : crouchedCapsuleHeight;
+			var endCapsuleCenter = isCrouchingUp ? m_normalCapsuleCenter : crouchedCapsuleCenter;
+
+			var elapsedTime = 0.0f;
+
+			while (elapsedTime < m_crouchDuration)
+			{
+				var isStuckedWhileCrouching =
+#if !UNITY_EDITOR
+					Physics.Raycast(transform.position, transform.up, m_normalCapsuleHeight / 2.0f, m_crouchCollisionLayerMask);
+#else
+					Physics.Raycast(transform.position, transform.up, out m_crouchHitInfo, m_normalCapsuleHeight / 2.0f, m_crouchCollisionLayerMask);
+				m_isStuckedWhileCrouching = isStuckedWhileCrouching;
+#endif
+
+				while (isCrouchingUp && isStuckedWhileCrouching)
+				{
+					yield return new WaitForFixedUpdate();
+				}
+
+				elapsedTime += Time.fixedDeltaTime;
+
+				var ratio = Mathf.Clamp01(elapsedTime / m_crouchDuration);
+
+				m_characterController.height = Mathf.Lerp(startCapsuleHeight, endCapsuleHeight, ratio);
+				m_characterController.center = Vector3.Lerp(startCapsuleCenter, endCapsuleCenter, ratio);
+
+				CharacterCapsuleSizeChanged?.Invoke(m_characterController.center, m_characterController.height, m_characterController.radius);
+
+				yield return new WaitForFixedUpdate();
+			}
+
+			m_characterController.height = endCapsuleHeight;
+			m_characterController.center = endCapsuleCenter;
+
+			CharacterCapsuleSizeChanged?.Invoke(m_characterController.center, m_characterController.height, m_characterController.radius);
+
+			// if up, crouch state finished in here
+			if (isCrouchingUp)
+			{
+				m_stanceState = EStanceState.Stand;
+			}
+		}
+
 		private void Awake()
 		{
 			m_characterController = GetComponent<CharacterController>();
@@ -344,17 +443,10 @@ namespace BM
 			m_impulseSource.m_ImpulseDefinition.m_ImpulseDuration = m_footstepCameraShakeDuration;
 			m_impulseSource.m_DefaultVelocity = m_footstepCameraShakeDefaultVelocity;
 
-			m_inputListener = GetComponent<InputListener>();
-
-			m_crouchAction = GetComponent<CrouchAction>();
-			m_walkAction = GetComponent<WalkAction>();
+			m_normalCapsuleHeight = m_characterController.height;
+			m_normalCapsuleCenter = m_characterController.center;
 
 #if UNITY_EDITOR
-			if (!m_walkAction || !m_crouchAction)
-			{
-				Debug.LogWarning("CrouchAction 혹은 WalkAction을 찾을 수 없습니다.");
-			}
-
 			if (!m_footstepBaseAudioDataFallback)
 			{
 				Debug.LogWarning("FootstepBaseAudioDataFallback이 할당되지 않았습니다.");
@@ -371,29 +463,42 @@ namespace BM
 				m_impulseSource.m_ImpulseDefinition.m_ImpulseDuration = m_footstepCameraShakeDuration;
 				m_impulseSource.m_DefaultVelocity = m_footstepCameraShakeDefaultVelocity;
 			}
+
+			if (m_characterController)
+			{
+				m_normalCapsuleHeight = m_characterController.height;
+				m_normalCapsuleCenter = m_characterController.center;
+			}
 		}
 #endif
 
 		private void OnEnable()
 		{
-			m_inputListener.Moved += UpdateMovementInput;
+			m_inputReader.MoveInputEvent += UpdateLocamMoveDirection;
+			m_inputReader.CrouchInputPerformed += StartCrouch;
+			m_inputReader.CrouchInputCanceled += FinishCrouch;
 
-			m_crouchAction.CrouchStateStarted += OnCrouchStateStarted;
-			m_crouchAction.CrouchStateFinished += OnCrouchStateFinished;
+			m_inputReader.WalkInputPerformed += StartWalk;
+			m_inputReader.WalkInputCanceled += FinishWalk;
 
-			m_walkAction.WalkStateStarted += OnWalkStateStarted;
-			m_walkAction.WalkStateFinished += OnWalkStateFinished;
+			CharacterCapsuleSizeChanged += OnCapsuleSizeChanged;
 		}
 
 		private void OnDisable()
 		{
-			m_inputListener.Moved -= UpdateMovementInput;
+			m_inputReader.MoveInputEvent -= UpdateLocamMoveDirection;
+			m_inputReader.CrouchInputPerformed -= StartCrouch;
+			m_inputReader.CrouchInputCanceled -= FinishCrouch;
 
-			m_crouchAction.CrouchStateStarted -= OnCrouchStateStarted;
-			m_crouchAction.CrouchStateFinished -= OnCrouchStateFinished;
+			m_inputReader.WalkInputPerformed -= StartWalk;
+			m_inputReader.WalkInputCanceled -= FinishWalk;
 
-			m_walkAction.WalkStateStarted -= OnWalkStateStarted;
-			m_walkAction.WalkStateFinished -= OnWalkStateFinished;
+			CharacterCapsuleSizeChanged -= OnCapsuleSizeChanged;
+		}
+
+		private void Start()
+		{
+			CharacterCapsuleSizeChanged?.Invoke(m_characterController.center, m_characterController.height, m_characterController.radius);
 		}
 
 		private void FixedUpdate()
@@ -440,12 +545,23 @@ namespace BM
 		/// 캐릭터의 전방을 그린다.
 		/// </summary>
 		[DrawGizmo(GizmoType.Active)]
-		private static void DrawForwardGizmo(MoveAction target, GizmoType _)
+		private static void DrawForwardGizmo(LocomotiveActions target, GizmoType _)
 		{
 			Gizmos.color = Color.yellow;
 			Gizmos.DrawRay(target.transform.position, target.transform.forward * 1.0f);
 		}
-#endif
 
+		[DrawGizmo(GizmoType.Active | GizmoType.Selected)]
+		private static void DrawCrouchStuckedPointGizmo(LocomotiveActions target, GizmoType _)
+		{
+			if (!target.m_isStuckedWhileCrouching)
+			{
+				return;
+			}
+
+			Gizmos.color = Color.red;
+			Gizmos.DrawWireSphere(target.m_crouchHitInfo.point, 0.1f);
+		}
+#endif
 	}
 }

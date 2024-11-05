@@ -1,8 +1,8 @@
 {
-    "name": "IA_InputActions",
+    "name": "IA_GameInputs",
     "maps": [
         {
-            "name": "Character",
+            "name": "Gameplay",
             "id": "c6bf7282-05b2-4662-8f4e-bc8ca0308e69",
             "actions": [
                 {

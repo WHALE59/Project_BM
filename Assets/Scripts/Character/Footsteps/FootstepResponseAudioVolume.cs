@@ -63,7 +63,7 @@ namespace BM
 
 		private void OnTriggerEnter(Collider collider)
 		{
-			if (!collider.TryGetComponent<MoveAction>(out var moveAction))
+			if (!collider.TryGetComponent<LocomotiveActions>(out var moveAction))
 			{
 				return;
 			}
@@ -74,7 +74,7 @@ namespace BM
 
 		private void OnTriggerExit(Collider collider)
 		{
-			if (!collider.TryGetComponent<MoveAction>(out var moveAction))
+			if (!collider.TryGetComponent<LocomotiveActions>(out var moveAction))
 			{
 				return;
 			}
