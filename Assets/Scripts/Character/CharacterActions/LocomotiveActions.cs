@@ -392,19 +392,26 @@ namespace BM
 
 			var elapsedTime = 0.0f;
 
-			while (elapsedTime < m_crouchDuration)
+			bool IsStuckedWhileCrouching()
 			{
 				var isStuckedWhileCrouching =
 #if !UNITY_EDITOR
-					Physics.Raycast(transform.position, transform.up, m_normalCapsuleHeight / 2.0f, m_crouchCollisionLayerMask);
+				Physics.Raycast(transform.position, transform.up, m_normalCapsuleHeight / 2.0f, m_crouchCollisionLayerMask);
 #else
-					Physics.Raycast(transform.position, transform.up, out m_crouchHitInfo, m_normalCapsuleHeight / 2.0f, m_crouchCollisionLayerMask);
+							Physics.Raycast(transform.position, transform.up, out m_crouchHitInfo, m_normalCapsuleHeight / 2.0f, m_crouchCollisionLayerMask);
 				m_isStuckedWhileCrouching = isStuckedWhileCrouching;
 #endif
+				return isStuckedWhileCrouching;
+			}
 
-				while (isCrouchingUp && isStuckedWhileCrouching)
+			while (elapsedTime < m_crouchDuration)
+			{
+				if (isCrouchingUp)
 				{
-					yield return new WaitForFixedUpdate();
+					while (IsStuckedWhileCrouching())
+					{
+						yield return new WaitForFixedUpdate();
+					}
 				}
 
 				elapsedTime += Time.fixedDeltaTime;
