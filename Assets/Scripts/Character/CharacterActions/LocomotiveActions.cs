@@ -17,7 +17,7 @@ namespace BM
 	[RequireComponent(typeof(AudioSource))]
 	public class LocomotiveActions : MonoBehaviour
 	{
-		public event Action<float> Footstepped;
+		public event Action<bool, float> LocomotionImpulseGenerated;
 		public event Action<Vector3, float, float> CharacterCapsuleSizeChanged;
 
 		[SerializeField] InputReader m_inputReader;
@@ -86,22 +86,6 @@ namespace BM
 		[SerializeField] private float m_footstepImpulseForceOnCrouchedJog = 0.4f / 0.7f;
 		[SerializeField] private float m_footstepImpulseForceOnCrouchedWalk = 0.3f;
 
-		[Header("Footstep Audio 설정")]
-		[Space()]
-
-		[Tooltip("FootstepBase 오디오 재생 여부입니다.")]
-		[SerializeField] private bool m_applyFootstepBaseAudio = true;
-
-		[SerializeField][Range(0.0f, 1.0f)] private float m_footstepBaseAudioMasterVolume = 1.0f;
-
-		[Tooltip("왼발과 오른발의 공간 편향이 어느정도인지 설정합니다.")]
-		[SerializeField][Range(0.0f, 1.0f)] private float m_footstepAudioStereoPan = 0.085f;
-
-		[Tooltip("FootstepBase의 소리들을 담고 있는 사전입니다.")]
-		[SerializeField] private RandomAudioClipSet m_footstepBaseAudioDataFallback;
-
-		private RandomAudioClipSet m_footstepBaseAudioDataOverride;
-
 		[Header("Footstep Camera Shake 설정")]
 		[Space()]
 
@@ -120,7 +104,6 @@ namespace BM
 
 		private CinemachineImpulseSource m_impulseSource;
 		private float m_elapsedTimeAfterLastFootstepImpulse;
-		private AudioSource m_footstepAudioBaseSource;
 
 		private float m_normalCapsuleHeight;
 		private Vector3 m_normalCapsuleCenter;
@@ -237,22 +220,6 @@ namespace BM
 			}
 		}
 
-		public RandomAudioClipSet FootstepBaseAudioData
-		{
-			get
-			{
-				if (!m_footstepBaseAudioDataOverride)
-				{
-					return m_footstepBaseAudioDataFallback;
-				}
-
-				return m_footstepBaseAudioDataOverride;
-			}
-			set
-			{
-				m_footstepBaseAudioDataOverride = value;
-			}
-		}
 
 		private void UpdateLocamMoveDirection(Vector2 moveInput)
 		{
@@ -312,28 +279,7 @@ namespace BM
 				m_impulseSource.GenerateImpulse(currentFootstepForce * m_footstepCameraShakeMasterForce);
 			}
 
-			// 사운드 재생
-
-			var bias = (m_isLeftFootstep ? 1.0f : -1.0f) * m_footstepAudioStereoPan;
-
-			if (m_applyFootstepBaseAudio)
-			{
-				m_footstepAudioBaseSource.volume = currentFootstepForce * m_footstepBaseAudioMasterVolume;
-				m_footstepAudioBaseSource.panStereo = bias;
-
-				var data = FootstepBaseAudioData;
-				if (data)
-				{
-					var clip = data.PickClip();
-					if (clip is not null)
-					{
-						m_footstepAudioBaseSource.clip = clip;
-						m_footstepAudioBaseSource.Play();
-					}
-				}
-			}
-
-			Footstepped?.Invoke(currentFootstepForce);
+			LocomotionImpulseGenerated?.Invoke(m_isLeftFootstep, currentFootstepForce);
 
 			m_isLeftFootstep = !m_isLeftFootstep;
 		}
@@ -442,7 +388,6 @@ namespace BM
 		{
 			m_characterController = GetComponent<CharacterController>();
 
-			m_footstepAudioBaseSource = GetComponent<AudioSource>();
 
 			m_impulseSource = GetComponent<CinemachineImpulseSource>();
 
@@ -453,12 +398,6 @@ namespace BM
 			m_normalCapsuleHeight = m_characterController.height;
 			m_normalCapsuleCenter = m_characterController.center;
 
-#if UNITY_EDITOR
-			if (!m_footstepBaseAudioDataFallback)
-			{
-				Debug.LogWarning("FootstepBaseAudioDataFallback이 할당되지 않았습니다.");
-			}
-#endif
 		}
 
 #if UNITY_EDITOR
