@@ -1,3 +1,5 @@
+using FMOD.Studio;
+using FMODUnity;
 using UnityEngine;
 
 namespace BM
@@ -20,9 +22,11 @@ namespace BM
 		[Tooltip("FootstepBase의 소리들을 담고 있는 사전입니다.")]
 		[SerializeField] private RandomAudioClipSet m_footstepBaseAudioDataFallback;
 
+		[SerializeField] private EventReference m_eventReference;
+		private EventInstance m_eventInstance;
+
 		private LocomotiveAction m_locomotiveAction;
 		private RandomAudioClipSet m_footstepBaseAudioDataOverride;
-		private AudioSource m_footstepAudioBaseSource;
 
 		public RandomAudioClipSet FootstepBaseAudioData
 		{
@@ -41,14 +45,25 @@ namespace BM
 			}
 		}
 
+		private void PlayFMODEvent(bool _0, float force)
+		{
+			m_eventInstance.setVolume(force);
+			m_eventInstance.setPitch(Random.Range(0.5f, 1.3f));
+			m_eventInstance.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
+
+			m_eventInstance.start();
+
+			Debug.Log(m_eventInstance);
+		}
+
 		private void OnLocomotiveImpulseGenerated(bool isLeft, float force)
 		{
 			var panning = (isLeft ? 1.0f : -1.0f) * m_stereoPan;
 
 			if (m_applyFootstepBaseAudio)
 			{
-				m_footstepAudioBaseSource.volume = force * m_masterVolume;
-				m_footstepAudioBaseSource.panStereo = panning;
+				//m_footstepAudioBaseSource.volume = force * m_masterVolume;
+				//m_footstepAudioBaseSource.panStereo = panning;
 
 				var data = FootstepBaseAudioData;
 
@@ -58,8 +73,8 @@ namespace BM
 
 					if (clip)
 					{
-						m_footstepAudioBaseSource.clip = clip;
-						m_footstepAudioBaseSource.Play();
+						//m_footstepAudioBaseSource.clip = clip;
+						//m_footstepAudioBaseSource.Play();
 					}
 				}
 			}
@@ -68,7 +83,7 @@ namespace BM
 		private void Awake()
 		{
 			m_locomotiveAction = GetComponent<LocomotiveAction>();
-			m_footstepAudioBaseSource = GetComponent<AudioSource>();
+			//m_footstepAudioBaseSource = GetComponent<AudioSource>();
 
 #if UNITY_EDITOR
 			if (!m_footstepBaseAudioDataFallback)
@@ -78,14 +93,26 @@ namespace BM
 #endif
 		}
 
+		private void Start()
+		{
+			m_eventInstance = RuntimeManager.CreateInstance(m_eventReference);
+		}
+
 		private void OnEnable()
 		{
-			m_locomotiveAction.LocomotionImpulseGenerated += OnLocomotiveImpulseGenerated;
+			m_locomotiveAction.LocomotionImpulseGenerated += PlayFMODEvent;
 		}
 
 		private void OnDisable()
 		{
-			m_locomotiveAction.LocomotionImpulseGenerated -= OnLocomotiveImpulseGenerated;
+			m_locomotiveAction.LocomotionImpulseGenerated -= PlayFMODEvent;
+
 		}
+
+		private void OnDestroy()
+		{
+			m_eventInstance.release();
+		}
+
 	}
 }

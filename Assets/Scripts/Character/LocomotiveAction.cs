@@ -11,7 +11,6 @@ namespace BM
 {
 	[DisallowMultipleComponent]
 	[RequireComponent(typeof(CharacterController))]
-	[RequireComponent(typeof(AudioSource))]
 	public class LocomotiveAction : MonoBehaviour
 	{
 		public event Action<bool, float> LocomotionImpulseGenerated;

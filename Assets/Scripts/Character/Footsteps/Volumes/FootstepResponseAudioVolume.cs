@@ -43,11 +43,11 @@ namespace BM
 
 			if (m_responseAffectedByFootstepForce)
 			{
-				AudioSource.PlayClipAtPoint(clip, m_characterTransform.position, normalizedFootstepForce);
+				//AudioSource.PlayClipAtPoint(clip, m_characterTransform.position, normalizedFootstepForce);
 			}
 			else
 			{
-				AudioSource.PlayClipAtPoint(clip, m_characterTransform.position, 1.0f);
+				//AudioSource.PlayClipAtPoint(clip, m_characterTransform.position, 1.0f);
 			}
 
 

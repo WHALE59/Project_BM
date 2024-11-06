@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -96,8 +96,10 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000002, guid: 5ef8a60a92171094887e996b9659406d,
+    type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 49c47e78187705a4ba3482ae008e49f6,
+    type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -283,7 +285,7 @@ GameObject:
   - component: {fileID: 330585548}
   - component: {fileID: 330585549}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: MainCamera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -445,8 +447,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nonRigidbodyVelocity: 0
-  attenuationObject: {fileID: 0}
+  nonRigidbodyVelocity: 1
+  attenuationObject: {fileID: 8989255321099727766}
 --- !u!1001 &809124608
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -917,6 +919,31 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4451049859483663539, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
+        type: 3}
+      propertyPath: m_eventReference.Path
+      value: event:/TestFolder/Fart
+      objectReference: {fileID: 0}
+    - target: {fileID: 4451049859483663539, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
+        type: 3}
+      propertyPath: m_eventReference.Guid.Data1
+      value: -999231950
+      objectReference: {fileID: 0}
+    - target: {fileID: 4451049859483663539, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
+        type: 3}
+      propertyPath: m_eventReference.Guid.Data2
+      value: 1204406276
+      objectReference: {fileID: 0}
+    - target: {fileID: 4451049859483663539, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
+        type: 3}
+      propertyPath: m_eventReference.Guid.Data3
+      value: 584259728
+      objectReference: {fileID: 0}
+    - target: {fileID: 4451049859483663539, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
+        type: 3}
+      propertyPath: m_eventReference.Guid.Data4
+      value: 2109056223
+      objectReference: {fileID: 0}
     - target: {fileID: 5976178325819853717, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -977,21 +1004,58 @@ PrefabInstance:
       propertyPath: m_interactableUI
       value: 
       objectReference: {fileID: 2042386013}
-    - target: {fileID: 8762723058960736455, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
+    - target: {fileID: 7940932894470669806, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
         type: 3}
-      propertyPath: m_ImpulseDefinition.m_ImpulseShape
-      value: 2
+      propertyPath: EventPlayTrigger
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8762723058960736455, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
+    - target: {fileID: 7940932894470669806, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
         type: 3}
-      propertyPath: m_ImpulseDefinition.m_ImpulseDuration
-      value: 0.25
+      propertyPath: EventReference.Path
+      value: event:/TestFolder/Fart
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 7940932894470669806, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
+        type: 3}
+      propertyPath: OverrideMaxDistance
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7940932894470669806, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
+        type: 3}
+      propertyPath: OverrideMinDistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7940932894470669806, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
+        type: 3}
+      propertyPath: EventReference.Guid.Data1
+      value: -999231950
+      objectReference: {fileID: 0}
+    - target: {fileID: 7940932894470669806, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
+        type: 3}
+      propertyPath: EventReference.Guid.Data2
+      value: 1204406276
+      objectReference: {fileID: 0}
+    - target: {fileID: 7940932894470669806, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
+        type: 3}
+      propertyPath: EventReference.Guid.Data3
+      value: 584259728
+      objectReference: {fileID: 0}
+    - target: {fileID: 7940932894470669806, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
+        type: 3}
+      propertyPath: EventReference.Guid.Data4
+      value: 2109056223
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 7940932894470669806, guid: 69492b5dfb0cbcc458b019f0747a1bb3, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 69492b5dfb0cbcc458b019f0747a1bb3, type: 3}
+--- !u!1 &8989255321099727766 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7093824059209778154, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
+    type: 3}
+  m_PrefabInstance: {fileID: 8989255321099727765}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
