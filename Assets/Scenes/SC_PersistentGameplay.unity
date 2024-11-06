@@ -922,27 +922,27 @@ PrefabInstance:
     - target: {fileID: 4451049859483663539, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
         type: 3}
       propertyPath: m_eventReference.Path
-      value: event:/TestFolder/Fart
+      value: event:/Footsteps
       objectReference: {fileID: 0}
     - target: {fileID: 4451049859483663539, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
         type: 3}
       propertyPath: m_eventReference.Guid.Data1
-      value: -999231950
+      value: 506005080
       objectReference: {fileID: 0}
     - target: {fileID: 4451049859483663539, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
         type: 3}
       propertyPath: m_eventReference.Guid.Data2
-      value: 1204406276
+      value: 1155342789
       objectReference: {fileID: 0}
     - target: {fileID: 4451049859483663539, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
         type: 3}
       propertyPath: m_eventReference.Guid.Data3
-      value: 584259728
+      value: 1696038579
       objectReference: {fileID: 0}
     - target: {fileID: 4451049859483663539, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
         type: 3}
       propertyPath: m_eventReference.Guid.Data4
-      value: 2109056223
+      value: -1766277710
       objectReference: {fileID: 0}
     - target: {fileID: 5976178325819853717, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
         type: 3}

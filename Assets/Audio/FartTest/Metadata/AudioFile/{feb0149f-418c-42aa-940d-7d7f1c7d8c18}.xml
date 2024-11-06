@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{feb0149f-418c-42aa-940d-7d7f1c7d8c18}">
+		<property name="assetPath">
+			<value>Indoor_Wood_OneShot/Indoor_Wood_Footsteps_OneShot_1.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.28585416666666669</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{ca326215-77f1-4d00-9ec0-4e933d91d730}</destination>
+		</relationship>
+	</object>
+</objects>
