@@ -17,23 +17,40 @@ namespace BM
 	[DisallowMultipleComponent]
 	public class TestBuildSceneLoader : MonoBehaviour
 	{
-		void Awake()
+		[SerializeField] List<string> m_sceneNameToLoad = new() { "SC_SampleScene" };
+		[SerializeField] string m_activeSceneName = "SC_SampleScene";
+
+		private void OnSceneLoaded(Scene scene, LoadSceneMode _)
+		{
+			var sceneToSetActive = SceneManager.GetSceneByName(m_activeSceneName);
+
+			if (sceneToSetActive == scene)
+			{
+				SceneManager.SetActiveScene(sceneToSetActive);
+			}
+
+		}
+
+		private void OnEnable()
+		{
+			SceneManager.sceneLoaded += OnSceneLoaded;
+		}
+
+		private void OnDestroy()
+		{
+
+			SceneManager.sceneLoaded -= OnSceneLoaded;
+		}
+
+		private void Awake()
 		{
 			LoadScenesAdditiveForBuild();
 		}
 
-#if UNITY_EDITOR
-		void Reset()
-		{
-			_sceneNamesToLoad.Clear();
-			_sceneNamesToLoad.Add("SC_SampleScene");
-		}
-#endif
-
 		[Conditional("BM_LOAD_BUILD_SCENES_ADDITIVE")]
-		void LoadScenesAdditiveForBuild()
+		private void LoadScenesAdditiveForBuild()
 		{
-			foreach (var sceneNameToLoad in _sceneNamesToLoad)
+			foreach (var sceneNameToLoad in m_sceneNameToLoad)
 			{
 				if (SceneManager.GetSceneByName(sceneNameToLoad).isLoaded)
 				{
@@ -43,7 +60,5 @@ namespace BM
 				SceneManager.LoadScene(sceneNameToLoad, LoadSceneMode.Additive);
 			}
 		}
-
-		[SerializeField] List<string> _sceneNamesToLoad = new();
 	}
 }
