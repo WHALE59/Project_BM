@@ -11,15 +11,14 @@ namespace BM
 	/// 캐릭터가 상호작용 가능한 오브젝트를 검출하고 그들과 통신하는 것을 관장하는 컴포넌트
 	/// </summary>
 	[DisallowMultipleComponent]
-	[RequireComponent(typeof(InputListener))]
 	public class InteractAction : MonoBehaviour
 	{
+		[SerializeField] private InputReader m_inputReader;
+
 		[Tooltip("상호작용이 가능한 최대 거리를 설정합니다.")]
 		[SerializeField] private float m_maxDistance = 10.0f;
 
 		[SerializeField] private UIInteractableBehaviour m_interactableUI;
-
-		private InputListener m_inputListener;
 
 		private const int m_layerMask = ~(1 << 3); // 자기 자신에 대한 레이캐스트 검출을 무시 (임시)
 
@@ -59,8 +58,6 @@ namespace BM
 
 		private void Awake()
 		{
-			m_inputListener = GetComponent<InputListener>();
-
 #if UNITY_EDITOR
 			if (!m_interactableUI)
 			{
@@ -70,14 +67,14 @@ namespace BM
 		}
 		private void OnEnable()
 		{
-			m_inputListener.InteractStarted += StartInteract;
-			m_inputListener.InteractFinished += FinishInteract;
+			m_inputReader.InteractInputPerformed += StartInteract;
+			m_inputReader.InteractInputCanceled += FinishInteract;
 		}
 
 		private void OnDisable()
 		{
-			m_inputListener.InteractStarted -= StartInteract;
-			m_inputListener.InteractFinished -= FinishInteract;
+			m_inputReader.InteractInputPerformed -= StartInteract;
+			m_inputReader.InteractInputCanceled -= FinishInteract;
 		}
 
 		/// <summary>

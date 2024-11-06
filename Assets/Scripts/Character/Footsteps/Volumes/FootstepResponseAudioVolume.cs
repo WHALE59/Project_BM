@@ -20,7 +20,7 @@ namespace BM
 
 		private Transform m_characterTransform;
 
-		private void OnFootStepped(float normalizedFootstepForce)
+		private void OnFootStepped(bool _, float normalizedFootstepForce)
 		{
 			if (!m_footstepAudioClipSet)
 			{
@@ -63,23 +63,23 @@ namespace BM
 
 		private void OnTriggerEnter(Collider collider)
 		{
-			if (!collider.TryGetComponent<MoveAction>(out var moveAction))
+			if (!collider.TryGetComponent<LocomotiveAction>(out var locomotiveAction))
 			{
 				return;
 			}
 
-			m_characterTransform = moveAction.transform;
-			moveAction.Footstepped += OnFootStepped;
+			m_characterTransform = locomotiveAction.transform;
+			locomotiveAction.LocomotionImpulseGenerated += OnFootStepped;
 		}
 
 		private void OnTriggerExit(Collider collider)
 		{
-			if (!collider.TryGetComponent<MoveAction>(out var moveAction))
+			if (!collider.TryGetComponent<LocomotiveAction>(out var locomotiveAction))
 			{
 				return;
 			}
 
-			moveAction.Footstepped -= OnFootStepped;
+			locomotiveAction.LocomotionImpulseGenerated -= OnFootStepped;
 			m_characterTransform = null;
 		}
 
