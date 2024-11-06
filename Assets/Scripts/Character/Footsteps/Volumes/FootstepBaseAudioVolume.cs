@@ -13,7 +13,7 @@ namespace BM
 				return;
 			}
 
-			if (!collider.TryGetComponent<FootstepAudio>(out var footstepAudio))
+			if (!collider.TryGetComponent<FootstepAudioBase>(out var footstepAudio))
 			{
 				return;
 			}
@@ -33,7 +33,7 @@ namespace BM
 				return;
 			}
 
-			if (!collider.TryGetComponent<FootstepAudio>(out var footstepAudio))
+			if (!collider.TryGetComponent<FootstepAudioBase>(out var footstepAudio))
 			{
 				return;
 			}

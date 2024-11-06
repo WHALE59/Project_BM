@@ -2,27 +2,27 @@ using UnityEngine;
 
 namespace BM
 {
-	[RequireComponent(typeof(LocomotiveActions))]
-	public class FootstepAudio : MonoBehaviour
+	// TODO: FMOD Studio Integration
+	[RequireComponent(typeof(LocomotiveAction))]
+	public class FootstepAudioBase : MonoBehaviour
 	{
-		[Header("Footstep Audio 설정")]
+		[Header("사운드 설정")]
 		[Space()]
 
 		[Tooltip("FootstepBase 오디오 재생 여부입니다.")]
 		[SerializeField] private bool m_applyFootstepBaseAudio = true;
 
-		[SerializeField][Range(0.0f, 1.0f)] private float m_footstepBaseAudioMasterVolume = 1.0f;
+		[SerializeField][Range(0.0f, 1.0f)] private float m_masterVolume = 1.0f;
 
 		[Tooltip("왼발과 오른발의 공간 편향이 어느정도인지 설정합니다.")]
-		[SerializeField][Range(0.0f, 1.0f)] private float m_footstepAudioStereoPan = 0.085f;
+		[SerializeField][Range(0.0f, 1.0f)] private float m_stereoPan = 0.085f;
 
 		[Tooltip("FootstepBase의 소리들을 담고 있는 사전입니다.")]
 		[SerializeField] private RandomAudioClipSet m_footstepBaseAudioDataFallback;
 
+		private LocomotiveAction m_locomotiveAction;
 		private RandomAudioClipSet m_footstepBaseAudioDataOverride;
 		private AudioSource m_footstepAudioBaseSource;
-
-		private LocomotiveActions m_locomotiveActions;
 
 		public RandomAudioClipSet FootstepBaseAudioData
 		{
@@ -43,16 +43,15 @@ namespace BM
 
 		private void OnLocomotiveImpulseGenerated(bool isLeft, float force)
 		{
-			// 사운드 재생
-
-			var bias = (isLeft ? 1.0f : -1.0f) * m_footstepAudioStereoPan;
+			var panning = (isLeft ? 1.0f : -1.0f) * m_stereoPan;
 
 			if (m_applyFootstepBaseAudio)
 			{
-				m_footstepAudioBaseSource.volume = force * m_footstepBaseAudioMasterVolume;
-				m_footstepAudioBaseSource.panStereo = bias;
+				m_footstepAudioBaseSource.volume = force * m_masterVolume;
+				m_footstepAudioBaseSource.panStereo = panning;
 
 				var data = FootstepBaseAudioData;
+
 				if (data)
 				{
 					var clip = data.PickClip();
@@ -68,7 +67,7 @@ namespace BM
 
 		private void Awake()
 		{
-			m_locomotiveActions = GetComponent<LocomotiveActions>();
+			m_locomotiveAction = GetComponent<LocomotiveAction>();
 			m_footstepAudioBaseSource = GetComponent<AudioSource>();
 
 #if UNITY_EDITOR
@@ -81,12 +80,12 @@ namespace BM
 
 		private void OnEnable()
 		{
-			m_locomotiveActions.LocomotionImpulseGenerated += OnLocomotiveImpulseGenerated;
+			m_locomotiveAction.LocomotionImpulseGenerated += OnLocomotiveImpulseGenerated;
 		}
 
 		private void OnDisable()
 		{
-			m_locomotiveActions.LocomotionImpulseGenerated -= OnLocomotiveImpulseGenerated;
+			m_locomotiveAction.LocomotionImpulseGenerated -= OnLocomotiveImpulseGenerated;
 		}
 	}
 }

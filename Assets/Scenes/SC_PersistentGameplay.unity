@@ -269,29 +269,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 285800599}
   m_CullTransparentMesh: 1
---- !u!1 &328880627 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7093824059209778154, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
-    type: 3}
-  m_PrefabInstance: {fileID: 8989255321099727765}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &328880637
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 328880627}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 213d24eec5b39204db82391aaf5f9a57, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_applyFootstepBaseAudio: 1
-  m_footstepBaseAudioMasterVolume: 1
-  m_footstepAudioStereoPan: 0.085
-  m_footstepBaseAudioDataFallback: {fileID: 11400000, guid: 38bfbe5285337db408bffae2c46ea3b8,
-    type: 2}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -536,7 +513,7 @@ PrefabInstance:
     - target: {fileID: 9152481037392610282, guid: 818f988dcb7ace941832f979e2baeafd,
         type: 3}
       propertyPath: m_Name
-      value: P_FPSVCam
+      value: FPSVCam
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -689,7 +666,7 @@ PrefabInstance:
     - target: {fileID: 1427815026934719743, guid: d3ecb2cc5ae4c24459c6a0ce61dacead,
         type: 3}
       propertyPath: m_Name
-      value: P_UIInteractable
+      value: Interactable
       objectReference: {fileID: 0}
     - target: {fileID: 1851302580540514021, guid: d3ecb2cc5ae4c24459c6a0ce61dacead,
         type: 3}
@@ -993,21 +970,27 @@ PrefabInstance:
     - target: {fileID: 7093824059209778154, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
         type: 3}
       propertyPath: m_Name
-      value: P_Character
+      value: Character
       objectReference: {fileID: 0}
     - target: {fileID: 7504193253473327663, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
         type: 3}
       propertyPath: m_interactableUI
       value: 
       objectReference: {fileID: 2042386013}
+    - target: {fileID: 8762723058960736455, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
+        type: 3}
+      propertyPath: m_ImpulseDefinition.m_ImpulseShape
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8762723058960736455, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
+        type: 3}
+      propertyPath: m_ImpulseDefinition.m_ImpulseDuration
+      value: 0.25
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7093824059209778154, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 328880637}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 69492b5dfb0cbcc458b019f0747a1bb3, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

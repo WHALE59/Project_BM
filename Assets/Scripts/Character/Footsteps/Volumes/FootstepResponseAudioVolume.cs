@@ -63,23 +63,23 @@ namespace BM
 
 		private void OnTriggerEnter(Collider collider)
 		{
-			if (!collider.TryGetComponent<LocomotiveActions>(out var locomotiveActions))
+			if (!collider.TryGetComponent<LocomotiveAction>(out var locomotiveAction))
 			{
 				return;
 			}
 
-			m_characterTransform = locomotiveActions.transform;
-			locomotiveActions.LocomotionImpulseGenerated += OnFootStepped;
+			m_characterTransform = locomotiveAction.transform;
+			locomotiveAction.LocomotionImpulseGenerated += OnFootStepped;
 		}
 
 		private void OnTriggerExit(Collider collider)
 		{
-			if (!collider.TryGetComponent<LocomotiveActions>(out var locomotiveActions))
+			if (!collider.TryGetComponent<LocomotiveAction>(out var locomotiveAction))
 			{
 				return;
 			}
 
-			locomotiveActions.LocomotionImpulseGenerated -= OnFootStepped;
+			locomotiveAction.LocomotionImpulseGenerated -= OnFootStepped;
 			m_characterTransform = null;
 		}
 
