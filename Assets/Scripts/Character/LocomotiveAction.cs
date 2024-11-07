@@ -259,11 +259,25 @@ namespace BM
 #endif
 		}
 
+		public Vector3 CameraTargetLocalPosition
+		{
+			get
+			{
+				if (!m_characterController)
+				{
+					m_characterController = GetComponent<CharacterController>();
+				}
+
+				var ret = m_characterController.center +
+				new Vector3(0.0f, (m_characterController.height - m_characterController.radius) / 2.0f, 0.0f);
+
+				return ret;
+			}
+		}
+
 		private void UpdateCameraTargetLocalPosition()
 		{
-			m_cameraTarget.localPosition =
-				m_characterController.center +
-				new Vector3(0.0f, (m_characterController.height - m_characterController.radius) / 2.0f, 0.0f);
+			m_cameraTarget.localPosition = CameraTargetLocalPosition;
 		}
 
 		private void StartCrouch()
@@ -367,7 +381,6 @@ namespace BM
 		private void Awake()
 		{
 			m_characterController = GetComponent<CharacterController>();
-
 
 			m_uncrouchedCapsuleHeight = m_characterController.height;
 			m_uncrouchedCapsuleCenter = m_characterController.center;
@@ -479,8 +492,21 @@ namespace BM
 		[DrawGizmo(GizmoType.Active)]
 		private static void DrawForwardGizmo(LocomotiveAction target, GizmoType _)
 		{
+			if (!target.m_cameraTarget)
+			{
+				return;
+			}
+
+			if (!target.m_characterController)
+			{
+				target.m_characterController = target.GetComponent<CharacterController>();
+			}
+
+			var start = target.CameraTargetLocalPosition;
+			var direction = target.transform.forward;
+
 			Gizmos.color = Color.yellow;
-			Gizmos.DrawRay(target.transform.position, target.transform.forward * 1.0f);
+			Gizmos.DrawRay(start, direction * 1.0f);
 		}
 
 		[DrawGizmo(GizmoType.Active | GizmoType.Selected)]

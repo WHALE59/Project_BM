@@ -18,7 +18,7 @@ namespace BM
 		[Tooltip("상호작용이 가능한 최대 거리를 설정합니다.")]
 		[SerializeField] private float m_maxDistance = 10.0f;
 
-		[SerializeField] private UIInteractableBehaviour m_interactableUI;
+		[SerializeField] private InteractableOverlay m_interactableUI;
 
 		private const int m_layerMask = ~(1 << 3); // 자기 자신에 대한 레이캐스트 검출을 무시 (임시)
 
@@ -167,6 +167,11 @@ namespace BM
 		[DrawGizmo(GizmoType.Active | GizmoType.Selected)]
 		private static void DrawRaycast(InteractAction target, GizmoType _)
 		{
+			if (!Camera.main)
+			{
+				return;
+			}
+
 			if (!target.m_isHit)
 			{
 				Gizmos.color = Color.white;
@@ -189,6 +194,11 @@ namespace BM
 		[DrawGizmo(GizmoType.Active | GizmoType.Selected)]
 		private static void DrawRaycastResult(InteractAction target, GizmoType _)
 		{
+			if (!Camera.main)
+			{
+				return;
+			}
+
 			if (!target.m_isHit)
 			{
 				Gizmos.color = Color.white;

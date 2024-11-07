@@ -7,7 +7,7 @@ namespace BM
 	/// <summary>
 	/// 상호작용 가능한 오브젝트와 상호작용 하는 시나리오에서 표시될 UI 객체들의 행동을 관리한다.
 	/// </summary>
-	public class UIInteractableBehaviour : MonoBehaviour
+	public class InteractableOverlay : MonoBehaviour
 	{
 		[Header("Interactable Control Icons")]
 

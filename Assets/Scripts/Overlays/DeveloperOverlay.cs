@@ -13,7 +13,7 @@ namespace BM
 	[RequireComponent(typeof(CanvasGroup))]
 	public class DeveloperOverlay : MonoBehaviour
 	{
-		[SerializeField] private GameObject m_character;
+		[SerializeField] private CharacterStartFinder m_character;
 		[SerializeField] private InputReader m_inputReader;
 		[SerializeField] private VerticalLayoutGroup m_buttonGroup;
 		[SerializeField] private Button m_buttonPrefab;
@@ -100,7 +100,7 @@ namespace BM
 
 		private IEnumerator LoadingRoutine(IReadOnlyCollection<string> toUnloads, string toLoad)
 		{
-			m_character.SetActive(false);
+			m_character.gameObject.SetActive(false);
 
 			var unloadOperations = new List<AsyncOperation>();
 
@@ -127,18 +127,23 @@ namespace BM
 				yield return null;
 			}
 
-			// load complete
+			// 로드 작업이 완료 됨
 
-			m_canvasGroup.interactable = true;
-			m_character.SetActive(true);
+			// 오버레이 숨기고
+			Hide();
+			m_enabled = false;
+
+			// 캐릭터 위치 초기화 및 활성화
+			m_character.Initialize();
+			m_character.gameObject.SetActive(true);
+
+			// 방금 로드한 씬을 Active Scene으로
+
 			SceneManager.SetActiveScene(SceneManager.GetSceneByName(toLoad));
 		}
 
-
 		private void Show()
 		{
-			Debug.Log("Show Developer Overlay");
-
 			Time.timeScale = 0.0f;
 			Cursor.visible = true;
 			Cursor.lockState = CursorLockMode.None;
@@ -149,8 +154,6 @@ namespace BM
 
 		private void Hide()
 		{
-			Debug.Log("Hide Developer Overlay");
-
 			Time.timeScale = 1.0f;
 			Cursor.visible = false;
 			Cursor.lockState = CursorLockMode.Locked;
