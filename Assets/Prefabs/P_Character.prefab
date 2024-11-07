@@ -313,11 +313,11 @@ MonoBehaviour:
   m_masterVolume: 1
   m_eventReference:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: 1045056276
+      Data2: 1219463424
+      Data3: -1316248162
+      Data4: -1642529302
+    Path: event:/OldFootstep
 --- !u!114 &6448649718899218689
 MonoBehaviour:
   m_ObjectHideFlags: 0
