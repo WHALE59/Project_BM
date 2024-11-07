@@ -43,10 +43,12 @@ namespace BM
 		public event UnityAction UseInputPerformed = delegate { };
 		public event UnityAction UseInputCanceled = delegate { };
 
-		public event UnityAction PauseMenuInputPerformed = delegate { };
+		public event UnityAction ToggleDeveloperInputPerforemed = delegate { };
+		public event UnityAction ToggleDeveloperInputCanceled = delegate { };
 
 		private IA_GameInputs m_gameInputs;
 
+		// TODO : Crouch와 Walk에 대한 Toggle을 입력을 변환하는 쪽에서 제어하도록 리팩터링
 		private bool m_crouchInputPerformed = false;
 		private bool m_walkInputPerformed = false;
 
@@ -175,6 +177,19 @@ namespace BM
 			}
 		}
 
+		void IA_GameInputs.IGameplayActions.OnToggleDeveloperOverlay(InputAction.CallbackContext context)
+		{
+			switch (context.phase)
+			{
+				case InputActionPhase.Performed:
+					ToggleDeveloperInputPerforemed.Invoke();
+					break;
+				case InputActionPhase.Canceled:
+					ToggleDeveloperInputCanceled.Invoke();
+					break;
+			}
+		}
+
 		private void OnEnable()
 		{
 			/// <see cref="IA_GameInputs"/> 인스턴스가 없으면 생성
@@ -193,5 +208,6 @@ namespace BM
 		{
 			SetActiveActionMap(EActionMap.None);
 		}
+
 	}
 }
