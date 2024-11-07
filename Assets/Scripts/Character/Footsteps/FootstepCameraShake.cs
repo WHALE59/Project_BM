@@ -1,7 +1,7 @@
-using Cinemachine;
+using Unity.Cinemachine;
 using UnityEngine;
 
-using ImpulseShapes = Cinemachine.CinemachineImpulseDefinition.ImpulseShapes;
+using ImpulseShapes = Unity.Cinemachine.CinemachineImpulseDefinition.ImpulseShapes;
 
 namespace BM
 {
@@ -35,9 +35,9 @@ namespace BM
 		{
 			if (m_impulseSource)
 			{
-				m_impulseSource.m_ImpulseDefinition.m_ImpulseShape = m_shakeShape;
-				m_impulseSource.m_ImpulseDefinition.m_ImpulseDuration = m_shakeDuration;
-				m_impulseSource.m_DefaultVelocity = m_shakeVelocity;
+				m_impulseSource.ImpulseDefinition.ImpulseShape = m_shakeShape;
+				m_impulseSource.ImpulseDefinition.ImpulseDuration = m_shakeDuration;
+				m_impulseSource.DefaultVelocity = m_shakeVelocity;
 			}
 		}
 #endif
@@ -56,9 +56,9 @@ namespace BM
 
 		private void Start()
 		{
-			m_impulseSource.m_ImpulseDefinition.m_ImpulseShape = m_shakeShape;
-			m_impulseSource.m_ImpulseDefinition.m_ImpulseDuration = m_shakeDuration;
-			m_impulseSource.m_DefaultVelocity = m_shakeVelocity;
+			m_impulseSource.ImpulseDefinition.ImpulseShape = m_shakeShape;
+			m_impulseSource.ImpulseDefinition.ImpulseDuration = m_shakeDuration;
+			m_impulseSource.DefaultVelocity = m_shakeVelocity;
 		}
 
 		private void OnDisable()
