@@ -970,12 +970,12 @@ PrefabInstance:
     - target: {fileID: 7058819986290379560, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
         type: 3}
       propertyPath: m_activeSceneName
-      value: SC_Darak
+      value: SC_Darack
       objectReference: {fileID: 0}
     - target: {fileID: 7058819986290379560, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
         type: 3}
       propertyPath: m_sceneNameToLoad.Array.data[0]
-      value: SC_Darak
+      value: SC_Darack
       objectReference: {fileID: 0}
     - target: {fileID: 7093824059209778154, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
         type: 3}
