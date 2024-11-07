@@ -26,7 +26,9 @@ namespace BM
 		[SerializeField] private bool m_crouchInputIsToggle;
 		[SerializeField] private bool m_walkInputIsToggle;
 
-		public event UnityAction<Vector2> MoveInputEvent = delegate { };
+		public event UnityAction<Vector2> MoveInputPerformed = delegate { };
+		public event UnityAction<Vector2> MoveInputCancled = delegate { };
+
 		public event UnityAction<Vector2> LookInputEvent = delegate { };
 
 		public event UnityAction CrouchInputPerformed = delegate { };
@@ -67,7 +69,12 @@ namespace BM
 
 		void IA_GameInputs.IGameplayActions.OnMove(InputAction.CallbackContext context)
 		{
-			MoveInputEvent.Invoke(context.ReadValue<Vector2>());
+			MoveInputPerformed.Invoke(context.ReadValue<Vector2>());
+
+			if (context.phase == InputActionPhase.Canceled)
+			{
+				MoveInputCancled.Invoke(context.ReadValue<Vector2>());
+			}
 		}
 
 		void IA_GameInputs.IGameplayActions.OnLook(InputAction.CallbackContext context)

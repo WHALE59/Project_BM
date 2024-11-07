@@ -210,8 +210,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6db135a41321ea2458f6c7fd4f7d8a6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sceneNamesToLoad:
-  - SC_SampleScene
+  m_sceneNameToLoad:
+  - SC_Darack
+  m_activeSceneName: SC_Darack
 --- !u!114 &8762723058960736455
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -295,6 +296,7 @@ MonoBehaviour:
   m_impulseForceOnStandWalk: 0.4
   m_impulseForceOnCrouchedJog: 0.3
   m_impulseForceOnCrouchedWalk: 0.3
+  m_logOnLocomotionImpulse: 0
 --- !u!114 &4451049859483663539
 MonoBehaviour:
   m_ObjectHideFlags: 0
