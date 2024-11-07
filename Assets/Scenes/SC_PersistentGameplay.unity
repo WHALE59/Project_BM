@@ -919,6 +919,31 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4451049859483663539, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
+        type: 3}
+      propertyPath: m_eventReference.Path
+      value: event:/OldFootstep
+      objectReference: {fileID: 0}
+    - target: {fileID: 4451049859483663539, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
+        type: 3}
+      propertyPath: m_eventReference.Guid.Data1
+      value: 1045056276
+      objectReference: {fileID: 0}
+    - target: {fileID: 4451049859483663539, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
+        type: 3}
+      propertyPath: m_eventReference.Guid.Data2
+      value: 1219463424
+      objectReference: {fileID: 0}
+    - target: {fileID: 4451049859483663539, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
+        type: 3}
+      propertyPath: m_eventReference.Guid.Data3
+      value: -1316248162
+      objectReference: {fileID: 0}
+    - target: {fileID: 4451049859483663539, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
+        type: 3}
+      propertyPath: m_eventReference.Guid.Data4
+      value: -1642529302
+      objectReference: {fileID: 0}
     - target: {fileID: 5976178325819853717, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
         type: 3}
       propertyPath: m_LocalPosition.x
