@@ -22,7 +22,7 @@ namespace BM
 		private LocomotiveAction m_locomotiveAction;
 		private CinemachineImpulseSource m_impulseSource;
 
-		private void OnLocomotiveImpulseGenerated(bool _, float force)
+		private void OnLocomotiveImpulseGenerated(Vector3 _, float force)
 		{
 			if (m_applyShake)
 			{

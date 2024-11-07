@@ -11,10 +11,12 @@ namespace BM
 {
 	[DisallowMultipleComponent]
 	[RequireComponent(typeof(CharacterController))]
-	[RequireComponent(typeof(AudioSource))]
 	public class LocomotiveAction : MonoBehaviour
 	{
-		public event Action<bool, float> LocomotionImpulseGenerated;
+		/// <summary>
+		/// 이동 중 발생하는 "진동"의 시점을 알고 싶으면 구독. 위치와 세기이다.
+		/// </summary>
+		public event Action<Vector3, float> LocomotionImpulseGenerated;
 
 		[Header("입력 설정")]
 		[Space()]
@@ -234,7 +236,7 @@ namespace BM
 				if (m_elapsedTimeAfterLastImpulse >= currentImpulsePeriod)
 				{
 					// 이벤트 발생!
-					LocomotionImpulseGenerated?.Invoke(m_isLeftImpulse, currentImpulseForce);
+					LocomotionImpulseGenerated?.Invoke(transform.position, currentImpulseForce);
 					m_isLeftImpulse = !m_isLeftImpulse;
 
 					m_elapsedTimeAfterLastImpulse = 0.0f;
@@ -246,7 +248,7 @@ namespace BM
 			if (m_elapsedTimeAfterLastImpulse >= currentImpulsePeriod)
 			{
 				// 이벤트 발생!
-				LocomotionImpulseGenerated?.Invoke(m_isLeftImpulse, currentImpulseForce);
+				LocomotionImpulseGenerated?.Invoke(transform.position, currentImpulseForce);
 				m_isLeftImpulse = !m_isLeftImpulse;
 
 				m_elapsedTimeAfterLastImpulse = 0.0f;

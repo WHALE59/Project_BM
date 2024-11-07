@@ -43,11 +43,11 @@ namespace BM
 
 			if (m_responseAffectedByFootstepForce)
 			{
-				AudioSource.PlayClipAtPoint(clip, m_characterTransform.position, normalizedFootstepForce);
+				//AudioSource.PlayClipAtPoint(clip, m_characterTransform.position, normalizedFootstepForce);
 			}
 			else
 			{
-				AudioSource.PlayClipAtPoint(clip, m_characterTransform.position, 1.0f);
+				//AudioSource.PlayClipAtPoint(clip, m_characterTransform.position, 1.0f);
 			}
 
 
@@ -68,8 +68,8 @@ namespace BM
 				return;
 			}
 
-			m_characterTransform = locomotiveAction.transform;
-			locomotiveAction.LocomotionImpulseGenerated += OnFootStepped;
+			//m_characterTransform = locomotiveAction.transform;
+			//locomotiveAction.LocomotionImpulseGenerated += OnFootStepped;
 		}
 
 		private void OnTriggerExit(Collider collider)
@@ -79,8 +79,8 @@ namespace BM
 				return;
 			}
 
-			locomotiveAction.LocomotionImpulseGenerated -= OnFootStepped;
-			m_characterTransform = null;
+			//locomotiveAction.LocomotionImpulseGenerated -= OnFootStepped;
+			//m_characterTransform = null;
 		}
 
 #if UNITY_EDITOR
