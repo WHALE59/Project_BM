@@ -118,7 +118,6 @@ GameObject:
   - component: {fileID: 8762723058960736455}
   - component: {fileID: 676317188041148196}
   - component: {fileID: 7504193253473327663}
-  - component: {fileID: 7058819986290379560}
   - component: {fileID: 5337080429642422780}
   - component: {fileID: 4451049859483663539}
   - component: {fileID: 6448649718899218689}
@@ -252,21 +251,6 @@ MonoBehaviour:
   m_inputReader: {fileID: 11400000, guid: 314b40c975fd3d349a30c23aa2faddeb, type: 2}
   m_maxDistance: 10
   m_interactableUI: {fileID: 0}
---- !u!114 &7058819986290379560
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7093824059209778154}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6db135a41321ea2458f6c7fd4f7d8a6a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_sceneNameToLoad:
-  - SC_Darack
-  m_activeSceneName: SC_Darack
 --- !u!114 &5337080429642422780
 MonoBehaviour:
   m_ObjectHideFlags: 0
