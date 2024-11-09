@@ -132,7 +132,7 @@ Material:
     - _IsSpecular: 1
     - _IsUsedSecondTexture: 1
     - _Normal_Intensity: 5
-    - _Pixelize_Amount: 445
+    - _Pixelize_Amount: 151
     - _Pixelize_Grunge: 0
     - _Pixelize_Grunge2: 3.27
     - _Pixelize_step: 43.09
