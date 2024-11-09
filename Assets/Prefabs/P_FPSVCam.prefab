@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1808394493483349806}
   - component: {fileID: 4291421432094568655}
   - component: {fileID: 3830044410631337815}
+  - component: {fileID: 1806868751778771971}
   m_Layer: 0
   m_Name: P_FPSVCam
   m_TagString: Untagged
@@ -35,7 +36,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 11.208, y: -86.012, z: 0.001}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8510949376170499455
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49,18 +50,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Priority:
-    Enabled: 0
-    m_Value: 0
+    Enabled: 1
+    m_Value: 10
   OutputChannel: 1
   StandbyUpdate: 2
-  m_StreamingVersion: 20170927
-  m_LegacyPriority: 10
+  m_StreamingVersion: 20241001
+  m_LegacyPriority: 0
   Target:
     TrackingTarget: {fileID: 0}
     LookAtTarget: {fileID: 0}
-    CustomLookAtTarget: 0
+    CustomLookAtTarget: 1
   Lens:
-    FieldOfView: 70
+    FieldOfView: 85
     OrthographicSize: 5
     NearClipPlane: 0.3
     FarClipPlane: 1000
@@ -172,9 +173,9 @@ MonoBehaviour:
       Input:
         InputAction: {fileID: -8181108963744638241, guid: 99473f1924180e24386d8e89df2e08a6,
           type: 3}
-        Gain: 1
-        LegacyInput: Mouse X
-        LegacyGain: 1
+        Gain: 15
+        LegacyInput: 
+        LegacyGain: 200
         CancelDeltaTime: 0
       InputValue: 0
       Driver:
@@ -186,9 +187,9 @@ MonoBehaviour:
       Input:
         InputAction: {fileID: -8181108963744638241, guid: 99473f1924180e24386d8e89df2e08a6,
           type: 3}
-        Gain: 1
-        LegacyInput: Mouse Y
-        LegacyGain: 1
+        Gain: -15
+        LegacyInput: 
+        LegacyGain: -200
         CancelDeltaTime: 0
       InputValue: 0
       Driver:
@@ -196,3 +197,20 @@ MonoBehaviour:
         DecelTime: 0.1
   PlayerIndex: -1
   AutoEnableInputs: 0
+--- !u!114 &1806868751778771971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9152481037392610282}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 449ef5ebbe24720439ec31d15f7b6f3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Weight: 1
+  FocusTracking: 0
+  FocusTarget: {fileID: 0}
+  FocusOffset: 0
+  Profile: {fileID: 11400000, guid: 69e55c7c3997bb143b6f9eb020130635, type: 2}
