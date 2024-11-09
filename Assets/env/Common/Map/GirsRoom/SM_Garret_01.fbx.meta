@@ -7,6 +7,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Curtain
+    second: {fileID: 2100000, guid: ad85f88653efce649b527a6a089afe86, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: WoodenFlank
     second: {fileID: 2100000, guid: 5faecb170e5048448a811eba24695666, type: 2}
   - first:

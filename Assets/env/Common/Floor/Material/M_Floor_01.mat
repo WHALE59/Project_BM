@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_Floor_01
-  m_Shader: {fileID: -6465566751694194690, guid: c42d45f6c2c41734cae712e2935c45a0,
+  m_Shader: {fileID: -6465566751694194690, guid: 33995dbfd006d294497ffef97b7b780d,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -151,7 +151,10 @@ Material:
     - _intersect_Contrast: 0
     m_Colors:
     - _01_GrundgeMap_Offset: {r: 17.17, g: 1.94, b: -3.4, a: 0}
+    - _02_GrundgeMap_Offset: {r: 1, g: 1, b: 1, a: 0}
+    - _Color: {r: 0, g: 0, b: 0, a: 0}
     - _Specular: {r: 1, g: 1, b: 1, a: 0}
     - _Tiling: {r: 1, g: 1, b: 0, a: 0}
+    - _Tint_Color: {r: 1, g: 1, b: 1, a: 0}
     - _intersect_Color: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []

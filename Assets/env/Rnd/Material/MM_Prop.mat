@@ -26,8 +26,7 @@ Material:
   m_Parent: {fileID: -876546973899608171, guid: 9225edde559a6b443aba3514ccc1e81e,
     type: 3}
   m_ModifiedSerializedProperties: 2
-  m_ValidKeywords:
-  - _RECEIVE_SHADOWS_OFF
+  m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
@@ -35,8 +34,7 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap:
     RenderType: Opaque
-  disabledShaderPasses:
-  - SHADOWCASTER
+  disabledShaderPasses: []
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
