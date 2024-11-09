@@ -1977,7 +1977,7 @@ PrefabInstance:
     - target: {fileID: 1272809055023367274, guid: 9bc0fb57a5755114ead2d24d7447d91e,
         type: 3}
       propertyPath: m_Name
-      value: InteractableObject_Doll
+      value: InteractableObject_RabbitDoll
       objectReference: {fileID: 0}
     - target: {fileID: 2977483865593253064, guid: 9bc0fb57a5755114ead2d24d7447d91e,
         type: 3}
@@ -1989,6 +1989,12 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.088
       objectReference: {fileID: 0}
+    - target: {fileID: 6432610704040082324, guid: 9bc0fb57a5755114ead2d24d7447d91e,
+        type: 3}
+      propertyPath: m_interactableObjectData
+      value: 
+      objectReference: {fileID: 11400000, guid: 467536614c8fdee47b1fbdd05e53f13b,
+        type: 2}
     - target: {fileID: 6960559859790950855, guid: 9bc0fb57a5755114ead2d24d7447d91e,
         type: 3}
       propertyPath: m_Mesh
@@ -2002,7 +2008,7 @@ PrefabInstance:
     - target: {fileID: 7520198358036045603, guid: 9bc0fb57a5755114ead2d24d7447d91e,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 1674
+      value: 1677
       objectReference: {fileID: 0}
     - target: {fileID: 7945921613046049980, guid: 9bc0fb57a5755114ead2d24d7447d91e,
         type: 3}
@@ -2625,6 +2631,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8205424220982980850, guid: 0273c29fb8a18e040b739a5ba7467ba6,
+        type: 3}
+      propertyPath: m_interactableObjectData
+      value: 
+      objectReference: {fileID: 11400000, guid: a473d9e7eb6867b489ca9b97c8bfa540,
+        type: 2}
     - target: {fileID: 9213617922309707323, guid: 0273c29fb8a18e040b739a5ba7467ba6,
         type: 3}
       propertyPath: m_Mesh
@@ -4054,6 +4066,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8205424220982980850, guid: 7bcec8c6653910f4eb2571b996d81ac3,
+        type: 3}
+      propertyPath: m_interactableObjectData
+      value: 
+      objectReference: {fileID: 11400000, guid: 871aa8f383fe8a14b83e9d8e2688afbb,
+        type: 2}
     - target: {fileID: 8562113979893806445, guid: 7bcec8c6653910f4eb2571b996d81ac3,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -4087,6 +4105,12 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1449964897}
+    - target: {fileID: 6432610704040082324, guid: 1532be407edcf6341b20b1aee1dbc863,
+        type: 3}
+      propertyPath: m_interactableObjectData
+      value: 
+      objectReference: {fileID: 11400000, guid: bcf4e64b0bf59a8429a20b1e8f5973a5,
+        type: 2}
     - target: {fileID: 6960559859790950855, guid: 1532be407edcf6341b20b1aee1dbc863,
         type: 3}
       propertyPath: m_Mesh

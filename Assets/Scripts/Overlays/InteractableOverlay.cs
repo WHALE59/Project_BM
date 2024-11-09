@@ -25,7 +25,7 @@ namespace BM
 			m_canvasGroup.alpha = 1.0f;
 
 			//m_displayName.text = displayName;
-			m_interactionName.text = interactionName;
+			m_interactionName.text = displayName;
 		}
 
 		private void Hide()
