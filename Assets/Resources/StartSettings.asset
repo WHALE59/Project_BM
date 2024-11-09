@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9ee1f4fe271da24d9ef81ff87527718, type: 3}
   m_Name: StartSettings
   m_EditorClassIdentifier: 
-  m_startScene: SC_Floor_01
+  m_startScene: SC_Darack
