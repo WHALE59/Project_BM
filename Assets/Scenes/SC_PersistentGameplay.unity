@@ -96,7 +96,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000002, guid: d7943e81b8ea64a42b5f08fbff5e8f2e,
+    type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -379,7 +380,7 @@ MonoBehaviour:
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 1
-  m_Antialiasing: 0
+  m_Antialiasing: 1
   m_AntialiasingQuality: 2
   m_StopNaN: 0
   m_Dithering: 0
@@ -970,12 +971,12 @@ PrefabInstance:
     - target: {fileID: 7058819986290379560, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
         type: 3}
       propertyPath: m_activeSceneName
-      value: SC_Darak
+      value: SC_Darack
       objectReference: {fileID: 0}
     - target: {fileID: 7058819986290379560, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
         type: 3}
       propertyPath: m_sceneNameToLoad.Array.data[0]
-      value: SC_Darak
+      value: SC_Darack
       objectReference: {fileID: 0}
     - target: {fileID: 7093824059209778154, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
         type: 3}

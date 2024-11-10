@@ -115,11 +115,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _01_GrungeMap_BlendAmount: 1.31
+    - _01_GrungeMap_BlendAmount: 4.31
     - _01_GrungeMap_BlendContrast: 1
     - _01_GrungeMap_BlendPower: 0.21
     - _01_GrungeMap_Tiling: 0.22
-    - _02_GrungeMap_BlendAmount: 6.14
+    - _02_GrungeMap_BlendAmount: 4.8
     - _02_GrungeMap_BlendContrast: 0.46
     - _02_GrungeMap_BlendPower: 1.49
     - _02_GrungeMap_Tiling: -0.29
@@ -131,8 +131,8 @@ Material:
     - _IsLit: 1
     - _IsSpecular: 1
     - _IsUsedSecondTexture: 1
-    - _Normal_Intensity: 5
-    - _Pixelize_Amount: 445
+    - _Normal_Intensity: 15
+    - _Pixelize_Amount: 694
     - _Pixelize_Grunge: 0
     - _Pixelize_Grunge2: 3.27
     - _Pixelize_step: 43.09
@@ -155,6 +155,6 @@ Material:
     - _Color: {r: 0, g: 0, b: 0, a: 0}
     - _Specular: {r: 1, g: 1, b: 1, a: 0}
     - _Tiling: {r: 1, g: 1, b: 0, a: 0}
-    - _Tint_Color: {r: 1, g: 1, b: 1, a: 0}
+    - _Tint_Color: {r: 0.7924528, g: 0.7924528, b: 0.7924528, a: 0}
     - _intersect_Color: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []
