@@ -58,6 +58,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ToggleDeveloperOverlay",
+                    "type": "Button",
+                    "id": "f4903ca1-2b06-4ab3-a436-6bddec4866e1",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -366,6 +375,17 @@
                     "processors": "",
                     "groups": "BM_PC",
                     "action": "Walk",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "77680fe1-6143-41b8-9b67-b02e378f51e8",
+                    "path": "<Keyboard>/f1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";BM_PC",
+                    "action": "ToggleDeveloperOverlay",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

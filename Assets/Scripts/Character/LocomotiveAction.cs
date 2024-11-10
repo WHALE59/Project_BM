@@ -11,10 +11,12 @@ namespace BM
 {
 	[DisallowMultipleComponent]
 	[RequireComponent(typeof(CharacterController))]
-	[RequireComponent(typeof(AudioSource))]
 	public class LocomotiveAction : MonoBehaviour
 	{
-		public event Action<bool, float> LocomotionImpulseGenerated;
+		/// <summary>
+		/// 이동 중 발생하는 "진동"의 시점을 알고 싶으면 구독. 위치와 세기이다.
+		/// </summary>
+		public event Action<Vector3, float> LocomotionImpulseGenerated;
 
 		[Header("입력 설정")]
 		[Space()]
@@ -72,8 +74,6 @@ namespace BM
 		[SerializeField] private float m_impulseForceOnCrouchedJog = 0.3f;
 		[SerializeField] private float m_impulseForceOnCrouchedWalk = 0.3f;
 
-		private bool m_isLeftImpulse = false;
-
 		private float m_elapsedTimeAfterLastImpulse;
 
 		private float m_uncrouchedCapsuleHeight;
@@ -101,6 +101,11 @@ namespace BM
 		private EGaitState m_gaitState = EGaitState.Jog;
 
 #if UNITY_EDITOR
+		[Header("로깅 설정")]
+		[Space()]
+
+		[SerializeField] private bool m_logOnLocomotionImpulse = false;
+
 		private bool m_isStuckedWhileCrouching = false;
 		private RaycastHit m_crouchHitInfo;
 #endif
@@ -109,29 +114,14 @@ namespace BM
 		{
 			get
 			{
-				if (m_stanceState == EStanceState.Stand)
+				return (m_stanceState, m_gaitState) switch
 				{
-					if (m_gaitState == EGaitState.Jog)
-					{
-						return m_speedOnStandJog;
-					}
-					else if (m_gaitState == EGaitState.Walk)
-					{
-						return m_speedOnStandWalk;
-					}
-				}
-				else if (m_stanceState == EStanceState.Crouched)
-				{
-					if (m_gaitState == EGaitState.Jog)
-					{
-						return m_speedOnCrouchedJog;
-					}
-					else if (m_gaitState == EGaitState.Walk)
-					{
-						return m_speedOnCrouchedWalk;
-					}
-				}
-				return m_speedOnStandJog;
+					(EStanceState.Stand, EGaitState.Jog) => m_speedOnStandJog,
+					(EStanceState.Stand, EGaitState.Walk) => m_speedOnStandWalk,
+					(EStanceState.Crouched, EGaitState.Jog) => m_speedOnCrouchedJog,
+					(EStanceState.Crouched, EGaitState.Walk) => m_speedOnCrouchedWalk,
+					_ => m_speedOnStandJog
+				};
 			}
 		}
 
@@ -139,28 +129,14 @@ namespace BM
 		{
 			get
 			{
-				if (m_gaitState == EGaitState.Jog)
+				return (m_stanceState, m_gaitState) switch
 				{
-					if (m_stanceState == EStanceState.Stand)
-					{
-						return m_impulsePeriodOnStandJog;
-					}
-					else
-					{
-						return m_impulsePeriodOnCrouchedJog;
-					}
-				}
-				else
-				{
-					if (m_stanceState == EStanceState.Stand)
-					{
-						return m_impulsePeriodOnStandWalk;
-					}
-					else
-					{
-						return m_impulsePeriodOnCrouchedWalk;
-					}
-				}
+					(EStanceState.Stand, EGaitState.Jog) => m_impulsePeriodOnStandJog,
+					(EStanceState.Stand, EGaitState.Walk) => m_impulsePeriodOnStandWalk,
+					(EStanceState.Crouched, EGaitState.Jog) => m_impulsePeriodOnCrouchedJog,
+					(EStanceState.Crouched, EGaitState.Walk) => m_impulsePeriodOnCrouchedWalk,
+					_ => m_impulsePeriodOnStandJog
+				};
 			}
 		}
 
@@ -168,29 +144,14 @@ namespace BM
 		{
 			get
 			{
-				if (m_gaitState == EGaitState.Jog)
+				return (m_stanceState, m_gaitState) switch
 				{
-					if (m_stanceState == EStanceState.Stand)
-					{
-						return m_impulseForceOnStandJog;
-					}
-					else
-					{
-						return m_impulseForceOnCrouchedJog;
-					}
-				}
-				else
-				{
-					if (m_stanceState == EStanceState.Stand)
-					{
-						return m_impulseForceOnStandWalk;
-					}
-					else
-					{
-						return m_impulseForceOnCrouchedWalk;
-					}
-				}
-
+					(EStanceState.Stand, EGaitState.Jog) => m_impulseForceOnStandJog,
+					(EStanceState.Stand, EGaitState.Walk) => m_impulseForceOnStandWalk,
+					(EStanceState.Crouched, EGaitState.Jog) => m_impulseForceOnCrouchedJog,
+					(EStanceState.Crouched, EGaitState.Walk) => m_impulseForceOnCrouchedWalk,
+					_ => m_impulseForceOnStandJog
+				};
 			}
 		}
 
@@ -211,9 +172,12 @@ namespace BM
 			m_localMoveDirection = new Vector3(moveInput.x, 0.0f, moveInput.y);
 		}
 
+		private bool m_hasTriggeredInitialImpulse = false;
+		private float m_previousInitialImpulseTime;
+
 		private void GenerateLocomotionImpulse()
 		{
-			// 지면에 닿아 있지 않거나, 이동 할 의도가 없거나, 움직이지 않고 있다면 Impulse가 생성되어서는 안 됨.
+			// 체공 중이거나, 이동 할 의도가 없거나, 움직이지 않고 있다면 Impulse가 생성되어서는 안 됨.
 
 			if (!m_characterController.isGrounded || !m_isDesiredToMove || !m_isMoving)
 			{
@@ -225,6 +189,40 @@ namespace BM
 			var currentImpulsePeriod = ImpulsePeriod;
 			var currentImpulseForce = ImpulseForce;
 
+			if (!m_hasTriggeredInitialImpulse)
+			{
+				var elapsedTimeAfterLastInitialImpulse = Time.time - m_previousInitialImpulseTime;
+
+				if (elapsedTimeAfterLastInitialImpulse >= currentImpulsePeriod)
+				{
+#if UNITY_EDITOR
+					if (m_logOnLocomotionImpulse)
+					{
+						Debug.Log("* Initial Impulse Generated: ");
+					}
+#endif
+					m_previousInitialImpulseTime = Time.time;
+
+					m_hasTriggeredInitialImpulse = true;
+
+					LocomotionImpulseGenerated?.Invoke(transform.position, currentImpulseForce);
+					m_elapsedTimeAfterLastImpulse = 0.0f;
+
+				}
+				else
+				{
+
+#if UNITY_EDITOR
+					if (m_logOnLocomotionImpulse)
+					{
+						Debug.Log($"* Initial Impulse Blocked {elapsedTimeAfterLastInitialImpulse:F2} < {currentImpulsePeriod}");
+					}
+#endif
+				}
+
+				return;
+			}
+
 			// Impulse 타이머
 
 			if (m_elapsedTimeAfterLastImpulse < currentImpulsePeriod)
@@ -233,10 +231,8 @@ namespace BM
 
 				if (m_elapsedTimeAfterLastImpulse >= currentImpulsePeriod)
 				{
-					// 이벤트 발생!
-					LocomotionImpulseGenerated?.Invoke(m_isLeftImpulse, currentImpulseForce);
-					m_isLeftImpulse = !m_isLeftImpulse;
-
+					// 이벤트 발생 및 타이머 초기화
+					LocomotionImpulseGenerated?.Invoke(transform.position, currentImpulseForce);
 					m_elapsedTimeAfterLastImpulse = 0.0f;
 				}
 			}
@@ -245,19 +241,43 @@ namespace BM
 
 			if (m_elapsedTimeAfterLastImpulse >= currentImpulsePeriod)
 			{
-				// 이벤트 발생!
-				LocomotionImpulseGenerated?.Invoke(m_isLeftImpulse, currentImpulseForce);
-				m_isLeftImpulse = !m_isLeftImpulse;
-
+				// 이벤트 발생 및 타이머 초기화
+				LocomotionImpulseGenerated?.Invoke(transform.position, currentImpulseForce);
 				m_elapsedTimeAfterLastImpulse = 0.0f;
+			}
+		}
+
+		private void ResetLocomotionImpulse(Vector2 _)
+		{
+			m_hasTriggeredInitialImpulse = false;
+
+#if UNITY_EDITOR
+			if (m_logOnLocomotionImpulse)
+			{
+				Debug.Log("* Reset Initial Impulse");
+			}
+#endif
+		}
+
+		public Vector3 CameraTargetLocalPosition
+		{
+			get
+			{
+				if (!m_characterController)
+				{
+					m_characterController = GetComponent<CharacterController>();
+				}
+
+				var ret = m_characterController.center +
+				new Vector3(0.0f, (m_characterController.height - m_characterController.radius) / 2.0f, 0.0f);
+
+				return ret;
 			}
 		}
 
 		private void UpdateCameraTargetLocalPosition()
 		{
-			m_cameraTarget.localPosition =
-				m_characterController.center +
-				new Vector3(0.0f, (m_characterController.height - m_characterController.radius) / 2.0f, 0.0f);
+			m_cameraTarget.localPosition = CameraTargetLocalPosition;
 		}
 
 		private void StartCrouch()
@@ -362,7 +382,6 @@ namespace BM
 		{
 			m_characterController = GetComponent<CharacterController>();
 
-
 			m_uncrouchedCapsuleHeight = m_characterController.height;
 			m_uncrouchedCapsuleCenter = m_characterController.center;
 		}
@@ -380,24 +399,36 @@ namespace BM
 
 		private void OnEnable()
 		{
-			m_inputReader.MoveInputEvent += UpdateLocalMoveDirection;
+			m_inputReader.MoveInputPerformed += UpdateLocalMoveDirection;
+			m_inputReader.MoveInputCancled += ResetLocomotionImpulse;
 
 			m_inputReader.CrouchInputPerformed += StartCrouch;
 			m_inputReader.CrouchInputCanceled += FinishCrouch;
 
 			m_inputReader.WalkInputPerformed += StartWalk;
 			m_inputReader.WalkInputCanceled += FinishWalk;
+
+#if UNITY_EDITOR
+			LocomotionImpulseGenerated += ImpulseLogger;
+#endif
 		}
 
 		private void OnDisable()
 		{
-			m_inputReader.MoveInputEvent -= UpdateLocalMoveDirection;
+			m_inputReader.MoveInputPerformed -= UpdateLocalMoveDirection;
+			m_inputReader.MoveInputCancled -= ResetLocomotionImpulse;
 
 			m_inputReader.CrouchInputPerformed -= StartCrouch;
 			m_inputReader.CrouchInputCanceled -= FinishCrouch;
 
+#if UNITY_EDITOR
+			LocomotionImpulseGenerated -= ImpulseLogger;
+#endif
+
 			m_inputReader.WalkInputPerformed -= StartWalk;
 			m_inputReader.WalkInputCanceled -= FinishWalk;
+#if UNITY_EDITOR
+#endif
 		}
 
 		private void Start()
@@ -445,14 +476,37 @@ namespace BM
 		}
 
 #if UNITY_EDITOR
+		private void ImpulseLogger(Vector3 position, float force)
+		{
+			if (!m_logOnLocomotionImpulse)
+			{
+				return;
+			}
+
+			Debug.Log($"* Impulse Generated: {Time.time:F2}, {position:F2} {force:F2}");
+		}
+
 		/// <summary>
 		/// 캐릭터의 전방을 그린다.
 		/// </summary>
 		[DrawGizmo(GizmoType.Active)]
 		private static void DrawForwardGizmo(LocomotiveAction target, GizmoType _)
 		{
+			if (!target.m_cameraTarget)
+			{
+				return;
+			}
+
+			if (!target.m_characterController)
+			{
+				target.m_characterController = target.GetComponent<CharacterController>();
+			}
+
+			var start = target.CameraTargetLocalPosition;
+			var direction = target.transform.forward;
+
 			Gizmos.color = Color.yellow;
-			Gizmos.DrawRay(target.transform.position, target.transform.forward * 1.0f);
+			Gizmos.DrawRay(start, direction * 1.0f);
 		}
 
 		[DrawGizmo(GizmoType.Active | GizmoType.Selected)]

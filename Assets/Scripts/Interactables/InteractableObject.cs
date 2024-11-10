@@ -12,7 +12,6 @@ namespace BM
 	public class InteractableObject : MonoBehaviour, IInteractableObject
 	{
 		[SerializeField] private InteractableObjectData m_interactableObjectData;
-		[SerializeField] private FresnelEffectData m_fresnelEffectData;
 
 		private Material m_propMaterial;
 
@@ -56,7 +55,7 @@ namespace BM
 				m_propMaterial = meshRenderer.material;
 			}
 
-			FresnelEffectData.ApplySettingsToMaterial(m_propMaterial, m_fresnelEffectData);
+			//FresnelEffectData.ApplySettingsToMaterial(m_propMaterial, m_fresnelEffectData);
 		}
 	}
 }

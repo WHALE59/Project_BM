@@ -13,12 +13,12 @@ namespace BM
 				return;
 			}
 
-			if (!collider.TryGetComponent<FootstepAudioBase>(out var footstepAudio))
+			if (!collider.TryGetComponent<FootstepAudio>(out var footstepAudio))
 			{
 				return;
 			}
 
-			footstepAudio.FootstepBaseAudioData = m_footstepAudioClipSet;
+			//footstepAudio.FootstepBaseAudioData = m_footstepAudioClipSet;
 		}
 
 		private void OnTriggerExit(Collider collider)
@@ -33,12 +33,12 @@ namespace BM
 				return;
 			}
 
-			if (!collider.TryGetComponent<FootstepAudioBase>(out var footstepAudio))
+			if (!collider.TryGetComponent<FootstepAudio>(out var footstepAudio))
 			{
 				return;
 			}
 
-			footstepAudio.FootstepBaseAudioData = null;
+			//footstepAudio.FootstepBaseAudioData = null;
 		}
 	}
 }

@@ -82,6 +82,15 @@ namespace BM
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleDeveloperOverlay"",
+                    ""type"": ""Button"",
+                    ""id"": ""f4903ca1-2b06-4ab3-a436-6bddec4866e1"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -392,6 +401,17 @@ namespace BM
                     ""action"": ""Walk"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""77680fe1-6143-41b8-9b67-b02e378f51e8"",
+                    ""path"": ""<Keyboard>/f1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";BM_PC"",
+                    ""action"": ""ToggleDeveloperOverlay"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -434,6 +454,7 @@ namespace BM
             m_Gameplay_Use = m_Gameplay.FindAction("Use", throwIfNotFound: true);
             m_Gameplay_Crouch = m_Gameplay.FindAction("Crouch", throwIfNotFound: true);
             m_Gameplay_Walk = m_Gameplay.FindAction("Walk", throwIfNotFound: true);
+            m_Gameplay_ToggleDeveloperOverlay = m_Gameplay.FindAction("ToggleDeveloperOverlay", throwIfNotFound: true);
         }
 
         ~@IA_GameInputs()
@@ -506,6 +527,7 @@ namespace BM
         private readonly InputAction m_Gameplay_Use;
         private readonly InputAction m_Gameplay_Crouch;
         private readonly InputAction m_Gameplay_Walk;
+        private readonly InputAction m_Gameplay_ToggleDeveloperOverlay;
         public struct GameplayActions
         {
             private @IA_GameInputs m_Wrapper;
@@ -516,6 +538,7 @@ namespace BM
             public InputAction @Use => m_Wrapper.m_Gameplay_Use;
             public InputAction @Crouch => m_Wrapper.m_Gameplay_Crouch;
             public InputAction @Walk => m_Wrapper.m_Gameplay_Walk;
+            public InputAction @ToggleDeveloperOverlay => m_Wrapper.m_Gameplay_ToggleDeveloperOverlay;
             public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -543,6 +566,9 @@ namespace BM
                 @Walk.started += instance.OnWalk;
                 @Walk.performed += instance.OnWalk;
                 @Walk.canceled += instance.OnWalk;
+                @ToggleDeveloperOverlay.started += instance.OnToggleDeveloperOverlay;
+                @ToggleDeveloperOverlay.performed += instance.OnToggleDeveloperOverlay;
+                @ToggleDeveloperOverlay.canceled += instance.OnToggleDeveloperOverlay;
             }
 
             private void UnregisterCallbacks(IGameplayActions instance)
@@ -565,6 +591,9 @@ namespace BM
                 @Walk.started -= instance.OnWalk;
                 @Walk.performed -= instance.OnWalk;
                 @Walk.canceled -= instance.OnWalk;
+                @ToggleDeveloperOverlay.started -= instance.OnToggleDeveloperOverlay;
+                @ToggleDeveloperOverlay.performed -= instance.OnToggleDeveloperOverlay;
+                @ToggleDeveloperOverlay.canceled -= instance.OnToggleDeveloperOverlay;
             }
 
             public void RemoveCallbacks(IGameplayActions instance)
@@ -608,6 +637,7 @@ namespace BM
             void OnUse(InputAction.CallbackContext context);
             void OnCrouch(InputAction.CallbackContext context);
             void OnWalk(InputAction.CallbackContext context);
+            void OnToggleDeveloperOverlay(InputAction.CallbackContext context);
         }
     }
 }
