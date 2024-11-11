@@ -41,6 +41,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: eb91ea38c95f24c448665d3cee713f63, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _01_GrungeMap01:
+        m_Texture: {fileID: 2800000, guid: d7d103b08c060684f902990f417741ce, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _01_Masked:
         m_Texture: {fileID: 2800000, guid: cd40c8a292c88b440922f8d6a5047454, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -82,7 +86,7 @@ Material:
     - _Intersection_power: 0.08
     - _IsUsedSecondTexture: 0
     - _Normal_Intensity: 10
-    - _Pixelize_Amount: 407
+    - _Pixelize_Amount: 500
     - _Pixelize_Grunge: 2.5
     - _Pixelize_Grunge2: 2
     - _Pixelize_step: 12.5

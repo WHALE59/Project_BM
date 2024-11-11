@@ -72,7 +72,7 @@ Material:
     - _PixelizeAmount: 1000
     - _QueueControl: 0
     - _RoughnessContrast: 0.28
-    - _RoughnessPower: 0.138
+    - _RoughnessPower: 0.3
     - _TimeSpeed: 2
     - _Top_Pixelize_step: 0
     - _depth: -24.1
