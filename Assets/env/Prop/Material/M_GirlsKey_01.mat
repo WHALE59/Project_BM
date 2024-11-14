@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_GirlsBooks_01
+  m_Name: M_GirlsKey_01
   m_Shader: {fileID: -6465566751694194690, guid: 9225edde559a6b443aba3514ccc1e81e,
     type: 3}
   m_Parent: {fileID: 2100000, guid: 1f7fcbcb2ed18874f8a2906666c55da8, type: 2}
@@ -39,15 +39,15 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _01_BaseCol:
-        m_Texture: {fileID: 2800000, guid: 6675def0216ba894298dfaf2f7316b55, type: 3}
+        m_Texture: {fileID: 2800000, guid: a3bbfbe71ef3b93469f2bd11ccd5d7c7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _01_Masked:
-        m_Texture: {fileID: 2800000, guid: 896fed180ef49d742be1f89abe73adcc, type: 3}
+        m_Texture: {fileID: 2800000, guid: 3d2538c7ddddaf74f8c2a8d22703e5d6, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _01_Normal:
-        m_Texture: {fileID: 2800000, guid: bd1af0116c891e6419c868ac21042189, type: 3}
+        m_Texture: {fileID: 2800000, guid: 8beafcbaac1fa8a4982d9d45ff811906, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DirtBasscol:
@@ -68,16 +68,16 @@ Material:
     - _GrungeMap_Power: 0.01
     - _Grunge_Tiling: 0
     - _IsUsedFresnel: 0
-    - _Normal_Intensity: 0.5
-    - _PixelizeAmount: 481
+    - _Normal_Intensity: 1
+    - _PixelizeAmount: 342
     - _QueueControl: 0
-    - _RoughnessContrast: 0.5
-    - _RoughnessPower: 0.5
+    - _RoughnessContrast: 0.63
+    - _RoughnessPower: 1
     - _TimeSpeed: 2
     - _Top_Pixelize_step: 0
     - _depth: -24.1
     m_Colors:
     - _FresnelColor: {r: 1, g: 0.6156863, b: 0, a: 1}
-    - _FresnelColor2: {r: 1, g: 0, b: 0.5217905, a: 0}
+    - _FresnelColor2: {r: 1, g: 0.7149368, b: 0, a: 0}
     - _TintColor: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []

@@ -62,7 +62,7 @@ Material:
     - _FresnelPower: 1
     - _Fresnelrange: 7.72
     - _IsUsedFresnel: 0
-    - _Normal_Intensity: 0
+    - _Normal_Intensity: 0.15
     - _PixelizeAmount: 500
     - _RoughnessContrast: 0.51
     - _RoughnessPower: 0.543

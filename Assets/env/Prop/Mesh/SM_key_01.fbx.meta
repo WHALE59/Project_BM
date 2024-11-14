@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9cb9a0651d876ee41b7feb16440ccecd
+guid: 572c283044d18c14ebbfb2e18224734f
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,18 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Bedsheet
-    second: {fileID: 2100000, guid: 83abe9e3f1443ea4a838933e8bb2cb7a, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: bad
-    second: {fileID: 2100000, guid: 1ca7ef5c3642ae942bff021c5a43580a, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: metal
-    second: {fileID: 2100000, guid: 32e1a19ce75a08d4785b57eb54b1d13e, type: 2}
+      name: M_Key_01
+    second: {fileID: 2100000, guid: 4b0d15a9220f32843b6a7fc3b16cbde2, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -85,13 +75,13 @@ ModelImporter:
     useFileScale: 1
     strictVertexDataChecks: 0
   tangentSpace:
-    normalSmoothAngle: 60
+    normalSmoothAngle: 8
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1
-    normalSmoothingSource: 0
+    normalSmoothingSource: 1
   referencedClips: []
   importAnimation: 1
   humanDescription:
