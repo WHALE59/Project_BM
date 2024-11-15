@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_BedBadding_01
+  m_Name: M_BedSheet_01
   m_Shader: {fileID: -6465566751694194690, guid: 9225edde559a6b443aba3514ccc1e81e,
     type: 3}
   m_Parent: {fileID: 2100000, guid: 1f7fcbcb2ed18874f8a2906666c55da8, type: 2}
@@ -39,15 +39,15 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _01_BaseCol:
-        m_Texture: {fileID: 2800000, guid: d89c5b712ab23194ea1991e60871d3f4, type: 3}
+        m_Texture: {fileID: 2800000, guid: c140482609de5c847ba68dda1451b0ce, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _01_Masked:
-        m_Texture: {fileID: 2800000, guid: 04739215b85e36247b7afeae80ca0336, type: 3}
+        m_Texture: {fileID: 2800000, guid: e44ed7f33c9b56347b07f84bb6bc4c74, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _01_Normal:
-        m_Texture: {fileID: 2800000, guid: 66d950856ed783a4fb4095adfa92960e, type: 3}
+        m_Texture: {fileID: 2800000, guid: ba1a94e375664d74a9f8259b295e39a6, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DirtBasscol:

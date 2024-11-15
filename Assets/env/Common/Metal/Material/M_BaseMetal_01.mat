@@ -62,13 +62,14 @@ Material:
     - _FresnelPower: 1
     - _Fresnelrange: 7.72
     - _IsUsedFresnel: 0
-    - _Normal_Intensity: 0
+    - _Normal_Intensity: 0.15
     - _PixelizeAmount: 500
-    - _RoughnessContrast: 0.5
-    - _RoughnessPower: 0.5
+    - _RoughnessContrast: 0.51
+    - _RoughnessPower: 0.543
     - _TimeSpeed: 2
     - _Top_Pixelize_step: 7.37
     m_Colors:
     - _FresnelColor: {r: 1, g: 0.61552286, b: 0, a: 1}
     - _FresnelColor2: {r: 1, g: 0, b: 0.5217905, a: 0}
+    - _TintColor: {r: 0.8396226, g: 0.7059541, b: 0.6534799, a: 0}
   m_BuildTextureStacks: []
