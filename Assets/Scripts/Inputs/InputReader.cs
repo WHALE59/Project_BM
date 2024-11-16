@@ -26,6 +26,8 @@ namespace BM
 		[SerializeField] private bool m_crouchInputIsToggle;
 		[SerializeField] private bool m_walkInputIsToggle;
 
+		// Locomotion
+
 		public event UnityAction<Vector2> MoveInputPerformed = delegate { };
 		public event UnityAction<Vector2> MoveInputCancled = delegate { };
 
@@ -37,11 +39,28 @@ namespace BM
 		public event UnityAction WalkInputPerformed = delegate { };
 		public event UnityAction WalkInputCanceled = delegate { };
 
-		public event UnityAction InteractInputPerformed = delegate { };
-		public event UnityAction InteractInputCanceled = delegate { };
+		// Interaction 
 
-		public event UnityAction UseInputPerformed = delegate { };
-		public event UnityAction UseInputCanceled = delegate { };
+		public event UnityAction EquipInputTriggered = delegate { };
+
+		public event UnityAction UseInputStarted = delegate { };
+		public event UnityAction UseInputFinished = delegate { };
+
+		public event UnityAction TogglePlacementModeInputTriggered = delegate { };
+
+		public event UnityAction PlaceInputTriggered = delegate { };
+
+		public event UnityAction PushPopInventoryInputTriggered = delegate { };
+		public event UnityAction PopInventoryInputTriggered = delegate { };
+
+		// Collect 는 'Hold' 인터랙션 속성을 가지고 있음
+		public event UnityAction CollectHoldInputStarted = delegate { };
+		public event UnityAction CollectHoldInputTriggered = delegate { };
+
+		public event UnityAction ActivateInputStarted = delegate { };
+		public event UnityAction ActivateInputFinished = delegate { };
+
+		// Debug
 
 		public event UnityAction ToggleDeveloperInputPerforemed = delegate { };
 		public event UnityAction ToggleDeveloperInputCanceled = delegate { };
@@ -150,17 +169,13 @@ namespace BM
 			}
 		}
 
-		void IA_GameInputs.IGameplayActions.OnInteract(InputAction.CallbackContext context)
-		{
-			switch (context.phase)
-			{
-				case InputActionPhase.Performed:
-					InteractInputPerformed.Invoke();
-					break;
+		// Interaction
 
-				case InputActionPhase.Canceled:
-					InteractInputCanceled.Invoke();
-					break;
+		void IA_GameInputs.IGameplayActions.OnEquip(InputAction.CallbackContext context)
+		{
+			if (context.phase == InputActionPhase.Performed)
+			{
+				EquipInputTriggered.Invoke();
 			}
 		}
 
@@ -169,13 +184,74 @@ namespace BM
 			switch (context.phase)
 			{
 				case InputActionPhase.Performed:
-					UseInputPerformed.Invoke();
+					UseInputStarted.Invoke();
 					break;
 				case InputActionPhase.Canceled:
-					UseInputCanceled.Invoke();
+					UseInputFinished.Invoke();
 					break;
 			}
 		}
+
+		void IA_GameInputs.IGameplayActions.OnTogglePlacementMode(InputAction.CallbackContext context)
+		{
+			if (context.phase == InputActionPhase.Performed)
+			{
+				TogglePlacementModeInputTriggered.Invoke();
+			}
+		}
+
+		void IA_GameInputs.IGameplayActions.OnPlace(InputAction.CallbackContext context)
+		{
+			if (context.phase == InputActionPhase.Performed)
+			{
+				PlaceInputTriggered.Invoke();
+			}
+		}
+
+		void IA_GameInputs.IGameplayActions.OnCollect(InputAction.CallbackContext context)
+		{
+			switch (context.phase)
+			{
+				case InputActionPhase.Started:
+					CollectHoldInputStarted.Invoke();
+					break;
+				case InputActionPhase.Performed:
+					CollectHoldInputTriggered.Invoke();
+					break;
+			}
+		}
+
+		void IA_GameInputs.IGameplayActions.OnActivate(InputAction.CallbackContext context)
+		{
+			switch (context.phase)
+			{
+				case InputActionPhase.Performed:
+					ActivateInputStarted.Invoke();
+					break;
+
+				case InputActionPhase.Canceled:
+					ActivateInputFinished.Invoke();
+					break;
+			}
+		}
+
+		void IA_GameInputs.IGameplayActions.OnPushInventory(InputAction.CallbackContext context)
+		{
+			if (context.phase == InputActionPhase.Performed)
+			{
+				PushPopInventoryInputTriggered.Invoke();
+			}
+		}
+
+		void IA_GameInputs.IGameplayActions.OnPopInventory(InputAction.CallbackContext context)
+		{
+			if (context.phase == InputActionPhase.Performed)
+			{
+				PopInventoryInputTriggered.Invoke();
+			}
+		}
+
+		// Cheats
 
 		void IA_GameInputs.IGameplayActions.OnToggleDeveloperOverlay(InputAction.CallbackContext context)
 		{
@@ -193,7 +269,7 @@ namespace BM
 		private void OnEnable()
 		{
 			/// <see cref="IA_GameInputs"/> 인스턴스가 없으면 생성
-			if (m_gameInputs is null)
+			if (m_gameInputs == null)
 			{
 				m_gameInputs = new();
 

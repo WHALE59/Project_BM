@@ -24,24 +24,6 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Interact",
-                    "type": "Button",
-                    "id": "f397bd11-62db-42b8-8c32-fe69b1f338e0",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Use",
-                    "type": "Button",
-                    "id": "d51d99fb-36dc-4682-bceb-36584ced80bd",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Crouch",
                     "type": "Button",
                     "id": "023bab3f-7aa5-4b0d-b1cf-bdc02a9e5954",
@@ -60,9 +42,81 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Equip",
+                    "type": "Button",
+                    "id": "e1c5297d-13a5-4a1e-8979-d8086c99576f",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "TogglePlacementMode",
+                    "type": "Button",
+                    "id": "aaa29a45-ca6a-406b-8078-d1801fd09a58",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Place",
+                    "type": "Button",
+                    "id": "333f2c00-211b-4fe5-ad5b-9c25ea01fd41",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Collect",
+                    "type": "Button",
+                    "id": "b943deca-7f79-4575-a646-aba3c03659fa",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Use",
+                    "type": "Button",
+                    "id": "d51d99fb-36dc-4682-bceb-36584ced80bd",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Activate",
+                    "type": "Button",
+                    "id": "f397bd11-62db-42b8-8c32-fe69b1f338e0",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "ToggleDeveloperOverlay",
                     "type": "Button",
                     "id": "f4903ca1-2b06-4ab3-a436-6bddec4866e1",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "PushInventory",
+                    "type": "Button",
+                    "id": "3b6e104e-e6e6-455e-8129-7a3b75914360",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "PopInventory",
+                    "type": "Button",
+                    "id": "80d1820d-a492-48c3-88cc-6e850ce2871a",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -319,18 +373,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "BM_PC",
-                    "action": "Interact",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "2b9aaf18-139a-4256-9cd4-678429685bf8",
-                    "path": "<Gamepad>/rightTrigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "BM_Gamepad",
-                    "action": "Interact",
+                    "action": "Activate",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -386,6 +429,72 @@
                     "processors": "",
                     "groups": ";BM_PC",
                     "action": "ToggleDeveloperOverlay",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "effcc6de-b4a5-4587-8cb9-874de8e026f1",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";BM_PC",
+                    "action": "Collect",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b43796c5-80fc-495b-970f-75129d8384fc",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";BM_PC",
+                    "action": "Equip",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "aad852e1-d234-4dee-92b7-b3f08cbaa39b",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "Hold(duration=0.4,pressPoint=0.5)",
+                    "processors": "",
+                    "groups": ";BM_PC",
+                    "action": "TogglePlacementMode",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "41093fb6-9c2b-4fe2-98e0-436377cda502",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";BM_PC",
+                    "action": "Place",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5b35dc01-3e1e-4b31-a27e-50fa1fa0b56e",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";BM_PC",
+                    "action": "PushInventory",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2e6cb2ee-79e2-4eac-8f09-54eaedaa0e05",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";BM_PC",
+                    "action": "PopInventory",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

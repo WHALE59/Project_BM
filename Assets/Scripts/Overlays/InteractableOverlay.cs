@@ -1,3 +1,4 @@
+#if false
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -98,3 +99,4 @@ namespace BM
 		//}
 	}
 }
+#endif
