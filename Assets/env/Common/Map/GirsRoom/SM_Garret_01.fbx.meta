@@ -12,6 +12,16 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Metal
+    second: {fileID: 2100000, guid: 32e1a19ce75a08d4785b57eb54b1d13e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Window_glass
+    second: {fileID: 2100000, guid: 1a79db7496088de4a8ef5367f0a6f70a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: WoodenFlank
     second: {fileID: 2100000, guid: 5faecb170e5048448a811eba24695666, type: 2}
   - first:

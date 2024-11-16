@@ -12,6 +12,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: M_pillow_01
+    second: {fileID: 2100000, guid: 98d82262a16187e4f9823e43d17b4f94, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: bad
     second: {fileID: 2100000, guid: 1ca7ef5c3642ae942bff021c5a43580a, type: 2}
   - first:
