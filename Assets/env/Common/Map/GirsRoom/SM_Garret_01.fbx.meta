@@ -7,6 +7,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Cubemap
+    second: {fileID: 2100000, guid: f5f5edc3e5c252d44bfcb01ac128a050, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Curtain
     second: {fileID: 2100000, guid: ad85f88653efce649b527a6a089afe86, type: 2}
   - first:

@@ -131,15 +131,15 @@ Material:
     - _IsLit: 1
     - _IsSpecular: 1
     - _IsUsedSecondTexture: 1
-    - _Normal_Intensity: 8
-    - _Pixelize_Amount: 648
+    - _Normal_Intensity: 3
+    - _Pixelize_Amount: 306
     - _Pixelize_Grunge: 0
     - _Pixelize_Grunge2: 3.27
     - _Pixelize_step: 43.09
     - _QueueControl: 0
     - _QueueOffset: 0
     - _RoughnessContrast: 2
-    - _RoughnessPower: 0.752
+    - _RoughnessPower: 0.7
     - _Smoothness: 0.5
     - _TextureResolution: 256
     - _UseAffine: 1
@@ -152,9 +152,9 @@ Material:
     m_Colors:
     - _01_GrundgeMap_Offset: {r: 17.17, g: 1.94, b: -3.4, a: 0}
     - _02_GrundgeMap_Offset: {r: 1, g: 1, b: 1, a: 0}
-    - _Color: {r: 0, g: 0, b: 0, a: 0}
+    - _Color: {r: 0.047169805, g: 0.047169805, b: 0.047169805, a: 0}
     - _Specular: {r: 1, g: 1, b: 1, a: 0}
     - _Tiling: {r: 1, g: 1, b: 0, a: 0}
-    - _Tint_Color: {r: 0.7924528, g: 0.7924528, b: 0.7924528, a: 0}
+    - _Tint_Color: {r: 0.5283019, g: 0.5032327, b: 0.48095408, a: 0}
     - _intersect_Color: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []
