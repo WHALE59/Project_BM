@@ -58,7 +58,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _02_BaseCol:
-        m_Texture: {fileID: 2800000, guid: a5af0dc9119c3084bafa1ecdfb57aae8, type: 3}
+        m_Texture: {fileID: 2800000, guid: babdc5a6d3009f749b2c568903003f19, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _02_GrungeMap02:
@@ -66,11 +66,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _02_Masked:
-        m_Texture: {fileID: 2800000, guid: e8879efc59cd69f4686a3b29524eee0c, type: 3}
+        m_Texture: {fileID: 2800000, guid: 387b8cc58e90b854fac0cfe7a1f9ae20, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _02_Normal:
-        m_Texture: {fileID: 2800000, guid: 5bb1cc685f109d84b865f6daef415dfa, type: 3}
+        m_Texture: {fileID: 2800000, guid: f08dde60f9a13fd4fa4315d7fc286c3b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTexture:
@@ -115,14 +115,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _01_GrungeMap_BlendAmount: 4.31
-    - _01_GrungeMap_BlendContrast: 1
+    - _01_GrungeMap_BlendAmount: 0.37
+    - _01_GrungeMap_BlendContrast: 0.53
     - _01_GrungeMap_BlendPower: 0.21
-    - _01_GrungeMap_Tiling: 0.22
-    - _02_GrungeMap_BlendAmount: 4.8
-    - _02_GrungeMap_BlendContrast: 0.46
+    - _01_GrungeMap_Tiling: -0.15
+    - _02_GrungeMap_BlendAmount: 2.55
+    - _02_GrungeMap_BlendContrast: 0.88
     - _02_GrungeMap_BlendPower: 1.49
-    - _02_GrungeMap_Tiling: -0.29
+    - _02_GrungeMap_Tiling: 0.23
     - _AffineThreasgold: 11
     - _ColorPrecision: 16
     - _Depth: -13.5
@@ -132,14 +132,14 @@ Material:
     - _IsSpecular: 1
     - _IsUsedSecondTexture: 1
     - _Normal_Intensity: 3
-    - _Pixelize_Amount: 306
-    - _Pixelize_Grunge: 0
-    - _Pixelize_Grunge2: 3.27
-    - _Pixelize_step: 43.09
+    - _Pixelize_Amount: 450
+    - _Pixelize_Grunge: 1.5
+    - _Pixelize_Grunge2: 25
+    - _Pixelize_step: 4.63
     - _QueueControl: 0
     - _QueueOffset: 0
     - _RoughnessContrast: 2
-    - _RoughnessPower: 0.7
+    - _RoughnessPower: 0.688
     - _Smoothness: 0.5
     - _TextureResolution: 256
     - _UseAffine: 1
@@ -150,11 +150,11 @@ Material:
     - _VertexResolution: 16
     - _intersect_Contrast: 0
     m_Colors:
-    - _01_GrundgeMap_Offset: {r: 17.17, g: 1.94, b: -3.4, a: 0}
+    - _01_GrundgeMap_Offset: {r: 9.81, g: 8.1, b: -5.29, a: 0}
     - _02_GrundgeMap_Offset: {r: 1, g: 1, b: 1, a: 0}
     - _Color: {r: 0.047169805, g: 0.047169805, b: 0.047169805, a: 0}
     - _Specular: {r: 1, g: 1, b: 1, a: 0}
     - _Tiling: {r: 1, g: 1, b: 0, a: 0}
-    - _Tint_Color: {r: 0.5283019, g: 0.5032327, b: 0.48095408, a: 0}
+    - _Tint_Color: {r: 0.6698113, g: 0.6698113, b: 0.6698113, a: 0}
     - _intersect_Color: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []

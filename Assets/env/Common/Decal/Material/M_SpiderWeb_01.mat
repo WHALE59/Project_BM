@@ -13,15 +13,20 @@ Material:
   m_Parent: {fileID: 2100000, guid: 0c8f8db8a6232ab438c8783384974851, type: 2}
   m_ModifiedSerializedProperties: 18
   m_ValidKeywords:
+  - _ALPHAPREMULTIPLY_ON
   - _ALPHATEST_ON
+  - _RECEIVE_SHADOWS_OFF
+  - _SURFACE_TYPE_TRANSPARENT
   m_InvalidKeywords: []
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2450
+  m_CustomRenderQueue: 3000
   stringTagMap:
-    RenderType: TransparentCutout
-  disabledShaderPasses: []
+    RenderType: Transparent
+  disabledShaderPasses:
+  - SHADOWCASTER
+  - DepthOnly
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
@@ -32,18 +37,21 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AlphaToMask: 1
+    - _AlphaClip: 1
+    - _AlphaToMask: 0
     - _Alpha_Power: 3
     - _Alpha_amount: 0.33
-    - _CastShadows: 1
+    - _CastShadows: 0
+    - _Cull: 0
     - _Depth_Alpha: -12
-    - _DstBlend: 0
+    - _DstBlend: 10
     - _IsusedDepthAlpha: 1
     - _Normal_Intensity: 0
-    - _PixelizeAmount: 609
-    - _Roughnesss_Amount: 0.5
-    - _Surface: 0
-    - _ZWrite: 1
+    - _PixelizeAmount: 1000
+    - _ReceiveShadows: 0
+    - _Roughnesss_Amount: 0.41
+    - _Surface: 1
+    - _ZWrite: 0
     - _depth: -13
     m_Colors:
     - _Tint: {r: 1, g: 1, b: 1, a: 0}

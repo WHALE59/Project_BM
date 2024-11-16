@@ -58,11 +58,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _02_Masked:
-        m_Texture: {fileID: 2800000, guid: e8879efc59cd69f4686a3b29524eee0c, type: 3}
+        m_Texture: {fileID: 2800000, guid: cd40c8a292c88b440922f8d6a5047454, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _02_Normal:
-        m_Texture: {fileID: 2800000, guid: bc98e5806b00ffb4890abe67518af673, type: 3}
+        m_Texture: {fileID: 2800000, guid: 088e07ae2a5af6f4fb11365759eb1058, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Normal:
@@ -71,25 +71,25 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _01_GrungeMap_BlendAmount: 3.63
-    - _01_GrungeMap_BlendContrast: 2.5
+    - _01_GrungeMap_BlendAmount: 1.04
+    - _01_GrungeMap_BlendContrast: 0.44
     - _01_GrungeMap_BlendPower: 0.35
-    - _01_GrungeMap_Tiling: 0.04
-    - _02_GrungeMap_BlendAmount: 1.64
-    - _02_GrungeMap_BlendContrast: -0.53
+    - _01_GrungeMap_Tiling: -0.09
+    - _02_GrungeMap_BlendAmount: 1.69
+    - _02_GrungeMap_BlendContrast: 0.07
     - _02_GrungeMap_BlendPower: -1.76
-    - _02_GrungeMap_Tiling: 0.1
+    - _02_GrungeMap_Tiling: 0.05
     - _Depth: -12.5
-    - _GrundgeMap_Mixin: 0.15
+    - _GrundgeMap_Mixin: 1
     - _Intersection_Contrast: 1
     - _Intersection_amount: 0.5
     - _Intersection_power: 0.08
-    - _IsUsedSecondTexture: 0
+    - _IsUsedSecondTexture: 1
     - _Normal_Intensity: 2
-    - _Pixelize_Amount: 350
-    - _Pixelize_Grunge: 2.5
+    - _Pixelize_Amount: 400
+    - _Pixelize_Grunge: 2
     - _Pixelize_Grunge2: 2
-    - _Pixelize_step: 12.5
+    - _Pixelize_step: 3.31
     - _RoughnessContrast: 0.91
     - _RoughnessPower: 0.909
     - _Tint_power: -0.42
