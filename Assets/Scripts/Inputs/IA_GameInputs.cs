@@ -75,7 +75,7 @@ namespace BM
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""TogglePlacementMode"",
+                    ""name"": ""TogglePlaceMode"",
                     ""type"": ""Button"",
                     ""id"": ""aaa29a45-ca6a-406b-8078-d1801fd09a58"",
                     ""expectedControlType"": """",
@@ -120,16 +120,7 @@ namespace BM
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""ToggleDeveloperOverlay"",
-                    ""type"": ""Button"",
-                    ""id"": ""f4903ca1-2b06-4ab3-a436-6bddec4866e1"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""PushInventory"",
+                    ""name"": ""PushPopInventory"",
                     ""type"": ""Button"",
                     ""id"": ""3b6e104e-e6e6-455e-8129-7a3b75914360"",
                     ""expectedControlType"": """",
@@ -138,9 +129,9 @@ namespace BM
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""PopInventory"",
+                    ""name"": ""ToggleDeveloperOverlay"",
                     ""type"": ""Button"",
-                    ""id"": ""80d1820d-a492-48c3-88cc-6e850ce2871a"",
+                    ""id"": ""f4903ca1-2b06-4ab3-a436-6bddec4866e1"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -485,7 +476,7 @@ namespace BM
                     ""interactions"": ""Hold(duration=0.4,pressPoint=0.5)"",
                     ""processors"": """",
                     ""groups"": "";BM_PC"",
-                    ""action"": ""TogglePlacementMode"",
+                    ""action"": ""TogglePlaceMode"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -507,18 +498,7 @@ namespace BM
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";BM_PC"",
-                    ""action"": ""PushInventory"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""2e6cb2ee-79e2-4eac-8f09-54eaedaa0e05"",
-                    ""path"": ""<Keyboard>/q"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";BM_PC"",
-                    ""action"": ""PopInventory"",
+                    ""action"": ""PushPopInventory"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -562,14 +542,13 @@ namespace BM
             m_Gameplay_Crouch = m_Gameplay.FindAction("Crouch", throwIfNotFound: true);
             m_Gameplay_Walk = m_Gameplay.FindAction("Walk", throwIfNotFound: true);
             m_Gameplay_Equip = m_Gameplay.FindAction("Equip", throwIfNotFound: true);
-            m_Gameplay_TogglePlacementMode = m_Gameplay.FindAction("TogglePlacementMode", throwIfNotFound: true);
+            m_Gameplay_TogglePlaceMode = m_Gameplay.FindAction("TogglePlaceMode", throwIfNotFound: true);
             m_Gameplay_Place = m_Gameplay.FindAction("Place", throwIfNotFound: true);
             m_Gameplay_Collect = m_Gameplay.FindAction("Collect", throwIfNotFound: true);
             m_Gameplay_Use = m_Gameplay.FindAction("Use", throwIfNotFound: true);
             m_Gameplay_Activate = m_Gameplay.FindAction("Activate", throwIfNotFound: true);
+            m_Gameplay_PushPopInventory = m_Gameplay.FindAction("PushPopInventory", throwIfNotFound: true);
             m_Gameplay_ToggleDeveloperOverlay = m_Gameplay.FindAction("ToggleDeveloperOverlay", throwIfNotFound: true);
-            m_Gameplay_PushInventory = m_Gameplay.FindAction("PushInventory", throwIfNotFound: true);
-            m_Gameplay_PopInventory = m_Gameplay.FindAction("PopInventory", throwIfNotFound: true);
         }
 
         ~@IA_GameInputs()
@@ -641,14 +620,13 @@ namespace BM
         private readonly InputAction m_Gameplay_Crouch;
         private readonly InputAction m_Gameplay_Walk;
         private readonly InputAction m_Gameplay_Equip;
-        private readonly InputAction m_Gameplay_TogglePlacementMode;
+        private readonly InputAction m_Gameplay_TogglePlaceMode;
         private readonly InputAction m_Gameplay_Place;
         private readonly InputAction m_Gameplay_Collect;
         private readonly InputAction m_Gameplay_Use;
         private readonly InputAction m_Gameplay_Activate;
+        private readonly InputAction m_Gameplay_PushPopInventory;
         private readonly InputAction m_Gameplay_ToggleDeveloperOverlay;
-        private readonly InputAction m_Gameplay_PushInventory;
-        private readonly InputAction m_Gameplay_PopInventory;
         public struct GameplayActions
         {
             private @IA_GameInputs m_Wrapper;
@@ -658,14 +636,13 @@ namespace BM
             public InputAction @Crouch => m_Wrapper.m_Gameplay_Crouch;
             public InputAction @Walk => m_Wrapper.m_Gameplay_Walk;
             public InputAction @Equip => m_Wrapper.m_Gameplay_Equip;
-            public InputAction @TogglePlacementMode => m_Wrapper.m_Gameplay_TogglePlacementMode;
+            public InputAction @TogglePlaceMode => m_Wrapper.m_Gameplay_TogglePlaceMode;
             public InputAction @Place => m_Wrapper.m_Gameplay_Place;
             public InputAction @Collect => m_Wrapper.m_Gameplay_Collect;
             public InputAction @Use => m_Wrapper.m_Gameplay_Use;
             public InputAction @Activate => m_Wrapper.m_Gameplay_Activate;
+            public InputAction @PushPopInventory => m_Wrapper.m_Gameplay_PushPopInventory;
             public InputAction @ToggleDeveloperOverlay => m_Wrapper.m_Gameplay_ToggleDeveloperOverlay;
-            public InputAction @PushInventory => m_Wrapper.m_Gameplay_PushInventory;
-            public InputAction @PopInventory => m_Wrapper.m_Gameplay_PopInventory;
             public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -690,9 +667,9 @@ namespace BM
                 @Equip.started += instance.OnEquip;
                 @Equip.performed += instance.OnEquip;
                 @Equip.canceled += instance.OnEquip;
-                @TogglePlacementMode.started += instance.OnTogglePlacementMode;
-                @TogglePlacementMode.performed += instance.OnTogglePlacementMode;
-                @TogglePlacementMode.canceled += instance.OnTogglePlacementMode;
+                @TogglePlaceMode.started += instance.OnTogglePlaceMode;
+                @TogglePlaceMode.performed += instance.OnTogglePlaceMode;
+                @TogglePlaceMode.canceled += instance.OnTogglePlaceMode;
                 @Place.started += instance.OnPlace;
                 @Place.performed += instance.OnPlace;
                 @Place.canceled += instance.OnPlace;
@@ -705,15 +682,12 @@ namespace BM
                 @Activate.started += instance.OnActivate;
                 @Activate.performed += instance.OnActivate;
                 @Activate.canceled += instance.OnActivate;
+                @PushPopInventory.started += instance.OnPushPopInventory;
+                @PushPopInventory.performed += instance.OnPushPopInventory;
+                @PushPopInventory.canceled += instance.OnPushPopInventory;
                 @ToggleDeveloperOverlay.started += instance.OnToggleDeveloperOverlay;
                 @ToggleDeveloperOverlay.performed += instance.OnToggleDeveloperOverlay;
                 @ToggleDeveloperOverlay.canceled += instance.OnToggleDeveloperOverlay;
-                @PushInventory.started += instance.OnPushInventory;
-                @PushInventory.performed += instance.OnPushInventory;
-                @PushInventory.canceled += instance.OnPushInventory;
-                @PopInventory.started += instance.OnPopInventory;
-                @PopInventory.performed += instance.OnPopInventory;
-                @PopInventory.canceled += instance.OnPopInventory;
             }
 
             private void UnregisterCallbacks(IGameplayActions instance)
@@ -733,9 +707,9 @@ namespace BM
                 @Equip.started -= instance.OnEquip;
                 @Equip.performed -= instance.OnEquip;
                 @Equip.canceled -= instance.OnEquip;
-                @TogglePlacementMode.started -= instance.OnTogglePlacementMode;
-                @TogglePlacementMode.performed -= instance.OnTogglePlacementMode;
-                @TogglePlacementMode.canceled -= instance.OnTogglePlacementMode;
+                @TogglePlaceMode.started -= instance.OnTogglePlaceMode;
+                @TogglePlaceMode.performed -= instance.OnTogglePlaceMode;
+                @TogglePlaceMode.canceled -= instance.OnTogglePlaceMode;
                 @Place.started -= instance.OnPlace;
                 @Place.performed -= instance.OnPlace;
                 @Place.canceled -= instance.OnPlace;
@@ -748,15 +722,12 @@ namespace BM
                 @Activate.started -= instance.OnActivate;
                 @Activate.performed -= instance.OnActivate;
                 @Activate.canceled -= instance.OnActivate;
+                @PushPopInventory.started -= instance.OnPushPopInventory;
+                @PushPopInventory.performed -= instance.OnPushPopInventory;
+                @PushPopInventory.canceled -= instance.OnPushPopInventory;
                 @ToggleDeveloperOverlay.started -= instance.OnToggleDeveloperOverlay;
                 @ToggleDeveloperOverlay.performed -= instance.OnToggleDeveloperOverlay;
                 @ToggleDeveloperOverlay.canceled -= instance.OnToggleDeveloperOverlay;
-                @PushInventory.started -= instance.OnPushInventory;
-                @PushInventory.performed -= instance.OnPushInventory;
-                @PushInventory.canceled -= instance.OnPushInventory;
-                @PopInventory.started -= instance.OnPopInventory;
-                @PopInventory.performed -= instance.OnPopInventory;
-                @PopInventory.canceled -= instance.OnPopInventory;
             }
 
             public void RemoveCallbacks(IGameplayActions instance)
@@ -799,14 +770,13 @@ namespace BM
             void OnCrouch(InputAction.CallbackContext context);
             void OnWalk(InputAction.CallbackContext context);
             void OnEquip(InputAction.CallbackContext context);
-            void OnTogglePlacementMode(InputAction.CallbackContext context);
+            void OnTogglePlaceMode(InputAction.CallbackContext context);
             void OnPlace(InputAction.CallbackContext context);
             void OnCollect(InputAction.CallbackContext context);
             void OnUse(InputAction.CallbackContext context);
             void OnActivate(InputAction.CallbackContext context);
+            void OnPushPopInventory(InputAction.CallbackContext context);
             void OnToggleDeveloperOverlay(InputAction.CallbackContext context);
-            void OnPushInventory(InputAction.CallbackContext context);
-            void OnPopInventory(InputAction.CallbackContext context);
         }
     }
 }
