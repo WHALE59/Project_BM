@@ -324,7 +324,7 @@ namespace BM
 			m_inputReader.EquipInputTriggered += Equip;
 			m_inputReader.PlaceInputTriggered += Place;
 			m_inputReader.CollectHoldInputTriggered += Collect;
-			m_inputReader.TogglePlacementModeInputTriggered += TogglePlaceMode;
+			m_inputReader.TogglePlaceModeInputTriggered += TogglePlaceMode;
 
 			m_inputReader.PushPopInventoryInputTriggered += PushPopInventory;
 		}
@@ -334,7 +334,7 @@ namespace BM
 			m_inputReader.EquipInputTriggered -= Equip;
 			m_inputReader.PlaceInputTriggered -= Place;
 			m_inputReader.CollectHoldInputTriggered -= Collect;
-			m_inputReader.TogglePlacementModeInputTriggered -= TogglePlaceMode;
+			m_inputReader.TogglePlaceModeInputTriggered -= TogglePlaceMode;
 
 			m_inputReader.PushPopInventoryInputTriggered -= PushPopInventory;
 		}

@@ -51,7 +51,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "TogglePlacementMode",
+                    "name": "TogglePlaceMode",
                     "type": "Button",
                     "id": "aaa29a45-ca6a-406b-8078-d1801fd09a58",
                     "expectedControlType": "",
@@ -96,16 +96,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ToggleDeveloperOverlay",
-                    "type": "Button",
-                    "id": "f4903ca1-2b06-4ab3-a436-6bddec4866e1",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "PushInventory",
+                    "name": "PushPopInventory",
                     "type": "Button",
                     "id": "3b6e104e-e6e6-455e-8129-7a3b75914360",
                     "expectedControlType": "",
@@ -114,9 +105,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "PopInventory",
+                    "name": "ToggleDeveloperOverlay",
                     "type": "Button",
-                    "id": "80d1820d-a492-48c3-88cc-6e850ce2871a",
+                    "id": "f4903ca1-2b06-4ab3-a436-6bddec4866e1",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -461,7 +452,7 @@
                     "interactions": "Hold(duration=0.4,pressPoint=0.5)",
                     "processors": "",
                     "groups": ";BM_PC",
-                    "action": "TogglePlacementMode",
+                    "action": "TogglePlaceMode",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -483,18 +474,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";BM_PC",
-                    "action": "PushInventory",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "2e6cb2ee-79e2-4eac-8f09-54eaedaa0e05",
-                    "path": "<Keyboard>/q",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";BM_PC",
-                    "action": "PopInventory",
+                    "action": "PushPopInventory",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

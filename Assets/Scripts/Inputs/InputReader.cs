@@ -46,7 +46,7 @@ namespace BM
 		public event UnityAction UseInputStarted = delegate { };
 		public event UnityAction UseInputFinished = delegate { };
 
-		public event UnityAction TogglePlacementModeInputTriggered = delegate { };
+		public event UnityAction TogglePlaceModeInputTriggered = delegate { };
 
 		public event UnityAction PlaceInputTriggered = delegate { };
 
@@ -192,11 +192,11 @@ namespace BM
 			}
 		}
 
-		void IA_GameInputs.IGameplayActions.OnTogglePlacementMode(InputAction.CallbackContext context)
+		void IA_GameInputs.IGameplayActions.OnTogglePlaceMode(InputAction.CallbackContext context)
 		{
 			if (context.phase == InputActionPhase.Performed)
 			{
-				TogglePlacementModeInputTriggered.Invoke();
+				TogglePlaceModeInputTriggered.Invoke();
 			}
 		}
 
@@ -235,19 +235,11 @@ namespace BM
 			}
 		}
 
-		void IA_GameInputs.IGameplayActions.OnPushInventory(InputAction.CallbackContext context)
+		void IA_GameInputs.IGameplayActions.OnPushPopInventory(InputAction.CallbackContext context)
 		{
 			if (context.phase == InputActionPhase.Performed)
 			{
 				PushPopInventoryInputTriggered.Invoke();
-			}
-		}
-
-		void IA_GameInputs.IGameplayActions.OnPopInventory(InputAction.CallbackContext context)
-		{
-			if (context.phase == InputActionPhase.Performed)
-			{
-				PopInventoryInputTriggered.Invoke();
 			}
 		}
 
