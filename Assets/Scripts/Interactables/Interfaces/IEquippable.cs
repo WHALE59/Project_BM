@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
-namespace BM.Interactables
+namespace BM.InteractableObjects
 {
 	public interface IEquippable
 	{
@@ -19,6 +19,6 @@ namespace BM.Interactables
 		IReadOnlyCollection<Collider> Colliders { get; }
 
 		void StartEquipped(InteractAction subject);
-		void FinishEqipped(InteractAction subject);
+		void FinishEquipped(InteractAction subject);
 	}
 }

@@ -4,10 +4,12 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
+using static BM.IA_GameInputs;
+
 namespace BM
 {
-	[CreateAssetMenu(fileName = "InputReader_Default", menuName = "BM/Data/Input Reader")]
-	public class InputReader : ScriptableObject, IA_GameInputs.IGameplayActions
+	[CreateAssetMenu(fileName = "InputReaderSO_Default", menuName = "BM/SO/Input Reader")]
+	public class InputReaderSO : ScriptableObject, IGameplayActions
 	{
 		/// <summary>
 		/// <see cref="IA_GameInputs"/>에 정의된 Action Map을 나타내는 열거형
@@ -28,8 +30,15 @@ namespace BM
 
 		// Locomotion
 
-		public event UnityAction<Vector2> MoveInputPerformed = delegate { };
-		public event UnityAction<Vector2> MoveInputCancled = delegate { };
+		/// <remarks>
+		/// Move 입력은 Composite이기 때문에, 예를 들어 WASD 라면 WASD를 하나의 버튼처럼 취급한다.
+		/// </remarks>
+		public event UnityAction<Vector2> MoveInputEvent = delegate { };
+
+		/// <summary>
+		/// Move 입력 액션이 정확히 끝난 시점을 알고 싶으면 구독한다.
+		/// </summary>
+		public event UnityAction<Vector2> MoveInputCanceled = delegate { };
 
 		public event UnityAction<Vector2> LookInputEvent = delegate { };
 
@@ -51,9 +60,7 @@ namespace BM
 		public event UnityAction PlaceInputTriggered = delegate { };
 
 		public event UnityAction PushPopInventoryInputTriggered = delegate { };
-		public event UnityAction PopInventoryInputTriggered = delegate { };
 
-		// Collect 는 'Hold' 인터랙션 속성을 가지고 있음
 		public event UnityAction CollectHoldInputStarted = delegate { };
 		public event UnityAction CollectHoldInputTriggered = delegate { };
 
@@ -62,12 +69,11 @@ namespace BM
 
 		// Debug
 
-		public event UnityAction ToggleDeveloperInputPerforemed = delegate { };
+		public event UnityAction ToggleDeveloperInputPerformed = delegate { };
 		public event UnityAction ToggleDeveloperInputCanceled = delegate { };
 
 		private IA_GameInputs m_gameInputs;
 
-		// TODO : Crouch와 Walk에 대한 Toggle을 입력을 변환하는 쪽에서 제어하도록 리팩터링
 		private bool m_crouchInputPerformed = false;
 		private bool m_walkInputPerformed = false;
 
@@ -88,22 +94,27 @@ namespace BM
 			// TODO : UI Action Map이 설정되면, 처리할 것
 		}
 
-		void IA_GameInputs.IGameplayActions.OnMove(InputAction.CallbackContext context)
+		void IGameplayActions.OnMove(InputAction.CallbackContext context)
 		{
-			MoveInputPerformed.Invoke(context.ReadValue<Vector2>());
-
-			if (context.phase == InputActionPhase.Canceled)
+			switch (context.phase)
 			{
-				MoveInputCancled.Invoke(context.ReadValue<Vector2>());
+				case InputActionPhase.Performed:
+					MoveInputEvent.Invoke(context.ReadValue<Vector2>());
+					break;
+				case InputActionPhase.Canceled:
+					MoveInputEvent.Invoke(context.ReadValue<Vector2>());
+
+					MoveInputCanceled.Invoke(context.ReadValue<Vector2>());
+					break;
 			}
 		}
 
-		void IA_GameInputs.IGameplayActions.OnLook(InputAction.CallbackContext context)
+		void IGameplayActions.OnLook(InputAction.CallbackContext context)
 		{
 			LookInputEvent.Invoke(context.ReadValue<Vector2>());
 		}
 
-		void IA_GameInputs.IGameplayActions.OnCrouch(InputAction.CallbackContext context)
+		void IGameplayActions.OnCrouch(InputAction.CallbackContext context)
 		{
 			if (!m_crouchInputIsToggle)
 			{
@@ -136,7 +147,7 @@ namespace BM
 			}
 		}
 
-		void IA_GameInputs.IGameplayActions.OnWalk(InputAction.CallbackContext context)
+		void IGameplayActions.OnWalk(InputAction.CallbackContext context)
 		{
 			if (!m_walkInputIsToggle)
 			{
@@ -171,7 +182,7 @@ namespace BM
 
 		// Interaction
 
-		void IA_GameInputs.IGameplayActions.OnEquip(InputAction.CallbackContext context)
+		void IGameplayActions.OnEquip(InputAction.CallbackContext context)
 		{
 			if (context.phase == InputActionPhase.Performed)
 			{
@@ -179,7 +190,7 @@ namespace BM
 			}
 		}
 
-		void IA_GameInputs.IGameplayActions.OnUse(InputAction.CallbackContext context)
+		void IGameplayActions.OnUse(InputAction.CallbackContext context)
 		{
 			switch (context.phase)
 			{
@@ -192,7 +203,7 @@ namespace BM
 			}
 		}
 
-		void IA_GameInputs.IGameplayActions.OnTogglePlaceMode(InputAction.CallbackContext context)
+		void IGameplayActions.OnTogglePlaceMode(InputAction.CallbackContext context)
 		{
 			if (context.phase == InputActionPhase.Performed)
 			{
@@ -200,7 +211,7 @@ namespace BM
 			}
 		}
 
-		void IA_GameInputs.IGameplayActions.OnPlace(InputAction.CallbackContext context)
+		void IGameplayActions.OnPlace(InputAction.CallbackContext context)
 		{
 			if (context.phase == InputActionPhase.Performed)
 			{
@@ -208,7 +219,7 @@ namespace BM
 			}
 		}
 
-		void IA_GameInputs.IGameplayActions.OnCollect(InputAction.CallbackContext context)
+		void IGameplayActions.OnCollect(InputAction.CallbackContext context)
 		{
 			switch (context.phase)
 			{
@@ -221,7 +232,7 @@ namespace BM
 			}
 		}
 
-		void IA_GameInputs.IGameplayActions.OnActivate(InputAction.CallbackContext context)
+		void IGameplayActions.OnActivate(InputAction.CallbackContext context)
 		{
 			switch (context.phase)
 			{
@@ -235,7 +246,7 @@ namespace BM
 			}
 		}
 
-		void IA_GameInputs.IGameplayActions.OnPushPopInventory(InputAction.CallbackContext context)
+		void IGameplayActions.OnPushPopInventory(InputAction.CallbackContext context)
 		{
 			if (context.phase == InputActionPhase.Performed)
 			{
@@ -244,13 +255,12 @@ namespace BM
 		}
 
 		// Cheats
-
-		void IA_GameInputs.IGameplayActions.OnToggleDeveloperOverlay(InputAction.CallbackContext context)
+		void IGameplayActions.OnToggleDeveloperOverlay(InputAction.CallbackContext context)
 		{
 			switch (context.phase)
 			{
 				case InputActionPhase.Performed:
-					ToggleDeveloperInputPerforemed.Invoke();
+					ToggleDeveloperInputPerformed.Invoke();
 					break;
 				case InputActionPhase.Canceled:
 					ToggleDeveloperInputCanceled.Invoke();
@@ -266,7 +276,6 @@ namespace BM
 				m_gameInputs = new();
 
 				m_gameInputs.Gameplay.SetCallbacks(this);
-
 			}
 
 			SetActiveActionMap(m_startActionMap);

@@ -1,4 +1,4 @@
-using BM.Interactables;
+using BM.InteractableObjects;
 
 using UnityEngine;
 using UnityEngine.Events;
@@ -16,7 +16,7 @@ namespace BM
 	[DisallowMultipleComponent]
 	public class InteractAction : MonoBehaviour
 	{
-		[SerializeField] private InputReader m_inputReader;
+		[SerializeField] private InputReaderSO m_inputReader;
 		[SerializeField] private Transform m_equipSocket;
 
 		[SerializeField] private float m_raycastDistance = 5.0f;
@@ -385,7 +385,7 @@ namespace BM
 
 			// (1) Ray 그리기
 
-			var ray = target.CameraRay;
+			Ray ray = target.CameraRay;
 
 			if (!target.m_isHit)
 			{
@@ -393,16 +393,16 @@ namespace BM
 			}
 			else
 			{
-				var firstStart = ray.origin;
-				var firstEnd = target.m_hitResult.point;
+				Vector3 firstStart = ray.origin;
+				Vector3 firstEnd = target.m_hitResult.point;
 
 				Gizmos.DrawLine(firstStart, firstEnd);
 
-				var previousGizmoColor = Gizmos.color;
+				Color previousGizmoColor = Gizmos.color;
 				Gizmos.color = Color.white;
 
-				var secondStart = firstEnd;
-				var secondEnd = firstStart + ray.direction * target.m_raycastDistance;
+				Vector3 secondStart = firstEnd;
+				Vector3 secondEnd = firstStart + ray.direction * target.m_raycastDistance;
 				Gizmos.DrawLine(secondStart, secondEnd);
 
 				Gizmos.color = previousGizmoColor;
@@ -425,7 +425,7 @@ namespace BM
 
 			if (target.m_isHit)
 			{
-				var normal = target.m_hitResult.normal;
+				Vector3 normal = target.m_hitResult.normal;
 				Gizmos.DrawRay(point, normal * 0.5f);
 			}
 		}
