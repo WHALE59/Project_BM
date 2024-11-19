@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace BM.Interactables
+namespace BM.InteractableObjects
 {
 	[RequireComponent(typeof(Rigidbody))]
 	public class TestInteractable : InteractableBase, ICollectible, IActivatable, IUsable, IUsedable<TestInteractable>
@@ -11,7 +11,6 @@ namespace BM.Interactables
 		[SerializeField] private PlacementGhost m_placementGhostPrefab;
 
 		private Collider[] m_colliders;
-		private Rigidbody m_rigidbody;
 
 		private PlacementGhost m_placementGhostInstance;
 
@@ -40,7 +39,7 @@ namespace BM.Interactables
 
 		void IActivatable.EndActivate() { }
 
-		void IEquippable.FinishEqipped(InteractAction subject) { }
+		void IEquippable.FinishEquipped(InteractAction subject) { }
 
 
 		void IEquippable.StartEquipped(InteractAction subject)
@@ -57,9 +56,9 @@ namespace BM.Interactables
 			m_placementGhostInstance.gameObject.SetActive(false);
 		}
 
-		private void Awake()
+		protected override void Awake()
 		{
-			m_rigidbody = GetComponent<Rigidbody>();
+			base.Awake();
 
 			m_colliders = GetComponentsInChildren<Collider>();
 

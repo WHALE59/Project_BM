@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
-namespace BM.Interactables
+namespace BM.InteractableObjects
 {
 	[DisallowMultipleComponent]
 	[RequireComponent(typeof(Collider))]
@@ -48,7 +48,6 @@ namespace BM.Interactables
 			}
 		}
 
-
 		private void OnTriggerEnter(Collider other)
 		{
 			m_collidingObjects.Add(other.gameObject);
@@ -87,31 +86,37 @@ namespace BM.Interactables
 		}
 
 #if UNITY_EDITOR
-		private void OnDrawGizmos()
+
+		/// <summary>
+		/// 이 PlacementGhost와 충돌한 다른 오브젝트들의 이름을 표시한다.
+		/// </summary>
+		[DrawGizmo(GizmoType.Active | GizmoType.NonSelected)]
+		private static void DrawCollidedObjectName(PlacementGhost target, GizmoType _)
 		{
+
 			if (!Application.isPlaying)
 			{
 				return;
 			}
 
-			if (!gameObject.activeSelf)
+			if (!target.gameObject.activeSelf)
 			{
 				return;
 			}
 
-			if (m_collidingObjects.Count > 0)
+			if (target.m_collidingObjects.Count > 0)
 			{
-				var label = string.Empty;
+				string label = string.Empty;
 
-				foreach (var collidingObject in m_collidingObjects)
+				foreach (GameObject collidingObject in target.m_collidingObjects)
 				{
 					label += $"- {collidingObject.name}\n";
 				}
 
-				var style = new GUIStyle();
+				GUIStyle style = new();
 				style.normal.textColor = Color.white;
 
-				Handles.Label(transform.position, label, style);
+				Handles.Label(target.transform.position, label, style);
 			}
 		}
 #endif

@@ -1,4 +1,4 @@
-namespace BM.Interactables
+namespace BM.InteractableObjects
 {
 	public interface IActivatable
 	{
