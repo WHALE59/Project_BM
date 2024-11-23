@@ -121,8 +121,8 @@ Material:
     - _DetailNormalMapScale: 1
     - _DistortionBlend: 0
     - _DistortionEnabled: 1
-    - _DistortionStrength: 0.5
-    - _DistortionStrengthScaled: 0.05
+    - _DistortionStrength: 0.39
+    - _DistortionStrengthScaled: 0.039
     - _DstBlend: 10
     - _DstBlendAlpha: 10
     - _EmissionEnabled: 0
@@ -143,7 +143,7 @@ Material:
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SoftParticlesEnabled: 1
-    - _SoftParticlesFarFadeDistance: 14.5
+    - _SoftParticlesFarFadeDistance: 45
     - _SoftParticlesNearFadeDistance: 1
     - _SpecularHighlights: 1
     - _SrcBlend: 5
@@ -158,6 +158,6 @@ Material:
     - _Color: {r: 0.9811321, g: 0.8533484, b: 0.6525454, a: 1}
     - _ColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _SoftParticleFadeParams: {r: 1, g: 0.074074075, b: 0, a: 0}
+    - _SoftParticleFadeParams: {r: 1, g: 0.022727273, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
