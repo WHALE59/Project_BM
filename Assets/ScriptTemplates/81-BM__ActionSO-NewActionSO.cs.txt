@@ -1,0 +1,14 @@
+
+using BM.StateSystem;
+
+namespace BM
+{
+	[CreateAssetMenu(menuName = "BM/ScriptSO/State System/ActionSO/#SCRIPTNAME#", fileName = "ActinSO_#SCRIPTNAME#")]
+	public class #SCRIPTNAME# : ActionSOBase
+	{
+		public override void Act(StateComponent stateComponent)
+		{
+			throw new System.NotImplementedException();
+		}
+	}
+}
