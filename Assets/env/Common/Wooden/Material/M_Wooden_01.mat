@@ -119,23 +119,39 @@ Material:
     - _02_GrungeMap_BlendContrast: -0.53
     - _02_GrungeMap_BlendPower: -1.76
     - _02_GrungeMap_Tiling: 0.1
+    - _AffineThreasgold: 11
+    - _ColorPrecision: 16
     - _Depth: -12.5
     - _GrundgeMap_Mixin: 0.15
     - _Intersection_Contrast: 1
     - _Intersection_amount: 0.5
     - _Intersection_power: 0.08
+    - _IsLit: 1
+    - _IsSpecular: 1
     - _IsUsedSecondTexture: 1
     - _Normal_Intensity: 50
     - _Pixelize_Amount: 314
     - _Pixelize_Grunge: 2.5
     - _Pixelize_Grunge2: 2
     - _Pixelize_step: 12.5
+    - _QueueControl: 0
+    - _QueueOffset: 0
     - _RoughnessContrast: 0.03
     - _RoughnessPower: 0.5
+    - _Smoothness: 0.5
+    - _TextureResolution: 256
     - _Tint_power: -0.42
+    - _UseAffine: 1
+    - _UseCameraClipping: 0
+    - _UseColorPrecision: 0
+    - _UsePixelation: 0
+    - _UseVertexJitter: 0
+    - _VertexResolution: 16
     - _intersect_Contrast: 6.55
     m_Colors:
     - _01_GrundgeMap_Offset: {r: 1.14, g: 1.94, b: -3.4, a: 0}
+    - _Specular: {r: 1, g: 1, b: 1, a: 0}
+    - _Tiling: {r: 1, g: 1, b: 0, a: 0}
     - _Tint_Color: {r: 1, g: 1, b: 1, a: 0}
     - _intersect_Color: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []
