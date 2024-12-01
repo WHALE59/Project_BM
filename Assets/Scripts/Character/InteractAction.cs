@@ -1,4 +1,4 @@
-using BM.InteractableObjects;
+using BM.Interactables;
 
 using UnityEngine;
 using UnityEngine.Events;

@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
-namespace BM.InteractableObjects
+namespace BM.Interactables
 {
 	[DisallowMultipleComponent]
 	[RequireComponent(typeof(Collider))]

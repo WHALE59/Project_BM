@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
-namespace BM.InteractableObjects
+namespace BM.Interactables
 {
 	public interface IEquippable
 	{

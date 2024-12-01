@@ -1,4 +1,4 @@
-namespace BM.InteractableObjects
+namespace BM.Interactables
 {
 	public interface ICollectible : IEquippable
 	{

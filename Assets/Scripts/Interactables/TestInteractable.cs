@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace BM.InteractableObjects
+namespace BM.Interactables
 {
 	[RequireComponent(typeof(Rigidbody))]
 	public class TestInteractable : InteractableBase, ICollectible, IActivatable, IUsable, IUsedable<TestInteractable>
@@ -14,9 +14,9 @@ namespace BM.InteractableObjects
 
 		private PlacementGhost m_placementGhostInstance;
 
-		Vector3 IEquippable.EquipmentPosition { get => m_rigidbody.position; set => m_rigidbody.MovePosition(value); }
+		Vector3 IEquippable.EquipmentPosition { get => transform.position; set => transform.position = (value); }
 
-		Quaternion IEquippable.EquipmentRotation { get => m_rigidbody.rotation; set => m_rigidbody.MoveRotation(value); }
+		Quaternion IEquippable.EquipmentRotation { get => transform.rotation; set => transform.rotation = (value); }
 
 		Vector3 IEquippable.SocketPosition => m_socketOnEquipped.position;
 
@@ -56,10 +56,8 @@ namespace BM.InteractableObjects
 			m_placementGhostInstance.gameObject.SetActive(false);
 		}
 
-		protected override void Awake()
+		protected void Awake()
 		{
-			base.Awake();
-
 			m_colliders = GetComponentsInChildren<Collider>();
 
 			m_placementGhostInstance = Instantiate(m_placementGhostPrefab, parent: transform);
