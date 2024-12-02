@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7153274177152328098}
   - component: {fileID: 4506593280007567684}
+  - component: {fileID: 8799338642035694980}
   m_Layer: 0
   m_Name: InteractableBase
   m_TagString: Untagged
@@ -52,3 +53,30 @@ MonoBehaviour:
   m_materialOnPlacement: {fileID: 2100000, guid: 3a8b3b04d3bce0a4faaa0010e68171f1,
     type: 2}
   m_modelChild: {fileID: 0}
+--- !u!54 &8799338642035694980
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8032270855515153545}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

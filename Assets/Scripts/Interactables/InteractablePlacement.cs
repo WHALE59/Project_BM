@@ -1,10 +1,14 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace BM.Interactables
 {
 	[DisallowMultipleComponent]
 
+	/// <remarks>
+	/// 이 클래스는 에디터에서 부착할 용도로 만들어지지 않았고, <see cref="InteractableBase"/>에 의해 런타임에 인스턴싱 된다.
+	/// </remarks>
 	public class InteractablePlacement : MonoBehaviour
 	{
 		private List<Material> m_materials = new();
@@ -26,17 +30,16 @@ namespace BM.Interactables
 			UpdateMaterial();
 		}
 
-		public void GenerateVisualChildren(IReadOnlyCollection<InteractiveModel.MeshData> visualData, Material materialOnPlacement)
+		public void GenerateVisualChildren(IReadOnlyCollection<InteractableModel.MeshElement> visualData, Material materialOnPlacement)
 		{
-			foreach (InteractiveModel.MeshData meshData in visualData)
+			for (int i = 0; i < visualData.Count; ++i)
 			{
-				GameObject child = new($"Visual_{meshData.Filter}");
+				GameObject child = new($"Visual_{i:D2}");
 
 				MeshFilter filter = child.AddComponent<MeshFilter>();
 				MeshRenderer renderer = child.AddComponent<MeshRenderer>();
 
-
-				filter.sharedMesh = meshData.Filter.sharedMesh;
+				filter.sharedMesh = visualData.ElementAt(i).Filter.sharedMesh;
 				renderer.sharedMaterial = materialOnPlacement;
 
 				child.transform.SetParent(transform);

@@ -9,7 +9,7 @@ using static BM.IA_GameInputs;
 namespace BM
 {
 	[CreateAssetMenu(fileName = "InputReaderSO_Default", menuName = "BM/SO/Input Reader")]
-	public class InputReaderSO : ScriptableObject, IGameplayActions
+	public partial class InputReaderSO : ScriptableObject, IGameplayActions
 	{
 		/// <summary>
 		/// <see cref="IA_GameInputs"/>에 정의된 Action Map을 나타내는 열거형
@@ -273,6 +273,7 @@ namespace BM
 			/// <see cref="IA_GameInputs"/> 인스턴스가 없으면 생성
 			if (m_gameInputs == null)
 			{
+
 				m_gameInputs = new();
 
 				m_gameInputs.Gameplay.SetCallbacks(this);
@@ -285,6 +286,5 @@ namespace BM
 		{
 			SetActiveActionMap(EActionMap.None);
 		}
-
 	}
 }

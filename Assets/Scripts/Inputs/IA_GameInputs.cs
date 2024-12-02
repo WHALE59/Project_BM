@@ -503,6 +503,34 @@ namespace BM
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""UserInterface"",
+            ""id"": ""958cb14d-5ef2-4af2-9d37-4a1f346ef7ee"",
+            ""actions"": [
+                {
+                    ""name"": ""New action"",
+                    ""type"": ""Button"",
+                    ""id"": ""b602609b-f072-4a82-93d2-5fe9d4552d6e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""241ee1d0-20a1-474d-b0df-c57690866815"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""New action"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -549,11 +577,15 @@ namespace BM
             m_Gameplay_Activate = m_Gameplay.FindAction("Activate", throwIfNotFound: true);
             m_Gameplay_PushPopInventory = m_Gameplay.FindAction("PushPopInventory", throwIfNotFound: true);
             m_Gameplay_ToggleDeveloperOverlay = m_Gameplay.FindAction("ToggleDeveloperOverlay", throwIfNotFound: true);
+            // UserInterface
+            m_UserInterface = asset.FindActionMap("UserInterface", throwIfNotFound: true);
+            m_UserInterface_Newaction = m_UserInterface.FindAction("New action", throwIfNotFound: true);
         }
 
         ~@IA_GameInputs()
         {
             UnityEngine.Debug.Assert(!m_Gameplay.enabled, "This will cause a leak and performance issues, IA_GameInputs.Gameplay.Disable() has not been called.");
+            UnityEngine.Debug.Assert(!m_UserInterface.enabled, "This will cause a leak and performance issues, IA_GameInputs.UserInterface.Disable() has not been called.");
         }
 
         public void Dispose()
@@ -745,6 +777,52 @@ namespace BM
             }
         }
         public GameplayActions @Gameplay => new GameplayActions(this);
+
+        // UserInterface
+        private readonly InputActionMap m_UserInterface;
+        private List<IUserInterfaceActions> m_UserInterfaceActionsCallbackInterfaces = new List<IUserInterfaceActions>();
+        private readonly InputAction m_UserInterface_Newaction;
+        public struct UserInterfaceActions
+        {
+            private @IA_GameInputs m_Wrapper;
+            public UserInterfaceActions(@IA_GameInputs wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Newaction => m_Wrapper.m_UserInterface_Newaction;
+            public InputActionMap Get() { return m_Wrapper.m_UserInterface; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(UserInterfaceActions set) { return set.Get(); }
+            public void AddCallbacks(IUserInterfaceActions instance)
+            {
+                if (instance == null || m_Wrapper.m_UserInterfaceActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_UserInterfaceActionsCallbackInterfaces.Add(instance);
+                @Newaction.started += instance.OnNewaction;
+                @Newaction.performed += instance.OnNewaction;
+                @Newaction.canceled += instance.OnNewaction;
+            }
+
+            private void UnregisterCallbacks(IUserInterfaceActions instance)
+            {
+                @Newaction.started -= instance.OnNewaction;
+                @Newaction.performed -= instance.OnNewaction;
+                @Newaction.canceled -= instance.OnNewaction;
+            }
+
+            public void RemoveCallbacks(IUserInterfaceActions instance)
+            {
+                if (m_Wrapper.m_UserInterfaceActionsCallbackInterfaces.Remove(instance))
+                    UnregisterCallbacks(instance);
+            }
+
+            public void SetCallbacks(IUserInterfaceActions instance)
+            {
+                foreach (var item in m_Wrapper.m_UserInterfaceActionsCallbackInterfaces)
+                    UnregisterCallbacks(item);
+                m_Wrapper.m_UserInterfaceActionsCallbackInterfaces.Clear();
+                AddCallbacks(instance);
+            }
+        }
+        public UserInterfaceActions @UserInterface => new UserInterfaceActions(this);
         private int m_BM_PCSchemeIndex = -1;
         public InputControlScheme BM_PCScheme
         {
@@ -777,6 +855,10 @@ namespace BM
             void OnActivate(InputAction.CallbackContext context);
             void OnPushPopInventory(InputAction.CallbackContext context);
             void OnToggleDeveloperOverlay(InputAction.CallbackContext context);
+        }
+        public interface IUserInterfaceActions
+        {
+            void OnNewaction(InputAction.CallbackContext context);
         }
     }
 }

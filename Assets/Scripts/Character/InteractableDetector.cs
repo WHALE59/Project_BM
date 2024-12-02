@@ -1,19 +1,17 @@
 using BM.Interactables;
-
+using System;
 using System.Collections.Generic;
-
 using UnityEngine;
 
 namespace BM
 {
 	[DisallowMultipleComponent]
-	public class NewInteractAction : MonoBehaviour
+	public class InteractableDetector : MonoBehaviour
 	{
 		[SerializeField] private InputReaderSO m_inputReader;
 		[SerializeField] private float m_raycastDistance = 5.0f;
 
-		[SerializeField] private LayerMask m_nonPlaceStateLayerMask = (1 << 6);
-		[SerializeField] private LayerMask m_placeStateLayerMask = (1 << 6) | (0 << 1);
+		[SerializeField] private LayerMask m_layerMask = (1 << 6);
 
 		private Collider m_characterCollider;
 
@@ -21,6 +19,9 @@ namespace BM
 
 		private InteractableBase m_equippedInteractable;
 		private Stack<InteractableBase> m_temporaryInventory = new();
+
+		public Action<InteractableBase> InteractableFound;
+		public Action<InteractableBase> InteractableLost;
 
 		private bool m_isHit;
 		private RaycastHit m_hitResult;
@@ -33,7 +34,7 @@ namespace BM
 
 		private void HandleInteractRaycast()
 		{
-			bool isRaycastHit = Physics.Raycast(GetCameraRay(), out m_hitResult, m_raycastDistance, m_nonPlaceStateLayerMask, QueryTriggerInteraction.Ignore);
+			bool isRaycastHit = Physics.Raycast(GetCameraRay(), out m_hitResult, m_raycastDistance, m_layerMask, QueryTriggerInteraction.Ignore);
 
 			if (!isRaycastHit)
 			{
@@ -58,11 +59,23 @@ namespace BM
 
 				if (null != m_detectedInteractable)
 				{
+					// Finish Hovering Logic
+
+					FinishHovering(m_detectedInteractable);
+
+					InteractableLost?.Invoke(m_detectedInteractable);
 					m_detectedInteractable.FinishHovering();
+
+					m_detectedInteractable = null;
 				}
 
 				if (hitRigidbody.TryGetComponent<InteractableBase>(out m_detectedInteractable))
 				{
+					// Start Hovering Logic 
+
+					StartHovering(m_detectedInteractable);
+
+					InteractableFound?.Invoke(m_detectedInteractable);
 					m_detectedInteractable.StartHovering();
 				}
 
@@ -72,6 +85,12 @@ namespace BM
 			{
 				if (null != m_detectedInteractable)
 				{
+					// Finish Hovering Logic
+
+					FinishHovering(m_detectedInteractable);
+
+					InteractableLost?.Invoke(m_detectedInteractable);
+
 					m_detectedInteractable.FinishHovering();
 				}
 
@@ -79,6 +98,10 @@ namespace BM
 				m_hitRigidbodyOnLastFrame = null;
 			}
 		}
+
+		private void StartHovering(InteractableBase interactable) { }
+
+		private void FinishHovering(InteractableBase interactable) { }
 
 		private Ray GetCameraRay()
 		{
@@ -91,14 +114,14 @@ namespace BM
 
 #if UNITY_EDITOR
 		[UnityEditor.DrawGizmo(UnityEditor.GizmoType.Active | UnityEditor.GizmoType.NonSelected)]
-		private static void DrawRaycastResult(NewInteractAction target, UnityEditor.GizmoType _)
+		private static void DrawRaycastResult(InteractableDetector target, UnityEditor.GizmoType _)
 		{
 			if (null == Camera.main || !Application.isPlaying)
 			{
 				return;
 			}
 
-			if (target.m_isHit)
+			if (!target.m_isHit)
 			{
 				Gizmos.color = Color.white;
 			}
