@@ -38,7 +38,7 @@ namespace BM.Interactables
 
 		private InteractablePlacement m_placement;
 
-		public bool IsEquipAndPlaceable => m_isEquipAndPlaceable;
+		public bool IsEquipPlaceable => m_isEquipAndPlaceable;
 		public bool IsCollectible => m_isCollectible;
 		public bool IsActivatable => m_isActivatable;
 		public bool IsUsable => m_isUsable;

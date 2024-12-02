@@ -39,7 +39,15 @@ namespace BM
 			if (!isRaycastHit)
 			{
 				m_isHit = isRaycastHit;
-				m_detectedInteractable = null;
+
+				if (null != m_detectedInteractable)
+				{
+					FinishHovering(m_detectedInteractable);
+					InteractableLost?.Invoke(m_detectedInteractable);
+					m_detectedInteractable.FinishHovering();
+					m_detectedInteractable = null;
+				}
+
 				m_hitRigidbodyOnLastFrame = null;
 
 				return;
