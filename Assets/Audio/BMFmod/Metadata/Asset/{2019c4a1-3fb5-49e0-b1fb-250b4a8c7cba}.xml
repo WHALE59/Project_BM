@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="EncodableAsset" id="{2019c4a1-3fb5-49e0-b1fb-250b4a8c7cba}">
+		<property name="assetPath">
+			<value>Darack_Ambience/</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{952c0bfe-8845-487c-8516-faa4098e314c}</destination>
+		</relationship>
+	</object>
+</objects>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="EncodableAsset" id="{1f8f1e4d-e802-4491-b116-60887d36801f}">
+		<property name="assetPath">
+			<value>Darack_Footsteps/V6_WoodFootSteps Updated/</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{952c0bfe-8845-487c-8516-faa4098e314c}</destination>
+		</relationship>
+	</object>
+</objects>

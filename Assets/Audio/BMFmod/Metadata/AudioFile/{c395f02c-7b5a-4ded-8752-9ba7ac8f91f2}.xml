@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{c395f02c-7b5a-4ded-8752-9ba7ac8f91f2}">
+		<property name="assetPath">
+			<value>Test Samples/V1_UI Sound/W_UI_Confirm_OneShotV1_2.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>3.0656249999999998</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{952c0bfe-8845-487c-8516-faa4098e314c}</destination>
+		</relationship>
+	</object>
+</objects>

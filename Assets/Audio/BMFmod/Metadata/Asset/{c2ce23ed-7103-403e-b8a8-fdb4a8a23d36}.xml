@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="EncodableAsset" id="{c2ce23ed-7103-403e-b8a8-fdb4a8a23d36}">
+		<property name="assetPath">
+			<value>Darack_Footsteps/V1_CarpetFootsteps/</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{952c0bfe-8845-487c-8516-faa4098e314c}</destination>
+		</relationship>
+	</object>
+</objects>

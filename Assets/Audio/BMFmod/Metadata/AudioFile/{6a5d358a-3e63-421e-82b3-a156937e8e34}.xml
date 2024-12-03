@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{6a5d358a-3e63-421e-82b3-a156937e8e34}">
+		<property name="assetPath">
+			<value>Darack_Footsteps/V1_Darack_Walk/W_Darack_WalkFootstepsV1_8.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>1.5</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{952c0bfe-8845-487c-8516-faa4098e314c}</destination>
+		</relationship>
+	</object>
+</objects>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{521a8981-3490-4d8f-8ade-f956db743c1c}">
+		<property name="name">
+			<value>2D_Memory</value>
+		</property>
+		<relationship name="folder">
+			<destination>{b8128721-3b3d-453f-8fa3-e89bec5447aa}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{7d19af9f-a223-4706-b807-5e93d301f19c}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{7d19af9f-a223-4706-b807-5e93d301f19c}">
+		<property name="parameterType">
+			<value>2</value>
+		</property>
+		<property name="maximum">
+			<value>2</value>
+		</property>
+		<property name="enumerationLabels">
+			<value>Wood</value>
+			<value>Carpet</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{6c3b6c81-16cb-4dd1-b24a-ba8e5420986c}">
+		<property name="name">
+			<value>3D_Memory</value>
+		</property>
+		<relationship name="folder">
+			<destination>{b8128721-3b3d-453f-8fa3-e89bec5447aa}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{01f8cdd6-eb4b-41bf-8988-ef8010023c8c}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{01f8cdd6-eb4b-41bf-8988-ef8010023c8c}">
+		<property name="parameterType">
+			<value>2</value>
+		</property>
+		<property name="maximum">
+			<value>2</value>
+		</property>
+		<property name="enumerationLabels">
+			<value>WoodJog</value>
+			<value>CarpetJog</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>
