@@ -8,12 +8,10 @@ namespace BM
 	[DisallowMultipleComponent]
 	public class InteractableDetector : MonoBehaviour
 	{
-		[SerializeField] private InputReaderSO m_inputReader;
 		[SerializeField] private float m_raycastDistance = 5.0f;
 
 		[SerializeField] private LayerMask m_layerMask = (1 << 6);
 
-		private Collider m_characterCollider;
 
 		private InteractableBase m_detectedInteractable;
 
