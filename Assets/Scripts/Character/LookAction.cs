@@ -8,10 +8,17 @@ namespace BM
 	[DisallowMultipleComponent]
 	public class LookAction : MonoBehaviour
 	{
-		void Awake()
+		[SerializeField] private Transform m_characterAppearance;
+
+		private void Awake()
 		{
 			Cursor.lockState = CursorLockMode.Locked;
 			Cursor.visible = false;
+		}
+
+		private void FixedUpdate()
+		{
+			m_characterAppearance.forward = Camera.main.transform.forward;
 		}
 	}
 }

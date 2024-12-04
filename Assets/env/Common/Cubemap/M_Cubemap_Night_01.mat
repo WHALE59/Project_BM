@@ -25,7 +25,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _Cubemap:
-        m_Texture: {fileID: 8900000, guid: d0cee958f0ab4e146bbf35e54610a5fe, type: 3}
+        m_Texture: {fileID: 8900000, guid: 606fcbed5ab19384195879646ad8e701, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _CubemapAsset_a7977456260d4d7e8f54b3d47106a4de_Out_0_Cubemap:
@@ -37,7 +37,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Tex:
-        m_Texture: {fileID: 8900000, guid: d0cee958f0ab4e146bbf35e54610a5fe, type: 3}
+        m_Texture: {fileID: 8900000, guid: 4934ba408f363c44e8ce209db1d405b5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -54,16 +54,16 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Exposure: 1
-    - _Float: 90
+    - _Exposure: 2.53
+    - _Float: 120
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Rotation: 360
+    - _Rotation: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Tint: {r: 1, g: 1, b: 1, a: 0.5}
+    - _Tint: {r: 0.20754719, g: 0.20754719, b: 0.20754719, a: 1}
     - _Vector2: {r: 0, g: 0, b: 0, a: 0}
-    - _Vector3: {r: -1, g: 1, b: 1, a: 0}
+    - _Vector3: {r: 1, g: -1, b: 1, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &9010596065112035142
 MonoBehaviour:

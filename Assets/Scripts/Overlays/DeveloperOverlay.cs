@@ -14,7 +14,7 @@ namespace BM
 	public class DeveloperOverlay : MonoBehaviour
 	{
 		[SerializeField] private CharacterStartFinder m_character;
-		[SerializeField] private InputReader m_inputReader;
+		[SerializeField] private InputReaderSO m_inputReader;
 		[SerializeField] private VerticalLayoutGroup m_buttonGroup;
 		[SerializeField] private Button m_buttonPrefab;
 		[SerializeField] private List<string> m_sceneNameToExeclude = new() { m_persistentGameplaySceneName };
@@ -190,12 +190,12 @@ namespace BM
 
 		private void OnEnable()
 		{
-			m_inputReader.ToggleDeveloperInputPerforemed += OnToggleInput;
+			m_inputReader.ToggleDeveloperInputPerformed += OnToggleInput;
 		}
 
 		private void OnDisable()
 		{
-			m_inputReader.ToggleDeveloperInputPerforemed -= OnToggleInput;
+			m_inputReader.ToggleDeveloperInputPerformed -= OnToggleInput;
 		}
 	}
 }
