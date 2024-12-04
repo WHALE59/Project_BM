@@ -15,8 +15,8 @@ TagManager:
   - Water
   - UI
   - Interactable
-  - InteractableGhost
-  - Equipment
+  - InteractablePlacement
+  - EquippedInteractable
   - 
   - 
   - 

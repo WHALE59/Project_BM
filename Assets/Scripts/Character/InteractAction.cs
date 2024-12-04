@@ -1,21 +1,13 @@
-using BM.InteractableObjects;
-
+using System;
 using UnityEngine;
-using UnityEngine.Events;
-using System.Collections;
-using System.Collections.Generic;
-
-
-
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 
 namespace BM
 {
+	[Obsolete]
 	[DisallowMultipleComponent]
 	public class InteractAction : MonoBehaviour
 	{
+#if false // 추후 수정의 여지가 있어서 이렇게 남겨둚. 사용하지 말 것.
 		[SerializeField] private InputReaderSO m_inputReader;
 		[SerializeField] private Transform m_equipSocket;
 
@@ -455,6 +447,7 @@ namespace BM
 			Gizmos.color = Color.red;
 			Gizmos.DrawRay(target.m_equipSocket.position, target.m_equipSocket.right * 0.2f);
 		}
+#endif
 #endif
 	}
 }

@@ -79,7 +79,7 @@ GameObject:
   - component: {fileID: 4451049859483663539}
   - component: {fileID: 6448649718899218689}
   - component: {fileID: 3781311540657731409}
-  - component: {fileID: 1634005992908655348}
+  - component: {fileID: 4630992091899181617}
   m_Layer: 3
   m_Name: P_Character
   m_TagString: Untagged
@@ -276,7 +276,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 532be701bae784e4e80256da8a563dfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1634005992908655348
+--- !u!114 &4630992091899181617
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -285,20 +285,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 7093824059209778154}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39595121c1fd8ff41ba1c0bf38491f2b, type: 3}
+  m_Script: {fileID: 11500000, guid: ea3fffd2489c2794a8c6877057d85378, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_inputReader: {fileID: 11400000, guid: 314b40c975fd3d349a30c23aa2faddeb, type: 2}
-  m_equipSocket: {fileID: 8908346884455916113}
   m_raycastDistance: 5
   m_nonPlaceStateLayerMask:
     serializedVersion: 2
     m_Bits: 64
   m_placeStateLayerMask:
     serializedVersion: 2
-    m_Bits: 191
-  m_drawRayAndResult: 1
-  m_drawGrabSocket: 1
+    m_Bits: 128
 --- !u!1 &7658585729986315391
 GameObject:
   m_ObjectHideFlags: 0

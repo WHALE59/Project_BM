@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cc4fe6a90d2d8f488e4922b5e928340, type: 3}
+  m_Name: InputDeviceDisplayConfigurator
+  m_EditorClassIdentifier: 
+  inputDeviceSets:
+  - rawPath: Keyboard:/Keyboard
+    displayData: {fileID: 11400000, guid: 6a1e47c52ce811e49bcd8eccd058a4ab, type: 2}
+  - rawPath: SwitchProControllerHID:/SwitchProControllerHID
+    displayData: {fileID: 11400000, guid: 8eb14dfc215815b47ac116f00eeb1b24, type: 2}
+  - rawPath: XInputControllerWindows:/XInputControllerWindows
+    displayData: {fileID: 11400000, guid: 10ec7e15020d85b44a9e05861385a5b2, type: 2}
+  - rawPath: XInputControllerWindows:/XInputControllerWindows
+    displayData: {fileID: 11400000, guid: 08d6046627a53fd4c9aa539c5ac8c20b, type: 2}
