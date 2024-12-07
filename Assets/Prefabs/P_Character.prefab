@@ -208,23 +208,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_inputReader: {fileID: 11400000, guid: 314b40c975fd3d349a30c23aa2faddeb, type: 2}
-  m_speedOnStandJog: 6
-  m_speedOnCrouchedJog: 2
-  m_speedOnStandWalk: 4
-  m_speedOnCrouchedWalk: 2
   m_mass: 50
   m_applyGravity: 1
   m_cameraTarget: {fileID: 2543932865098810727}
-  m_crouchDuration: 0.25
-  m_crouchedRatio: 0.5
-  m_impulsePeriodOnStandJog: 0.55
-  m_impulsePeriodOnStandWalk: 0.7
-  m_impulsePeriodOnCrouchedJog: 0.8
-  m_impulsePeriodOnCrouchedWalk: 0.8
-  m_impulseForceOnStandJog: 0.55
-  m_impulseForceOnStandWalk: 0.4
-  m_impulseForceOnCrouchedJog: 0.3
-  m_impulseForceOnCrouchedWalk: 0.3
+  m_properties: {fileID: 11400000, guid: 0a82ae126b59d2d45999f2c82c914acc, type: 2}
   m_logOnLocomotionImpulse: 0
 --- !u!114 &4451049859483663539
 MonoBehaviour:
@@ -242,11 +229,12 @@ MonoBehaviour:
   m_masterVolume: 1
   m_eventReference:
     Guid:
-      Data1: 1045056276
-      Data2: 1219463424
-      Data3: -1316248162
-      Data4: -1642529302
-    Path: event:/OldFootstep
+      Data1: -1178592238
+      Data2: 1229513049
+      Data3: -1190215789
+      Data4: 953587788
+    Path: event:/Footsteps/3D_Darack_Character
+  m_inCarpet: 0
 --- !u!114 &6448649718899218689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -288,14 +276,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea3fffd2489c2794a8c6877057d85378, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_inputReader: {fileID: 11400000, guid: 314b40c975fd3d349a30c23aa2faddeb, type: 2}
   m_raycastDistance: 5
-  m_nonPlaceStateLayerMask:
+  m_layerMask:
     serializedVersion: 2
     m_Bits: 64
-  m_placeStateLayerMask:
-    serializedVersion: 2
-    m_Bits: 128
 --- !u!1 &7658585729986315391
 GameObject:
   m_ObjectHideFlags: 0

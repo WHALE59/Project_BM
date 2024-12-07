@@ -1005,6 +1005,81 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4451049859483663539, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
+        type: 3}
+      propertyPath: m_jogEventReference.Path
+      value: event:/Footsteps/3D_Darack_Character
+      objectReference: {fileID: 0}
+    - target: {fileID: 4451049859483663539, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
+        type: 3}
+      propertyPath: m_walkEventReference.Path
+      value: event:/Footsteps/2D_Darack_Walk
+      objectReference: {fileID: 0}
+    - target: {fileID: 4451049859483663539, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
+        type: 3}
+      propertyPath: m_crouchEventReference.Path
+      value: event:/Footsteps/2D_Darack_Walk
+      objectReference: {fileID: 0}
+    - target: {fileID: 4451049859483663539, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
+        type: 3}
+      propertyPath: m_jogEventReference.Guid.Data1
+      value: -1178592238
+      objectReference: {fileID: 0}
+    - target: {fileID: 4451049859483663539, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
+        type: 3}
+      propertyPath: m_jogEventReference.Guid.Data2
+      value: 1229513049
+      objectReference: {fileID: 0}
+    - target: {fileID: 4451049859483663539, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
+        type: 3}
+      propertyPath: m_jogEventReference.Guid.Data3
+      value: -1190215789
+      objectReference: {fileID: 0}
+    - target: {fileID: 4451049859483663539, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
+        type: 3}
+      propertyPath: m_jogEventReference.Guid.Data4
+      value: 953587788
+      objectReference: {fileID: 0}
+    - target: {fileID: 4451049859483663539, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
+        type: 3}
+      propertyPath: m_walkEventReference.Guid.Data1
+      value: 283126715
+      objectReference: {fileID: 0}
+    - target: {fileID: 4451049859483663539, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
+        type: 3}
+      propertyPath: m_walkEventReference.Guid.Data2
+      value: 1336121648
+      objectReference: {fileID: 0}
+    - target: {fileID: 4451049859483663539, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
+        type: 3}
+      propertyPath: m_walkEventReference.Guid.Data3
+      value: -1825456246
+      objectReference: {fileID: 0}
+    - target: {fileID: 4451049859483663539, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
+        type: 3}
+      propertyPath: m_walkEventReference.Guid.Data4
+      value: -1338472339
+      objectReference: {fileID: 0}
+    - target: {fileID: 4451049859483663539, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
+        type: 3}
+      propertyPath: m_crouchEventReference.Guid.Data1
+      value: 283126715
+      objectReference: {fileID: 0}
+    - target: {fileID: 4451049859483663539, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
+        type: 3}
+      propertyPath: m_crouchEventReference.Guid.Data2
+      value: 1336121648
+      objectReference: {fileID: 0}
+    - target: {fileID: 4451049859483663539, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
+        type: 3}
+      propertyPath: m_crouchEventReference.Guid.Data3
+      value: -1825456246
+      objectReference: {fileID: 0}
+    - target: {fileID: 4451049859483663539, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
+        type: 3}
+      propertyPath: m_crouchEventReference.Guid.Data4
+      value: -1338472339
+      objectReference: {fileID: 0}
     - target: {fileID: 5976178325819853717, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
         type: 3}
       propertyPath: m_LocalPosition.x

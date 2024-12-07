@@ -8,7 +8,7 @@ using static BM.IA_GameInputs;
 
 namespace BM
 {
-	[CreateAssetMenu(fileName = "InputReaderSO_Default", menuName = "BM/SO/Input Reader")]
+	[CreateAssetMenu(fileName = "InputReaderSO_Default", menuName = "BM/SO/Input Reader SO")]
 	public partial class InputReaderSO : ScriptableObject, IGameplayActions
 	{
 		/// <summary>
