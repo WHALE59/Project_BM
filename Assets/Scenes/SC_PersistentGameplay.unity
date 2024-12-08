@@ -1022,6 +1022,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4451049859483663539, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
         type: 3}
+      propertyPath: m_footstepEventReference.Path
+      value: event:/Footsteps/3D_Darack_Character
+      objectReference: {fileID: 0}
+    - target: {fileID: 4451049859483663539, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
+        type: 3}
       propertyPath: m_jogEventReference.Guid.Data1
       value: -1178592238
       objectReference: {fileID: 0}
@@ -1079,6 +1084,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_crouchEventReference.Guid.Data4
       value: -1338472339
+      objectReference: {fileID: 0}
+    - target: {fileID: 4451049859483663539, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
+        type: 3}
+      propertyPath: m_footstepEventReference.Guid.Data1
+      value: -1178592238
+      objectReference: {fileID: 0}
+    - target: {fileID: 4451049859483663539, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
+        type: 3}
+      propertyPath: m_footstepEventReference.Guid.Data2
+      value: 1229513049
+      objectReference: {fileID: 0}
+    - target: {fileID: 4451049859483663539, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
+        type: 3}
+      propertyPath: m_footstepEventReference.Guid.Data3
+      value: -1190215789
+      objectReference: {fileID: 0}
+    - target: {fileID: 4451049859483663539, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
+        type: 3}
+      propertyPath: m_footstepEventReference.Guid.Data4
+      value: 953587788
       objectReference: {fileID: 0}
     - target: {fileID: 5976178325819853717, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
         type: 3}

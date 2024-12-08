@@ -7,7 +7,14 @@ namespace BM
 	[DisallowMultipleComponent]
 	public class FootstepAudioVolume : MonoBehaviour
 	{
+		private Collider m_collider;
+
 		private HashSet<FootstepAudio> m_triggeredFootstepAudioPlayers = new();
+
+		private void Awake()
+		{
+			m_collider = GetComponent<Collider>();
+		}
 
 		private void OnTriggerEnter(Collider collider)
 		{
@@ -23,7 +30,7 @@ namespace BM
 		{
 			if (!collider.TryGetComponent<FootstepAudio>(out var footstepAudioPlayer))
 			{
-				// Something went truly wrong...
+				// if code go through this, something went truly wrong...
 			}
 
 			m_triggeredFootstepAudioPlayers.Remove(footstepAudioPlayer);
