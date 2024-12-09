@@ -5,7 +5,7 @@
 			<value>UI Sound</value>
 		</property>
 		<relationship name="folder">
-			<destination>{17a352a2-f090-4277-a63f-e78abb683baa}</destination>
+			<destination>{dfb408fe-6cb7-4159-8b74-277b4c2773e0}</destination>
 		</relationship>
 	</object>
 </objects>

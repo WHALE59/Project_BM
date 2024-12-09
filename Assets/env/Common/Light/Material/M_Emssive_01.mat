@@ -24,16 +24,20 @@ Material:
   m_Shader: {fileID: -6465566751694194690, guid: 074425de975cb3640b6afa608442523c,
     type: 3}
   m_Parent: {fileID: 2100000, guid: 046947ee123dc78468ba6bf4f605f651, type: 2}
-  m_ModifiedSerializedProperties: 24
-  m_ValidKeywords: []
+  m_ModifiedSerializedProperties: 30
+  m_ValidKeywords:
+  - _ALPHAPREMULTIPLY_ON
+  - _RECEIVE_SHADOWS_OFF
+  - _SURFACE_TYPE_TRANSPARENT
   m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
+  m_LightmapFlags: 1
+  m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 1
-  m_CustomRenderQueue: 2000
+  m_CustomRenderQueue: 3000
   stringTagMap:
-    RenderType: Opaque
-  disabledShaderPasses: []
+    RenderType: Transparent
+  disabledShaderPasses:
+  - DepthOnly
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
@@ -41,12 +45,16 @@ Material:
     m_Ints: []
     m_Floats:
     - _Blend: 2
-    - _DstBlend: 0
-    - _Emssive_Power: 400
+    - _CastShadows: 1
+    - _Cull: 2
+    - _DstBlend: 1
+    - _Emssive_Power: 5
+    - _ReceiveShadows: 0
     - _SrcBlend: 1
-    - _Surface: 0
-    - _ZWrite: 1
+    - _Surface: 1
+    - _WorkflowMode: 1
+    - _ZWrite: 0
     m_Colors:
-    - _Emissive_Color: {r: 1, g: 1, b: 1, a: 0}
-    - _Tint_Color: {r: 1, g: 1, b: 1, a: 0}
+    - _Emissive_Color: {r: 0.8867924, g: 0.8341984, b: 0.7152901, a: 0}
+    - _Tint_Color: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="Event" id="{71d6ae00-1600-4b99-9733-dd9f5802a83a}">
 		<property name="name">
-			<value>Darack_Memory</value>
+			<value>3D_M_Ambience_Darack</value>
 		</property>
 		<property name="outputFormat">
 			<value>5</value>

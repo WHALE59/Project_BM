@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="Event" id="{6a969d0f-3d33-4e75-9986-56c1fab7ee9d}">
 		<property name="name">
-			<value>New Event</value>
+			<value>3D_E_Ambience_Darack</value>
 		</property>
 		<property name="outputFormat">
 			<value>2</value>
@@ -31,6 +31,9 @@
 		</relationship>
 		<relationship name="timeline">
 			<destination>{42c94977-2d9e-41f0-9eec-b21921d31d58}</destination>
+		</relationship>
+		<relationship name="banks">
+			<destination>{52ac78f9-d0ed-4220-84ae-0bfee2ac73da}</destination>
 		</relationship>
 	</object>
 	<object class="EventMixer" id="{15cf1c8e-2d5e-4c30-b25f-87be89ead0d8}">

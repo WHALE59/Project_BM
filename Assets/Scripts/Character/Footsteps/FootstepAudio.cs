@@ -1,5 +1,7 @@
 using FMOD.Studio;
+
 using FMODUnity;
+
 using UnityEngine;
 
 namespace BM
@@ -11,26 +13,32 @@ namespace BM
 		[SerializeField] private bool m_applyFootstepBaseAudio = true;
 		[SerializeField][Range(0.0f, 1.0f)] private float m_masterVolume = 1.0f;
 
-		[SerializeField] private EventReference m_eventReference;
+		[SerializeField] private EventReference m_footstepEventReference;
 
-		private EventInstance m_eventInstance;
+		private EventInstance m_footstepEventInstance;
+
 		private LocomotiveAction m_locomotiveAction;
 
-		private void PlayFootstepAudioOnPosition(Vector3 position, float _)
+		private void FootstepAudio_LocomotionImpulseGenerated(Vector3 position, float force)
 		{
 			if (!m_applyFootstepBaseAudio)
 			{
 				return;
 			}
 
-			if (!m_eventInstance.isValid())
-			{
-				return;
-			}
+			PlayFootstepAudio(in position, in force);
+		}
 
-			m_eventInstance.setVolume(m_masterVolume);
-			m_eventInstance.set3DAttributes(RuntimeUtils.To3DAttributes(position));
-			m_eventInstance.start();
+		private void FootstepAudio_LocomotiveStateChanged(LocomotiveAction.State state)
+		{
+			// TODO: Tune parameter via locomotive state change
+		}
+
+		private void PlayFootstepAudio(in Vector3 position, in float force)
+		{
+			m_footstepEventInstance.setVolume(m_masterVolume * force);
+			m_footstepEventInstance.set3DAttributes(RuntimeUtils.To3DAttributes(position));
+			m_footstepEventInstance.start();
 		}
 
 		private void Awake()
@@ -40,24 +48,27 @@ namespace BM
 
 		private void Start()
 		{
-			m_eventInstance = RuntimeManager.CreateInstance(m_eventReference);
+			m_footstepEventInstance = RuntimeManager.CreateInstance(m_footstepEventReference);
 		}
 
 		private void OnEnable()
 		{
-			m_locomotiveAction.LocomotionImpulseGenerated += PlayFootstepAudioOnPosition;
+			m_locomotiveAction.LocomotionImpulseGenerated += FootstepAudio_LocomotionImpulseGenerated;
+			m_locomotiveAction.LocomotiveStateChanged += FootstepAudio_LocomotiveStateChanged;
 		}
 
 		private void OnDisable()
 		{
-			m_locomotiveAction.LocomotionImpulseGenerated -= PlayFootstepAudioOnPosition;
+			m_locomotiveAction.LocomotionImpulseGenerated -= FootstepAudio_LocomotionImpulseGenerated;
+			m_locomotiveAction.LocomotiveStateChanged -= FootstepAudio_LocomotiveStateChanged;
 		}
 
 		private void OnDestroy()
 		{
-			if (m_eventInstance.isValid())
+			if (m_footstepEventInstance.isValid())
 			{
-				m_eventInstance.release();
+				m_footstepEventInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+				m_footstepEventInstance.release();
 			}
 		}
 	}
