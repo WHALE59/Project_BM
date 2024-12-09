@@ -2282,6 +2282,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 565186367}
+  - component: {fileID: 565186368}
   m_Layer: 0
   m_Name: Ambience
   m_TagString: Untagged
@@ -2304,6 +2305,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &565186368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 565186366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 1909894656
+      Data2: 1268323840
+      Data3: -1612893289
+      Data4: 984089176
+    Path: event:/Ambience/3D_M_Ambience_Darack
+  Event: 
+  EventPlayTrigger: 11
+  EventStopTrigger: 12
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!4 &581949819 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3157269042240500556, guid: 01c3b8b56e8370c458399002bd8a108f,
@@ -7432,7 +7464,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1653237716
 Transform:
   m_ObjectHideFlags: 0
@@ -7442,7 +7474,7 @@ Transform:
   m_GameObject: {fileID: 1653237715}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.704, y: 0, z: 4.566}
+  m_LocalPosition: {x: 0.085, y: 0.97, z: 5.904}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7463,11 +7495,11 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: -620091807
-      Data2: 1112320272
-      Data3: 1271943587
-      Data4: 229328078
-    Path: event:/Ambience/Darack_Emotion
+      Data1: -240518598
+      Data2: 1084986957
+      Data3: -1086172258
+      Data4: 13633914
+    Path: event:/Ambience/3D_M_Ambience_Windows
   Event: 
   EventPlayTrigger: 1
   EventStopTrigger: 2
@@ -7476,7 +7508,7 @@ MonoBehaviour:
   Preload: 0
   NonRigidbodyVelocity: 0
   Params: []
-  OverrideAttenuation: 1
+  OverrideAttenuation: 0
   OverrideMinDistance: 1
   OverrideMaxDistance: 20
 --- !u!4 &1656605100 stripped
@@ -8701,13 +8733,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1988365131}
+  - component: {fileID: 1988365132}
   m_Layer: 0
   m_Name: SFX_Bulb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1988365131
 Transform:
   m_ObjectHideFlags: 0
@@ -8717,12 +8750,43 @@ Transform:
   m_GameObject: {fileID: 1988365130}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.08, y: 2.745, z: -1.337}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1340278787}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1988365132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1988365130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 1757037306
+      Data2: 1300965376
+      Data3: -1908828517
+      Data4: 529680579
+    Path: event:/Ambience/3D_M_Ambience_Bulb
+  Event: 
+  EventPlayTrigger: 1
+  EventStopTrigger: 2
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1001 &1997635533
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9872,6 +9936,6 @@ SceneRoots:
   - {fileID: 1036789306}
   - {fileID: 470060782}
   - {fileID: 1381641764}
-  - {fileID: 565186367}
   - {fileID: 906276687}
+  - {fileID: 565186367}
   - {fileID: 1340278787}
