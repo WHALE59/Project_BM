@@ -1023,7 +1023,7 @@ PrefabInstance:
     - target: {fileID: 4451049859483663539, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
         type: 3}
       propertyPath: m_footstepEventReference.Path
-      value: event:/Footsteps/3D_Darack_Character
+      value: event:/SFX/Darack/3D_M_Footsteps_DarackWood
       objectReference: {fileID: 0}
     - target: {fileID: 4451049859483663539, guid: 69492b5dfb0cbcc458b019f0747a1bb3,
         type: 3}
