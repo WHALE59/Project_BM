@@ -2,13 +2,13 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="Event" id="{b9c01c12-e159-4948-93bf-0eb94c98d638}">
 		<property name="name">
-			<value>3D_Darack_Character</value>
+			<value>3D_M_Footsteps_DarackWood</value>
 		</property>
 		<property name="outputFormat">
 			<value>2</value>
 		</property>
 		<relationship name="folder">
-			<destination>{f376d34e-4efe-4309-8b13-7d39b8e5d91c}</destination>
+			<destination>{dfb408fe-6cb7-4159-8b74-277b4c2773e0}</destination>
 		</relationship>
 		<relationship name="mixer">
 			<destination>{7b6d3412-2f4a-4501-bfd2-c0b4243b5d5d}</destination>
@@ -34,7 +34,6 @@
 		</relationship>
 		<relationship name="parameters">
 			<destination>{3c36781c-3c52-4853-b779-c7093861a508}</destination>
-			<destination>{3a6812db-e502-49e9-971a-41cd15832ee7}</destination>
 		</relationship>
 		<relationship name="banks">
 			<destination>{eccbe418-3a91-45bc-83fb-5a2a8b67bbf1}</destination>
@@ -81,7 +80,11 @@
 			<destination>{36ec02c5-ffc2-4667-bd95-618daeeb9602}</destination>
 		</relationship>
 	</object>
-	<object class="Timeline" id="{bf26b584-3874-4b77-8773-8216f9a8d320}" />
+	<object class="Timeline" id="{bf26b584-3874-4b77-8773-8216f9a8d320}">
+		<property name="isProxyEnabled">
+			<value>false</value>
+		</property>
+	</object>
 	<object class="ParameterProxy" id="{3c36781c-3c52-4853-b779-c7093861a508}">
 		<relationship name="modules">
 			<destination>{abc94815-ab2b-42f4-a72b-8b8ac7bef857}</destination>
@@ -91,11 +94,6 @@
 		</relationship>
 		<relationship name="preset">
 			<destination>{01f8cdd6-eb4b-41bf-8988-ef8010023c8c}</destination>
-		</relationship>
-	</object>
-	<object class="ParameterProxy" id="{3a6812db-e502-49e9-971a-41cd15832ee7}">
-		<relationship name="preset">
-			<destination>{b3e5dbae-2276-4d4d-ba06-f479fc4b45b0}</destination>
 		</relationship>
 	</object>
 	<object class="EventMixerMaster" id="{9ec30ecd-87ab-45e5-9b5a-7bbb3c668bfb}">

@@ -33,6 +33,9 @@
 		<relationship name="timeline">
 			<destination>{f8980eac-f981-4b2b-8820-06ceedd514d7}</destination>
 		</relationship>
+		<relationship name="banks">
+			<destination>{eccbe418-3a91-45bc-83fb-5a2a8b67bbf1}</destination>
+		</relationship>
 	</object>
 	<object class="EventMixer" id="{7e61ac92-7ab6-4d93-a0bf-0adcbc969c87}">
 		<relationship name="masterBus">
@@ -181,7 +184,7 @@
 	</object>
 	<object class="EventMixerGroup" id="{62ac5fd1-ad6f-4dae-918f-b26b6d195a11}">
 		<property name="volume">
-			<value>-6</value>
+			<value>-2.5</value>
 		</property>
 		<property name="name">
 			<value>Scatter Transition</value>
