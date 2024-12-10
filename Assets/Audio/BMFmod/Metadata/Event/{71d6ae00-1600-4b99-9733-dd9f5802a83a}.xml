@@ -121,6 +121,9 @@
 		</relationship>
 	</object>
 	<object class="EventMixerGroup" id="{1af64056-1fe4-4e6c-a2b3-7586776ec030}">
+		<property name="volume">
+			<value>-10</value>
+		</property>
 		<property name="name">
 			<value>Memory Ambience</value>
 		</property>
@@ -184,7 +187,7 @@
 	</object>
 	<object class="EventMixerGroup" id="{62ac5fd1-ad6f-4dae-918f-b26b6d195a11}">
 		<property name="volume">
-			<value>-2.5</value>
+			<value>-17</value>
 		</property>
 		<property name="name">
 			<value>Scatter Transition</value>
