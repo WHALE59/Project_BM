@@ -21,9 +21,9 @@ namespace BM
 		private LocomotiveAction m_locomotiveAction;
 
 		// TODO: 오타 수정 요청 드릴 것
-		private readonly string PARAM_FOOTSTEP = "3D_M_Footsteps_DarckWood";
+		private readonly string PARAM_FOOTSTEP = "3D_M_Footsteps_DarackWood";
 		// TODO: 이것 보다 더 합리적인 관리 법은 없는 것?
-		private readonly string[] LABEL = { "Jog", "Walk", "Crouched" };
+		private readonly string[] LABEL = { "Jog", "Walk", "Crouch" };
 
 		private void FootstepAudio_LocomotionImpulseGenerated(Vector3 position, float force)
 		{
@@ -62,7 +62,9 @@ namespace BM
 			{
 				m_footstepEventInstance.setVolume(m_masterVolume);
 			}
+
 			m_footstepEventInstance.set3DAttributes(RuntimeUtils.To3DAttributes(position));
+
 			m_footstepEventInstance.start();
 		}
 
