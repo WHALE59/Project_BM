@@ -21,7 +21,7 @@ namespace BM
 		[Header("입력 설정")]
 		[Space()]
 
-		[SerializeField] InputReader m_inputReader;
+		[SerializeField] InputReaderSO m_inputReader;
 
 		// TODO : 제대로 된 스테이트 머신이 나오면 상태 관리를 더 세분화 할 것.
 		public enum EGaitState
@@ -36,6 +36,7 @@ namespace BM
 
 		[Header("이동 속도 설정")]
 		[Space()]
+
 		[SerializeField] private float m_speedOnStandJog = 6.0f;
 		[SerializeField] private float m_speedOnCrouchedJog = 2.0f;
 		[SerializeField] private float m_speedOnStandWalk = 4.0f;
@@ -78,7 +79,6 @@ namespace BM
 
 		private float m_uncrouchedCapsuleHeight;
 		private Vector3 m_uncrouchedCapsuleCenter;
-		private Vector3 m_normalVcamLocalPosition;
 
 		// TODO : 임시로 자기 자신을 제외한 모든 레이어로 설정
 		private readonly int m_crouchCollisionLayerMask = ~(1 << 3);
@@ -100,13 +100,16 @@ namespace BM
 		private EStanceState m_stanceState = EStanceState.Stand;
 		private EGaitState m_gaitState = EGaitState.Jog;
 
+		private bool m_hasTriggeredInitialImpulse = false;
+		private float m_previousInitialImpulseTime;
+
 #if UNITY_EDITOR
 		[Header("로깅 설정")]
 		[Space()]
 
 		[SerializeField] private bool m_logOnLocomotionImpulse = false;
 
-		private bool m_isStuckedWhileCrouching = false;
+		private bool m_isStuckWhileCrouching = false;
 		private RaycastHit m_crouchHitInfo;
 #endif
 
@@ -159,8 +162,8 @@ namespace BM
 		{
 			get
 			{
-				var cameraYRotation = Quaternion.Euler(0.0f, Camera.main.transform.eulerAngles.y, 0);
-				var worldMoveDirection = (cameraYRotation * m_localMoveDirection).normalized;
+				Quaternion cameraYRotation = Quaternion.Euler(0.0f, Camera.main.transform.eulerAngles.y, 0);
+				Vector3 worldMoveDirection = (cameraYRotation * m_localMoveDirection).normalized;
 
 				return worldMoveDirection;
 			}
@@ -171,9 +174,6 @@ namespace BM
 			m_isDesiredToMove = moveInput != Vector2.zero;
 			m_localMoveDirection = new Vector3(moveInput.x, 0.0f, moveInput.y);
 		}
-
-		private bool m_hasTriggeredInitialImpulse = false;
-		private float m_previousInitialImpulseTime;
 
 		private void GenerateLocomotionImpulse()
 		{
@@ -186,12 +186,12 @@ namespace BM
 
 			// 현재 프레임에서 Impulse 타이머에 도달했는지 판정 시작
 
-			var currentImpulsePeriod = ImpulsePeriod;
-			var currentImpulseForce = ImpulseForce;
+			float currentImpulsePeriod = ImpulsePeriod;
+			float currentImpulseForce = ImpulseForce;
 
 			if (!m_hasTriggeredInitialImpulse)
 			{
-				var elapsedTimeAfterLastInitialImpulse = Time.time - m_previousInitialImpulseTime;
+				float elapsedTimeAfterLastInitialImpulse = Time.time - m_previousInitialImpulseTime;
 
 				if (elapsedTimeAfterLastInitialImpulse >= currentImpulsePeriod)
 				{
@@ -287,7 +287,7 @@ namespace BM
 			StopAllCoroutines();
 
 #if UNITY_EDITOR
-			m_isStuckedWhileCrouching = false;
+			m_isStuckWhileCrouching = false;
 #endif
 			StartCoroutine(CrouchRoutine(isCrouchingUp: false));
 		}
@@ -310,29 +310,29 @@ namespace BM
 
 		private IEnumerator CrouchRoutine(bool isCrouchingUp)
 		{
-			var startCapsuleHeight = m_characterController.height;
-			var startCapsuleCenter = m_characterController.center;
+			float startCapsuleHeight = m_characterController.height;
+			Vector3 startCapsuleCenter = m_characterController.center;
 
-			var crouchedCapsuleHeight = m_uncrouchedCapsuleHeight * m_crouchedRatio;
-			var crouchedCapsuleCenter = m_uncrouchedCapsuleCenter - new Vector3(0.0f, m_uncrouchedCapsuleHeight * (1 - m_crouchedRatio) / 2.0f, 0.0f);
+			float crouchedCapsuleHeight = m_uncrouchedCapsuleHeight * m_crouchedRatio;
+			Vector3 crouchedCapsuleCenter = m_uncrouchedCapsuleCenter - new Vector3(0f, m_uncrouchedCapsuleHeight * (1 - m_crouchedRatio) / 2f, 0f);
 
-			var endCapsuleHeight = isCrouchingUp ? m_uncrouchedCapsuleHeight : crouchedCapsuleHeight;
-			var endCapsuleCenter = isCrouchingUp ? m_uncrouchedCapsuleCenter : crouchedCapsuleCenter;
+			float endCapsuleHeight = isCrouchingUp ? m_uncrouchedCapsuleHeight : crouchedCapsuleHeight;
+			Vector3 endCapsuleCenter = isCrouchingUp ? m_uncrouchedCapsuleCenter : crouchedCapsuleCenter;
 
-			var elapsedTime = 0.0f;
+			float elapsedTime = 0.0f;
 
 			// 로컬 메서드 정의
 
-			bool IsStuckedWhileCrouching()
+			bool IsStuckWhileCrouching()
 			{
-				var isStuckedWhileCrouching =
+				var isStuckWhileCrouching =
 #if !UNITY_EDITOR
 				Physics.Raycast(transform.position, transform.up, m_uncrouchedCapsuleHeight / 2.0f, m_crouchCollisionLayerMask);
 #else
 							Physics.Raycast(transform.position, transform.up, out m_crouchHitInfo, m_uncrouchedCapsuleHeight / 2.0f, m_crouchCollisionLayerMask);
-				m_isStuckedWhileCrouching = isStuckedWhileCrouching;
+				m_isStuckWhileCrouching = isStuckWhileCrouching;
 #endif
-				return isStuckedWhileCrouching;
+				return isStuckWhileCrouching;
 			}
 
 			// 앉기 구분동작 타이머 시작
@@ -343,7 +343,7 @@ namespace BM
 
 				if (isCrouchingUp)
 				{
-					while (IsStuckedWhileCrouching())
+					while (IsStuckWhileCrouching())
 					{
 						yield return new WaitForFixedUpdate();
 					}
@@ -351,7 +351,7 @@ namespace BM
 
 				elapsedTime += Time.fixedDeltaTime;
 
-				var ratio = Mathf.Clamp01(elapsedTime / m_crouchDuration);
+				float ratio = Mathf.Clamp01(elapsedTime / m_crouchDuration);
 
 				m_characterController.height = Mathf.Lerp(startCapsuleHeight, endCapsuleHeight, ratio);
 				m_characterController.center = Vector3.Lerp(startCapsuleCenter, endCapsuleCenter, ratio);
@@ -399,8 +399,8 @@ namespace BM
 
 		private void OnEnable()
 		{
-			m_inputReader.MoveInputPerformed += UpdateLocalMoveDirection;
-			m_inputReader.MoveInputCancled += ResetLocomotionImpulse;
+			m_inputReader.MoveInputEvent += UpdateLocalMoveDirection;
+			m_inputReader.MoveInputCanceled += ResetLocomotionImpulse;
 
 			m_inputReader.CrouchInputPerformed += StartCrouch;
 			m_inputReader.CrouchInputCanceled += FinishCrouch;
@@ -415,8 +415,8 @@ namespace BM
 
 		private void OnDisable()
 		{
-			m_inputReader.MoveInputPerformed -= UpdateLocalMoveDirection;
-			m_inputReader.MoveInputCancled -= ResetLocomotionImpulse;
+			m_inputReader.MoveInputEvent -= UpdateLocalMoveDirection;
+			m_inputReader.MoveInputCanceled -= ResetLocomotionImpulse;
 
 			m_inputReader.CrouchInputPerformed -= StartCrouch;
 			m_inputReader.CrouchInputCanceled -= FinishCrouch;
@@ -460,13 +460,13 @@ namespace BM
 
 			// 현재 프레임의 속도 계산 끝
 
-			var planeVelocity = new Vector3(m_worldVelocity.x, 0.0f, m_worldVelocity.z);
+			Vector3 planeVelocity = new(m_worldVelocity.x, 0.0f, m_worldVelocity.z);
 			m_isMoving = planeVelocity != Vector3.zero;
 			m_characterController.Move(m_worldVelocity * Time.fixedDeltaTime);
 
 			// 회전 업데이트
 
-			var targetRotation = Camera.main.transform.eulerAngles.y;
+			float targetRotation = Camera.main.transform.eulerAngles.y;
 			transform.rotation = Quaternion.Euler(0.0f, targetRotation, 0.0f);
 		}
 
@@ -483,7 +483,7 @@ namespace BM
 				return;
 			}
 
-			Debug.Log($"* Impulse Generated: {Time.time:F2}, {position:F2} {force:F2}");
+			Debug.Log($"Impulse Generated: {Time.time:F2}, {position:F2} {force:F2}");
 		}
 
 		/// <summary>
@@ -502,17 +502,17 @@ namespace BM
 				target.m_characterController = target.GetComponent<CharacterController>();
 			}
 
-			var start = target.CameraTargetLocalPosition;
-			var direction = target.transform.forward;
+			Vector3 start = target.CameraTargetLocalPosition;
+			Vector3 direction = target.transform.forward;
 
 			Gizmos.color = Color.yellow;
-			Gizmos.DrawRay(start, direction * 1.0f);
+			Gizmos.DrawRay(start, direction * 1f);
 		}
 
 		[DrawGizmo(GizmoType.Active | GizmoType.Selected)]
-		private static void DrawCrouchStuckedPointGizmo(LocomotiveAction target, GizmoType _)
+		private static void DrawCrouchingRoutineStuckPointGizmo(LocomotiveAction target, GizmoType _)
 		{
-			if (!target.m_isStuckedWhileCrouching)
+			if (!target.m_isStuckWhileCrouching)
 			{
 				return;
 			}

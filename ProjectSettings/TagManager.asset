@@ -5,7 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - EYE
-  - Ground
+  - Interactable
+  - InteractableGhost
   layers:
   - Default
   - TransparentFX
@@ -13,9 +14,9 @@ TagManager:
   - Character
   - Water
   - UI
-  - Floor
-  - 
-  - 
+  - Interactable
+  - InteractablePlacement
+  - EquippedInteractable
   - 
   - 
   - 
