@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="ParameterPreset" id="{6c3b6c81-16cb-4dd1-b24a-ba8e5420986c}">
 		<property name="name">
-			<value>3D_M_Footsteps_DarackWood</value>
+			<value>3D_M_Footsteps_Carpet</value>
 		</property>
 		<relationship name="folder">
 			<destination>{b8128721-3b3d-453f-8fa3-e89bec5447aa}</destination>
