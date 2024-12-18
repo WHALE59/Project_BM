@@ -15,68 +15,24 @@ namespace BM.Interactables
 	[DisallowMultipleComponent]
 	public class InteractableModel : MonoBehaviour
 	{
-		[Serializable]
-		public struct MeshElement
-		{
-			public MeshRenderer Renderer { get; private set; }
-			public MeshFilter Filter { get; private set; }
+		[Tooltip("Fresnel 이펙트를 사용하는 머터리얼이 붙어 있는 메쉬 렌더러 오브젝트를 여기에 할당")]
+		[SerializeField] private MeshRenderer m_meshRenderer;
 
-			public MeshElement(MeshRenderer renderer, MeshFilter filter)
-			{
-				Renderer = renderer;
-				Filter = filter;
-			}
+		private Material m_fresnelMaterial;
+
+		private void Awake()
+		{
+			m_fresnelMaterial = m_meshRenderer.material;
 		}
 
-		[Tooltip("이 게임 오브젝트의 계층 구조에서 외형 표현을 위한 렌더러가 부착된 모든 오브젝트를 여기에 할당한다. 구체적으로는 메쉬 필터와 메쉬 렌더러가 함께 존재하는 모든 오브젝트를 여기에 할당한다.")]
-		[SerializeField] private List<GameObject> m_rendererAttachedObjects = new();
-
-		[Tooltip("이 게임 오브젝트의 계층 구조에서 충돌 판정을 위한 콜라이더가 부착된 모든 오브젝트를 여기에 할당")]
-		[SerializeField] private List<GameObject> m_colliderAttachedObjects = new();
-
-		private List<MeshElement> m_meshElements;
-		private List<Collider> m_colliders;
-
-		public IReadOnlyList<MeshElement> MeshDatas => m_meshElements;
-		public IReadOnlyList<Collider> Colliders => m_colliders;
-
-		public void InitializeColliders()
+		public void StartHoveringEffect()
 		{
-			// 모든 콜라이더를 찾아서 저장
-
-			m_colliders = new();
-
-			foreach (GameObject collidingObject in m_colliderAttachedObjects)
-			{
-				if (!collidingObject.TryGetComponent<Collider>(out var collider))
-				{
-					continue;
-				}
-
-				m_colliders.Add(collider);
-			}
+			m_fresnelMaterial.SetInt("_IsUsedFresnel", 1);
 		}
 
-		public void InitializeMeshElements()
+		public void FinishHoveringEffect()
 		{
-			// 모든 메쉬 필터와 렌더러를 찾아서 저장
-
-			m_meshElements = new();
-
-			foreach (GameObject renderingObject in m_rendererAttachedObjects)
-			{
-				if (!renderingObject.TryGetComponent<MeshRenderer>(out var renderer))
-				{
-					continue;
-				}
-
-				if (!renderingObject.TryGetComponent<MeshFilter>(out var filter))
-				{
-					continue;
-				}
-
-				m_meshElements.Add(new MeshElement(renderer, filter));
-			}
+			m_fresnelMaterial.SetInt("_IsUsedFresnel", 0);
 		}
 	}
 }

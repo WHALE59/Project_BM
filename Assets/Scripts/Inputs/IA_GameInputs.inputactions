@@ -42,36 +42,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Equip",
+                    "name": "CollectOrActivate",
                     "type": "Button",
-                    "id": "e1c5297d-13a5-4a1e-8979-d8086c99576f",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "TogglePlaceMode",
-                    "type": "Button",
-                    "id": "aaa29a45-ca6a-406b-8078-d1801fd09a58",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Place",
-                    "type": "Button",
-                    "id": "333f2c00-211b-4fe5-ad5b-9c25ea01fd41",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Collect",
-                    "type": "Button",
-                    "id": "b943deca-7f79-4575-a646-aba3c03659fa",
+                    "id": "66d78be4-afe2-44cb-ad34-b860ad6035f0",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -80,25 +53,7 @@
                 {
                     "name": "Use",
                     "type": "Button",
-                    "id": "d51d99fb-36dc-4682-bceb-36584ced80bd",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Activate",
-                    "type": "Button",
-                    "id": "f397bd11-62db-42b8-8c32-fe69b1f338e0",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "PushPopInventory",
-                    "type": "Button",
-                    "id": "3b6e104e-e6e6-455e-8129-7a3b75914360",
+                    "id": "3757b1d8-c107-496c-909e-18fd54473f48",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -359,28 +314,6 @@
                 },
                 {
                     "name": "",
-                    "id": "1591fb6e-f241-47d4-878e-91ca641e55f8",
-                    "path": "<Keyboard>/f",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "BM_PC",
-                    "action": "Activate",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "927ff8e2-1389-438b-95db-ccab8bc0e98c",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "BM_PC",
-                    "action": "Use",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "226b472b-1ba4-418a-a7d1-d3b075f2a567",
                     "path": "<Keyboard>/leftCtrl",
                     "interactions": "",
@@ -425,56 +358,23 @@
                 },
                 {
                     "name": "",
-                    "id": "effcc6de-b4a5-4587-8cb9-874de8e026f1",
-                    "path": "<Mouse>/rightButton",
+                    "id": "08706aa6-1c9f-4e24-bebc-ea03d327b5c7",
+                    "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
                     "groups": ";BM_PC",
-                    "action": "Collect",
+                    "action": "CollectOrActivate",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "b43796c5-80fc-495b-970f-75129d8384fc",
+                    "id": "d80c78e6-febb-45ba-87fb-162b168c3471",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": ";BM_PC",
-                    "action": "Equip",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "aad852e1-d234-4dee-92b7-b3f08cbaa39b",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "Hold(duration=0.4,pressPoint=0.5)",
-                    "processors": "",
-                    "groups": ";BM_PC",
-                    "action": "TogglePlaceMode",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "41093fb6-9c2b-4fe2-98e0-436377cda502",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";BM_PC",
-                    "action": "Place",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "5b35dc01-3e1e-4b31-a27e-50fa1fa0b56e",
-                    "path": "<Keyboard>/q",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";BM_PC",
-                    "action": "PushPopInventory",
+                    "action": "Use",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

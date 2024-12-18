@@ -31,7 +31,7 @@ namespace BM
 		// Locomotion
 
 		/// <remarks>
-		/// Move 입력은 Composite이기 때문에, 예를 들어 WASD 라면 WASD를 하나의 버튼처럼 취급한다.
+		/// Move 입력은 Composite이기 때문에, 예를 들어 컨트롤이 WASD 라면 WASD를 하나의 버튼처럼 취급한다.
 		/// </remarks>
 		public event UnityAction<Vector2> MoveInputEvent = delegate { };
 
@@ -48,24 +48,13 @@ namespace BM
 		public event UnityAction WalkInputPerformed = delegate { };
 		public event UnityAction WalkInputCanceled = delegate { };
 
-		// Interaction 
+		// Interaction
 
-		public event UnityAction EquipInputTriggered = delegate { };
+		public event UnityAction UseInputPerformed = delegate { };
+		public event UnityAction UseInputCanceled = delegate { };
 
-		public event UnityAction UseInputStarted = delegate { };
-		public event UnityAction UseInputFinished = delegate { };
-
-		public event UnityAction TogglePlaceModeInputTriggered = delegate { };
-
-		public event UnityAction PlaceInputTriggered = delegate { };
-
-		public event UnityAction PushPopInventoryInputTriggered = delegate { };
-
-		public event UnityAction CollectHoldInputStarted = delegate { };
-		public event UnityAction CollectHoldInputTriggered = delegate { };
-
-		public event UnityAction ActivateInputStarted = delegate { };
-		public event UnityAction ActivateInputFinished = delegate { };
+		public event UnityAction CollectOrActivateInputPerformed = delegate { };
+		public event UnityAction CollectOrActivateInputCanceled = delegate { };
 
 		// Debug
 
@@ -182,75 +171,29 @@ namespace BM
 
 		// Interaction
 
-		void IGameplayActions.OnEquip(InputAction.CallbackContext context)
-		{
-			if (context.phase == InputActionPhase.Performed)
-			{
-				EquipInputTriggered.Invoke();
-			}
-		}
-
 		void IGameplayActions.OnUse(InputAction.CallbackContext context)
 		{
 			switch (context.phase)
 			{
 				case InputActionPhase.Performed:
-					UseInputStarted.Invoke();
+					UseInputPerformed.Invoke();
 					break;
 				case InputActionPhase.Canceled:
-					UseInputFinished.Invoke();
+					UseInputCanceled.Invoke();
 					break;
 			}
 		}
 
-		void IGameplayActions.OnTogglePlaceMode(InputAction.CallbackContext context)
-		{
-			if (context.phase == InputActionPhase.Performed)
-			{
-				TogglePlaceModeInputTriggered.Invoke();
-			}
-		}
-
-		void IGameplayActions.OnPlace(InputAction.CallbackContext context)
-		{
-			if (context.phase == InputActionPhase.Performed)
-			{
-				PlaceInputTriggered.Invoke();
-			}
-		}
-
-		void IGameplayActions.OnCollect(InputAction.CallbackContext context)
-		{
-			switch (context.phase)
-			{
-				case InputActionPhase.Started:
-					CollectHoldInputStarted.Invoke();
-					break;
-				case InputActionPhase.Performed:
-					CollectHoldInputTriggered.Invoke();
-					break;
-			}
-		}
-
-		void IGameplayActions.OnActivate(InputAction.CallbackContext context)
+		void IGameplayActions.OnCollectOrActivate(InputAction.CallbackContext context)
 		{
 			switch (context.phase)
 			{
 				case InputActionPhase.Performed:
-					ActivateInputStarted.Invoke();
+					CollectOrActivateInputPerformed.Invoke();
 					break;
-
 				case InputActionPhase.Canceled:
-					ActivateInputFinished.Invoke();
+					CollectOrActivateInputCanceled.Invoke();
 					break;
-			}
-		}
-
-		void IGameplayActions.OnPushPopInventory(InputAction.CallbackContext context)
-		{
-			if (context.phase == InputActionPhase.Performed)
-			{
-				PushPopInventoryInputTriggered.Invoke();
 			}
 		}
 
