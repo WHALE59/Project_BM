@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/SC_PersistentGameplay.unity
     guid: bc8029b79800eb34c9e1cb29c48da905
   - enabled: 1
+    path: Assets/Scenes/SC_Darack_Emotion.unity
+    guid: 7f967317cdf1ad14296073df9536bddc
+  - enabled: 1
     path: Assets/Scenes/SC_Darack.unity
     guid: 700300faae3293f4c8e6a11a46a972d3
   - enabled: 1

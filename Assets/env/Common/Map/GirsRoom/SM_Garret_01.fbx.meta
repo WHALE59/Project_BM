@@ -7,6 +7,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: BlackGround
+    second: {fileID: 2100000, guid: 046947ee123dc78468ba6bf4f605f651, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Cubemap
     second: {fileID: 2100000, guid: f5f5edc3e5c252d44bfcb01ac128a050, type: 2}
   - first:
