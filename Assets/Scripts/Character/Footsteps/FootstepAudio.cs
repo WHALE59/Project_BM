@@ -64,18 +64,17 @@ namespace BM
 			}
 
 			m_footstepEventInstance.set3DAttributes(RuntimeUtils.To3DAttributes(position));
-
 			m_footstepEventInstance.start();
 		}
 
 		private void Awake()
 		{
 			m_locomotiveAction = GetComponent<LocomotiveAction>();
-		}
 
-		private void Start()
-		{
 			m_footstepEventInstance = RuntimeManager.CreateInstance(m_footstepEventReference);
+
+			// 이게 없으면 경고가 뜹니다.
+			m_footstepEventInstance.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
 		}
 
 		private void OnEnable()

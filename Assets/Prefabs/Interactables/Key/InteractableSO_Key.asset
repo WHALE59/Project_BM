@@ -10,7 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3d333f06e78dca745ab24568c8517ea4, type: 3}
-  m_Name: InteractableSO_Default
+  m_Name: InteractableSO_Key
   m_EditorClassIdentifier: 
-  m_displayName: 
-  m_interactableModel: {fileID: 0}
+  m_displayName: "\uC5F4\uC1E0"
+  m_description: "\uADF8\uB0E5 \uC5F4\uC1E0\uC774\uB2E4. "
+  m_interactableModelPrefab: {fileID: 5545095820127702056, guid: 88202997b8083d94baa7e181202c5fac,
+    type: 3}

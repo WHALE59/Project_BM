@@ -31,7 +31,7 @@ namespace BM
 		// Locomotion
 
 		/// <remarks>
-		/// Move 입력은 Composite이기 때문에, 예를 들어 컨트롤이 WASD 라면 WASD를 하나의 버튼처럼 취급한다.
+		/// Move 입력은 Composite 이기 때문에, 예를 들어 Input Control이 WASD 라면 WASD를 하나의 버튼처럼 취급한다.
 		/// </remarks>
 		public event UnityAction<Vector2> MoveInputEvent = delegate { };
 
@@ -66,6 +66,25 @@ namespace BM
 		private bool m_crouchInputPerformed = false;
 		private bool m_walkInputPerformed = false;
 
+		private void OnEnable()
+		{
+			/// <see cref="IA_GameInputs"/> 인스턴스가 없으면 생성
+			if (m_gameInputs == null)
+			{
+
+				m_gameInputs = new();
+
+				m_gameInputs.Gameplay.SetCallbacks(this);
+			}
+
+			SetActiveActionMap(m_startActionMap);
+		}
+
+		private void OnDisable()
+		{
+			SetActiveActionMap(EActionMap.None);
+		}
+
 		/// <summary>
 		/// <paramref name="actionMap"/> 플래그로 들어온 Action Map을 활성화한다. 들어오지 않은 액션 맵은 비활성화 한다.
 		/// </summary>
@@ -82,6 +101,7 @@ namespace BM
 
 			// TODO : UI Action Map이 설정되면, 처리할 것
 		}
+
 
 		void IGameplayActions.OnMove(InputAction.CallbackContext context)
 		{
@@ -198,6 +218,7 @@ namespace BM
 		}
 
 		// Cheats
+
 		void IGameplayActions.OnToggleDeveloperOverlay(InputAction.CallbackContext context)
 		{
 			switch (context.phase)
@@ -209,25 +230,6 @@ namespace BM
 					ToggleDeveloperInputCanceled.Invoke();
 					break;
 			}
-		}
-
-		private void OnEnable()
-		{
-			/// <see cref="IA_GameInputs"/> 인스턴스가 없으면 생성
-			if (m_gameInputs == null)
-			{
-
-				m_gameInputs = new();
-
-				m_gameInputs.Gameplay.SetCallbacks(this);
-			}
-
-			SetActiveActionMap(m_startActionMap);
-		}
-
-		private void OnDisable()
-		{
-			SetActiveActionMap(EActionMap.None);
 		}
 	}
 }

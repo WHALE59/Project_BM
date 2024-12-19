@@ -22,10 +22,13 @@ namespace BM
 		private RaycastHit m_hitResult;
 		private Rigidbody m_hitRigidbodyOnLastFrame;
 
-		private void Awake()
+		private Ray GetCameraRay()
 		{
-			m_inputReaderSO.CollectOrActivateInputPerformed += StartCollectOrActivate;
-			m_inputReaderSO.CollectOrActivateInputCanceled += FinishCollectOrActivate;
+			// Screen mid point
+			Vector3 viewportPoint = new(0.5f, 0.5f, 0.0f);
+
+			// NOTE: This can be broken when Camera.main is not gameplay camera
+			return Camera.main.ViewportPointToRay(viewportPoint);
 		}
 
 		private void StartCollectOrActivate()
@@ -38,11 +41,6 @@ namespace BM
 
 		}
 
-		private void FixedUpdate()
-		{
-			HandleInteractRaycast();
-		}
-
 		private void HandleInteractRaycast()
 		{
 			bool isRaycastHit = Physics.Raycast(GetCameraRay(), out m_hitResult, m_raycastDistance, m_layerMask, QueryTriggerInteraction.Ignore);
@@ -53,15 +51,7 @@ namespace BM
 
 				if (null != m_detectedInteractable)
 				{
-					// 기존에 호버링 하던 상호작용 대상에 호버링을 해제
-
-					// (1)
-					FinishHovering(m_detectedInteractable);
-					// (2)
-					InteractableLost?.Invoke(m_detectedInteractable);
-					// (3)
-					m_detectedInteractable.FinishHovering();
-
+					FinishHoveringProcedure(m_detectedInteractable);
 					m_detectedInteractable = null;
 				}
 
@@ -84,15 +74,12 @@ namespace BM
 
 				if (null != m_detectedInteractable)
 				{
-					// 기존에 호버링 하던 상호작용 대상에 호버링을 해제
 					FinishHoveringProcedure(m_detectedInteractable);
-
 					m_detectedInteractable = null;
 				}
 
 				if (hitRigidbody.TryGetComponent<InteractableBase>(out m_detectedInteractable))
 				{
-					// 새로 감지된 대상에 호버링을 시작
 					StartHoveringProcedure(m_detectedInteractable);
 				}
 
@@ -102,9 +89,7 @@ namespace BM
 			{
 				if (null != m_detectedInteractable)
 				{
-					// 기존에 호버링 하던 상호작용 대상에 호버링을 해제
 					FinishHoveringProcedure(m_detectedInteractable);
-
 					m_detectedInteractable = null;
 				}
 
@@ -146,13 +131,16 @@ namespace BM
 		{
 		}
 
-		private Ray GetCameraRay()
-		{
-			// Screen mid point
-			Vector3 viewportPoint = new(0.5f, 0.5f, 0.0f);
 
-			// NOTE: This can be broken when Camera.main is not gameplay camera
-			return Camera.main.ViewportPointToRay(viewportPoint);
+		private void Awake()
+		{
+			m_inputReaderSO.CollectOrActivateInputPerformed += StartCollectOrActivate;
+			m_inputReaderSO.CollectOrActivateInputCanceled += FinishCollectOrActivate;
+		}
+
+		private void FixedUpdate()
+		{
+			HandleInteractRaycast();
 		}
 
 #if UNITY_EDITOR

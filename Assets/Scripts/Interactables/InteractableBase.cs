@@ -18,7 +18,7 @@ namespace BM.Interactables
 		[SerializeField] private InteractableModel m_interactableModel;
 
 		public InteractionType Type => m_interactionType;
-		private bool m_isCollected = false;
+		//private bool m_isCollected = false;
 
 		public void StartHovering()
 		{

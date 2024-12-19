@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 using UnityEngine;
 
@@ -16,6 +17,6 @@ namespace BM.Interactables
 		[Tooltip("이 아이템이 형체를 가져야 한다면, 그 형체 정보를 담고 있는 프리팹")]
 		[SerializeField] private InteractableModel m_interactableModelPrefab;
 
-		private Guid m_guid;
+		//private Guid m_guid;
 	}
 }
