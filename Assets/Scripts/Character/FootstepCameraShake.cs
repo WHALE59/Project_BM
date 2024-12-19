@@ -6,23 +6,23 @@ using ImpulseShapes = Unity.Cinemachine.CinemachineImpulseDefinition.ImpulseShap
 namespace BM
 {
 	[DisallowMultipleComponent]
-	[RequireComponent(typeof(LocomotiveAction))]
+	[RequireComponent(typeof(LocomotiveImpulseGenerator))]
 	[RequireComponent(typeof(CinemachineImpulseSource))]
 	public class FootstepCameraShake : MonoBehaviour
 	{
 		[SerializeField] private bool m_applyShake = true;
-		[SerializeField][Range(0.0f, 1.0f)] private float m_masterForce = 0.55f;
+		[SerializeField][Range(0.0f, 1.0f)] private float m_masterForce = .55f;
 
 		[Space()]
 
 		[SerializeField] private ImpulseShapes m_shakeShape = ImpulseShapes.Bump;
 		[SerializeField] private float m_shakeDuration = 0.25f;
-		[SerializeField] private Vector3 m_shakeVelocity = new(0.0f, -0.125f, 0.0f);
+		[SerializeField] private Vector3 m_shakeVelocity = new(0f, -.125f, 0f);
 
-		private LocomotiveAction m_locomotiveAction;
+		private LocomotiveImpulseGenerator m_locomotiveImpulseGenerator;
 		private CinemachineImpulseSource m_impulseSource;
 
-		private void OnLocomotiveImpulseGenerated(Vector3 _, float force)
+		private void FootstepCameraShake_LocomotiveImpulseGenerated(Vector3 _, float force)
 		{
 			if (m_applyShake)
 			{
@@ -44,14 +44,14 @@ namespace BM
 
 		private void Awake()
 		{
-			m_locomotiveAction = GetComponent<LocomotiveAction>();
+			m_locomotiveImpulseGenerator = GetComponent<LocomotiveImpulseGenerator>();
 			m_impulseSource = GetComponent<CinemachineImpulseSource>();
 
 		}
 
 		private void OnEnable()
 		{
-			m_locomotiveAction.LocomotionImpulseGenerated += OnLocomotiveImpulseGenerated;
+			m_locomotiveImpulseGenerator.LocomotiveImpulseGenerated += FootstepCameraShake_LocomotiveImpulseGenerated;
 		}
 
 		private void Start()
@@ -63,7 +63,7 @@ namespace BM
 
 		private void OnDisable()
 		{
-			m_locomotiveAction.LocomotionImpulseGenerated -= OnLocomotiveImpulseGenerated;
+			m_locomotiveImpulseGenerator.LocomotiveImpulseGenerated -= FootstepCameraShake_LocomotiveImpulseGenerated;
 		}
 	}
 }

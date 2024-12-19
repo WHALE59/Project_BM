@@ -8,6 +8,7 @@ namespace BM
 {
 	[DisallowMultipleComponent]
 	[RequireComponent(typeof(LocomotiveAction))]
+	[RequireComponent(typeof(LocomotiveImpulseGenerator))]
 	public class FootstepAudio : MonoBehaviour
 	{
 		[SerializeField] private bool m_applyFootstepBaseAudio = true;
@@ -19,13 +20,13 @@ namespace BM
 		private EventInstance m_footstepEventInstance;
 
 		private LocomotiveAction m_locomotiveAction;
+		private LocomotiveImpulseGenerator m_locomotiveImpulseGenerator;
 
-		// TODO: 오타 수정 요청 드릴 것
 		private readonly string PARAM_FOOTSTEP = "3D_M_Footsteps_DarackWood";
 		// TODO: 이것 보다 더 합리적인 관리 법은 없는 것?
 		private readonly string[] LABEL = { "Jog", "Walk", "Crouch" };
 
-		private void FootstepAudio_LocomotionImpulseGenerated(Vector3 position, float force)
+		private void FootstepAudio_LocomotiveImpulseGenerated(Vector3 position, float force)
 		{
 			if (!m_applyFootstepBaseAudio)
 			{
@@ -40,13 +41,14 @@ namespace BM
 			// TODO: Tune parameter via locomotive state change
 			switch (state)
 			{
-				case LocomotiveAction.State.Jog:
+				case LocomotiveAction.State.Idle:
+				case LocomotiveAction.State.NormalJog:
 					m_footstepEventInstance.setParameterByNameWithLabel(PARAM_FOOTSTEP, LABEL[0]);
 					break;
-				case LocomotiveAction.State.Walk:
+				case LocomotiveAction.State.WalkedJog:
 					m_footstepEventInstance.setParameterByNameWithLabel(PARAM_FOOTSTEP, LABEL[1]);
 					break;
-				case LocomotiveAction.State.Crouch:
+				case LocomotiveAction.State.CrouchedJog:
 					m_footstepEventInstance.setParameterByNameWithLabel(PARAM_FOOTSTEP, LABEL[2]);
 					break;
 			}
@@ -70,6 +72,7 @@ namespace BM
 		private void Awake()
 		{
 			m_locomotiveAction = GetComponent<LocomotiveAction>();
+			m_locomotiveImpulseGenerator = GetComponent<LocomotiveImpulseGenerator>();
 
 			m_footstepEventInstance = RuntimeManager.CreateInstance(m_footstepEventReference);
 
@@ -79,14 +82,14 @@ namespace BM
 
 		private void OnEnable()
 		{
-			m_locomotiveAction.LocomotionImpulseGenerated += FootstepAudio_LocomotionImpulseGenerated;
 			m_locomotiveAction.LocomotiveStateChanged += FootstepAudio_LocomotiveStateChanged;
+			m_locomotiveImpulseGenerator.LocomotiveImpulseGenerated += FootstepAudio_LocomotiveImpulseGenerated;
 		}
 
 		private void OnDisable()
 		{
-			m_locomotiveAction.LocomotionImpulseGenerated -= FootstepAudio_LocomotionImpulseGenerated;
 			m_locomotiveAction.LocomotiveStateChanged -= FootstepAudio_LocomotiveStateChanged;
+			m_locomotiveImpulseGenerator.LocomotiveImpulseGenerated -= FootstepAudio_LocomotiveImpulseGenerated;
 		}
 
 		private void OnDestroy()

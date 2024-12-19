@@ -12,18 +12,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4263a342bb0afab4b8bad841cdc6a3a5, type: 3}
   m_Name: LocomotivePropertySO_Default
   m_EditorClassIdentifier: 
-  m_propertyOnJog:
-    Speed: 3
-    ImpulsePeriod: 0.7
-    ImpulseForce: 0.55
-  m_propertyOnWalk:
-    Speed: 1.5
-    ImpulsePeriod: 1
-    ImpulseForce: 0.3
-  m_propertyOnCrouch:
-    Speed: 1.5
-    ImpulsePeriod: 1
-    ImpulseForce: 0.2
+  m_locomotivePropertyOnNormalJog:
+    m_speed: 3
+    m_impulsePeriod: 0.7
+    m_impulseForce: 0.55
+  m_locomotivePropertyOnWalkedJog:
+    m_speed: 1.5
+    m_impulsePeriod: 1
+    m_impulseForce: 0.3
+  m_locomotivePropertyOnCrouchedJog:
+    m_speed: 1.5
+    m_impulsePeriod: 1
+    m_impulseForce: 0.2
+  m_cameraNoisePropertyOnIdle:
+    m_amplitudeGain: 0.7
+    m_frequencyGain: 0.5
+  m_cameraNoisePropertyOnNormalJog:
+    m_amplitudeGain: 3
+    m_frequencyGain: 1.5
+  m_cameraNoisePropertyOnWalkedJog:
+    m_amplitudeGain: 1.5
+    m_frequencyGain: 1
+  m_cameraNoisePropertyOnCrouchedJog:
+    m_amplitudeGain: 1
+    m_frequencyGain: 0.8
   m_crouchDuration: 0.25
   m_crouchRatio: 0.5
   m_mass: 50

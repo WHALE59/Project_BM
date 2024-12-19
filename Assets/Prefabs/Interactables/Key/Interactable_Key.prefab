@@ -58,6 +58,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5545095820127702056, guid: 88202997b8083d94baa7e181202c5fac,
+        type: 3}
+      propertyPath: m_meshRenderers.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5545095820127702056, guid: 88202997b8083d94baa7e181202c5fac,
+        type: 3}
+      propertyPath: m_meshRenderers.Array.data[0]
+      value: 
+      objectReference: {fileID: 7255849106438118185}
     - target: {fileID: 6901586102075734626, guid: 88202997b8083d94baa7e181202c5fac,
         type: 3}
       propertyPath: m_Name
@@ -71,6 +81,12 @@ PrefabInstance:
 --- !u!4 &2346409552210276327 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2023583998885436697, guid: 88202997b8083d94baa7e181202c5fac,
+    type: 3}
+  m_PrefabInstance: {fileID: 4360937867563283198}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &7255849106438118185 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 6355948735376976343, guid: 88202997b8083d94baa7e181202c5fac,
     type: 3}
   m_PrefabInstance: {fileID: 4360937867563283198}
   m_PrefabAsset: {fileID: 0}
