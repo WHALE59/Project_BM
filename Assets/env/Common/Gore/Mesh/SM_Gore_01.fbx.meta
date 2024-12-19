@@ -9,6 +9,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: T_Gore_01
     second: {fileID: 2100000, guid: 98cd788d789a609438cdb8efedb05323, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: T_Gore_02
+    second: {fileID: 2100000, guid: 6c0c1fe762faf4b419cd80ee498953b5, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
