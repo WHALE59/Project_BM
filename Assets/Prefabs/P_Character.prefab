@@ -81,6 +81,7 @@ GameObject:
   - component: {fileID: 3781311540657731409}
   - component: {fileID: 4630992091899181617}
   - component: {fileID: 100915224993563351}
+  - component: {fileID: 9151683990528567533}
   m_Layer: 3
   m_Name: P_Character
   m_TagString: Untagged
@@ -211,7 +212,6 @@ MonoBehaviour:
   m_inputReader: {fileID: 11400000, guid: 314b40c975fd3d349a30c23aa2faddeb, type: 2}
   m_properties: {fileID: 11400000, guid: 0a82ae126b59d2d45999f2c82c914acc, type: 2}
   m_cameraTarget: {fileID: 2543932865098810727}
-  m_logOnLocomotionImpulse: 0
   m_logOnStateChange: 0
 --- !u!114 &4451049859483663539
 MonoBehaviour:
@@ -297,6 +297,22 @@ MonoBehaviour:
   m_locomotiveProperty: {fileID: 11400000, guid: 0a82ae126b59d2d45999f2c82c914acc,
     type: 2}
   m_duration: 0.4
+--- !u!114 &9151683990528567533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7093824059209778154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 213369faae58995408058607bafeb65c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_locomotiveProperty: {fileID: 11400000, guid: 0a82ae126b59d2d45999f2c82c914acc,
+    type: 2}
+  m_inputReader: {fileID: 11400000, guid: 314b40c975fd3d349a30c23aa2faddeb, type: 2}
+  m_logOnLocomotiveImpulse: 0
 --- !u!1 &7658585729986315391
 GameObject:
   m_ObjectHideFlags: 0
