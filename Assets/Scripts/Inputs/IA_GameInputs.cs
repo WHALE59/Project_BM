@@ -66,36 +66,9 @@ namespace BM
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Equip"",
+                    ""name"": ""CollectOrActivate"",
                     ""type"": ""Button"",
-                    ""id"": ""e1c5297d-13a5-4a1e-8979-d8086c99576f"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""TogglePlaceMode"",
-                    ""type"": ""Button"",
-                    ""id"": ""aaa29a45-ca6a-406b-8078-d1801fd09a58"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Place"",
-                    ""type"": ""Button"",
-                    ""id"": ""333f2c00-211b-4fe5-ad5b-9c25ea01fd41"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Collect"",
-                    ""type"": ""Button"",
-                    ""id"": ""b943deca-7f79-4575-a646-aba3c03659fa"",
+                    ""id"": ""66d78be4-afe2-44cb-ad34-b860ad6035f0"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -104,25 +77,7 @@ namespace BM
                 {
                     ""name"": ""Use"",
                     ""type"": ""Button"",
-                    ""id"": ""d51d99fb-36dc-4682-bceb-36584ced80bd"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Activate"",
-                    ""type"": ""Button"",
-                    ""id"": ""f397bd11-62db-42b8-8c32-fe69b1f338e0"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""PushPopInventory"",
-                    ""type"": ""Button"",
-                    ""id"": ""3b6e104e-e6e6-455e-8129-7a3b75914360"",
+                    ""id"": ""3757b1d8-c107-496c-909e-18fd54473f48"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -383,28 +338,6 @@ namespace BM
                 },
                 {
                     ""name"": """",
-                    ""id"": ""1591fb6e-f241-47d4-878e-91ca641e55f8"",
-                    ""path"": ""<Keyboard>/f"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""BM_PC"",
-                    ""action"": ""Activate"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""927ff8e2-1389-438b-95db-ccab8bc0e98c"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""BM_PC"",
-                    ""action"": ""Use"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""226b472b-1ba4-418a-a7d1-d3b075f2a567"",
                     ""path"": ""<Keyboard>/leftCtrl"",
                     ""interactions"": """",
@@ -449,56 +382,23 @@ namespace BM
                 },
                 {
                     ""name"": """",
-                    ""id"": ""effcc6de-b4a5-4587-8cb9-874de8e026f1"",
-                    ""path"": ""<Mouse>/rightButton"",
+                    ""id"": ""08706aa6-1c9f-4e24-bebc-ea03d327b5c7"",
+                    ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";BM_PC"",
-                    ""action"": ""Collect"",
+                    ""action"": ""CollectOrActivate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""b43796c5-80fc-495b-970f-75129d8384fc"",
+                    ""id"": ""d80c78e6-febb-45ba-87fb-162b168c3471"",
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";BM_PC"",
-                    ""action"": ""Equip"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""aad852e1-d234-4dee-92b7-b3f08cbaa39b"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": ""Hold(duration=0.4,pressPoint=0.5)"",
-                    ""processors"": """",
-                    ""groups"": "";BM_PC"",
-                    ""action"": ""TogglePlaceMode"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""41093fb6-9c2b-4fe2-98e0-436377cda502"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";BM_PC"",
-                    ""action"": ""Place"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""5b35dc01-3e1e-4b31-a27e-50fa1fa0b56e"",
-                    ""path"": ""<Keyboard>/q"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";BM_PC"",
-                    ""action"": ""PushPopInventory"",
+                    ""action"": ""Use"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -569,13 +469,8 @@ namespace BM
             m_Gameplay_Look = m_Gameplay.FindAction("Look", throwIfNotFound: true);
             m_Gameplay_Crouch = m_Gameplay.FindAction("Crouch", throwIfNotFound: true);
             m_Gameplay_Walk = m_Gameplay.FindAction("Walk", throwIfNotFound: true);
-            m_Gameplay_Equip = m_Gameplay.FindAction("Equip", throwIfNotFound: true);
-            m_Gameplay_TogglePlaceMode = m_Gameplay.FindAction("TogglePlaceMode", throwIfNotFound: true);
-            m_Gameplay_Place = m_Gameplay.FindAction("Place", throwIfNotFound: true);
-            m_Gameplay_Collect = m_Gameplay.FindAction("Collect", throwIfNotFound: true);
+            m_Gameplay_CollectOrActivate = m_Gameplay.FindAction("CollectOrActivate", throwIfNotFound: true);
             m_Gameplay_Use = m_Gameplay.FindAction("Use", throwIfNotFound: true);
-            m_Gameplay_Activate = m_Gameplay.FindAction("Activate", throwIfNotFound: true);
-            m_Gameplay_PushPopInventory = m_Gameplay.FindAction("PushPopInventory", throwIfNotFound: true);
             m_Gameplay_ToggleDeveloperOverlay = m_Gameplay.FindAction("ToggleDeveloperOverlay", throwIfNotFound: true);
             // UserInterface
             m_UserInterface = asset.FindActionMap("UserInterface", throwIfNotFound: true);
@@ -651,13 +546,8 @@ namespace BM
         private readonly InputAction m_Gameplay_Look;
         private readonly InputAction m_Gameplay_Crouch;
         private readonly InputAction m_Gameplay_Walk;
-        private readonly InputAction m_Gameplay_Equip;
-        private readonly InputAction m_Gameplay_TogglePlaceMode;
-        private readonly InputAction m_Gameplay_Place;
-        private readonly InputAction m_Gameplay_Collect;
+        private readonly InputAction m_Gameplay_CollectOrActivate;
         private readonly InputAction m_Gameplay_Use;
-        private readonly InputAction m_Gameplay_Activate;
-        private readonly InputAction m_Gameplay_PushPopInventory;
         private readonly InputAction m_Gameplay_ToggleDeveloperOverlay;
         public struct GameplayActions
         {
@@ -667,13 +557,8 @@ namespace BM
             public InputAction @Look => m_Wrapper.m_Gameplay_Look;
             public InputAction @Crouch => m_Wrapper.m_Gameplay_Crouch;
             public InputAction @Walk => m_Wrapper.m_Gameplay_Walk;
-            public InputAction @Equip => m_Wrapper.m_Gameplay_Equip;
-            public InputAction @TogglePlaceMode => m_Wrapper.m_Gameplay_TogglePlaceMode;
-            public InputAction @Place => m_Wrapper.m_Gameplay_Place;
-            public InputAction @Collect => m_Wrapper.m_Gameplay_Collect;
+            public InputAction @CollectOrActivate => m_Wrapper.m_Gameplay_CollectOrActivate;
             public InputAction @Use => m_Wrapper.m_Gameplay_Use;
-            public InputAction @Activate => m_Wrapper.m_Gameplay_Activate;
-            public InputAction @PushPopInventory => m_Wrapper.m_Gameplay_PushPopInventory;
             public InputAction @ToggleDeveloperOverlay => m_Wrapper.m_Gameplay_ToggleDeveloperOverlay;
             public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
             public void Enable() { Get().Enable(); }
@@ -696,27 +581,12 @@ namespace BM
                 @Walk.started += instance.OnWalk;
                 @Walk.performed += instance.OnWalk;
                 @Walk.canceled += instance.OnWalk;
-                @Equip.started += instance.OnEquip;
-                @Equip.performed += instance.OnEquip;
-                @Equip.canceled += instance.OnEquip;
-                @TogglePlaceMode.started += instance.OnTogglePlaceMode;
-                @TogglePlaceMode.performed += instance.OnTogglePlaceMode;
-                @TogglePlaceMode.canceled += instance.OnTogglePlaceMode;
-                @Place.started += instance.OnPlace;
-                @Place.performed += instance.OnPlace;
-                @Place.canceled += instance.OnPlace;
-                @Collect.started += instance.OnCollect;
-                @Collect.performed += instance.OnCollect;
-                @Collect.canceled += instance.OnCollect;
+                @CollectOrActivate.started += instance.OnCollectOrActivate;
+                @CollectOrActivate.performed += instance.OnCollectOrActivate;
+                @CollectOrActivate.canceled += instance.OnCollectOrActivate;
                 @Use.started += instance.OnUse;
                 @Use.performed += instance.OnUse;
                 @Use.canceled += instance.OnUse;
-                @Activate.started += instance.OnActivate;
-                @Activate.performed += instance.OnActivate;
-                @Activate.canceled += instance.OnActivate;
-                @PushPopInventory.started += instance.OnPushPopInventory;
-                @PushPopInventory.performed += instance.OnPushPopInventory;
-                @PushPopInventory.canceled += instance.OnPushPopInventory;
                 @ToggleDeveloperOverlay.started += instance.OnToggleDeveloperOverlay;
                 @ToggleDeveloperOverlay.performed += instance.OnToggleDeveloperOverlay;
                 @ToggleDeveloperOverlay.canceled += instance.OnToggleDeveloperOverlay;
@@ -736,27 +606,12 @@ namespace BM
                 @Walk.started -= instance.OnWalk;
                 @Walk.performed -= instance.OnWalk;
                 @Walk.canceled -= instance.OnWalk;
-                @Equip.started -= instance.OnEquip;
-                @Equip.performed -= instance.OnEquip;
-                @Equip.canceled -= instance.OnEquip;
-                @TogglePlaceMode.started -= instance.OnTogglePlaceMode;
-                @TogglePlaceMode.performed -= instance.OnTogglePlaceMode;
-                @TogglePlaceMode.canceled -= instance.OnTogglePlaceMode;
-                @Place.started -= instance.OnPlace;
-                @Place.performed -= instance.OnPlace;
-                @Place.canceled -= instance.OnPlace;
-                @Collect.started -= instance.OnCollect;
-                @Collect.performed -= instance.OnCollect;
-                @Collect.canceled -= instance.OnCollect;
+                @CollectOrActivate.started -= instance.OnCollectOrActivate;
+                @CollectOrActivate.performed -= instance.OnCollectOrActivate;
+                @CollectOrActivate.canceled -= instance.OnCollectOrActivate;
                 @Use.started -= instance.OnUse;
                 @Use.performed -= instance.OnUse;
                 @Use.canceled -= instance.OnUse;
-                @Activate.started -= instance.OnActivate;
-                @Activate.performed -= instance.OnActivate;
-                @Activate.canceled -= instance.OnActivate;
-                @PushPopInventory.started -= instance.OnPushPopInventory;
-                @PushPopInventory.performed -= instance.OnPushPopInventory;
-                @PushPopInventory.canceled -= instance.OnPushPopInventory;
                 @ToggleDeveloperOverlay.started -= instance.OnToggleDeveloperOverlay;
                 @ToggleDeveloperOverlay.performed -= instance.OnToggleDeveloperOverlay;
                 @ToggleDeveloperOverlay.canceled -= instance.OnToggleDeveloperOverlay;
@@ -847,13 +702,8 @@ namespace BM
             void OnLook(InputAction.CallbackContext context);
             void OnCrouch(InputAction.CallbackContext context);
             void OnWalk(InputAction.CallbackContext context);
-            void OnEquip(InputAction.CallbackContext context);
-            void OnTogglePlaceMode(InputAction.CallbackContext context);
-            void OnPlace(InputAction.CallbackContext context);
-            void OnCollect(InputAction.CallbackContext context);
+            void OnCollectOrActivate(InputAction.CallbackContext context);
             void OnUse(InputAction.CallbackContext context);
-            void OnActivate(InputAction.CallbackContext context);
-            void OnPushPopInventory(InputAction.CallbackContext context);
             void OnToggleDeveloperOverlay(InputAction.CallbackContext context);
         }
         public interface IUserInterfaceActions

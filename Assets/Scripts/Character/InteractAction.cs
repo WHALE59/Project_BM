@@ -1,334 +1,141 @@
+using BM.Interactables;
+
 using System;
+
 using UnityEngine;
 
 namespace BM
 {
-	[Obsolete]
 	[DisallowMultipleComponent]
 	public class InteractAction : MonoBehaviour
 	{
-#if false // 추후 수정의 여지가 있어서 이렇게 남겨둚. 사용하지 말 것.
-		[SerializeField] private InputReaderSO m_inputReader;
-		[SerializeField] private Transform m_equipSocket;
-
+		[SerializeField] private InputReaderSO m_inputReaderSO;
 		[SerializeField] private float m_raycastDistance = 5.0f;
+		[SerializeField] private LayerMask m_layerMask = (1 << 6);
 
-		[SerializeField] private LayerMask m_nonPlaceStateLayerMask = (1 << 6);
-		[SerializeField] private LayerMask m_placeStateLayerMask = ~(1 << 6) | (0 << 1);
+		private InteractableBase m_detectedInteractable;
 
-		private Collider m_characterCollider;
-
-		private IInteractable m_hoveringInteractable;
-		private IEquippable m_hoveringEquippable;
-		private ICollectible m_hoveringCollectible;
-		private IActivatable m_hoveringActivatable;
-		private IUsable m_hoveringUsable;
-
-		private IEquippable m_equipment;
-		private Stack<ICollectible> m_inventory = new();
-
-		private PlacementGhost m_ghost;
-
-		private GameObject m_hitGameObjectOnLastFrame;
+		public Action<InteractableBase> InteractableFound;
+		public Action<InteractableBase> InteractableLost;
 
 		private bool m_isHit;
 		private RaycastHit m_hitResult;
+		private Rigidbody m_hitRigidbodyOnLastFrame;
 
-		private Ray CameraRay => Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0.0f));
-
-		private void UpdateInteractable(IInteractable interactable)
+		private Ray GetCameraRay()
 		{
-			m_hoveringEquippable = interactable as IEquippable;
-			m_hoveringCollectible = interactable as ICollectible;
-			m_hoveringActivatable = interactable as IActivatable;
-			m_hoveringUsable = interactable as IUsable;
+			// Screen mid point
+			Vector3 viewportPoint = new(0.5f, 0.5f, 0.0f);
+
+			// NOTE: This can be broken when Camera.main is not gameplay camera
+			return Camera.main.ViewportPointToRay(viewportPoint);
 		}
 
-		private void ResetInteractable()
+		private void StartCollectOrActivate()
 		{
-			m_hoveringEquippable = null;
-			m_hoveringCollectible = null;
-			m_hoveringActivatable = null;
-			m_hoveringUsable = null;
+
 		}
 
-		/// <summary>
-		/// 매 고정 프레임 수행되면서 조준자에 <see cref="InteractableBase"/>이 있다면 참조를 <see cref="m_hoveringInteractable"/>에 업데이트 함. <br/>
-		/// 없다면 <see cref="m_hoveringInteractable"/>을 <c>null</c>로 만듦
-		/// </summary>
+		private void FinishCollectOrActivate()
+		{
+
+		}
+
 		private void HandleInteractRaycast()
 		{
-			if (m_ghost == null)
+			bool isRaycastHit = Physics.Raycast(GetCameraRay(), out m_hitResult, m_raycastDistance, m_layerMask, QueryTriggerInteraction.Ignore);
+
+			if (!isRaycastHit)
 			{
-				m_isHit = Physics.Raycast(CameraRay, out m_hitResult, m_raycastDistance, m_nonPlaceStateLayerMask, QueryTriggerInteraction.Ignore);
-			}
-			else
-			{
-				m_isHit = Physics.Raycast(CameraRay, out m_hitResult, m_raycastDistance, m_placeStateLayerMask, QueryTriggerInteraction.Ignore);
+				m_isHit = isRaycastHit;
+
+				if (null != m_detectedInteractable)
+				{
+					FinishHoveringProcedure(m_detectedInteractable);
+					m_detectedInteractable = null;
+				}
+
+				m_hitRigidbodyOnLastFrame = null;
+
+				return;
 			}
 
-			// 뭔가가 검출 되었음
+			Rigidbody hitRigidbody = m_hitResult.collider.attachedRigidbody;
+			bool hasAttachedRigidbody = null != hitRigidbody;
+
+			m_isHit = isRaycastHit && hasAttachedRigidbody;
+
 			if (m_isHit)
 			{
-				GameObject hitGameObject = m_hitResult.transform.gameObject;
-
-				// 지금 Raycast 결과가 이전거랑 같은 거면, 딱히 뭐 할 필요 없음
-				if (hitGameObject == m_hitGameObjectOnLastFrame)
+				if (hitRigidbody == m_hitRigidbodyOnLastFrame)
 				{
 					return;
 				}
 
-				// 일단 이전 프레임과는 다른 것이 검출된 상황
-				// (이전에 하고 있었다면) 호버링 해제
-				if (m_hoveringInteractable != null)
+				if (null != m_detectedInteractable)
 				{
-					m_hoveringInteractable.FinishHovering();
-
+					FinishHoveringProcedure(m_detectedInteractable);
+					m_detectedInteractable = null;
 				}
 
-				// 지금 검출된 대상이 상호작용 가능한 타겟인지 확인
-				if (hitGameObject.TryGetComponent<IInteractable>(out m_hoveringInteractable))
+				if (hitRigidbody.TryGetComponent<InteractableBase>(out m_detectedInteractable))
 				{
-					// 맞으면, 해당 상호작용 가능 오브젝트로 호버링 상태 돌입
-					m_hoveringInteractable.StartHovering();
-
-					UpdateInteractable(m_hoveringInteractable);
+					StartHoveringProcedure(m_detectedInteractable);
 				}
 
-				m_hitGameObjectOnLastFrame = hitGameObject;
+				m_hitRigidbodyOnLastFrame = hitRigidbody;
 			}
-			// 아무것도 검출되지 않았음
 			else
 			{
-				// 일단 현재 아무것도 검출되지 않은 상황
-				// (이전에 하고 있었다면) 호버링 해제
-				if (m_hoveringInteractable != null)
+				if (null != m_detectedInteractable)
 				{
-					m_hoveringInteractable.FinishHovering();
+					FinishHoveringProcedure(m_detectedInteractable);
+					m_detectedInteractable = null;
 				}
 
-				// 정리
-				m_hoveringInteractable = null;
-				m_hitGameObjectOnLastFrame = null;
-
-				ResetInteractable();
-			}
-		}
-
-		private Coroutine m_equipRoutine;
-
-		private IEnumerator EquipmentAttachingRoutine(IEquippable equippable)
-		{
-
-			while (true)
-			{
-				Vector3 positionOffset = equippable.EquipmentPosition - equippable.SocketPosition;
-				Vector3 targetPosition = m_equipSocket.position + positionOffset;
-
-				Quaternion rotationOffset = Quaternion.Inverse(equippable.EquipmentRotation) * equippable.SocketRotation;
-				Quaternion targetRotation = m_equipSocket.rotation * rotationOffset;
-
-				equippable.EquipmentPosition = targetPosition;
-				equippable.EquipmentRotation = targetRotation;
-
-				yield return new WaitForFixedUpdate();
-			}
-		}
-
-		private void SetIgnoreCollisionWithEquipment(IEquippable equippable, bool ignore)
-		{
-			foreach (Collider collider in equippable.Colliders)
-			{
-				Physics.IgnoreCollision(m_characterCollider, collider, ignore: ignore);
-				collider.isTrigger = ignore;
+				m_hitRigidbodyOnLastFrame = null;
 			}
 		}
 
 		/// <summary>
-		/// 아무것도 쥐고 있지 않을 때, 쥘 수 있다면 쥔다. (bare hand => hand)
+		/// <paramref name="interactable"/>로 호버링 시작 했을 때, 수행되어야 하는 절차
 		/// </summary>
-		private void Equip()
+		private void StartHoveringProcedure(InteractableBase interactable)
 		{
-			if (m_equipment != null) // == not bare hand
-			{
-				return;
-			}
-
-			if (m_hoveringEquippable == null) // == not hovering
-			{
-				// Equip 실패 로직
-
-				return;
-			}
-
-			EquipInner(m_hoveringEquippable);
-
-			ResetInteractable();
+			StartHovering(interactable);
+			interactable.StartHovering();
+			InteractableFound?.Invoke(interactable);
 		}
 
-		private void EquipInner(IEquippable toEquip)
+		/// <summary>
+		/// <paramref name="interactable"/>에서 호버링 종료 했을 때, 수행되어야 하는 절차
+		/// </summary>
+		private void FinishHoveringProcedure(InteractableBase interactable)
 		{
-			m_equipment = toEquip;
-			// Equip 로직
-
-			SetIgnoreCollisionWithEquipment(m_equipment, ignore: true);
-
-			m_equipRoutine = StartCoroutine(EquipmentAttachingRoutine(m_equipment));
+			FinishHovering(interactable);
+			interactable.FinishHovering();
+			InteractableLost?.Invoke(interactable);
 		}
 
-		private void Collect()
+		/// <summary>
+		/// 호버링 시작 하였을 때의 UI의 변경 등을 여기서 처리
+		/// </summary>
+		private void StartHovering(InteractableBase interactable)
 		{
-			if (m_hoveringCollectible == null)
-			{
-				return;
-			}
-
-			// Collect 로직
-			CollectInner(m_hoveringCollectible);
-
-			ResetInteractable();
 		}
 
-		private void CollectInner(ICollectible toCollect)
+		/// <summary>
+		/// 호버링 종료 하였을 때의 UI의 변경 등을 여기서 처리
+		/// </summary>
+		private void FinishHovering(InteractableBase interactable)
 		{
-			toCollect.Disable();
-			m_inventory.Push(toCollect);
 		}
 
-		private void Activate() { }
-
-		private void PushPopInventory()
-		{
-			// 손이 비어있으면 인벤토리에 가장 최근에 들어갔던 아이템을 Pop
-			if (m_equipment == null)
-			{
-				if (m_inventory.Count == 0)
-				{
-					return;
-				}
-
-				ICollectible recentCollectible = m_inventory.Pop();
-
-				recentCollectible.Enable();
-				EquipInner(recentCollectible);
-			}
-			// 손이 비어있지 않으면 손에 있는 아이템을 인벤토리로 Push
-			else
-			{
-				if (m_equipment is ICollectible toCollect)
-				{
-					StopCoroutine(m_equipRoutine);
-					m_equipRoutine = null;
-
-					toCollect.Disable();
-					CollectInner(toCollect);
-
-					m_equipment = null;
-				}
-			}
-		}
-
-		private void Use() { }
-
-		private void Place()
-		{
-			if (m_ghost == null)
-			{
-				return;
-			}
-
-			if (!m_ghost.CanBePlaced)
-			{
-				return;
-			}
-
-			StopCoroutine(m_equipRoutine);
-			m_equipRoutine = null;
-
-			StopCoroutine(m_ghostTrackingRoutine);
-			m_ghostTrackingRoutine = null;
-
-			m_equipment.EquipmentPosition = m_ghost.transform.position;
-			m_equipment.EquipmentRotation = m_ghost.transform.rotation;
-
-			m_equipment.DisableGhost();
-
-			SetIgnoreCollisionWithEquipment(m_equipment, ignore: false);
-
-			m_equipment = null;
-			m_ghost = null;
-		}
-
-		private Coroutine m_ghostTrackingRoutine;
-
-		private IEnumerator GhostTrackingRoutine()
-		{
-			while (true)
-			{
-				if (m_isHit)
-				{
-					m_equipment.EnableGhost();
-
-					Vector3 position = m_hitResult.point;
-					Vector3 up = m_hitResult.normal;
-					Vector3 forward = transform.forward;
-
-					m_ghost.transform.position = position;
-					m_ghost.transform.up = up;
-					m_ghost.transform.forward = forward;
-				}
-				else
-				{
-					m_equipment.DisableGhost();
-				}
-
-				yield return new WaitForFixedUpdate();
-			}
-		}
-
-		private void TogglePlaceMode()
-		{
-			if (m_equipment == null)
-			{
-				return;
-			}
-
-			if (m_ghost == null)
-			{
-				m_ghost = m_equipment.Ghost;
-				m_ghostTrackingRoutine = StartCoroutine(GhostTrackingRoutine());
-			}
-			else
-			{
-				m_equipment.DisableGhost();
-				StopCoroutine(m_ghostTrackingRoutine);
-				m_ghost = null;
-			}
-		}
 
 		private void Awake()
 		{
-			m_characterCollider = GetComponent<Collider>();
-		}
-
-		private void OnEnable()
-		{
-			m_inputReader.EquipInputTriggered += Equip;
-			m_inputReader.PlaceInputTriggered += Place;
-			m_inputReader.CollectHoldInputTriggered += Collect;
-			m_inputReader.TogglePlaceModeInputTriggered += TogglePlaceMode;
-
-			m_inputReader.PushPopInventoryInputTriggered += PushPopInventory;
-		}
-
-		private void OnDisable()
-		{
-			m_inputReader.EquipInputTriggered -= Equip;
-			m_inputReader.PlaceInputTriggered -= Place;
-			m_inputReader.CollectHoldInputTriggered -= Collect;
-			m_inputReader.TogglePlaceModeInputTriggered -= TogglePlaceMode;
-
-			m_inputReader.PushPopInventoryInputTriggered -= PushPopInventory;
+			m_inputReaderSO.CollectOrActivateInputPerformed += StartCollectOrActivate;
+			m_inputReaderSO.CollectOrActivateInputCanceled += FinishCollectOrActivate;
 		}
 
 		private void FixedUpdate()
@@ -337,47 +144,30 @@ namespace BM
 		}
 
 #if UNITY_EDITOR
-
-		[Header("기즈모 설정")]
-		[Space()]
-
-		[SerializeField] private bool m_drawRayAndResult = true;
-		[SerializeField] private bool m_drawGrabSocket = true;
-
-		/// <summary>
-		/// 캐릭터 레이캐스팅의 결과를 나타내는 Gizmo를 그린다.
-		/// </summary>
-		[DrawGizmo(GizmoType.Active | GizmoType.NonSelected)]
-		private static void DrawRayAndResult(InteractAction target, GizmoType _)
+		[UnityEditor.DrawGizmo(UnityEditor.GizmoType.Active | UnityEditor.GizmoType.NonSelected)]
+		private static void DrawRaycastResult(InteractAction target, UnityEditor.GizmoType _)
 		{
-			if (!Camera.main || !Application.isPlaying)
+			if (null == Camera.main || !Application.isPlaying)
 			{
 				return;
 			}
-
-			if (!target.m_drawRayAndResult)
-			{
-				return;
-			}
-
-			// 마스터 색상 설정
 
 			if (!target.m_isHit)
 			{
 				Gizmos.color = Color.white;
 			}
-			else if (target.m_isHit && target.m_hoveringInteractable == null)
+			else if (target.m_isHit && null == target.m_detectedInteractable)
 			{
 				Gizmos.color = Color.yellow;
 			}
-			else if (target.m_isHit && target.m_hoveringInteractable != null)
+			else if (target.m_isHit && null != target.m_detectedInteractable)
 			{
 				Gizmos.color = Color.green;
 			}
 
-			// (1) Ray 그리기
+			// Ray 그리기
 
-			Ray ray = target.CameraRay;
+			Ray ray = target.GetCameraRay();
 
 			if (!target.m_isHit)
 			{
@@ -395,12 +185,13 @@ namespace BM
 
 				Vector3 secondStart = firstEnd;
 				Vector3 secondEnd = firstStart + ray.direction * target.m_raycastDistance;
+
 				Gizmos.DrawLine(secondStart, secondEnd);
 
 				Gizmos.color = previousGizmoColor;
 			}
 
-			// (2) Raycast Result 그리기
+			// Raycast Result 그리기
 
 			Vector3 point = default;
 
@@ -413,7 +204,18 @@ namespace BM
 				point = ray.origin + ray.direction * target.m_raycastDistance;
 			}
 
-			Gizmos.DrawWireSphere(point, 0.1f);
+			if (target.m_detectedInteractable != null)
+			{
+				switch (target.m_detectedInteractable.Type)
+				{
+					case InteractionType.Collectible:
+						Gizmos.DrawWireSphere(point, .1f);
+						break;
+					case InteractionType.Activatable:
+						Gizmos.DrawWireCube(point, new(.1f, .1f, .1f));
+						break;
+				}
+			}
 
 			if (target.m_isHit)
 			{
@@ -421,33 +223,6 @@ namespace BM
 				Gizmos.DrawRay(point, normal * 0.5f);
 			}
 		}
-
-		/// <summary>
-		/// <see cref="m_equipSocket"/>의 위치를 나타내는 Gizmo를 그린다.
-		/// </summary>
-		[DrawGizmo(GizmoType.Active | GizmoType.NonSelected)]
-		private static void DrawGrabSocketTransform(InteractAction target, GizmoType _)
-		{
-			if (target.m_equipSocket == null)
-			{
-				return;
-			}
-
-			if (!target.m_drawGrabSocket)
-			{
-				return;
-			}
-
-			Gizmos.color = Color.yellow;
-			Gizmos.DrawRay(target.m_equipSocket.position, target.m_equipSocket.forward * 0.2f);
-
-			Gizmos.color = Color.green;
-			Gizmos.DrawRay(target.m_equipSocket.position, target.m_equipSocket.up * 0.2f);
-
-			Gizmos.color = Color.red;
-			Gizmos.DrawRay(target.m_equipSocket.position, target.m_equipSocket.right * 0.2f);
-		}
-#endif
 #endif
 	}
 }

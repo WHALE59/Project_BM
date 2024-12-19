@@ -3,6 +3,7 @@ using System.Collections;
 
 using UnityEngine;
 
+
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -13,7 +14,6 @@ namespace BM
 	[RequireComponent(typeof(CharacterController))]
 	public class LocomotiveAction : MonoBehaviour
 	{
-
 		[SerializeField] private InputReaderSO m_inputReader;
 		[SerializeField] private LocomotivePropertySO m_properties;
 
@@ -23,9 +23,10 @@ namespace BM
 
 		public enum State
 		{
-			Jog,
-			Walk,
-			Crouch
+			Idle,
+			NormalJog,
+			WalkedJog,
+			CrouchedJog
 		}
 
 		public event Action<State> LocomotiveStateChanged;
@@ -36,10 +37,6 @@ namespace BM
 		/// 이동 중 발생하는 "진동"의 시점을 알고 싶으면 구독.
 		/// T1: 진동이 발생한 위치, T2: 진동의 세기
 		/// </summary>
-		public event Action<Vector3, float> LocomotionImpulseGenerated;
-
-		private float m_elapsedTimeAfterLastImpulse;
-
 		private float m_uncrouchedCapsuleHeight;
 		private Vector3 m_uncrouchedCapsuleCenter;
 
@@ -56,10 +53,11 @@ namespace BM
 		private Vector3 m_worldVelocity;
 
 		private bool m_isMoving;
+
 		private bool m_isDesiredToMove;
 
-		private bool m_hasTriggeredInitialImpulse = false;
-		private float m_previousInitialImpulseTime;
+		private bool m_isWalking;
+		private bool m_isCrouching;
 
 		private Coroutine m_crouchRoutine;
 
@@ -69,7 +67,6 @@ namespace BM
 		[Header("로깅 설정")]
 		[Space()]
 
-		[SerializeField] private bool m_logOnLocomotionImpulse = false;
 		[SerializeField] private bool m_logOnStateChange = false;
 
 		private bool m_isStuckWhileCrouching = false;
@@ -102,104 +99,62 @@ namespace BM
 			}
 		}
 
-		private void UpdateLocalMoveDirection(Vector2 moveInput)
+		private void StateTransitionProcedure()
 		{
-			m_isDesiredToMove = moveInput != Vector2.zero;
-			m_localMoveDirection = new Vector3(moveInput.x, 0f, moveInput.y);
-		}
+			State previousState = m_state;
+			State targetState = default;
 
-		private void GenerateLocomotionImpulse()
-		{
-			// 체공 중이거나, 이동 할 의도가 없거나, 움직이지 않고 있다면 Impulse가 생성되어서는 안 됨.
+			if (!m_isDesiredToMove)
+			{
+				targetState = State.Idle;
+			}
+			else if (!m_isCrouching && !m_isWalking)
+			{
+				targetState = State.NormalJog;
+			}
+			else if (!m_isCrouching && m_isWalking)
+			{
+				targetState = State.WalkedJog;
+			}
+			else if (m_isCrouching && !m_isWalking)
+			{
+				targetState = State.CrouchedJog;
+			}
+			else
+			{
+				Debug.Log("You're Fucked Up");
+			}
 
-			if (!m_characterController.isGrounded || !m_isDesiredToMove || !m_isMoving)
+			if (targetState == previousState)
 			{
 				return;
 			}
 
-			// 현재 프레임에서 Impulse 타이머에 도달했는지 판정 시작
-
-			float currentImpulsePeriod = m_properties.GetImpulsePeriod(m_state);
-			float currentImpulseForce = m_properties.GetImpulseForce(m_state);
-
-			if (!m_hasTriggeredInitialImpulse)
-			{
-				float elapsedTimeAfterLastInitialImpulse = Time.time - m_previousInitialImpulseTime;
-
-				if (elapsedTimeAfterLastInitialImpulse >= currentImpulsePeriod)
-				{
-#if UNITY_EDITOR
-					if (m_logOnLocomotionImpulse)
-					{
-						Debug.Log("* Initial Impulse Generated: ");
-					}
-#endif
-					m_previousInitialImpulseTime = Time.time;
-
-					m_hasTriggeredInitialImpulse = true;
-
-					LocomotionImpulseGenerated?.Invoke(transform.position, currentImpulseForce);
-					m_elapsedTimeAfterLastImpulse = 0f;
-				}
-				else
-				{
-
-#if UNITY_EDITOR
-					if (m_logOnLocomotionImpulse)
-					{
-						Debug.Log($"* Initial Impulse Blocked {elapsedTimeAfterLastInitialImpulse:F2} < {currentImpulsePeriod}");
-					}
-#endif
-				}
-
-				return;
-			}
-
-			// Impulse 타이머
-
-			if (m_elapsedTimeAfterLastImpulse < currentImpulsePeriod)
-			{
-				m_elapsedTimeAfterLastImpulse += Time.deltaTime;
-
-				if (m_elapsedTimeAfterLastImpulse >= currentImpulsePeriod)
-				{
-					// 이벤트 발생 및 타이머 초기화
-					LocomotionImpulseGenerated?.Invoke(transform.position, currentImpulseForce);
-					m_elapsedTimeAfterLastImpulse = 0f;
-				}
-			}
-
-			// currentImpulsePeriod 가 매 프레임 변경될 수 있으므로, 한번 더 검사해 주어야 함.
-
-			if (m_elapsedTimeAfterLastImpulse >= currentImpulsePeriod)
-			{
-				// 이벤트 발생 및 타이머 초기화
-				LocomotionImpulseGenerated?.Invoke(transform.position, currentImpulseForce);
-				m_elapsedTimeAfterLastImpulse = 0f;
-			}
-		}
-
-		private void ResetLocomotionImpulse(Vector2 _)
-		{
-			m_hasTriggeredInitialImpulse = false;
-
-#if UNITY_EDITOR
-			if (m_logOnLocomotionImpulse)
-			{
-				Debug.Log("* Reset Initial Impulse");
-			}
-#endif
-		}
-
-		private void UpdateCameraTargetLocalPosition()
-		{
-			m_cameraTarget.localPosition = CameraTargetLocalPosition;
-		}
-
-		private void StartCrouch()
-		{
-			m_state = State.Crouch;
+			m_state = targetState;
 			LocomotiveStateChanged?.Invoke(m_state);
+		}
+
+		private void LocomotiveAction_MoveInputEvent(Vector2 moveInput)
+		{
+			m_isDesiredToMove = true;
+
+			m_localMoveDirection = new Vector3(moveInput.x, 0f, moveInput.y);
+
+			StateTransitionProcedure();
+		}
+
+		private void LocomotiveAction_MoveInputCanceled(Vector2 _)
+		{
+			m_isDesiredToMove = false;
+			StateTransitionProcedure();
+		}
+
+		private void LocomotiveAction_CrouchInputPerformed()
+		{
+			m_isCrouching = true;
+			m_isWalking = false;
+
+			StateTransitionProcedure();
 
 			if (null != m_crouchRoutine)
 			{
@@ -213,7 +168,7 @@ namespace BM
 			m_crouchRoutine = StartCoroutine(CrouchRoutine(isCrouchingUp: false));
 		}
 
-		private void FinishCrouch()
+		private void LocomotiveAction_CrouchInputCanceled()
 		{
 			if (null != m_crouchRoutine)
 			{
@@ -224,21 +179,36 @@ namespace BM
 			m_crouchRoutine = StartCoroutine(CrouchRoutine(isCrouchingUp: true));
 		}
 
-		private void StartWalk()
+		private void LocomotiveAction_WalkInputPerformed()
 		{
-			if (m_state == State.Crouch)
+			// 앉는 중에는 걸을 수 없음
+
+			if (m_isCrouching)
 			{
 				return;
 			}
 
-			m_state = State.Walk;
-			LocomotiveStateChanged?.Invoke(m_state);
+			m_isWalking = true;
+
+			StateTransitionProcedure();
 		}
 
-		private void FinishWalk()
+		private void LocomotiveAction_WalkInputCanceled()
 		{
-			m_state = State.Jog;
-			LocomotiveStateChanged?.Invoke(m_state);
+			m_isWalking = false;
+
+			StateTransitionProcedure();
+		}
+
+		public bool IsGrounded => m_characterController.isGrounded;
+
+		public bool IsDesiredToMove => m_isDesiredToMove;
+
+		public bool IsMoving => m_isMoving;
+
+		private void UpdateCameraTargetLocalPosition()
+		{
+			m_cameraTarget.localPosition = CameraTargetLocalPosition;
 		}
 
 		private IEnumerator CrouchRoutine(bool isCrouchingUp)
@@ -246,8 +216,8 @@ namespace BM
 			float startCapsuleHeight = m_characterController.height;
 			Vector3 startCapsuleCenter = m_characterController.center;
 
-			float crouchedCapsuleHeight = m_uncrouchedCapsuleHeight * m_properties.GetCrouchRatio();
-			Vector3 crouchedCapsuleCenter = m_uncrouchedCapsuleCenter - new Vector3(0f, m_uncrouchedCapsuleHeight * (1 - m_properties.GetCrouchRatio()) / 2f, 0f);
+			float crouchedCapsuleHeight = m_uncrouchedCapsuleHeight * m_properties.CrouchRatio;
+			Vector3 crouchedCapsuleCenter = m_uncrouchedCapsuleCenter - new Vector3(0f, m_uncrouchedCapsuleHeight * (1 - m_properties.CrouchRatio) / 2f, 0f);
 
 			float endCapsuleHeight = isCrouchingUp ? m_uncrouchedCapsuleHeight : crouchedCapsuleHeight;
 			Vector3 endCapsuleCenter = isCrouchingUp ? m_uncrouchedCapsuleCenter : crouchedCapsuleCenter;
@@ -270,7 +240,7 @@ namespace BM
 
 			// 앉기 구분동작 타이머 시작
 
-			while (elapsedTime < m_properties.GetCrouchDuration())
+			while (elapsedTime < m_properties.CrouchDuration)
 			{
 				// 앉았다가 일어서는 중인데, 장애물이 있는 경우 대기
 
@@ -284,7 +254,7 @@ namespace BM
 
 				elapsedTime += Time.fixedDeltaTime;
 
-				float ratio = Mathf.Clamp01(elapsedTime / m_properties.GetCrouchDuration());
+				float ratio = Mathf.Clamp01(elapsedTime / m_properties.CrouchDuration);
 
 				m_characterController.height = Mathf.Lerp(startCapsuleHeight, endCapsuleHeight, ratio);
 				m_characterController.center = Vector3.Lerp(startCapsuleCenter, endCapsuleCenter, ratio);
@@ -307,8 +277,9 @@ namespace BM
 
 			if (isCrouchingUp)
 			{
-				m_state = State.Jog;
-				LocomotiveStateChanged?.Invoke(m_state);
+				m_isCrouching = false;
+
+				StateTransitionProcedure();
 			}
 		}
 
@@ -333,37 +304,34 @@ namespace BM
 
 		private void OnEnable()
 		{
-			m_inputReader.MoveInputEvent += UpdateLocalMoveDirection;
-			m_inputReader.MoveInputCanceled += ResetLocomotionImpulse;
+			m_inputReader.MoveInputEvent += LocomotiveAction_MoveInputEvent;
+			m_inputReader.MoveInputCanceled += LocomotiveAction_MoveInputCanceled;
 
-			m_inputReader.CrouchInputPerformed += StartCrouch;
-			m_inputReader.CrouchInputCanceled += FinishCrouch;
+			m_inputReader.CrouchInputPerformed += LocomotiveAction_CrouchInputPerformed;
+			m_inputReader.CrouchInputCanceled += LocomotiveAction_CrouchInputCanceled;
 
-			m_inputReader.WalkInputPerformed += StartWalk;
-			m_inputReader.WalkInputCanceled += FinishWalk;
+			m_inputReader.WalkInputPerformed += LocomotiveAction_WalkInputPerformed;
+			m_inputReader.WalkInputCanceled += LocomotiveAction_WalkInputCanceled;
 
 
 #if UNITY_EDITOR
 			LocomotiveStateChanged += StateLogger;
-			LocomotionImpulseGenerated += ImpulseLogger;
 #endif
 		}
 
-
 		private void OnDisable()
 		{
-			m_inputReader.MoveInputEvent -= UpdateLocalMoveDirection;
-			m_inputReader.MoveInputCanceled -= ResetLocomotionImpulse;
+			m_inputReader.MoveInputEvent -= LocomotiveAction_MoveInputEvent;
+			m_inputReader.MoveInputCanceled -= LocomotiveAction_MoveInputCanceled;
 
-			m_inputReader.CrouchInputPerformed -= StartCrouch;
-			m_inputReader.CrouchInputCanceled -= FinishCrouch;
+			m_inputReader.CrouchInputPerformed -= LocomotiveAction_CrouchInputPerformed;
+			m_inputReader.CrouchInputCanceled -= LocomotiveAction_CrouchInputCanceled;
 
-			m_inputReader.WalkInputPerformed -= StartWalk;
-			m_inputReader.WalkInputCanceled -= FinishWalk;
+			m_inputReader.WalkInputPerformed -= LocomotiveAction_WalkInputPerformed;
+			m_inputReader.WalkInputCanceled -= LocomotiveAction_WalkInputCanceled;
 
 #if UNITY_EDITOR
 			LocomotiveStateChanged -= StateLogger;
-			LocomotionImpulseGenerated -= ImpulseLogger;
 #endif
 
 #if UNITY_EDITOR
@@ -372,7 +340,7 @@ namespace BM
 
 		private void Start()
 		{
-			m_state = State.Jog;
+			m_state = State.Idle;
 			LocomotiveStateChanged?.Invoke(m_state);
 
 			UpdateCameraTargetLocalPosition();
@@ -382,9 +350,9 @@ namespace BM
 		{
 			// 현재 프레임의 속도 계산 시작
 
-			m_worldVelocity = WorldMoveDirection * m_properties.GetSpeed(m_state);
+			m_worldVelocity = WorldMoveDirection * m_properties.GetSpeedByState(m_state);
 
-			if (!m_properties.GetIgnoreGravity())
+			if (!m_properties.IgnoreGravity)
 			{
 				if (m_characterController.isGrounded)
 				{
@@ -392,7 +360,7 @@ namespace BM
 				}
 				else
 				{
-					m_worldVelocity.y += m_properties.GetMass() * Physics.gravity.y * Time.fixedDeltaTime;
+					m_worldVelocity.y += m_properties.Mass * Physics.gravity.y * Time.fixedDeltaTime;
 				}
 			}
 			else
@@ -412,21 +380,7 @@ namespace BM
 			transform.rotation = Quaternion.Euler(0f, targetRotation, 0f);
 		}
 
-		private void Update()
-		{
-			GenerateLocomotionImpulse();
-		}
-
 #if UNITY_EDITOR
-		private void ImpulseLogger(Vector3 position, float force)
-		{
-			if (!m_logOnLocomotionImpulse)
-			{
-				return;
-			}
-
-			Debug.Log($"Impulse Generated: {Time.time:F2}, {position:F2} {force:F2}");
-		}
 
 		private void StateLogger(State state)
 		{
