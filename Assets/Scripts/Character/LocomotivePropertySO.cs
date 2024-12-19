@@ -9,20 +9,42 @@ namespace BM
 		[Serializable]
 		public struct LocomotiveProperty
 		{
-			public float Speed;
-			public float ImpulsePeriod;
-			public float ImpulseForce;
-			public LocomotiveProperty(float speed, float impulsePeriod, float impulseForce)
+			[Serializable]
+			public struct CameraNoiseProperty
 			{
-				Speed = speed;
-				ImpulsePeriod = impulsePeriod;
-				ImpulseForce = impulseForce;
+				[SerializeField] private float m_amplitudeGain;
+				[SerializeField] private float m_frequencyGain;
+
+				public CameraNoiseProperty(float amplitudeGain, float frequencyGain)
+				{
+					m_amplitudeGain = amplitudeGain;
+					m_frequencyGain = frequencyGain;
+				}
+			}
+
+			[SerializeField] private float m_speed;
+			[SerializeField] private float m_impulsePeriod;
+			[SerializeField] private float m_impulseForce;
+			[SerializeField] private CameraNoiseProperty m_cameraNoise;
+
+			public float Speed => m_speed;
+			public float ImpulsePeriod => m_impulsePeriod;
+			public float ImpulseForce => m_impulseForce;
+			public CameraNoiseProperty CameraNoise => m_cameraNoise;
+
+			public LocomotiveProperty(float speed, float impulsePeriod, float impulseForce, float amplitudeGain, float frequencyGain)
+			{
+				m_speed = speed;
+				m_impulsePeriod = impulsePeriod;
+				m_impulseForce = impulseForce;
+
+				m_cameraNoise = new CameraNoiseProperty(amplitudeGain, frequencyGain);
 			}
 		}
 
-		[SerializeField] private LocomotiveProperty m_propertyOnJog = new(6f, .55f, .55f);
-		[SerializeField] private LocomotiveProperty m_propertyOnWalk = new(4f, .7f, .4f);
-		[SerializeField] private LocomotiveProperty m_propertyOnCrouch = new(2f, .8f, .3f);
+		[SerializeField] private LocomotiveProperty m_propertyOnJog = new(6f, .55f, .55f, 1f, .5f);
+		[SerializeField] private LocomotiveProperty m_propertyOnWalk = new(4f, .7f, .4f, 1f, .5f);
+		[SerializeField] private LocomotiveProperty m_propertyOnCrouch = new(2f, .8f, .3f, 1f, .5f);
 
 		[Space()]
 
@@ -34,19 +56,19 @@ namespace BM
 		[SerializeField] private float m_mass = 50f;
 		[SerializeField] private bool m_ignoreGravity = false;
 
-		public float GetMass() => m_mass;
+		public float Mass => m_mass;
 
-		public bool GetIgnoreGravity() => m_ignoreGravity;
+		public bool IgnoreGravity => m_ignoreGravity;
 
-		public float GetCrouchDuration() => m_crouchDuration;
+		public float CrouchDuration => m_crouchDuration;
 
-		public float GetCrouchRatio() => m_crouchRatio;
+		public float CrouchRatio => m_crouchRatio;
 
-		public float GetSpeed(LocomotiveAction.State state) => this[state].Speed;
+		public float GetSpeedByState(LocomotiveAction.State state) => this[state].Speed;
 
-		public float GetImpulsePeriod(LocomotiveAction.State state) => this[state].ImpulsePeriod;
+		public float GetImpulsePeriodByState(LocomotiveAction.State state) => this[state].ImpulsePeriod;
 
-		public float GetImpulseForce(LocomotiveAction.State state) => this[state].ImpulseForce;
+		public float GetImpulseForceByState(LocomotiveAction.State state) => this[state].ImpulseForce;
 
 		private ref LocomotiveProperty this[in LocomotiveAction.State state]
 		{

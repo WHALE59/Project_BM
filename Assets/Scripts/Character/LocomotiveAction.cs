@@ -119,8 +119,8 @@ namespace BM
 
 			// 현재 프레임에서 Impulse 타이머에 도달했는지 판정 시작
 
-			float currentImpulsePeriod = m_properties.GetImpulsePeriod(m_state);
-			float currentImpulseForce = m_properties.GetImpulseForce(m_state);
+			float currentImpulsePeriod = m_properties.GetImpulsePeriodByState(m_state);
+			float currentImpulseForce = m_properties.GetImpulseForceByState(m_state);
 
 			if (!m_hasTriggeredInitialImpulse)
 			{
@@ -246,8 +246,8 @@ namespace BM
 			float startCapsuleHeight = m_characterController.height;
 			Vector3 startCapsuleCenter = m_characterController.center;
 
-			float crouchedCapsuleHeight = m_uncrouchedCapsuleHeight * m_properties.GetCrouchRatio();
-			Vector3 crouchedCapsuleCenter = m_uncrouchedCapsuleCenter - new Vector3(0f, m_uncrouchedCapsuleHeight * (1 - m_properties.GetCrouchRatio()) / 2f, 0f);
+			float crouchedCapsuleHeight = m_uncrouchedCapsuleHeight * m_properties.CrouchRatio;
+			Vector3 crouchedCapsuleCenter = m_uncrouchedCapsuleCenter - new Vector3(0f, m_uncrouchedCapsuleHeight * (1 - m_properties.CrouchRatio) / 2f, 0f);
 
 			float endCapsuleHeight = isCrouchingUp ? m_uncrouchedCapsuleHeight : crouchedCapsuleHeight;
 			Vector3 endCapsuleCenter = isCrouchingUp ? m_uncrouchedCapsuleCenter : crouchedCapsuleCenter;
@@ -270,7 +270,7 @@ namespace BM
 
 			// 앉기 구분동작 타이머 시작
 
-			while (elapsedTime < m_properties.GetCrouchDuration())
+			while (elapsedTime < m_properties.CrouchDuration)
 			{
 				// 앉았다가 일어서는 중인데, 장애물이 있는 경우 대기
 
@@ -284,7 +284,7 @@ namespace BM
 
 				elapsedTime += Time.fixedDeltaTime;
 
-				float ratio = Mathf.Clamp01(elapsedTime / m_properties.GetCrouchDuration());
+				float ratio = Mathf.Clamp01(elapsedTime / m_properties.CrouchDuration);
 
 				m_characterController.height = Mathf.Lerp(startCapsuleHeight, endCapsuleHeight, ratio);
 				m_characterController.center = Vector3.Lerp(startCapsuleCenter, endCapsuleCenter, ratio);
@@ -382,9 +382,9 @@ namespace BM
 		{
 			// 현재 프레임의 속도 계산 시작
 
-			m_worldVelocity = WorldMoveDirection * m_properties.GetSpeed(m_state);
+			m_worldVelocity = WorldMoveDirection * m_properties.GetSpeedByState(m_state);
 
-			if (!m_properties.GetIgnoreGravity())
+			if (!m_properties.IgnoreGravity)
 			{
 				if (m_characterController.isGrounded)
 				{
@@ -392,7 +392,7 @@ namespace BM
 				}
 				else
 				{
-					m_worldVelocity.y += m_properties.GetMass() * Physics.gravity.y * Time.fixedDeltaTime;
+					m_worldVelocity.y += m_properties.Mass * Physics.gravity.y * Time.fixedDeltaTime;
 				}
 			}
 			else
