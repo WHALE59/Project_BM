@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="Event" id="{5bb55c0d-0e9b-4135-a4e1-9d6b87136ddb}">
 		<property name="name">
-			<value>Button_Hovering_1</value>
+			<value>2D_Button_Hovering_1</value>
 		</property>
 		<property name="outputFormat">
 			<value>1</value>
