@@ -3,22 +3,15 @@ using UnityEngine;
 
 namespace BM.Interactables
 {
-	[Serializable]
-	public enum InteractionType
-	{
-		Collectible,
-		Activatable
-	}
-
 	[DisallowMultipleComponent]
 	public class InteractableBase : MonoBehaviour
 	{
-		[SerializeField] private InteractionType m_interactionType = InteractionType.Collectible;
 		[SerializeField] private InteractableSO m_interactableSO;
 		[SerializeField] private InteractableModel m_interactableModel;
 
-		public InteractionType Type => m_interactionType;
-		//private bool m_isCollected = false;
+		public InteractableSO InteractableSO => m_interactableSO;
+
+		[SerializeField][HideInInspector] private bool m_isCollected = false;
 
 		public void StartHovering()
 		{
@@ -34,6 +27,13 @@ namespace BM.Interactables
 			{
 				m_interactableModel.FinishHoveringEffect();
 			}
+		}
+
+		public void SetCollected()
+		{
+			m_isCollected = true;
+
+			m_interactableModel.gameObject.SetActive(false);
 		}
 	}
 }

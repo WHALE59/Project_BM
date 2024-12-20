@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d333f06e78dca745ab24568c8517ea4, type: 3}
+  m_Name: InteractableSO_Key
+  m_EditorClassIdentifier: 
+  m_interactableModelPrefab: {fileID: 5545095820127702056, guid: 88202997b8083d94baa7e181202c5fac,
+    type: 3}
+  m_isCollectible: 1
+  m_isActivatable: 0
+  m_activateCrosshairIcon: {fileID: 0}
+  m_isUsableAndEquippable: 0
+  m_useAndEquipIcon: {fileID: 0}
+  m_useCrosshairIcon: {fileID: 0}
+  m_isUsedTo: []
+  m_isUsedable: 0
+  m_isUsedBy: []
+  m_isCraftingMaterial: 0
+  m_isCraftingMaterialOf: []
+  m_isCraftedBy: []
+  m_displayNameKey: 
+  m_descriptionKey: 

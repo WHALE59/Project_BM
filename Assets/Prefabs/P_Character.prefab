@@ -82,6 +82,7 @@ GameObject:
   - component: {fileID: 100915224993563351}
   - component: {fileID: 9151683990528567533}
   - component: {fileID: 4819816543261910351}
+  - component: {fileID: 3206800542811517752}
   m_Layer: 3
   m_Name: P_Character
   m_TagString: Untagged
@@ -313,6 +314,18 @@ MonoBehaviour:
       Data3: -1190215789
       Data4: 953587788
     Path: event:/SFX/Darack/3D_M_Footsteps_DarackWood
+--- !u!114 &3206800542811517752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7093824059209778154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d10e7106f42eaa46b40ea6e73b8f851, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7658585729986315391
 GameObject:
   m_ObjectHideFlags: 0

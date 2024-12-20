@@ -7,6 +7,7 @@ using UnityEngine;
 namespace BM
 {
 	[DisallowMultipleComponent]
+	[RequireComponent(typeof(Inventory))]
 	public class InteractAction : MonoBehaviour
 	{
 		[SerializeField] private InputReaderSO m_inputReaderSO;
@@ -22,6 +23,8 @@ namespace BM
 		private RaycastHit m_hitResult;
 		private Rigidbody m_hitRigidbodyOnLastFrame;
 
+		private Inventory m_inventory;
+
 		private Ray GetCameraRay()
 		{
 			// Screen mid point
@@ -33,7 +36,30 @@ namespace BM
 
 		private void StartCollectOrActivate()
 		{
+			if (null == m_detectedInteractable)
+			{
+				return;
+			}
 
+			InteractableSO interactableSO = m_detectedInteractable.InteractableSO;
+
+			if (null == interactableSO)
+			{
+				return;
+			}
+
+			if (interactableSO.IsCollectible)
+			{
+				InteractableLost?.Invoke(m_detectedInteractable);
+
+				m_detectedInteractable.SetCollected();
+				m_detectedInteractable = null;
+
+				m_inventory.PutIn(interactableSO);
+			}
+			else if (interactableSO.IsActivatable)
+			{
+			}
 		}
 
 		private void FinishCollectOrActivate()
@@ -134,6 +160,8 @@ namespace BM
 
 		private void Awake()
 		{
+			m_inventory = GetComponent<Inventory>();
+
 			m_inputReaderSO.CollectOrActivateInputPerformed += StartCollectOrActivate;
 			m_inputReaderSO.CollectOrActivateInputCanceled += FinishCollectOrActivate;
 		}
@@ -204,16 +232,21 @@ namespace BM
 				point = ray.origin + ray.direction * target.m_raycastDistance;
 			}
 
-			if (target.m_detectedInteractable != null)
+			if (null != target.m_detectedInteractable)
 			{
-				switch (target.m_detectedInteractable.Type)
+				InteractableSO interactableSO = target.m_detectedInteractable.InteractableSO;
+
+				if (null != interactableSO)
 				{
-					case InteractionType.Collectible:
+
+					if (interactableSO.IsCollectible && !interactableSO.IsActivatable)
+					{
 						Gizmos.DrawWireSphere(point, .1f);
-						break;
-					case InteractionType.Activatable:
+					}
+					else if (interactableSO.IsActivatable && !interactableSO.IsCollectible)
+					{
 						Gizmos.DrawWireCube(point, new(.1f, .1f, .1f));
-						break;
+					}
 				}
 			}
 
