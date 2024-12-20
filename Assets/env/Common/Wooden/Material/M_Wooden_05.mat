@@ -21,9 +21,9 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_Wooden_05
-  m_Shader: {fileID: -6465566751694194690, guid: 33995dbfd006d294497ffef97b7b780d,
+  m_Shader: {fileID: -6465566751694194690, guid: 9225edde559a6b443aba3514ccc1e81e,
     type: 3}
-  m_Parent: {fileID: 2100000, guid: b196c96840b6e4147a579b6e3999fc0c, type: 2}
+  m_Parent: {fileID: 2100000, guid: 1f7fcbcb2ed18874f8a2906666c55da8, type: 2}
   m_ModifiedSerializedProperties: 10
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -31,7 +31,8 @@ Material:
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-  stringTagMap: {}
+  stringTagMap:
+    RenderType: Opaque
   disabledShaderPasses: []
   m_LockedProperties: 
   m_SavedProperties:
@@ -83,6 +84,7 @@ Material:
     - _Intersection_Contrast: 1
     - _Intersection_amount: 0.5
     - _Intersection_power: 0.08
+    - _IsUsedFresnel: 0
     - _IsUsedSecondTexture: 0
     - _Normal_Intensity: 2
     - _Pixelize_Amount: 551
