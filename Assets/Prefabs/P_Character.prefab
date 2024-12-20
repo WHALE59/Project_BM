@@ -76,12 +76,12 @@ GameObject:
   - component: {fileID: 8762723058960736455}
   - component: {fileID: 676317188041148196}
   - component: {fileID: 5337080429642422780}
-  - component: {fileID: 4451049859483663539}
   - component: {fileID: 6448649718899218689}
   - component: {fileID: 3781311540657731409}
   - component: {fileID: 4630992091899181617}
   - component: {fileID: 100915224993563351}
   - component: {fileID: 9151683990528567533}
+  - component: {fileID: 4819816543261910351}
   m_Layer: 3
   m_Name: P_Character
   m_TagString: Untagged
@@ -213,28 +213,6 @@ MonoBehaviour:
   m_properties: {fileID: 11400000, guid: 0a82ae126b59d2d45999f2c82c914acc, type: 2}
   m_cameraTarget: {fileID: 2543932865098810727}
   m_logOnStateChange: 0
---- !u!114 &4451049859483663539
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7093824059209778154}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 213d24eec5b39204db82391aaf5f9a57, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_applyFootstepBaseAudio: 1
-  m_volumeAffectedByForce: 0
-  m_masterVolume: 1
-  m_footstepEventReference:
-    Guid:
-      Data1: -1178592238
-      Data2: 1229513049
-      Data3: -1190215789
-      Data4: 953587788
-    Path: event:/SFX/Darack/3D_M_Footsteps_DarackWood
 --- !u!114 &6448649718899218689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -313,6 +291,28 @@ MonoBehaviour:
     type: 2}
   m_inputReader: {fileID: 11400000, guid: 314b40c975fd3d349a30c23aa2faddeb, type: 2}
   m_logOnLocomotiveImpulse: 0
+--- !u!114 &4819816543261910351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7093824059209778154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 213d24eec5b39204db82391aaf5f9a57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_applyFootstepBaseAudio: 1
+  m_volumeAffectedByForce: 0
+  m_masterVolume: 1
+  m_footstepEventReference:
+    Guid:
+      Data1: -1178592238
+      Data2: 1229513049
+      Data3: -1190215789
+      Data4: 953587788
+    Path: event:/SFX/Darack/3D_M_Footsteps_DarackWood
 --- !u!1 &7658585729986315391
 GameObject:
   m_ObjectHideFlags: 0
