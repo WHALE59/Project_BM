@@ -306,10 +306,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_normalEvent:
     Guid:
-      Data1: -1178592238
-      Data2: 1229513049
-      Data3: -1190215789
-      Data4: 953587788
+      Data1: -2127832985
+      Data2: 1082006622
+      Data3: 276251803
+      Data4: 30334235
     Path: event:/SFX/Darack/3D_M_Footsteps_DarackWood
   m_carpetEvent:
     Guid:

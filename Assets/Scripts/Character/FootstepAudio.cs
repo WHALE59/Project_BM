@@ -1,6 +1,9 @@
+using FMOD;
 using FMOD.Studio;
 using FMODUnity;
+
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace BM
 {
@@ -18,7 +21,14 @@ namespace BM
 		[SerializeField] private EventReference m_normalEvent;
 		[SerializeField] private EventReference m_carpetEvent;
 
+#if UNITY_EDITOR
+		[Space()]
+
+		[SerializeField] private bool m_logOnFMODError = false;
+#endif
+
 		private FloorMaterialType m_floorMaterialType = FloorMaterialType.Normal;
+		private LocomotiveAction.State m_state;
 
 		private EventInstance m_normalInstance;
 		private EventInstance m_carpetInstance;
@@ -29,8 +39,10 @@ namespace BM
 		private const string PARAMSHEET_FOOTSTEP_NORMAL = "3D_M_Footsteps_DarackWood";
 		private const string PARAMSHEET_FOOTSTEP_CARPET = "3D_M_Footsteps_Carpet";
 
-		// TODO: 이것 보다 더 합리적인 관리 법은 없는 것?
-		private readonly string[] LABEL = { "Jog", "Walk", "Crouch" };
+		private PARAMETER_ID m_carpetID;
+		private PARAMETER_ID m_normalID;
+
+		private readonly string[] LOCOMOTIVE_STATE_PARAMETER_LABEL = { "Jog", "Walk", "Crouch" };
 
 		public void SetFloorMaterial(FloorMaterialType materialType)
 		{
@@ -49,74 +61,84 @@ namespace BM
 
 		private void FootstepAudio_LocomotiveStateChanged(LocomotiveAction.State state)
 		{
-			// TODO: Tune parameter via locomotive state change
-			switch (state)
+			m_state = state;
+
+			ref EventInstance instance = ref GetInstanceByFloorMaterial(m_floorMaterialType, out PARAMETER_ID parameterID);
+			SetLocomotiveStateParameterLabelByID(in instance, in parameterID, m_state);
+		}
+
+		private void PlayFootstepAudio(in Vector3 position, in float _)
+		{
+			ref EventInstance instance = ref GetInstanceByFloorMaterial(m_floorMaterialType, out PARAMETER_ID _);
+
+			ATTRIBUTES_3D attributes = RuntimeUtils.To3DAttributes(position);
+
+			instance.set3DAttributes(attributes);
+			instance.start();
+
+		}
+
+		private ref EventInstance GetInstanceByFloorMaterial(FloorMaterialType floorMaterialType, out PARAMETER_ID parameterID)
+		{
+			switch (floorMaterialType)
 			{
-				case LocomotiveAction.State.Idle:
-					break;
-				case LocomotiveAction.State.NormalJog:
+				default:
+				case FloorMaterialType.Normal:
+					parameterID = m_normalID;
+					return ref m_normalInstance;
 
-					switch (m_floorMaterialType)
-					{
-						default:
-						case FloorMaterialType.Normal:
-							var result = m_normalInstance.setParameterByNameWithLabel(PARAMSHEET_FOOTSTEP_NORMAL, LABEL[0]);
-							Debug.Log(result);
-							break;
-						case FloorMaterialType.Carpet:
-							m_carpetInstance.setParameterByNameWithLabel(PARAMSHEET_FOOTSTEP_CARPET, LABEL[0]);
-							break;
-					}
-					break;
-
-				case LocomotiveAction.State.WalkedJog:
-
-					switch (m_floorMaterialType)
-					{
-						default:
-						case FloorMaterialType.Normal:
-							m_normalInstance.setParameterByNameWithLabel(PARAMSHEET_FOOTSTEP_NORMAL, LABEL[1]);
-							break;
-						case FloorMaterialType.Carpet:
-							m_carpetInstance.setParameterByNameWithLabel(PARAMSHEET_FOOTSTEP_CARPET, LABEL[1]);
-							break;
-					}
-					break;
-
-				case LocomotiveAction.State.CrouchedJog:
-
-					switch (m_floorMaterialType)
-					{
-						default:
-						case FloorMaterialType.Normal:
-							m_normalInstance.setParameterByNameWithLabel(PARAMSHEET_FOOTSTEP_NORMAL, LABEL[2]);
-							break;
-						case FloorMaterialType.Carpet:
-							m_carpetInstance.setParameterByNameWithLabel(PARAMSHEET_FOOTSTEP_CARPET, LABEL[2]);
-							break;
-					}
-					break;
+				case FloorMaterialType.Carpet:
+					parameterID = m_carpetID;
+					return ref m_carpetInstance;
 
 			}
 		}
 
-		private void PlayFootstepAudio(in Vector3 position, in float force)
+		private void SetLocomotiveStateParameterLabelByID(in EventInstance instance, in PARAMETER_ID parameterID, LocomotiveAction.State state)
 		{
-
-			var attributes = RuntimeUtils.To3DAttributes(position);
-
-			switch (m_floorMaterialType)
+			string label = state switch
 			{
-				default:
-				case FloorMaterialType.Normal:
-					m_normalInstance.set3DAttributes(attributes);
-					m_normalInstance.start();
-					break;
-				case FloorMaterialType.Carpet:
-					m_carpetInstance.set3DAttributes(attributes);
-					m_carpetInstance.start();
-					break;
+				LocomotiveAction.State.NormalJog => LOCOMOTIVE_STATE_PARAMETER_LABEL[0],
+				LocomotiveAction.State.WalkedJog => LOCOMOTIVE_STATE_PARAMETER_LABEL[1],
+				LocomotiveAction.State.CrouchedJog => LOCOMOTIVE_STATE_PARAMETER_LABEL[2],
+				_ => "",
+			};
+
+			if (instance.setParameterByIDWithLabel(parameterID, label) != FMOD.RESULT.OK)
+			{
+#if UNITY_EDITOR
+				if (m_logOnFMODError)
+				{
+					Debug.Log("ID에 해당하는 파라미터에서 라벨을 찾을 수 없습니다.");
+				}
+#endif
 			}
+		}
+
+		/// <summary>
+		/// 이벤트 인스턴스에서 이름을 기반으로 파라미터의 ID를 찾아 반환하는 헬퍼 함수
+		/// </summary>
+		private static void GetParameterID(in string parameterName, in EventInstance instance, out PARAMETER_ID parameterID)
+		{
+			EventDescription eventDescription;
+
+			if (instance.getDescription(out eventDescription) != FMOD.RESULT.OK)
+			{
+#if UNITY_EDITOR
+				Debug.Log($"{instance}의 Event Description을 찾을 수 없습니다.");
+#endif
+			}
+
+			PARAMETER_DESCRIPTION gaitParameterDescription;
+
+			if (eventDescription.getParameterDescriptionByName(parameterName, out gaitParameterDescription) != FMOD.RESULT.OK)
+			{
+#if UNITY_EDITOR
+				Debug.Log($"{eventDescription}의 {parameterName} Parameter Description을 찾을 수 없습니다.");
+#endif
+			}
+
+			parameterID = gaitParameterDescription.id;
 		}
 
 		private void Awake()
@@ -124,28 +146,18 @@ namespace BM
 			m_locomotiveAction = GetComponent<LocomotiveAction>();
 			m_locomotiveImpulseGenerator = GetComponent<LocomotiveImpulseGenerator>();
 
+			// FMOD 인스턴스 초기화
+
 			m_normalInstance = RuntimeManager.CreateInstance(m_normalEvent);
 			m_carpetInstance = RuntimeManager.CreateInstance(m_carpetEvent);
 
-			// 이게 없으면 경고가 뜹니다.
 			m_normalInstance.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
 			m_carpetInstance.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
 
-			EventDescription desc = RuntimeManager.GetEventDescription(m_normalEvent);
+			// 최적화를 위한 FMOD 파라미터 ID 캐싱
 
-			int count;
-
-			desc.getParameterDescriptionCount(out count);
-			for (int i = 0; i < count; ++i)
-			{
-				PARAMETER_DESCRIPTION paramDesc;
-				desc.getParameterDescriptionByIndex(i, out paramDesc);
-
-				Debug.Log($"{paramDesc.name}");
-				Debug.Log($"{paramDesc.id}");
-			}
-
-
+			GetParameterID(PARAMSHEET_FOOTSTEP_NORMAL, in m_normalInstance, out m_normalID);
+			GetParameterID(PARAMSHEET_FOOTSTEP_CARPET, in m_carpetInstance, out m_carpetID);
 		}
 
 		private void OnEnable()

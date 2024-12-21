@@ -7273,8 +7273,8 @@ MonoBehaviour:
   NonRigidbodyVelocity: 0
   Params: []
   OverrideAttenuation: 0
-  OverrideMinDistance: 1
-  OverrideMaxDistance: 20
+  OverrideMinDistance: 0
+  OverrideMaxDistance: 3
 --- !u!4 &1656605100 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9cb9a0651d876ee41b7feb16440ccecd,
@@ -8659,7 +8659,7 @@ Transform:
   m_GameObject: {fileID: 1988365130}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.08, y: 2.745, z: -1.337}
+  m_LocalPosition: {x: -0.054, y: 2.097, z: -0.32}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8695,7 +8695,7 @@ MonoBehaviour:
   Params: []
   OverrideAttenuation: 0
   OverrideMinDistance: 0
-  OverrideMaxDistance: 3
+  OverrideMaxDistance: 2.4
 --- !u!1001 &1997635533
 PrefabInstance:
   m_ObjectHideFlags: 0
