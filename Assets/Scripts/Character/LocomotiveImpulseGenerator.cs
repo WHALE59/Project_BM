@@ -40,6 +40,11 @@ namespace BM
 				return;
 			}
 
+			if (m_state == LocomotiveAction.State.Idle)
+			{
+				return;
+			}
+
 			float currentImpulsePeriod = m_locomotiveProperty.GetImpulsePeriodByState(m_state);
 			float currentImpulseForce = m_locomotiveProperty.GetImpulseForceByState(m_state);
 

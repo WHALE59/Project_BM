@@ -26,8 +26,8 @@ namespace BM
 		private LocomotiveAction m_locomotiveAction;
 		private LocomotiveImpulseGenerator m_locomotiveImpulseGenerator;
 
-		private const string PARAMSHEET_FOOTSTEP_NORMAL = "3D_M_Footsteps_Carpet";
-		private const string PARAMSHEET_FOOTSTEP_CARPET = "3D_M_Footstep_Darack";
+		private const string PARAMSHEET_FOOTSTEP_NORMAL = "3D_M_Footsteps_DarackWood";
+		private const string PARAMSHEET_FOOTSTEP_CARPET = "3D_M_Footsteps_Carpet";
 
 		// TODO: 이것 보다 더 합리적인 관리 법은 없는 것?
 		private readonly string[] LABEL = { "Jog", "Walk", "Crouch" };
@@ -53,25 +53,50 @@ namespace BM
 			switch (state)
 			{
 				case LocomotiveAction.State.Idle:
+					break;
 				case LocomotiveAction.State.NormalJog:
 
 					switch (m_floorMaterialType)
 					{
 						default:
 						case FloorMaterialType.Normal:
-							m_normalInstance.setParameterByNameWithLabel(PARAMSHEET_FOOTSTEP_NORMAL, LABEL[0]);
+							var result = m_normalInstance.setParameterByNameWithLabel(PARAMSHEET_FOOTSTEP_NORMAL, LABEL[0]);
+							Debug.Log(result);
 							break;
 						case FloorMaterialType.Carpet:
+							m_carpetInstance.setParameterByNameWithLabel(PARAMSHEET_FOOTSTEP_CARPET, LABEL[0]);
 							break;
 					}
 					break;
 
 				case LocomotiveAction.State.WalkedJog:
-					m_normalInstance.setParameterByNameWithLabel(PARAMSHEET_FOOTSTEP_NORMAL, LABEL[1]);
+
+					switch (m_floorMaterialType)
+					{
+						default:
+						case FloorMaterialType.Normal:
+							m_normalInstance.setParameterByNameWithLabel(PARAMSHEET_FOOTSTEP_NORMAL, LABEL[1]);
+							break;
+						case FloorMaterialType.Carpet:
+							m_carpetInstance.setParameterByNameWithLabel(PARAMSHEET_FOOTSTEP_CARPET, LABEL[1]);
+							break;
+					}
 					break;
+
 				case LocomotiveAction.State.CrouchedJog:
-					m_normalInstance.setParameterByNameWithLabel(PARAMSHEET_FOOTSTEP_NORMAL, LABEL[2]);
+
+					switch (m_floorMaterialType)
+					{
+						default:
+						case FloorMaterialType.Normal:
+							m_normalInstance.setParameterByNameWithLabel(PARAMSHEET_FOOTSTEP_NORMAL, LABEL[2]);
+							break;
+						case FloorMaterialType.Carpet:
+							m_carpetInstance.setParameterByNameWithLabel(PARAMSHEET_FOOTSTEP_CARPET, LABEL[2]);
+							break;
+					}
 					break;
+
 			}
 		}
 
@@ -105,6 +130,22 @@ namespace BM
 			// 이게 없으면 경고가 뜹니다.
 			m_normalInstance.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
 			m_carpetInstance.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
+
+			EventDescription desc = RuntimeManager.GetEventDescription(m_normalEvent);
+
+			int count;
+
+			desc.getParameterDescriptionCount(out count);
+			for (int i = 0; i < count; ++i)
+			{
+				PARAMETER_DESCRIPTION paramDesc;
+				desc.getParameterDescriptionByIndex(i, out paramDesc);
+
+				Debug.Log($"{paramDesc.name}");
+				Debug.Log($"{paramDesc.id}");
+			}
+
+
 		}
 
 		private void OnEnable()
