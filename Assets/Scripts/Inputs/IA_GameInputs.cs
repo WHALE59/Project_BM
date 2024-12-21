@@ -91,6 +91,15 @@ namespace BM
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Open_Inventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""0a09ccdd-564b-4715-9b3b-351d28f60081"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -549,6 +558,7 @@ namespace BM
         private readonly InputAction m_Gameplay_CollectOrActivate;
         private readonly InputAction m_Gameplay_Use;
         private readonly InputAction m_Gameplay_ToggleDeveloperOverlay;
+        private readonly InputAction m_Gameplay_Open_Inventory;
         public struct GameplayActions
         {
             private @IA_GameInputs m_Wrapper;
@@ -560,6 +570,7 @@ namespace BM
             public InputAction @CollectOrActivate => m_Wrapper.m_Gameplay_CollectOrActivate;
             public InputAction @Use => m_Wrapper.m_Gameplay_Use;
             public InputAction @ToggleDeveloperOverlay => m_Wrapper.m_Gameplay_ToggleDeveloperOverlay;
+            public InputAction @Open_Inventory => m_Wrapper.m_Gameplay_Open_Inventory;
             public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -590,6 +601,9 @@ namespace BM
                 @ToggleDeveloperOverlay.started += instance.OnToggleDeveloperOverlay;
                 @ToggleDeveloperOverlay.performed += instance.OnToggleDeveloperOverlay;
                 @ToggleDeveloperOverlay.canceled += instance.OnToggleDeveloperOverlay;
+                @Open_Inventory.started += instance.OnOpen_Inventory;
+                @Open_Inventory.performed += instance.OnOpen_Inventory;
+                @Open_Inventory.canceled += instance.OnOpen_Inventory;
             }
 
             private void UnregisterCallbacks(IGameplayActions instance)
@@ -615,6 +629,9 @@ namespace BM
                 @ToggleDeveloperOverlay.started -= instance.OnToggleDeveloperOverlay;
                 @ToggleDeveloperOverlay.performed -= instance.OnToggleDeveloperOverlay;
                 @ToggleDeveloperOverlay.canceled -= instance.OnToggleDeveloperOverlay;
+                @Open_Inventory.started -= instance.OnOpen_Inventory;
+                @Open_Inventory.performed -= instance.OnOpen_Inventory;
+                @Open_Inventory.canceled -= instance.OnOpen_Inventory;
             }
 
             public void RemoveCallbacks(IGameplayActions instance)
@@ -705,6 +722,13 @@ namespace BM
             void OnCollectOrActivate(InputAction.CallbackContext context);
             void OnUse(InputAction.CallbackContext context);
             void OnToggleDeveloperOverlay(InputAction.CallbackContext context);
+            void OnOpen_Inventory(InputAction.CallbackContext context);
+        }
+        public interface IGamePlay_UIActions
+        {
+            void OnClose_Inventory(InputAction.CallbackContext context);
+            void OnNext_Page(InputAction.CallbackContext context);
+            void OnPrevious_Page(InputAction.CallbackContext context);
         }
         public interface IUserInterfaceActions
         {

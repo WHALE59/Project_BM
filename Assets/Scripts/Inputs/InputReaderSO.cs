@@ -15,11 +15,11 @@ namespace BM
 		/// <see cref="IA_GameInputs"/>에 정의된 Action Map을 나타내는 열거형
 		/// </summary>
 		[Flags]
-		private enum EActionMap
+		public enum EActionMap
 		{
 			None = 0,
 			Gameplay = 1 << 0,
-			UI = 1 << 1
+			Gameplay_UI = 1 << 1
 		}
 
 		[Tooltip("게임 시작 시 적용될 입력의 Action Map")]
@@ -61,6 +61,25 @@ namespace BM
 		public event UnityAction ToggleDeveloperInputPerformed = delegate { };
 		public event UnityAction ToggleDeveloperInputCanceled = delegate { };
 
+		public event UnityAction Open_InventoryPerformed = delegate { };
+		public event UnityAction Open_InventoryCanceled = delegate { };
+
+
+
+
+		// Gameplay_UI
+		public event UnityAction Close_InventoryPerformed = delegate { };
+		public event UnityAction Close_InventoryCanceled = delegate { };
+
+		public event UnityAction Next_PagePerformed = delegate { };
+		public event UnityAction Next_PageCanceled = delegate { };
+
+		public event UnityAction Previous_PagePerformed = delegate { };
+		public event UnityAction Previous_PageCanceled = delegate { };
+
+
+
+
 		private IA_GameInputs m_gameInputs;
 
 		private bool m_crouchInputPerformed = false;
@@ -88,7 +107,7 @@ namespace BM
 		/// <summary>
 		/// <paramref name="actionMap"/> 플래그로 들어온 Action Map을 활성화한다. 들어오지 않은 액션 맵은 비활성화 한다.
 		/// </summary>
-		private void SetActiveActionMap(EActionMap actionMap)
+		public void SetActiveActionMap(EActionMap actionMap)
 		{
 			if (actionMap.HasFlag(EActionMap.Gameplay))
 			{
@@ -99,6 +118,14 @@ namespace BM
 				m_gameInputs.Gameplay.Disable();
 			}
 
+			if (actionMap.HasFlag(EActionMap.Gameplay_UI))
+			{
+				m_gameInputs.GamePlay_UI.Enable();
+			}
+			else
+			{
+				m_gameInputs.GamePlay_UI.Disable();
+			}
 			// TODO : UI Action Map이 설정되면, 처리할 것
 		}
 
@@ -233,5 +260,83 @@ namespace BM
 					break;
 			}
 		}
+
+
+		void IA_GameInputs.IGameplayActions.OnOpen_Inventory(InputAction.CallbackContext context)
+		{
+			switch (context.phase)
+			{
+				case InputActionPhase.Performed:
+					Open_InventoryPerformed.Invoke();
+					break;
+				case InputActionPhase.Canceled:
+					Open_InventoryCanceled.Invoke();
+					break;
+			}
+			return;
+		}
+
+		void IA_GameInputs.IGamePlay_UIActions.OnClose_Inventory(InputAction.CallbackContext context)
+		{
+			switch (context.phase)
+			{
+				case InputActionPhase.Performed:
+					Close_InventoryPerformed.Invoke();
+					break;
+				case InputActionPhase.Canceled:
+					Close_InventoryCanceled.Invoke();
+					break;
+			}
+			return;
+		}
+
+		void IA_GameInputs.IGamePlay_UIActions.OnNext_Page(UnityEngine.InputSystem.InputAction.CallbackContext context)
+		{
+			switch (context.phase)
+			{
+				case InputActionPhase.Performed:
+					Next_PagePerformed.Invoke();
+					break;
+				case InputActionPhase.Canceled:
+					Next_PageCanceled.Invoke();
+					break;
+			}
+			return;
+		}
+
+		void IA_GameInputs.IGamePlay_UIActions.OnPrevious_Page(UnityEngine.InputSystem.InputAction.CallbackContext context)
+		{
+			switch (context.phase)
+			{
+				case InputActionPhase.Performed:
+					Previous_PagePerformed.Invoke();
+					break;
+				case InputActionPhase.Canceled:
+					Previous_PageCanceled.Invoke();
+					break;
+			}
+			return;
+		}
+
+
+		private void OnEnable()
+		{
+			/// <see cref="IA_GameInputs"/> 인스턴스가 없으면 생성
+			if (m_gameInputs is null)
+			{
+				m_gameInputs = new();
+
+				m_gameInputs.Gameplay.SetCallbacks(this);
+				m_gameInputs.GamePlay_UI.SetCallbacks(this);
+			}
+
+			SetActiveActionMap(m_startActionMap);
+		}
+
+		private void OnDisable()
+		{
+			SetActiveActionMap(EActionMap.None);
+		}
+
 	}
 }
