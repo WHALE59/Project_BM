@@ -79,7 +79,7 @@ Material:
     - _Boolean: 1
     - _Boolean_1: 1
     - _Depth: -12
-    - _Float: 101.6
+    - _Float: 119.38
     - _GrundgeMap_Mixin: 0.15
     - _Intersection_Contrast: 1
     - _Intersection_amount: 0.5
@@ -87,6 +87,7 @@ Material:
     - _IsUsedFresnel: 0
     - _IsUsedSecondTexture: 0
     - _Normal_Intensity: 2
+    - _PixelizeAmount: 1000
     - _Pixelize_Amount: 551
     - _Pixelize_Grunge: 2.5
     - _Pixelize_Grunge2: 2
