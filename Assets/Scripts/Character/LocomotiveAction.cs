@@ -313,7 +313,6 @@ namespace BM
 			m_inputReader.WalkInputPerformed += LocomotiveAction_WalkInputPerformed;
 			m_inputReader.WalkInputCanceled += LocomotiveAction_WalkInputCanceled;
 
-
 #if UNITY_EDITOR
 			LocomotiveStateChanged += StateLogger;
 #endif

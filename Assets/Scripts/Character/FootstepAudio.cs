@@ -9,28 +9,41 @@ namespace BM
 	[RequireComponent(typeof(LocomotiveImpulseGenerator))]
 	public class FootstepAudio : MonoBehaviour
 	{
-		[SerializeField] private bool m_applyFootstepBaseAudio = true;
-		[SerializeField] private bool m_volumeAffectedByForce = false;
-		[SerializeField][Range(0.0f, 1.0f)] private float m_masterVolume = 1.0f;
+		public enum FloorMaterialType
+		{
+			Normal,
+			Carpet
+		}
 
-		[SerializeField] private EventReference m_footstepEventReference;
+		[SerializeField] private EventReference m_normalEvent;
+		[SerializeField] private EventReference m_carpetEvent;
 
-		private EventInstance m_footstepEventInstance;
+		private FloorMaterialType m_floorMaterialType = FloorMaterialType.Normal;
+
+		private EventInstance m_normalInstance;
+		private EventInstance m_carpetInstance;
 
 		private LocomotiveAction m_locomotiveAction;
 		private LocomotiveImpulseGenerator m_locomotiveImpulseGenerator;
 
-		private readonly string PARAM_FOOTSTEP = "3D_M_Footsteps_DarackWood";
+		private const string PARAMSHEET_FOOTSTEP_NORMAL = "3D_M_Footsteps_Carpet";
+		private const string PARAMSHEET_FOOTSTEP_CARPET = "3D_M_Footstep_Darack";
+
 		// TODO: 이것 보다 더 합리적인 관리 법은 없는 것?
 		private readonly string[] LABEL = { "Jog", "Walk", "Crouch" };
 
+		public void SetFloorMaterial(FloorMaterialType materialType)
+		{
+			m_floorMaterialType = materialType;
+		}
+
+		public void SetDefaultFloorMaterial()
+		{
+			m_floorMaterialType = FloorMaterialType.Normal;
+		}
+
 		private void FootstepAudio_LocomotiveImpulseGenerated(Vector3 position, float force)
 		{
-			if (!m_applyFootstepBaseAudio)
-			{
-				return;
-			}
-
 			PlayFootstepAudio(in position, in force);
 		}
 
@@ -41,30 +54,44 @@ namespace BM
 			{
 				case LocomotiveAction.State.Idle:
 				case LocomotiveAction.State.NormalJog:
-					m_footstepEventInstance.setParameterByNameWithLabel(PARAM_FOOTSTEP, LABEL[0]);
+
+					switch (m_floorMaterialType)
+					{
+						default:
+						case FloorMaterialType.Normal:
+							m_normalInstance.setParameterByNameWithLabel(PARAMSHEET_FOOTSTEP_NORMAL, LABEL[0]);
+							break;
+						case FloorMaterialType.Carpet:
+							break;
+					}
 					break;
+
 				case LocomotiveAction.State.WalkedJog:
-					m_footstepEventInstance.setParameterByNameWithLabel(PARAM_FOOTSTEP, LABEL[1]);
+					m_normalInstance.setParameterByNameWithLabel(PARAMSHEET_FOOTSTEP_NORMAL, LABEL[1]);
 					break;
 				case LocomotiveAction.State.CrouchedJog:
-					m_footstepEventInstance.setParameterByNameWithLabel(PARAM_FOOTSTEP, LABEL[2]);
+					m_normalInstance.setParameterByNameWithLabel(PARAMSHEET_FOOTSTEP_NORMAL, LABEL[2]);
 					break;
 			}
 		}
 
 		private void PlayFootstepAudio(in Vector3 position, in float force)
 		{
-			if (m_volumeAffectedByForce)
-			{
-				m_footstepEventInstance.setVolume(m_masterVolume * force);
-			}
-			else
-			{
-				m_footstepEventInstance.setVolume(m_masterVolume);
-			}
 
-			m_footstepEventInstance.set3DAttributes(RuntimeUtils.To3DAttributes(position));
-			m_footstepEventInstance.start();
+			var attributes = RuntimeUtils.To3DAttributes(position);
+
+			switch (m_floorMaterialType)
+			{
+				default:
+				case FloorMaterialType.Normal:
+					m_normalInstance.set3DAttributes(attributes);
+					m_normalInstance.start();
+					break;
+				case FloorMaterialType.Carpet:
+					m_carpetInstance.set3DAttributes(attributes);
+					m_carpetInstance.start();
+					break;
+			}
 		}
 
 		private void Awake()
@@ -72,10 +99,12 @@ namespace BM
 			m_locomotiveAction = GetComponent<LocomotiveAction>();
 			m_locomotiveImpulseGenerator = GetComponent<LocomotiveImpulseGenerator>();
 
-			m_footstepEventInstance = RuntimeManager.CreateInstance(m_footstepEventReference);
+			m_normalInstance = RuntimeManager.CreateInstance(m_normalEvent);
+			m_carpetInstance = RuntimeManager.CreateInstance(m_carpetEvent);
 
 			// 이게 없으면 경고가 뜹니다.
-			m_footstepEventInstance.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
+			m_normalInstance.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
+			m_carpetInstance.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
 		}
 
 		private void OnEnable()
@@ -92,10 +121,16 @@ namespace BM
 
 		private void OnDestroy()
 		{
-			if (m_footstepEventInstance.isValid())
+			if (m_normalInstance.isValid())
 			{
-				m_footstepEventInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
-				m_footstepEventInstance.release();
+				m_normalInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+				m_normalInstance.release();
+			}
+
+			if (m_carpetInstance.isValid())
+			{
+				m_carpetInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+				m_carpetInstance.release();
 			}
 		}
 	}

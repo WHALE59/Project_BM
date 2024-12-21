@@ -7,9 +7,9 @@ namespace BM
 	[DisallowMultipleComponent]
 	public class FootstepAudioVolume : MonoBehaviour
 	{
-		private Collider m_collider;
+		[SerializeField] private FootstepAudio.FloorMaterialType m_materialType;
 
-		private HashSet<FootstepAudio> m_triggeredFootstepAudioPlayers = new();
+		private Collider m_collider;
 
 		private void Awake()
 		{
@@ -23,7 +23,7 @@ namespace BM
 				return;
 			}
 
-			m_triggeredFootstepAudioPlayers.Add(footstepAudioPlayer);
+			footstepAudioPlayer.SetFloorMaterial(m_materialType);
 		}
 
 		private void OnTriggerExit(Collider collider)
@@ -33,7 +33,7 @@ namespace BM
 				// if code go through this, something went truly wrong...
 			}
 
-			m_triggeredFootstepAudioPlayers.Remove(footstepAudioPlayer);
+			footstepAudioPlayer.SetDefaultFloorMaterial();
 		}
 	}
 }

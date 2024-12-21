@@ -78,6 +78,7 @@ namespace BM
 			// Impulse 타이머
 
 			if (m_elapsedTimeAfterLastImpulse < currentImpulsePeriod)
+
 			{
 				m_elapsedTimeAfterLastImpulse += Time.deltaTime;
 
@@ -89,13 +90,13 @@ namespace BM
 				}
 			}
 
-			// currentImpulsePeriod가 매 프레임 변경될 수 있어서, 한번 더 검사해 주어야 함.
+			//// currentImpulsePeriod가 매 프레임 변경될 수 있어서, 한번 더 검사해 주어야 함.
 
-			if (m_elapsedTimeAfterLastImpulse >= currentImpulsePeriod)
-			{
-				LocomotiveImpulseGenerated?.Invoke(transform.position, currentImpulseForce);
-				m_elapsedTimeAfterLastImpulse = 0f;
-			}
+			//if (m_elapsedTimeAfterLastImpulse >= currentImpulsePeriod)
+			//{
+			//	LocomotiveImpulseGenerated?.Invoke(transform.position, currentImpulseForce);
+			//	m_elapsedTimeAfterLastImpulse = 0f;
+			//}
 		}
 
 		private void LocomotiveImpulseGenerator_MoveInputCanceled(Vector2 _)

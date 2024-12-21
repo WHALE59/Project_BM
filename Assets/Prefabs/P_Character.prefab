@@ -256,7 +256,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_inputReaderSO: {fileID: 11400000, guid: 314b40c975fd3d349a30c23aa2faddeb, type: 2}
-  m_raycastDistance: 5
+  m_raycastDistance: 1.5
   m_layerMask:
     serializedVersion: 2
     m_Bits: 64
@@ -304,16 +304,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 213d24eec5b39204db82391aaf5f9a57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_applyFootstepBaseAudio: 1
-  m_volumeAffectedByForce: 0
-  m_masterVolume: 1
-  m_footstepEventReference:
+  m_normalEvent:
     Guid:
       Data1: -1178592238
       Data2: 1229513049
       Data3: -1190215789
       Data4: 953587788
     Path: event:/SFX/Darack/3D_M_Footsteps_DarackWood
+  m_carpetEvent:
+    Guid:
+      Data1: -1549508697
+      Data2: 1188440277
+      Data3: -1354421877
+      Data4: 1215331836
+    Path: event:/SFX/Darack/3D_M_Footsteps_Carpet
 --- !u!114 &3206800542811517752
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -326,6 +330,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d10e7106f42eaa46b40ea6e73b8f851, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_inventory: []
 --- !u!1 &7658585729986315391
 GameObject:
   m_ObjectHideFlags: 0

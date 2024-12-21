@@ -2367,7 +2367,7 @@ Transform:
   m_GameObject: {fileID: 565186366}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1014.13, y: 1007.22, z: 100}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2388,11 +2388,11 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: 1909894656
-      Data2: 1268323840
-      Data3: -1612893289
-      Data4: 984089176
-    Path: event:/Ambience/3D_M_Ambience_Darack
+      Data1: 1914912182
+      Data2: 1176262425
+      Data3: 2093463696
+      Data4: -1558290793
+    Path: event:/Ambience/2D_M_Ambience_Darack
   Event: 
   EventPlayTrigger: 11
   EventStopTrigger: 12
@@ -3610,6 +3610,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99d1bb0b20ebe494e89759c67a32e057, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_materialType: 1
 --- !u!4 &906276687
 Transform:
   m_ObjectHideFlags: 0
@@ -3619,7 +3620,7 @@ Transform:
   m_GameObject: {fileID: 906276684}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.055, y: 0, z: 2.704}
+  m_LocalPosition: {x: -1.239, y: 0, z: 2.706}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6062,8 +6063,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 565186367}
   - {fileID: 1340278787}
+  - {fileID: 565186367}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1468474659 stripped
@@ -8693,8 +8694,8 @@ MonoBehaviour:
   NonRigidbodyVelocity: 0
   Params: []
   OverrideAttenuation: 0
-  OverrideMinDistance: 1
-  OverrideMaxDistance: 20
+  OverrideMinDistance: 0
+  OverrideMaxDistance: 3
 --- !u!1001 &1997635533
 PrefabInstance:
   m_ObjectHideFlags: 0
