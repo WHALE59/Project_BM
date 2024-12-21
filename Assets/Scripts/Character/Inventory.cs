@@ -1,3 +1,4 @@
+using BM.Interactables;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
@@ -9,9 +10,10 @@ namespace BM
 {
 	public class Inventory : MonoBehaviour
 	{
-		[SerializeField] InputReader m_InputReader;
+		[SerializeField] InputReaderSO m_InputReader;
 		[SerializeField] GameObject m_Book;
 		[SerializeField] EndlessBook m_Book_Page;
+		[SerializeField] private List<InteractableSO> m_inventory = new();
 		// Start is called before the first frame update
 		void Start()
 		{
@@ -79,7 +81,7 @@ namespace BM
 			Debug.Log("OnOpen_InventoryPerformed");
 
 
-			m_InputReader.SetActiveActionMap(InputReader.EActionMap.Gameplay_UI);
+			m_InputReader.SetActiveActionMap(InputReaderSO.EActionMap.Gameplay_UI);
 			m_Book.SetActive(true);
 			//m_Book.GetComponent<Animation>().Play();
 
@@ -131,7 +133,7 @@ namespace BM
 		{
 			Debug.Log("OnClose_InventoryPerformed");
 			//m_Book_Page.SetState(EndlessBook.StateEnum.ClosedFront);
-			m_InputReader.SetActiveActionMap(InputReader.EActionMap.Gameplay);
+			m_InputReader.SetActiveActionMap(InputReaderSO.EActionMap.Gameplay);
 			m_Book.SetActive(false);
 			return;
 		}
@@ -176,6 +178,13 @@ namespace BM
 
 		}
 
+		
+
+		public void PutIn(InteractableSO interactable)
+		{
+			m_inventory.Add(interactable);
+		}
+
 		private List<STItemInfo> stItemList;
 		public List<STItemInfo> Get_ItemList() { return stItemList; }
 		public STItemInfo Get_ItemInfo(int iIndex) { return stItemList[iIndex]; }
@@ -192,23 +201,6 @@ namespace BM
 			public int iItemID;//0
 			public string sItemDescription;//None
 			public bool bCheckOnHand;//false
-		}
-	}
-}
-using BM.Interactables;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace BM
-{
-	[DisallowMultipleComponent]
-	public class Inventory : MonoBehaviour
-	{
-		[SerializeField] private List<InteractableSO> m_inventory = new();
-
-		public void PutIn(InteractableSO interactable)
-		{
-			m_inventory.Add(interactable);
 		}
 	}
 }

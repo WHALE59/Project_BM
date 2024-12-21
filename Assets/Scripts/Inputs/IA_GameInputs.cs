@@ -410,17 +410,46 @@ namespace BM
                     ""action"": ""Use"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5574281b-3474-4273-bf74-84d21cc6d69a"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Open_Inventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
         {
-            ""name"": ""UserInterface"",
+            ""name"": ""Gameplay_UI"",
             ""id"": ""958cb14d-5ef2-4af2-9d37-4a1f346ef7ee"",
             ""actions"": [
                 {
-                    ""name"": ""New action"",
+                    ""name"": ""Close_Inventory"",
                     ""type"": ""Button"",
                     ""id"": ""b602609b-f072-4a82-93d2-5fe9d4552d6e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Next_Page"",
+                    ""type"": ""Button"",
+                    ""id"": ""147d87b0-7f6c-4cd4-8a93-20db64f99708"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Previous_Page"",
+                    ""type"": ""Button"",
+                    ""id"": ""0bbb8e57-c169-42b2-9b13-9dd0619894e0"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -431,11 +460,33 @@ namespace BM
                 {
                     ""name"": """",
                     ""id"": ""241ee1d0-20a1-474d-b0df-c57690866815"",
-                    ""path"": """",
+                    ""path"": ""<Keyboard>/tab"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""New action"",
+                    ""groups"": "";BM_PC"",
+                    ""action"": ""Close_Inventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ad4fe822-8849-4c78-b80b-125b91d03e37"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";BM_PC"",
+                    ""action"": ""Next_Page"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6f3a953c-2c56-4508-afc9-e27a8ac1b11b"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";BM_PC"",
+                    ""action"": ""Previous_Page"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -481,15 +532,18 @@ namespace BM
             m_Gameplay_CollectOrActivate = m_Gameplay.FindAction("CollectOrActivate", throwIfNotFound: true);
             m_Gameplay_Use = m_Gameplay.FindAction("Use", throwIfNotFound: true);
             m_Gameplay_ToggleDeveloperOverlay = m_Gameplay.FindAction("ToggleDeveloperOverlay", throwIfNotFound: true);
-            // UserInterface
-            m_UserInterface = asset.FindActionMap("UserInterface", throwIfNotFound: true);
-            m_UserInterface_Newaction = m_UserInterface.FindAction("New action", throwIfNotFound: true);
+            m_Gameplay_Open_Inventory = m_Gameplay.FindAction("Open_Inventory", throwIfNotFound: true);
+            // Gameplay_UI
+            m_Gameplay_UI = asset.FindActionMap("Gameplay_UI", throwIfNotFound: true);
+            m_Gameplay_UI_Close_Inventory = m_Gameplay_UI.FindAction("Close_Inventory", throwIfNotFound: true);
+            m_Gameplay_UI_Next_Page = m_Gameplay_UI.FindAction("Next_Page", throwIfNotFound: true);
+            m_Gameplay_UI_Previous_Page = m_Gameplay_UI.FindAction("Previous_Page", throwIfNotFound: true);
         }
 
         ~@IA_GameInputs()
         {
             UnityEngine.Debug.Assert(!m_Gameplay.enabled, "This will cause a leak and performance issues, IA_GameInputs.Gameplay.Disable() has not been called.");
-            UnityEngine.Debug.Assert(!m_UserInterface.enabled, "This will cause a leak and performance issues, IA_GameInputs.UserInterface.Disable() has not been called.");
+            UnityEngine.Debug.Assert(!m_Gameplay_UI.enabled, "This will cause a leak and performance issues, IA_GameInputs.Gameplay_UI.Disable() has not been called.");
         }
 
         public void Dispose()
@@ -650,51 +704,67 @@ namespace BM
         }
         public GameplayActions @Gameplay => new GameplayActions(this);
 
-        // UserInterface
-        private readonly InputActionMap m_UserInterface;
-        private List<IUserInterfaceActions> m_UserInterfaceActionsCallbackInterfaces = new List<IUserInterfaceActions>();
-        private readonly InputAction m_UserInterface_Newaction;
-        public struct UserInterfaceActions
+        // Gameplay_UI
+        private readonly InputActionMap m_Gameplay_UI;
+        private List<IGameplay_UIActions> m_Gameplay_UIActionsCallbackInterfaces = new List<IGameplay_UIActions>();
+        private readonly InputAction m_Gameplay_UI_Close_Inventory;
+        private readonly InputAction m_Gameplay_UI_Next_Page;
+        private readonly InputAction m_Gameplay_UI_Previous_Page;
+        public struct Gameplay_UIActions
         {
             private @IA_GameInputs m_Wrapper;
-            public UserInterfaceActions(@IA_GameInputs wrapper) { m_Wrapper = wrapper; }
-            public InputAction @Newaction => m_Wrapper.m_UserInterface_Newaction;
-            public InputActionMap Get() { return m_Wrapper.m_UserInterface; }
+            public Gameplay_UIActions(@IA_GameInputs wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Close_Inventory => m_Wrapper.m_Gameplay_UI_Close_Inventory;
+            public InputAction @Next_Page => m_Wrapper.m_Gameplay_UI_Next_Page;
+            public InputAction @Previous_Page => m_Wrapper.m_Gameplay_UI_Previous_Page;
+            public InputActionMap Get() { return m_Wrapper.m_Gameplay_UI; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
             public bool enabled => Get().enabled;
-            public static implicit operator InputActionMap(UserInterfaceActions set) { return set.Get(); }
-            public void AddCallbacks(IUserInterfaceActions instance)
+            public static implicit operator InputActionMap(Gameplay_UIActions set) { return set.Get(); }
+            public void AddCallbacks(IGameplay_UIActions instance)
             {
-                if (instance == null || m_Wrapper.m_UserInterfaceActionsCallbackInterfaces.Contains(instance)) return;
-                m_Wrapper.m_UserInterfaceActionsCallbackInterfaces.Add(instance);
-                @Newaction.started += instance.OnNewaction;
-                @Newaction.performed += instance.OnNewaction;
-                @Newaction.canceled += instance.OnNewaction;
+                if (instance == null || m_Wrapper.m_Gameplay_UIActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_Gameplay_UIActionsCallbackInterfaces.Add(instance);
+                @Close_Inventory.started += instance.OnClose_Inventory;
+                @Close_Inventory.performed += instance.OnClose_Inventory;
+                @Close_Inventory.canceled += instance.OnClose_Inventory;
+                @Next_Page.started += instance.OnNext_Page;
+                @Next_Page.performed += instance.OnNext_Page;
+                @Next_Page.canceled += instance.OnNext_Page;
+                @Previous_Page.started += instance.OnPrevious_Page;
+                @Previous_Page.performed += instance.OnPrevious_Page;
+                @Previous_Page.canceled += instance.OnPrevious_Page;
             }
 
-            private void UnregisterCallbacks(IUserInterfaceActions instance)
+            private void UnregisterCallbacks(IGameplay_UIActions instance)
             {
-                @Newaction.started -= instance.OnNewaction;
-                @Newaction.performed -= instance.OnNewaction;
-                @Newaction.canceled -= instance.OnNewaction;
+                @Close_Inventory.started -= instance.OnClose_Inventory;
+                @Close_Inventory.performed -= instance.OnClose_Inventory;
+                @Close_Inventory.canceled -= instance.OnClose_Inventory;
+                @Next_Page.started -= instance.OnNext_Page;
+                @Next_Page.performed -= instance.OnNext_Page;
+                @Next_Page.canceled -= instance.OnNext_Page;
+                @Previous_Page.started -= instance.OnPrevious_Page;
+                @Previous_Page.performed -= instance.OnPrevious_Page;
+                @Previous_Page.canceled -= instance.OnPrevious_Page;
             }
 
-            public void RemoveCallbacks(IUserInterfaceActions instance)
+            public void RemoveCallbacks(IGameplay_UIActions instance)
             {
-                if (m_Wrapper.m_UserInterfaceActionsCallbackInterfaces.Remove(instance))
+                if (m_Wrapper.m_Gameplay_UIActionsCallbackInterfaces.Remove(instance))
                     UnregisterCallbacks(instance);
             }
 
-            public void SetCallbacks(IUserInterfaceActions instance)
+            public void SetCallbacks(IGameplay_UIActions instance)
             {
-                foreach (var item in m_Wrapper.m_UserInterfaceActionsCallbackInterfaces)
+                foreach (var item in m_Wrapper.m_Gameplay_UIActionsCallbackInterfaces)
                     UnregisterCallbacks(item);
-                m_Wrapper.m_UserInterfaceActionsCallbackInterfaces.Clear();
+                m_Wrapper.m_Gameplay_UIActionsCallbackInterfaces.Clear();
                 AddCallbacks(instance);
             }
         }
-        public UserInterfaceActions @UserInterface => new UserInterfaceActions(this);
+        public Gameplay_UIActions @Gameplay_UI => new Gameplay_UIActions(this);
         private int m_BM_PCSchemeIndex = -1;
         public InputControlScheme BM_PCScheme
         {
@@ -724,15 +794,11 @@ namespace BM
             void OnToggleDeveloperOverlay(InputAction.CallbackContext context);
             void OnOpen_Inventory(InputAction.CallbackContext context);
         }
-        public interface IGamePlay_UIActions
+        public interface IGameplay_UIActions
         {
             void OnClose_Inventory(InputAction.CallbackContext context);
             void OnNext_Page(InputAction.CallbackContext context);
             void OnPrevious_Page(InputAction.CallbackContext context);
-        }
-        public interface IUserInterfaceActions
-        {
-            void OnNewaction(InputAction.CallbackContext context);
         }
     }
 }

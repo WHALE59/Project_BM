@@ -9,7 +9,7 @@ using static BM.IA_GameInputs;
 namespace BM
 {
 	[CreateAssetMenu(fileName = "InputReaderSO_Default", menuName = "BM/SO/Input Reader SO")]
-	public partial class InputReaderSO : ScriptableObject, IGameplayActions
+	public partial class InputReaderSO : ScriptableObject, IGameplayActions, IGameplay_UIActions
 	{
 		/// <summary>
 		/// <see cref="IA_GameInputs"/>에 정의된 Action Map을 나타내는 열거형
@@ -94,6 +94,7 @@ namespace BM
 				m_gameInputs = new();
 
 				m_gameInputs.Gameplay.SetCallbacks(this);
+				m_gameInputs.Gameplay_UI.SetCallbacks(this);
 			}
 
 			SetActiveActionMap(m_startActionMap);
@@ -120,11 +121,11 @@ namespace BM
 
 			if (actionMap.HasFlag(EActionMap.Gameplay_UI))
 			{
-				m_gameInputs.GamePlay_UI.Enable();
+				m_gameInputs.Gameplay_UI.Enable();
 			}
 			else
 			{
-				m_gameInputs.GamePlay_UI.Disable();
+				m_gameInputs.Gameplay_UI.Disable();
 			}
 			// TODO : UI Action Map이 설정되면, 처리할 것
 		}
@@ -262,7 +263,7 @@ namespace BM
 		}
 
 
-		void IA_GameInputs.IGameplayActions.OnOpen_Inventory(InputAction.CallbackContext context)
+		void IGameplayActions.OnOpen_Inventory(InputAction.CallbackContext context)
 		{
 			switch (context.phase)
 			{
@@ -276,7 +277,7 @@ namespace BM
 			return;
 		}
 
-		void IA_GameInputs.IGamePlay_UIActions.OnClose_Inventory(InputAction.CallbackContext context)
+		void IGameplay_UIActions.OnClose_Inventory(UnityEngine.InputSystem.InputAction.CallbackContext context)
 		{
 			switch (context.phase)
 			{
@@ -290,7 +291,7 @@ namespace BM
 			return;
 		}
 
-		void IA_GameInputs.IGamePlay_UIActions.OnNext_Page(UnityEngine.InputSystem.InputAction.CallbackContext context)
+		void IGameplay_UIActions.OnNext_Page(UnityEngine.InputSystem.InputAction.CallbackContext context)
 		{
 			switch (context.phase)
 			{
@@ -304,7 +305,7 @@ namespace BM
 			return;
 		}
 
-		void IA_GameInputs.IGamePlay_UIActions.OnPrevious_Page(UnityEngine.InputSystem.InputAction.CallbackContext context)
+		void IGameplay_UIActions.OnPrevious_Page(UnityEngine.InputSystem.InputAction.CallbackContext context)
 		{
 			switch (context.phase)
 			{
@@ -319,24 +320,7 @@ namespace BM
 		}
 
 
-		private void OnEnable()
-		{
-			/// <see cref="IA_GameInputs"/> 인스턴스가 없으면 생성
-			if (m_gameInputs is null)
-			{
-				m_gameInputs = new();
-
-				m_gameInputs.Gameplay.SetCallbacks(this);
-				m_gameInputs.GamePlay_UI.SetCallbacks(this);
-			}
-
-			SetActiveActionMap(m_startActionMap);
-		}
-
-		private void OnDisable()
-		{
-			SetActiveActionMap(EActionMap.None);
-		}
+		
 
 	}
 }
