@@ -17,7 +17,7 @@ namespace BM
 		[SerializeField] private InputReaderSO m_inputReader;
 		[SerializeField] private VerticalLayoutGroup m_buttonGroup;
 		[SerializeField] private Button m_buttonPrefab;
-		[SerializeField] private List<string> m_sceneNameToExeclude = new() { m_persistentGameplaySceneName };
+		[SerializeField] private List<string> m_sceneNameToExclude = new() { m_persistentGameplaySceneName };
 
 		private const string m_persistentGameplaySceneName = "SC_PersistentGameplay";
 
@@ -47,7 +47,7 @@ namespace BM
 				var scene = SceneUtility.GetScenePathByBuildIndex(i);
 				var sceneName = Path.GetFileNameWithoutExtension(scene);
 
-				if (m_sceneNameToExeclude.Contains(sceneName))
+				if (m_sceneNameToExclude.Contains(sceneName))
 				{
 					continue;
 				}
