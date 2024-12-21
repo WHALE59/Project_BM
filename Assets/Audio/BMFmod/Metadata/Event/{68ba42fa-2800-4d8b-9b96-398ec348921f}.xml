@@ -61,7 +61,7 @@
 			<value>0</value>
 		</property>
 		<property name="maximumDistance">
-			<value>3</value>
+			<value>2.4000001</value>
 		</property>
 	</object>
 	<object class="MarkerTrack" id="{8667e1d3-bafb-46bf-9197-8fc147d1bb8c}" />
@@ -149,6 +149,10 @@
 	</object>
 	<object class="MixerBusPanner" id="{33eb6ac5-879e-479d-9971-47760a373f33}" />
 	<object class="MixerBusFader" id="{d09cb437-4b51-4998-bb6d-ac9da2c7a412}" />
-	<object class="SpatialiserEffect" id="{e89da7c9-c75d-4cc7-b409-27f95e5acdb7}" />
+	<object class="SpatialiserEffect" id="{e89da7c9-c75d-4cc7-b409-27f95e5acdb7}">
+		<property name="distanceRolloffType">
+			<value>2</value>
+		</property>
+	</object>
 	<object class="MixerBusFader" id="{242b39ad-4257-4c5c-acd5-e1cef0f7cc38}" />
 </objects>
