@@ -67,6 +67,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Open_Inventory",
+                    "type": "Button",
+                    "id": "0a09ccdd-564b-4715-9b3b-351d28f60081",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -386,6 +395,85 @@
                     "processors": "",
                     "groups": ";BM_PC",
                     "action": "ToggleDeveloperOverlay",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bc9683db-3fe0-4a52-bfd8-f08cb07b4d6a",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";BM_PC",
+                    "action": "Open_Inventory",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "GamePlay_UI",
+            "id": "fe2005ea-33a6-41ed-ad77-3b22942821f8",
+            "actions": [
+                {
+                    "name": "Close_Inventory",
+                    "type": "Button",
+                    "id": "a98eb352-5f03-49b7-ba3c-610ac997d0a7",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Next_Page",
+                    "type": "Button",
+                    "id": "28744140-bf1b-4866-889b-097edba61424",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Previous_Page",
+                    "type": "Button",
+                    "id": "20ec6506-23a5-4d2f-9f7a-5932b851bd15",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "a6231193-b9b6-42fa-8d27-9d3f875e958a",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";BM_PC",
+                    "action": "Close_Inventory",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "da28eecb-4ece-4d0b-8a43-6f5a1c507b5a",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";BM_PC",
+                    "action": "Next_Page",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6898cac8-b333-4b3a-aabd-799d8da51a34",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Previous_Page",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

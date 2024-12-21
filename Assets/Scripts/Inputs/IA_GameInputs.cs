@@ -91,6 +91,15 @@ namespace BM
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Open_Inventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""0a09ccdd-564b-4715-9b3b-351d28f60081"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -412,6 +421,85 @@ namespace BM
                     ""action"": ""ToggleDeveloperOverlay"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bc9683db-3fe0-4a52-bfd8-f08cb07b4d6a"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";BM_PC"",
+                    ""action"": ""Open_Inventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""GamePlay_UI"",
+            ""id"": ""fe2005ea-33a6-41ed-ad77-3b22942821f8"",
+            ""actions"": [
+                {
+                    ""name"": ""Close_Inventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""a98eb352-5f03-49b7-ba3c-610ac997d0a7"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Next_Page"",
+                    ""type"": ""Button"",
+                    ""id"": ""28744140-bf1b-4866-889b-097edba61424"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Previous_Page"",
+                    ""type"": ""Button"",
+                    ""id"": ""20ec6506-23a5-4d2f-9f7a-5932b851bd15"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""a6231193-b9b6-42fa-8d27-9d3f875e958a"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";BM_PC"",
+                    ""action"": ""Close_Inventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""da28eecb-4ece-4d0b-8a43-6f5a1c507b5a"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";BM_PC"",
+                    ""action"": ""Next_Page"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6898cac8-b333-4b3a-aabd-799d8da51a34"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Previous_Page"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -455,11 +543,18 @@ namespace BM
             m_Gameplay_Crouch = m_Gameplay.FindAction("Crouch", throwIfNotFound: true);
             m_Gameplay_Walk = m_Gameplay.FindAction("Walk", throwIfNotFound: true);
             m_Gameplay_ToggleDeveloperOverlay = m_Gameplay.FindAction("ToggleDeveloperOverlay", throwIfNotFound: true);
+            m_Gameplay_Open_Inventory = m_Gameplay.FindAction("Open_Inventory", throwIfNotFound: true);
+            // GamePlay_UI
+            m_GamePlay_UI = asset.FindActionMap("GamePlay_UI", throwIfNotFound: true);
+            m_GamePlay_UI_Close_Inventory = m_GamePlay_UI.FindAction("Close_Inventory", throwIfNotFound: true);
+            m_GamePlay_UI_Next_Page = m_GamePlay_UI.FindAction("Next_Page", throwIfNotFound: true);
+            m_GamePlay_UI_Previous_Page = m_GamePlay_UI.FindAction("Previous_Page", throwIfNotFound: true);
         }
 
         ~@IA_GameInputs()
         {
             UnityEngine.Debug.Assert(!m_Gameplay.enabled, "This will cause a leak and performance issues, IA_GameInputs.Gameplay.Disable() has not been called.");
+            UnityEngine.Debug.Assert(!m_GamePlay_UI.enabled, "This will cause a leak and performance issues, IA_GameInputs.GamePlay_UI.Disable() has not been called.");
         }
 
         public void Dispose()
@@ -528,6 +623,7 @@ namespace BM
         private readonly InputAction m_Gameplay_Crouch;
         private readonly InputAction m_Gameplay_Walk;
         private readonly InputAction m_Gameplay_ToggleDeveloperOverlay;
+        private readonly InputAction m_Gameplay_Open_Inventory;
         public struct GameplayActions
         {
             private @IA_GameInputs m_Wrapper;
@@ -539,6 +635,7 @@ namespace BM
             public InputAction @Crouch => m_Wrapper.m_Gameplay_Crouch;
             public InputAction @Walk => m_Wrapper.m_Gameplay_Walk;
             public InputAction @ToggleDeveloperOverlay => m_Wrapper.m_Gameplay_ToggleDeveloperOverlay;
+            public InputAction @Open_Inventory => m_Wrapper.m_Gameplay_Open_Inventory;
             public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -569,6 +666,9 @@ namespace BM
                 @ToggleDeveloperOverlay.started += instance.OnToggleDeveloperOverlay;
                 @ToggleDeveloperOverlay.performed += instance.OnToggleDeveloperOverlay;
                 @ToggleDeveloperOverlay.canceled += instance.OnToggleDeveloperOverlay;
+                @Open_Inventory.started += instance.OnOpen_Inventory;
+                @Open_Inventory.performed += instance.OnOpen_Inventory;
+                @Open_Inventory.canceled += instance.OnOpen_Inventory;
             }
 
             private void UnregisterCallbacks(IGameplayActions instance)
@@ -594,6 +694,9 @@ namespace BM
                 @ToggleDeveloperOverlay.started -= instance.OnToggleDeveloperOverlay;
                 @ToggleDeveloperOverlay.performed -= instance.OnToggleDeveloperOverlay;
                 @ToggleDeveloperOverlay.canceled -= instance.OnToggleDeveloperOverlay;
+                @Open_Inventory.started -= instance.OnOpen_Inventory;
+                @Open_Inventory.performed -= instance.OnOpen_Inventory;
+                @Open_Inventory.canceled -= instance.OnOpen_Inventory;
             }
 
             public void RemoveCallbacks(IGameplayActions instance)
@@ -611,6 +714,68 @@ namespace BM
             }
         }
         public GameplayActions @Gameplay => new GameplayActions(this);
+
+        // GamePlay_UI
+        private readonly InputActionMap m_GamePlay_UI;
+        private List<IGamePlay_UIActions> m_GamePlay_UIActionsCallbackInterfaces = new List<IGamePlay_UIActions>();
+        private readonly InputAction m_GamePlay_UI_Close_Inventory;
+        private readonly InputAction m_GamePlay_UI_Next_Page;
+        private readonly InputAction m_GamePlay_UI_Previous_Page;
+        public struct GamePlay_UIActions
+        {
+            private @IA_GameInputs m_Wrapper;
+            public GamePlay_UIActions(@IA_GameInputs wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Close_Inventory => m_Wrapper.m_GamePlay_UI_Close_Inventory;
+            public InputAction @Next_Page => m_Wrapper.m_GamePlay_UI_Next_Page;
+            public InputAction @Previous_Page => m_Wrapper.m_GamePlay_UI_Previous_Page;
+            public InputActionMap Get() { return m_Wrapper.m_GamePlay_UI; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(GamePlay_UIActions set) { return set.Get(); }
+            public void AddCallbacks(IGamePlay_UIActions instance)
+            {
+                if (instance == null || m_Wrapper.m_GamePlay_UIActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_GamePlay_UIActionsCallbackInterfaces.Add(instance);
+                @Close_Inventory.started += instance.OnClose_Inventory;
+                @Close_Inventory.performed += instance.OnClose_Inventory;
+                @Close_Inventory.canceled += instance.OnClose_Inventory;
+                @Next_Page.started += instance.OnNext_Page;
+                @Next_Page.performed += instance.OnNext_Page;
+                @Next_Page.canceled += instance.OnNext_Page;
+                @Previous_Page.started += instance.OnPrevious_Page;
+                @Previous_Page.performed += instance.OnPrevious_Page;
+                @Previous_Page.canceled += instance.OnPrevious_Page;
+            }
+
+            private void UnregisterCallbacks(IGamePlay_UIActions instance)
+            {
+                @Close_Inventory.started -= instance.OnClose_Inventory;
+                @Close_Inventory.performed -= instance.OnClose_Inventory;
+                @Close_Inventory.canceled -= instance.OnClose_Inventory;
+                @Next_Page.started -= instance.OnNext_Page;
+                @Next_Page.performed -= instance.OnNext_Page;
+                @Next_Page.canceled -= instance.OnNext_Page;
+                @Previous_Page.started -= instance.OnPrevious_Page;
+                @Previous_Page.performed -= instance.OnPrevious_Page;
+                @Previous_Page.canceled -= instance.OnPrevious_Page;
+            }
+
+            public void RemoveCallbacks(IGamePlay_UIActions instance)
+            {
+                if (m_Wrapper.m_GamePlay_UIActionsCallbackInterfaces.Remove(instance))
+                    UnregisterCallbacks(instance);
+            }
+
+            public void SetCallbacks(IGamePlay_UIActions instance)
+            {
+                foreach (var item in m_Wrapper.m_GamePlay_UIActionsCallbackInterfaces)
+                    UnregisterCallbacks(item);
+                m_Wrapper.m_GamePlay_UIActionsCallbackInterfaces.Clear();
+                AddCallbacks(instance);
+            }
+        }
+        public GamePlay_UIActions @GamePlay_UI => new GamePlay_UIActions(this);
         private int m_BM_PCSchemeIndex = -1;
         public InputControlScheme BM_PCScheme
         {
@@ -638,6 +803,13 @@ namespace BM
             void OnCrouch(InputAction.CallbackContext context);
             void OnWalk(InputAction.CallbackContext context);
             void OnToggleDeveloperOverlay(InputAction.CallbackContext context);
+            void OnOpen_Inventory(InputAction.CallbackContext context);
+        }
+        public interface IGamePlay_UIActions
+        {
+            void OnClose_Inventory(InputAction.CallbackContext context);
+            void OnNext_Page(InputAction.CallbackContext context);
+            void OnPrevious_Page(InputAction.CallbackContext context);
         }
     }
 }
