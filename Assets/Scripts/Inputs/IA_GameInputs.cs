@@ -417,7 +417,7 @@ namespace BM
                     ""path"": ""<Keyboard>/tab"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": "";BM_PC"",
                     ""action"": ""Open_Inventory"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -450,6 +450,24 @@ namespace BM
                     ""name"": ""Previous_Page"",
                     ""type"": ""Button"",
                     ""id"": ""0bbb8e57-c169-42b2-9b13-9dd0619894e0"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Click_Left"",
+                    ""type"": ""Button"",
+                    ""id"": ""9db4bef2-e626-4859-a952-43e43bff360b"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Click_Right"",
+                    ""type"": ""Button"",
+                    ""id"": ""af8f6a16-d319-4104-97ba-441a1661e589"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -487,6 +505,28 @@ namespace BM
                     ""processors"": """",
                     ""groups"": "";BM_PC"",
                     ""action"": ""Previous_Page"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5705e696-9e4c-49d7-a184-2aaa573a2387"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";BM_PC"",
+                    ""action"": ""Click_Left"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""622e73d0-b5d4-4d3b-9ff1-134ca27af519"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";BM_PC"",
+                    ""action"": ""Click_Right"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -538,6 +578,8 @@ namespace BM
             m_Gameplay_UI_Close_Inventory = m_Gameplay_UI.FindAction("Close_Inventory", throwIfNotFound: true);
             m_Gameplay_UI_Next_Page = m_Gameplay_UI.FindAction("Next_Page", throwIfNotFound: true);
             m_Gameplay_UI_Previous_Page = m_Gameplay_UI.FindAction("Previous_Page", throwIfNotFound: true);
+            m_Gameplay_UI_Click_Left = m_Gameplay_UI.FindAction("Click_Left", throwIfNotFound: true);
+            m_Gameplay_UI_Click_Right = m_Gameplay_UI.FindAction("Click_Right", throwIfNotFound: true);
         }
 
         ~@IA_GameInputs()
@@ -710,6 +752,8 @@ namespace BM
         private readonly InputAction m_Gameplay_UI_Close_Inventory;
         private readonly InputAction m_Gameplay_UI_Next_Page;
         private readonly InputAction m_Gameplay_UI_Previous_Page;
+        private readonly InputAction m_Gameplay_UI_Click_Left;
+        private readonly InputAction m_Gameplay_UI_Click_Right;
         public struct Gameplay_UIActions
         {
             private @IA_GameInputs m_Wrapper;
@@ -717,6 +761,8 @@ namespace BM
             public InputAction @Close_Inventory => m_Wrapper.m_Gameplay_UI_Close_Inventory;
             public InputAction @Next_Page => m_Wrapper.m_Gameplay_UI_Next_Page;
             public InputAction @Previous_Page => m_Wrapper.m_Gameplay_UI_Previous_Page;
+            public InputAction @Click_Left => m_Wrapper.m_Gameplay_UI_Click_Left;
+            public InputAction @Click_Right => m_Wrapper.m_Gameplay_UI_Click_Right;
             public InputActionMap Get() { return m_Wrapper.m_Gameplay_UI; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -735,6 +781,12 @@ namespace BM
                 @Previous_Page.started += instance.OnPrevious_Page;
                 @Previous_Page.performed += instance.OnPrevious_Page;
                 @Previous_Page.canceled += instance.OnPrevious_Page;
+                @Click_Left.started += instance.OnClick_Left;
+                @Click_Left.performed += instance.OnClick_Left;
+                @Click_Left.canceled += instance.OnClick_Left;
+                @Click_Right.started += instance.OnClick_Right;
+                @Click_Right.performed += instance.OnClick_Right;
+                @Click_Right.canceled += instance.OnClick_Right;
             }
 
             private void UnregisterCallbacks(IGameplay_UIActions instance)
@@ -748,6 +800,12 @@ namespace BM
                 @Previous_Page.started -= instance.OnPrevious_Page;
                 @Previous_Page.performed -= instance.OnPrevious_Page;
                 @Previous_Page.canceled -= instance.OnPrevious_Page;
+                @Click_Left.started -= instance.OnClick_Left;
+                @Click_Left.performed -= instance.OnClick_Left;
+                @Click_Left.canceled -= instance.OnClick_Left;
+                @Click_Right.started -= instance.OnClick_Right;
+                @Click_Right.performed -= instance.OnClick_Right;
+                @Click_Right.canceled -= instance.OnClick_Right;
             }
 
             public void RemoveCallbacks(IGameplay_UIActions instance)
@@ -799,6 +857,8 @@ namespace BM
             void OnClose_Inventory(InputAction.CallbackContext context);
             void OnNext_Page(InputAction.CallbackContext context);
             void OnPrevious_Page(InputAction.CallbackContext context);
+            void OnClick_Left(InputAction.CallbackContext context);
+            void OnClick_Right(InputAction.CallbackContext context);
         }
     }
 }

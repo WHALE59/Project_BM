@@ -77,6 +77,12 @@ namespace BM
 		public event UnityAction Previous_PagePerformed = delegate { };
 		public event UnityAction Previous_PageCanceled = delegate { };
 
+		public event UnityAction Click_LeftPerformed = delegate { };
+		public event UnityAction Click_LeftCanceled = delegate { };
+
+		public event UnityAction Click_RightPerformed = delegate { };
+		public event UnityAction Click_RightCanceled = delegate { };
+
 
 
 
@@ -277,7 +283,7 @@ namespace BM
 			return;
 		}
 
-		void IGameplay_UIActions.OnClose_Inventory(UnityEngine.InputSystem.InputAction.CallbackContext context)
+		void IGameplay_UIActions.OnClose_Inventory(InputAction.CallbackContext context)
 		{
 			switch (context.phase)
 			{
@@ -291,7 +297,7 @@ namespace BM
 			return;
 		}
 
-		void IGameplay_UIActions.OnNext_Page(UnityEngine.InputSystem.InputAction.CallbackContext context)
+		void IGameplay_UIActions.OnNext_Page(InputAction.CallbackContext context)
 		{
 			switch (context.phase)
 			{
@@ -305,7 +311,7 @@ namespace BM
 			return;
 		}
 
-		void IGameplay_UIActions.OnPrevious_Page(UnityEngine.InputSystem.InputAction.CallbackContext context)
+		void IGameplay_UIActions.OnPrevious_Page(InputAction.CallbackContext context)
 		{
 			switch (context.phase)
 			{
@@ -319,8 +325,32 @@ namespace BM
 			return;
 		}
 
+		void IGameplay_UIActions.OnClick_Left(InputAction.CallbackContext context)
+		{
+			switch (context.phase)
+			{
+				case InputActionPhase.Performed:
+					Click_LeftPerformed.Invoke();
+					break;
+				case InputActionPhase.Canceled:
+					Click_LeftCanceled.Invoke();
+					break;
+			}
+			return;
+		}
 
-		
-
+		void IGameplay_UIActions.OnClick_Right(InputAction.CallbackContext context)
+		{
+			switch (context.phase)
+			{
+				case InputActionPhase.Performed:
+					Click_RightPerformed.Invoke();
+					break;
+				case InputActionPhase.Canceled:
+					Click_RightCanceled.Invoke();
+					break;
+			}
+			return;
+		}
 	}
 }
