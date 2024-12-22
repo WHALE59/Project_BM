@@ -12,9 +12,15 @@ namespace BM
 		[SerializeField] private LocomotivePropertySO m_locomotiveProperty;
 		[SerializeField] private InputReaderSO m_inputReader;
 
-		private LocomotiveAction m_locomotiveAction;
+#if UNITY_EDITOR
+		[Space()]
+
+		[SerializeField] private bool m_logOnLocomotiveImpulse = false;
+#endif
 
 		public event Action<Vector3, float> LocomotiveImpulseGenerated;
+
+		private LocomotiveAction m_locomotiveAction;
 
 		private float m_elapsedTimeAfterLastImpulse;
 
@@ -23,9 +29,6 @@ namespace BM
 		private LocomotiveAction.State m_state;
 
 		private float m_previousInitialImpulseTime;
-
-		[SerializeField] private bool m_logOnLocomotiveImpulse = false;
-
 
 		private void LocomotiveImpulseGenerator_LocomotiveStateChanged(LocomotiveAction.State state)
 		{
@@ -94,14 +97,6 @@ namespace BM
 					m_elapsedTimeAfterLastImpulse = 0f;
 				}
 			}
-
-			//// currentImpulsePeriod가 매 프레임 변경될 수 있어서, 한번 더 검사해 주어야 함.
-
-			//if (m_elapsedTimeAfterLastImpulse >= currentImpulsePeriod)
-			//{
-			//	LocomotiveImpulseGenerated?.Invoke(transform.position, currentImpulseForce);
-			//	m_elapsedTimeAfterLastImpulse = 0f;
-			//}
 		}
 
 		private void LocomotiveImpulseGenerator_MoveInputCanceled(Vector2 _)
@@ -128,7 +123,7 @@ namespace BM
 			m_locomotiveAction.LocomotiveStateChanged += LocomotiveImpulseGenerator_LocomotiveStateChanged;
 
 #if UNITY_EDITOR
-			LocomotiveImpulseGenerated += OnLocomotiveImpulseGenerated;
+			LocomotiveImpulseGenerated += Debug_OnLocomotiveImpulseGenerated;
 #endif
 		}
 
@@ -139,7 +134,7 @@ namespace BM
 			m_locomotiveAction.LocomotiveStateChanged -= LocomotiveImpulseGenerator_LocomotiveStateChanged;
 
 #if UNITY_EDITOR
-			LocomotiveImpulseGenerated -= OnLocomotiveImpulseGenerated;
+			LocomotiveImpulseGenerated -= Debug_OnLocomotiveImpulseGenerated;
 #endif
 		}
 
@@ -149,7 +144,7 @@ namespace BM
 		}
 
 #if UNITY_EDITOR
-		private void OnLocomotiveImpulseGenerated(Vector3 position, float force)
+		private void Debug_OnLocomotiveImpulseGenerated(Vector3 position, float force)
 		{
 			if (!m_logOnLocomotiveImpulse)
 			{

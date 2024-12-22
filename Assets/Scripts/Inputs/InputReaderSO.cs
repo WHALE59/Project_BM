@@ -103,6 +103,8 @@ namespace BM
 		}
 
 
+		/* Locomotion */
+
 		void IGameplayActions.OnMove(InputAction.CallbackContext context)
 		{
 			switch (context.phase)
@@ -189,7 +191,7 @@ namespace BM
 			}
 		}
 
-		// Interaction
+		/* Interaction */
 
 		void IGameplayActions.OnUse(InputAction.CallbackContext context)
 		{
@@ -217,7 +219,7 @@ namespace BM
 			}
 		}
 
-		// Cheats
+		/* Debug */
 
 		void IGameplayActions.OnToggleDeveloperOverlay(InputAction.CallbackContext context)
 		{
