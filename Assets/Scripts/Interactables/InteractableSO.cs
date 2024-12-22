@@ -1,6 +1,7 @@
 using FMODUnity;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization;
 
 namespace BM.Interactables
 {
@@ -26,7 +27,7 @@ namespace BM.Interactables
 
 		[SerializeField] private bool m_isUsableAndEquippable;
 
-		[SerializeField] private Sprite m_useAndEquipIcon;
+		[SerializeField] private Sprite m_equipmentIcon;
 		[SerializeField] private Sprite m_useCrosshairIcon;
 		[SerializeField] private List<InteractableSO> m_isUsedTo;
 
@@ -46,9 +47,9 @@ namespace BM.Interactables
 		[Header("아이템 설명")]
 		[Space()]
 
-		[SerializeField] private string m_displayNameKey;
+		[SerializeField] private LocalizedString m_displayName;
 
-		[SerializeField] private string m_descriptionKey;
+		[SerializeField] private LocalizedString m_description;
 
 		/// <remarks>
 		/// 게임 로직상 Collectible과 Activatable은 동시에 가질 수 있는 속성이 아니지만, 이 프로퍼티의 반환값이 참이라고 해서, <see cref="IsActivatable"/>의 반환값이 거짓임이 보장되지는 않는다.
@@ -60,6 +61,10 @@ namespace BM.Interactables
 		/// </remarks>
 		public bool IsActivatable => m_isActivatable;
 		public bool IsUsedable => m_isUsedable;
+
+		public Sprite EquipmentIcon => m_equipmentIcon;
+
+		public LocalizedString LocalizedDisplayName => m_displayName;
 
 		public void PlayOneShotCollectingSound()
 		{

@@ -36,7 +36,35 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 785522630537216
-    m_Key: 
+    m_Key: Key_DisplayName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 850381632122880
+    m_Key: Key_Description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 850407875883008
+    m_Key: Rope_DisplayName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 850445184217088
+    m_Key: Rope_Description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 850471163736064
+    m_Key: Straw_DisplayName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 850495658471424
+    m_Key: Straw_Description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 850519796690944
+    m_Key: Stick_DisplayName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 850552445153280
+    m_Key: Stick_Description
     m_Metadata:
       m_Items: []
   m_Metadata:

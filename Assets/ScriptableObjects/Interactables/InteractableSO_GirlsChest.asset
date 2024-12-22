@@ -15,6 +15,13 @@ MonoBehaviour:
   m_interactableModelPrefab: {fileID: 3984473305591679304, guid: 7867cbc9c450cd948b7c29db63fc8d9f,
     type: 3}
   m_isCollectible: 0
+  m_collectingSoundEventReference:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   m_isActivatable: 1
   m_activateCrosshairIcon: {fileID: 21300000, guid: 85ff640374d0f0449a9c4f6ba34ac68f,
     type: 3}
@@ -22,8 +29,9 @@ MonoBehaviour:
   m_useAndEquipIcon: {fileID: 0}
   m_useCrosshairIcon: {fileID: 21300000, guid: 85ff640374d0f0449a9c4f6ba34ac68f, type: 3}
   m_isUsedTo: []
-  m_isUsedable: 0
-  m_isUsedBy: []
+  m_isUsedable: 1
+  m_isUsedBy:
+  - {fileID: 11400000, guid: 5a994d3b71f17c249b67efc4d5fefcdc, type: 2}
   m_isCraftingMaterial: 0
   m_isCraftingMaterialOf: []
   m_isCraftedBy: []

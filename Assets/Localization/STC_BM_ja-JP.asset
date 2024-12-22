@@ -16,7 +16,8 @@ MonoBehaviour:
     m_Code: ja-JP
   m_SharedData: {fileID: 11400000, guid: 6bda748f0c1e0054fa5dcccfa488d4af, type: 2}
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - rid: 737333007447752749
   m_TableData:
   - m_Id: 495538367311872
     m_Localized: "\u6D3B\u6027\u5316"
@@ -35,9 +36,16 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 509385018912768
-    m_Localized: "\u4F7F\u7528\u3059\u308B"
+    m_Localized: "\u4F7F\u7528\u3059\u308B({equipmentDisplayName})"
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 737333007447752749
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 737333007447752749
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 
+        m_SharedEntries:
+        - id: 509385018912768

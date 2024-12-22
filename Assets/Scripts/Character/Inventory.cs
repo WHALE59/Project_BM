@@ -8,7 +8,6 @@ namespace BM
 	public class Inventory : MonoBehaviour
 	{
 		[SerializeField] private List<InteractableSO> m_inventory = new();
-		[SerializeField] private InteractableSO m_equipment;
 
 		public void PutIn(InteractableSO interactable)
 		{

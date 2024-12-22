@@ -19,16 +19,23 @@ namespace BM
 		[SerializeField] private bool m_enableHoveringSound = true;
 		[SerializeField] private EventReference m_hoveringSoundEventReference;
 
+		[SerializeField] private InteractableSO m_equipment;
+
 		private InteractableBase m_detectedInteractable;
 
-		public Action<InteractableBase> InteractableFound;
-		public Action<InteractableBase> InteractableLost;
+		public event Action<InteractableBase> InteractableFound;
+		public event Action<InteractableBase> InteractableLost;
+
+		public event Action<InteractableSO> Equipped;
+		public event Action Unequipped;
 
 		private bool m_isHit;
 		private RaycastHit m_hitResult;
 		private Rigidbody m_hitRigidbodyOnLastFrame;
 
 		private Inventory m_inventory;
+
+		public InteractableSO Equipment => m_equipment;
 
 		private Ray GetCameraRay()
 		{
@@ -174,6 +181,17 @@ namespace BM
 		{
 		}
 
+		private void OnValidate()
+		{
+			if (null != m_equipment)
+			{
+				Equipped?.Invoke(m_equipment);
+			}
+			else
+			{
+				Unequipped?.Invoke();
+			}
+		}
 
 		private void Awake()
 		{

@@ -734,6 +734,11 @@ PrefabInstance:
       propertyPath: m_interactAction
       value: 
       objectReference: {fileID: 8989255321099727772}
+    - target: {fileID: 6124075327187357840, guid: fc77e04753afc1d4f83e55414f5b04a4,
+        type: 3}
+      propertyPath: m_interactAction
+      value: 
+      objectReference: {fileID: 8989255321099727772}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

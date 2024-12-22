@@ -16,7 +16,8 @@ MonoBehaviour:
     m_Code: en-US
   m_SharedData: {fileID: 11400000, guid: 6bda748f0c1e0054fa5dcccfa488d4af, type: 2}
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - rid: 737333007447752748
   m_TableData:
   - m_Id: 6415911170048
     m_Localized: Old Chest
@@ -35,9 +36,48 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 509385018912768
-    m_Localized: Use
+    m_Localized: Use({equipmentDisplayName})
+    m_Metadata:
+      m_Items:
+      - rid: 737333007447752748
+  - m_Id: 785522630537216
+    m_Localized: Key
+    m_Metadata:
+      m_Items: []
+  - m_Id: 850381632122880
+    m_Localized: It is a key.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 850407875883008
+    m_Localized: Rope
+    m_Metadata:
+      m_Items: []
+  - m_Id: 850445184217088
+    m_Localized: It is a rope.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 850471163736064
+    m_Localized: Straw
+    m_Metadata:
+      m_Items: []
+  - m_Id: 850495658471424
+    m_Localized: It is a straw.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 850519796690944
+    m_Localized: Stick
+    m_Metadata:
+      m_Items: []
+  - m_Id: 850552445153280
+    m_Localized: It is a stick.
     m_Metadata:
       m_Items: []
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 737333007447752748
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 
+        m_SharedEntries:
+        - id: 509385018912768
