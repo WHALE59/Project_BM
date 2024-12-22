@@ -1,4 +1,6 @@
+
 using BM.Interactables;
+using FMODUnity;
 using System;
 using UnityEngine;
 
@@ -11,6 +13,11 @@ namespace BM
 		[SerializeField] private InputReaderSO m_inputReaderSO;
 		[SerializeField] private float m_raycastDistance = 5.0f;
 		[SerializeField] private LayerMask m_layerMask = (1 << 6);
+
+		[Space()]
+
+		[SerializeField] private bool m_enableHoveringSound = true;
+		[SerializeField] private EventReference m_hoveringSoundEventReference;
 
 		private InteractableBase m_detectedInteractable;
 
@@ -50,8 +57,16 @@ namespace BM
 			{
 				InteractableLost?.Invoke(m_detectedInteractable);
 
+				// 씬에 배치된 Interactable의 수납 처리
+
 				m_detectedInteractable.SetCollected();
 				m_detectedInteractable = null;
+
+				// 효과음 재생
+
+				interactableSO.PlayOneShotCollectingSound();
+
+				// 인벤토리 수납
 
 				m_inventory.PutIn(interactableSO);
 			}
@@ -146,6 +161,10 @@ namespace BM
 		/// </summary>
 		private void StartHovering(InteractableBase interactable)
 		{
+			if (m_enableHoveringSound)
+			{
+				RuntimeManager.PlayOneShot(m_hoveringSoundEventReference);
+			}
 		}
 
 		/// <summary>

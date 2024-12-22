@@ -15,6 +15,13 @@ MonoBehaviour:
   m_interactableModelPrefab: {fileID: 5545095820127702056, guid: 88202997b8083d94baa7e181202c5fac,
     type: 3}
   m_isCollectible: 1
+  m_collectingSoundEventReference:
+    Guid:
+      Data1: -949149024
+      Data2: 1142029610
+      Data3: 1532048048
+      Data4: 518036145
+    Path: event:/SFX/Interaction/2D_Interaction_UI_Key
   m_isActivatable: 0
   m_activateCrosshairIcon: {fileID: 0}
   m_isUsableAndEquippable: 0

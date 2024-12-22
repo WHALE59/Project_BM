@@ -1,6 +1,5 @@
-using System;
+using FMODUnity;
 using System.Collections.Generic;
-
 using UnityEngine;
 
 namespace BM.Interactables
@@ -16,6 +15,7 @@ namespace BM.Interactables
 		[Space()]
 
 		[SerializeField] private bool m_isCollectible;
+		[SerializeField] private EventReference m_collectingSoundEventReference;
 
 		[Space()]
 
@@ -60,5 +60,10 @@ namespace BM.Interactables
 		/// </remarks>
 		public bool IsActivatable => m_isActivatable;
 		public bool IsUsedable => m_isUsedable;
+
+		public void PlayOneShotCollectingSound()
+		{
+			RuntimeManager.PlayOneShot(m_collectingSoundEventReference);
+		}
 	}
 }
