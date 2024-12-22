@@ -50,7 +50,15 @@ namespace BM.Interactables
 
 		[SerializeField] private string m_descriptionKey;
 
+		/// <remarks>
+		/// 게임 로직상 Collectible과 Activatable은 동시에 가질 수 있는 속성이 아니지만, 이 프로퍼티의 반환값이 참이라고 해서, <see cref="IsActivatable"/>의 반환값이 거짓임이 보장되지는 않는다.
+		/// </remarks>
 		public bool IsCollectible => m_isCollectible;
+
+		/// <remarks>
+		/// 게임 로직상 Collectible과 Activatable은 동시에 가질 수 있는 속성이 아니지만, 이 프로퍼티의 반환값이 참이라고 해서, <see cref="IsCollectible"/>의 반환값이 거짓임이 보장되지는 않는다.
+		/// </remarks>
 		public bool IsActivatable => m_isActivatable;
+		public bool IsUsedable => m_isUsedable;
 	}
 }

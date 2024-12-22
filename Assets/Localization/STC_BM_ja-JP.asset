@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: STC_BM_ja-JP
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: ja-JP
+  m_SharedData: {fileID: 11400000, guid: 6bda748f0c1e0054fa5dcccfa488d4af, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 495538367311872
+    m_Localized: "\u6D3B\u6027\u5316"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 507864738902016
+    m_Localized: "\r\u96C6\u3081\u308B"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6603358810112
+    m_Localized: "\r\u53E4\u3044\u30C1\u30A7\u30B9\u30C8\u3067\u3059\u3002"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6415911170048
+    m_Localized: "\u53E4\u3044\u30C1\u30A7\u30B9\u30C8"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 509385018912768
+    m_Localized: "\u4F7F\u7528\u3059\u308B"
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []
