@@ -72,6 +72,14 @@ MonoBehaviour:
     m_Localized: It is a stick.
     m_Metadata:
       m_Items: []
+  - m_Id: 1044646555496448
+    m_Localized: Diary
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1044711969861632
+    m_Localized: It is a diary.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

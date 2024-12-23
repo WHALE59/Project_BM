@@ -260,6 +260,7 @@ MonoBehaviour:
   m_layerMask:
     serializedVersion: 2
     m_Bits: 64
+  m_enableHoveringSound: 1
   m_hoveringSoundEventReference:
     Guid:
       Data1: 821866600
@@ -267,6 +268,7 @@ MonoBehaviour:
       Data3: 1894727809
       Data4: -1242516243
     Path: event:/SFX/Interaction/2D_Interaction_UI_Hovering
+  m_equipment: {fileID: 0}
 --- !u!114 &100915224993563351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -313,10 +315,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_normalEvent:
     Guid:
-      Data1: -2127832985
-      Data2: 1082006622
-      Data3: 276251803
-      Data4: 30334235
+      Data1: -1178592238
+      Data2: 1229513049
+      Data3: -1190215789
+      Data4: 953587788
     Path: event:/SFX/Darack/3D_M_Footsteps_DarackWood
   m_carpetEvent:
     Guid:
@@ -339,7 +341,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_inventory: []
-  m_equipment: {fileID: 0}
 --- !u!1 &7658585729986315391
 GameObject:
   m_ObjectHideFlags: 0

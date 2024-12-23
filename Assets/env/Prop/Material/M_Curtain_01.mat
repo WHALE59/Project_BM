@@ -73,7 +73,7 @@ Material:
     - _Grunge_Tiling: 0
     - _IsUsedFresnel: 0
     - _Normal_Intensity: 3
-    - _PixelizeAmount: 350
+    - _PixelizeAmount: 1000
     - _QueueControl: 0
     - _RoughnessContrast: 1.25
     - _RoughnessPower: 0.5

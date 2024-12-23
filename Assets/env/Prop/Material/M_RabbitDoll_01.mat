@@ -56,6 +56,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _Boolean_1: 0
     - _Dirt_Amount: 0.01
     - _Dirt_power: 0.01
     - _FresnelAmount: -0.002
@@ -69,10 +70,10 @@ Material:
     - _Grunge_Tiling: 0
     - _IsUsedFresnel: 0
     - _Normal_Intensity: 1
-    - _PixelizeAmount: 300
+    - _PixelizeAmount: 1000
     - _QueueControl: 0
-    - _RoughnessContrast: 0.5
-    - _RoughnessPower: 0.5
+    - _RoughnessContrast: 0
+    - _RoughnessPower: 0
     - _TimeSpeed: 2
     - _Top_Pixelize_step: 0
     - _depth: -7
