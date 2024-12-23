@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LocomotivePropertySO_Default
   m_EditorClassIdentifier: 
   m_locomotivePropertyOnNormalJog:
-    m_speed: 3
+    m_speed: 2
     m_impulsePeriod: 0.7
     m_impulseForce: 0.55
   m_locomotivePropertyOnWalkedJog:
@@ -21,7 +21,7 @@ MonoBehaviour:
     m_impulsePeriod: 1
     m_impulseForce: 0.3
   m_locomotivePropertyOnCrouchedJog:
-    m_speed: 1.5
+    m_speed: 1
     m_impulsePeriod: 1
     m_impulseForce: 0.2
   m_cameraNoisePropertyOnIdle:

@@ -24,9 +24,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Prototypes/SC_Floor_02.unity
     guid: 62be2ab72d75a4e46860230bbccffa0c
   m_configObjects:
-    com.unity.addressableassets: {fileID: 11400000, guid: 1ff6e626e2db2c149ab76c3b90075634,
-      type: 2}
-    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 99473f1924180e24386d8e89df2e08a6,
-      type: 3}
-    com.unity.localization.settings: {fileID: 11400000, guid: 31b0ecb64a3544c4fbbc35b84aaf3941,
-      type: 2}
+    com.unity.addressableassets: {fileID: 11400000, guid: 1ff6e626e2db2c149ab76c3b90075634, type: 2}
+    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 99473f1924180e24386d8e89df2e08a6, type: 3}
+    com.unity.localization.settings: {fileID: 11400000, guid: 31b0ecb64a3544c4fbbc35b84aaf3941, type: 2}
