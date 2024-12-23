@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4291421432094568655}
   - component: {fileID: 3830044410631337815}
   - component: {fileID: 1806868751778771971}
+  - component: {fileID: 8069877817568718913}
   m_Layer: 0
   m_Name: P_FPSVCam
   m_TagString: Untagged
@@ -171,8 +172,7 @@ MonoBehaviour:
       Owner: {fileID: 1808394493483349806}
       Enabled: 1
       Input:
-        InputAction: {fileID: -8181108963744638241, guid: 99473f1924180e24386d8e89df2e08a6,
-          type: 3}
+        InputAction: {fileID: -8181108963744638241, guid: 99473f1924180e24386d8e89df2e08a6, type: 3}
         Gain: 15
         LegacyInput: 
         LegacyGain: 200
@@ -185,8 +185,7 @@ MonoBehaviour:
       Owner: {fileID: 1808394493483349806}
       Enabled: 1
       Input:
-        InputAction: {fileID: -8181108963744638241, guid: 99473f1924180e24386d8e89df2e08a6,
-          type: 3}
+        InputAction: {fileID: -8181108963744638241, guid: 99473f1924180e24386d8e89df2e08a6, type: 3}
         Gain: -15
         LegacyInput: 
         LegacyGain: -200
@@ -214,3 +213,20 @@ MonoBehaviour:
   FocusTarget: {fileID: 0}
   FocusOffset: 0
   Profile: {fileID: 11400000, guid: 69e55c7c3997bb143b6f9eb020130635, type: 2}
+--- !u!114 &8069877817568718913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9152481037392610282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NoiseProfile: {fileID: 11400000, guid: 46965f9cbaf525742a6da4c2172a99cd, type: 2}
+  PivotOffset: {x: 0, y: 0, z: 0}
+  AmplitudeGain: 1
+  FrequencyGain: 0.5
+  m_NoiseOffsets: {x: 0, y: 0, z: 0}

@@ -409,7 +409,6 @@ MonoBehaviour:
   - BGM
   - Footsteps
   - Interaction
-  - SFX
   - UI SOUND
   BanksToLoad: []
   LiveUpdatePort: 9264
