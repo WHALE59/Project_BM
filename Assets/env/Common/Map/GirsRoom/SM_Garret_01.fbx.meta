@@ -37,6 +37,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: WoodInner
+    second: {fileID: 2100000, guid: 2bf7b553b24e3b04a9df721638d8b38c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: WoodenFlank
     second: {fileID: 2100000, guid: 5faecb170e5048448a811eba24695666, type: 2}
   - first:

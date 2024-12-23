@@ -21,8 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_Wooden_04
-  m_Shader: {fileID: -6465566751694194690, guid: 33995dbfd006d294497ffef97b7b780d,
-    type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 33995dbfd006d294497ffef97b7b780d, type: 3}
   m_Parent: {fileID: 2100000, guid: b196c96840b6e4147a579b6e3999fc0c, type: 2}
   m_ModifiedSerializedProperties: 10
   m_ValidKeywords: []
@@ -79,10 +78,10 @@ Material:
     - _02_GrungeMap_BlendContrast: 0.07
     - _02_GrungeMap_BlendPower: -1.76
     - _02_GrungeMap_Tiling: 0.05
-    - _Boolean: 0
-    - _Boolean_1: 0
+    - _Boolean: 1
+    - _Boolean_1: 1
     - _Depth: -12
-    - _Float: 38.4
+    - _Float: 48.6
     - _GrundgeMap_Mixin: 1
     - _Intersection_Contrast: 1
     - _Intersection_amount: 0.5
