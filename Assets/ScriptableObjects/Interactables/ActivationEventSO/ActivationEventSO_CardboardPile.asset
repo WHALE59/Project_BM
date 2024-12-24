@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 041984d2aec6e3a40b9792f1cfd1e606, type: 3}
+  m_Script: {fileID: 11500000, guid: d1355f261e9c764449badae34fc1efb0, type: 3}
   m_Name: ActivationEventSO_CardboardPile
   m_EditorClassIdentifier: 
   m_logOnActivation: 0

@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 814ee5e68625b7141afd4c7ac763e7c0, type: 3}
+  m_Name: ActivationEventSO_DarackCurtain_Right
+  m_EditorClassIdentifier: 
+  m_logOnActivation: 0
+  m_openedModel: {fileID: 4446062634795740640, guid: d0b25283502cdac48841a2662ab80ee9, type: 3}
+  m_closedModel: {fileID: 4446062634795740640, guid: 716932de9a61dbe4ba65b6f1b84d8848, type: 3}
+  m_openingSound:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  m_closingSound:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 

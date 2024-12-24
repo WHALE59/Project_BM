@@ -18,6 +18,8 @@ namespace BM.Interactables
 
 		public InteractableSO InteractableSO => m_interactableSO;
 
+		public InteractableModel InteractableModel { get => m_interactableModel; set => m_interactableModel = value; }
+
 		public void DisallowInteraction()
 		{
 			m_allowInteraction = false;

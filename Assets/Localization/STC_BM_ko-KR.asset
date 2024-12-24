@@ -99,6 +99,10 @@ MonoBehaviour:
     m_Localized: "\uD1A0\uB07C \uC778\uD615\uC774\uB2E4."
     m_Metadata:
       m_Items: []
+  - m_Id: 1550363100131328
+    m_Localized: "\uCEE4\uD2BC"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

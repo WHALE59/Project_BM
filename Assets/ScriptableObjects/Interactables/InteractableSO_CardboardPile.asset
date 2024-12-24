@@ -23,7 +23,7 @@ MonoBehaviour:
     Path: 
   m_isActivatable: 1
   m_activateCrosshairIcon: {fileID: 0}
-  m_eventOnActivation: {fileID: 11400000, guid: 1dfffd6840c3b504a8d3f366985c2e8e, type: 2}
+  m_eventOnActivation: {fileID: 11400000, guid: 35a7537d2f36bcc4d9046b3e5d217e5b, type: 2}
   m_isUsableAndEquippable: 0
   m_equipmentIcon: {fileID: 0}
   m_useCrosshairIcon: {fileID: 0}

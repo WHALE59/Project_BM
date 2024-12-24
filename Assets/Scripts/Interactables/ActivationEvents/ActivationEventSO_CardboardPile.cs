@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace BM.Interactables
 {
-	[CreateAssetMenu(menuName = "BM/SO/Activation Events/CardboardPile", fileName = "ActivationEventSO_CardboardPile")]
+	[CreateAssetMenu(menuName = "BM/SO/Activation Events/Cardboard Pile", fileName = "ActivationEventSO_CardboardPile")]
 	public class ActivationEventSO_CardboardPile : ActivationEventSO
 	{
 		[SerializeField] private EventReference m_movingSound;

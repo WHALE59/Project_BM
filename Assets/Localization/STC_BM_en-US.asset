@@ -99,6 +99,10 @@ MonoBehaviour:
     m_Localized: It is a rabbit doll.
     m_Metadata:
       m_Items: []
+  - m_Id: 1550363100131328
+    m_Localized: Curtain
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:
