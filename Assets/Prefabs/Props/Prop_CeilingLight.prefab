@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3447316531272831562}
   - component: {fileID: 4944784037703229739}
   - component: {fileID: 3400347303187003765}
+  - component: {fileID: 4668120783648860742}
   m_Layer: 0
   m_Name: LightSource
   m_TagString: Untagged
@@ -118,6 +119,37 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!114 &4668120783648860742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1756640270827539494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 1757037306
+      Data2: 1300965376
+      Data3: -1908828517
+      Data4: 529680579
+    Path: event:/Ambience/3D_M_Ambience_Bulb
+  Event: 
+  EventPlayTrigger: 1
+  EventStopTrigger: 2
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 0
+  OverrideMaxDistance: 2.4
 --- !u!1001 &4541212550167926010
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -226,14 +258,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af9e4ba0ddea62e41a06d7deefabf174, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_lightSource: {fileID: 4944784037703229739}
-  m_wavingPeriod: 0
-  m_minWavingIntensity: 0
-  m_maxWavingIntensity: 0
-  m_minFlickeringInterval: 0.2
-  m_maxFlickeringInterval: 3
-  m_minLightIntensity: 1.2
-  m_maxLightIntensity: 4
 --- !u!95 &2364877977297667451
 Animator:
   serializedVersion: 5

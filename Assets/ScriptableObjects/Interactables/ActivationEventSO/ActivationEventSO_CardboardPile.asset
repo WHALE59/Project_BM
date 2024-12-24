@@ -13,3 +13,10 @@ MonoBehaviour:
   m_Name: ActivationEventSO_CardboardPile
   m_EditorClassIdentifier: 
   m_logOnActivation: 0
+  m_movingSound:
+    Guid:
+      Data1: -323269395
+      Data2: 1140122215
+      Data3: -1876774736
+      Data4: -216191740
+    Path: event:/SFX/Interaction/2D_Interaction_UI_BoxSlide
