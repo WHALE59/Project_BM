@@ -111,7 +111,7 @@
 	</object>
 	<object class="EventMixerGroup" id="{487a2819-8e46-4767-81b1-00cd32195b09}">
 		<property name="volume">
-			<value>-19</value>
+			<value>-13</value>
 		</property>
 		<property name="name">
 			<value>Windows</value>
@@ -157,10 +157,10 @@
 	<object class="MixerBusPanner" id="{59525aa3-5a2f-48e3-8b79-2b3c47481b02}" />
 	<object class="ThreeEQEffect" id="{737e87d7-c5a6-477a-bd9d-af74e09b7547}">
 		<property name="midGain">
-			<value>5</value>
+			<value>1.5</value>
 		</property>
 		<property name="highGain">
-			<value>-9</value>
+			<value>-2</value>
 		</property>
 	</object>
 	<object class="MixerBusFader" id="{b52f1c8d-6746-42e5-b9bf-feadc215cfc1}" />

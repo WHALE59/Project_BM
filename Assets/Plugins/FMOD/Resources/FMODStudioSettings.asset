@@ -408,7 +408,8 @@ MonoBehaviour:
   - Ambience
   - BGM
   - Footsteps
-  - SFX
+  - Interaction
+  - UI SOUND
   BanksToLoad: []
   LiveUpdatePort: 9264
   EnableMemoryTracking: 0
