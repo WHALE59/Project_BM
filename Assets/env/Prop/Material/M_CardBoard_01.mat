@@ -55,8 +55,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Boolean: 1
-    - _Boolean_1: 1
+    - _Boolean: 0
+    - _Boolean_1: 0
     - _Dirt_Amount: 0.01
     - _Dirt_power: 0.01
     - _Float: 50.5

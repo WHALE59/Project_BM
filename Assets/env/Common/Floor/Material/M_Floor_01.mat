@@ -123,8 +123,8 @@ Material:
     - _02_GrungeMap_BlendPower: 1.49
     - _02_GrungeMap_Tiling: 0.23
     - _AffineThreasgold: 26.9
-    - _Boolean: 1
-    - _Boolean_1: 1
+    - _Boolean: 0
+    - _Boolean_1: 0
     - _ColorPrecision: 13.8
     - _Depth: -13.5
     - _Float: 130

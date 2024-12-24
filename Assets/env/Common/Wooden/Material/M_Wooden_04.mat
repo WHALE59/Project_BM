@@ -78,8 +78,8 @@ Material:
     - _02_GrungeMap_BlendContrast: 0.07
     - _02_GrungeMap_BlendPower: -1.76
     - _02_GrungeMap_Tiling: 0.05
-    - _Boolean: 1
-    - _Boolean_1: 1
+    - _Boolean: 0
+    - _Boolean_1: 0
     - _Depth: -12
     - _Float: 48.6
     - _GrundgeMap_Mixin: 1
