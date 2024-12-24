@@ -79,6 +79,7 @@ namespace BM
 			}
 			else if (interactableSO.IsActivatable)
 			{
+				m_detectedInteractable.StartActivation(this);
 			}
 		}
 
@@ -126,7 +127,14 @@ namespace BM
 
 				if (hitRigidbody.TryGetComponent<InteractableBase>(out m_detectedInteractable))
 				{
-					StartHoveringProcedure(m_detectedInteractable);
+					if (m_detectedInteractable.IsInteractionAllowed)
+					{
+						StartHoveringProcedure(m_detectedInteractable);
+					}
+					else
+					{
+						m_detectedInteractable = null;
+					}
 				}
 
 				m_hitRigidbodyOnLastFrame = hitRigidbody;

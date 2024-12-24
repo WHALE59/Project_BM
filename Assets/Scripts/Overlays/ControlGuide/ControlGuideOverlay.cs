@@ -13,21 +13,29 @@ namespace BM
 
 		[Space()]
 
-		[SerializeField] private bool m_isEnabled = true;
+		[SerializeField] private bool m_isControlGuideEnabled = true;
 
 		[Space()]
 
 		[SerializeField] private ControlGuideComponent m_useControlGuide;
 		[SerializeField] private LocalizeStringEvent m_useControlStringEvent;
+		[SerializeField] private string m_useSmartStringKey = "equipmentDisplayName";
 
 		[Space()]
 
 		[SerializeField] private ControlGuideComponent m_collectControlGuide;
+		[SerializeField] private LocalizeStringEvent m_collectControlStringEvent;
+		[SerializeField] private string m_collectSmartStringKey = "displayName";
+
+		[Space()]
+
 		[SerializeField] private ControlGuideComponent m_activateControlGuide;
+		[SerializeField] private LocalizeStringEvent m_activateControlStringEvent;
+		[SerializeField] private string m_activateSmartStringKey = "displayName";
 
 		private void ControlGuideOverlay_InteractableFound(InteractableBase interactable)
 		{
-			if (!m_isEnabled)
+			if (!m_isControlGuideEnabled)
 			{
 				return;
 			}
@@ -52,11 +60,17 @@ namespace BM
 
 			if (interactableSO.IsCollectible && !interactableSO.IsActivatable)
 			{
+				m_collectControlStringEvent.StringReference[m_collectSmartStringKey] = interactableSO.LocalizedDisplayName;
+
 				m_collectControlGuide.gameObject.SetActive(true);
 				m_activateControlGuide.gameObject.SetActive(false);
+
+
 			}
 			else if (!interactableSO.IsCollectible && interactableSO.IsActivatable)
 			{
+				m_activateControlStringEvent.StringReference[m_activateSmartStringKey] = interactableSO.LocalizedDisplayName;
+
 				m_collectControlGuide.gameObject.SetActive(false);
 				m_activateControlGuide.gameObject.SetActive(true);
 			}
@@ -68,7 +82,7 @@ namespace BM
 
 		private void ControlGuideOverlay_InteractableLost(InteractableBase interactable)
 		{
-			if (!m_isEnabled)
+			if (!m_isControlGuideEnabled)
 			{
 				return;
 			}
@@ -80,7 +94,8 @@ namespace BM
 
 		private void ControlGuideOverlay_Equipped(InteractableSO interactableSO)
 		{
-			m_useControlStringEvent.StringReference["equipmentDisplayName"] = interactableSO.LocalizedDisplayName;
+			// TODO: ~를 ~에 로 스마트 스트링 자체를 바꿀 것
+			m_useControlStringEvent.StringReference[m_useSmartStringKey] = interactableSO.LocalizedDisplayName;
 		}
 
 		private void ControlGuideOverlay_Unequipped()

@@ -15,14 +15,6 @@ MonoBehaviour:
   m_TableCollectionName: STC_BM
   m_TableCollectionNameGuidString: 6bda748f0c1e0054fa5dcccfa488d4af
   m_Entries:
-  - m_Id: 6415911170048
-    m_Key: GirlsChest_DisplayName
-    m_Metadata:
-      m_Items: []
-  - m_Id: 6603358810112
-    m_Key: GirlsChest_Description
-    m_Metadata:
-      m_Items: []
   - m_Id: 495538367311872
     m_Key: Action_Activate
     m_Metadata:
@@ -36,43 +28,67 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 785522630537216
-    m_Key: Key_DisplayName
+    m_Key: Interactable_Key_DisplayName
     m_Metadata:
       m_Items: []
   - m_Id: 850381632122880
-    m_Key: Key_Description
+    m_Key: Interactable_Key_Description
     m_Metadata:
       m_Items: []
   - m_Id: 850407875883008
-    m_Key: Rope_DisplayName
+    m_Key: Interactable_Rope_DisplayName
     m_Metadata:
       m_Items: []
   - m_Id: 850445184217088
-    m_Key: Rope_Description
+    m_Key: Interactable_Rope_Description
     m_Metadata:
       m_Items: []
   - m_Id: 850471163736064
-    m_Key: Straw_DisplayName
+    m_Key: Interactable_Straw_DisplayName
     m_Metadata:
       m_Items: []
   - m_Id: 850495658471424
-    m_Key: Straw_Description
+    m_Key: Interactable_Straw_Description
     m_Metadata:
       m_Items: []
   - m_Id: 850519796690944
-    m_Key: Stick_DisplayName
+    m_Key: Interactable_Stick_DisplayName
     m_Metadata:
       m_Items: []
   - m_Id: 850552445153280
-    m_Key: Stick_Description
+    m_Key: Interactable_Stick_Description
     m_Metadata:
       m_Items: []
   - m_Id: 1044646555496448
-    m_Key: GirlsDiary_DisplayName
+    m_Key: Interactable_GirlsDiary_DisplayName
     m_Metadata:
       m_Items: []
   - m_Id: 1044711969861632
-    m_Key: GirlsDiary_Description
+    m_Key: Interactable_GirlsDiary_Description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1322503227781120
+    m_Key: Interactable_CardboardPile_DisplayName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1322550526947328
+    m_Key: Interactable_CardboardPile_Description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1337637178388480
+    m_Key: Interactable_RabbitDoll_DisplayName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1337671487795200
+    m_Key: Interactable_RabbitDoll_Description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6415911170048
+    m_Key: Interactable_GirlsChest_DisplayName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6603358810112
+    m_Key: Interactable_GirlsChest_Description
     m_Metadata:
       m_Items: []
   m_Metadata:
@@ -83,7 +99,6 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 737332958590140464
-      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables,
-        asm: Unity.Localization}
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
       data:
         m_CustomEpoch: 1734683632503

@@ -26,17 +26,20 @@ MonoBehaviour:
   - m_Id: 6603358810112
     m_Localized: It's an old chest.
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 737333007447752748
   - m_Id: 495538367311872
-    m_Localized: Activate
+    m_Localized: Activate ({displayName})
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 737333007447752748
   - m_Id: 507864738902016
-    m_Localized: Collect
+    m_Localized: Collect ({displayName})
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 737333007447752748
   - m_Id: 509385018912768
-    m_Localized: Use({equipmentDisplayName})
+    m_Localized: Use ({equipmentDisplayName})
     m_Metadata:
       m_Items:
       - rid: 737333007447752748
@@ -65,11 +68,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 850519796690944
-    m_Localized: Stick
+    m_Localized: Wooden Stick
     m_Metadata:
       m_Items: []
   - m_Id: 850552445153280
-    m_Localized: It is a stick.
+    m_Localized: It is a wooden stick.
     m_Metadata:
       m_Items: []
   - m_Id: 1044646555496448
@@ -78,6 +81,22 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 1044711969861632
     m_Localized: It is a diary.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1322503227781120
+    m_Localized: Cardboard Pile
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1322550526947328
+    m_Localized: It is a cardboard pile.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1337637178388480
+    m_Localized: Rabbit Doll
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1337671487795200
+    m_Localized: It is a rabbit doll.
     m_Metadata:
       m_Items: []
   references:
@@ -89,3 +108,6 @@ MonoBehaviour:
         m_Entries: 
         m_SharedEntries:
         - id: 509385018912768
+        - id: 6603358810112
+        - id: 495538367311872
+        - id: 507864738902016

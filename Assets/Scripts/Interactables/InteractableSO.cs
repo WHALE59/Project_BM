@@ -1,3 +1,4 @@
+using Codice.Client.BaseCommands;
 using FMODUnity;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,6 +23,7 @@ namespace BM.Interactables
 
 		[SerializeField] private bool m_isActivatable;
 		[SerializeField] private Sprite m_activateCrosshairIcon;
+		[SerializeField] private ActivationEventSO m_eventOnActivation;
 
 		[Space()]
 
@@ -63,6 +65,31 @@ namespace BM.Interactables
 		public bool IsUsedable => m_isUsedable;
 
 		public Sprite EquipmentIcon => m_equipmentIcon;
+
+		public void StartActivationEvent(InteractAction subject, InteractableBase sceneInteractable)
+		{
+			if (null == m_eventOnActivation)
+			{
+#if UNITY_EDITOR
+				Debug.Log($"{name}에 활성화 이벤트가 없습니다.");
+#endif
+				return;
+			}
+
+			m_eventOnActivation.StartActivation(subject, sceneInteractable);
+		}
+		public void FinishActivationEvent(InteractAction subject, InteractableBase sceneInteractable)
+		{
+			if (null == m_eventOnActivation)
+			{
+#if UNITY_EDITOR
+				Debug.Log($"{name}에 활성화 이벤트가 없습니다.");
+#endif
+				return;
+			}
+
+			m_eventOnActivation.FinishActivation(subject, sceneInteractable);
+		}
 
 		public LocalizedString LocalizedDisplayName => m_displayName;
 
