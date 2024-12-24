@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="ParameterPreset" id="{aff9cabd-5e20-428a-a48d-15c7f654d75e}">
 		<property name="name">
-			<value>3D_M_Footsteps_DarackWood</value>
+			<value>GaitState</value>
 		</property>
 		<relationship name="folder">
 			<destination>{b8128721-3b3d-453f-8fa3-e89bec5447aa}</destination>
