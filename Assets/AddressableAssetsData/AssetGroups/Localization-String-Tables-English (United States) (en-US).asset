@@ -18,7 +18,7 @@ MonoBehaviour:
   m_GUID: 0633c68d35515e94e98ec48081780ff4
   m_SerializeEntries:
   - m_GUID: 85ef6299c8567b34a8a2fa9192f74c04
-    m_Address: InteractableStrings_en-US
+    m_Address: STC_BM_en-US
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-en-US

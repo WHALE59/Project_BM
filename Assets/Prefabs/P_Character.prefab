@@ -260,6 +260,13 @@ MonoBehaviour:
   m_layerMask:
     serializedVersion: 2
     m_Bits: 64
+  m_hoveringSoundEventReference:
+    Guid:
+      Data1: 821866600
+      Data2: 1123763795
+      Data3: 1894727809
+      Data4: -1242516243
+    Path: event:/SFX/Interaction/2D_Interaction_UI_Hovering
 --- !u!114 &100915224993563351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -318,6 +325,7 @@ MonoBehaviour:
       Data3: -1354421877
       Data4: 1215331836
     Path: event:/SFX/Darack/3D_M_Footsteps_Carpet
+  m_logOnFMODError: 0
 --- !u!114 &3206800542811517752
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -331,6 +339,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_inventory: []
+  m_equipment: {fileID: 0}
 --- !u!1 &7658585729986315391
 GameObject:
   m_ObjectHideFlags: 0

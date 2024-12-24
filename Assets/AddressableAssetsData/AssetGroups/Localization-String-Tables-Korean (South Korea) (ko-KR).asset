@@ -18,7 +18,7 @@ MonoBehaviour:
   m_GUID: 0562b1f3a91675c4e9e4bd898a620350
   m_SerializeEntries:
   - m_GUID: 00cab1317367a014fb2b878ec59b64b7
-    m_Address: InteractableStrings_ko-KR
+    m_Address: STC_BM_ko-KR
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-ko-KR

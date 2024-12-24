@@ -14,6 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_interactableModelPrefab: {fileID: 0}
   m_isCollectible: 0
+  m_collectingSoundEventReference:
+    Guid:
+      Data1: -301874584
+      Data2: 1267864750
+      Data3: -381980002
+      Data4: 334310729
+    Path: event:/SFX/Interaction/2D_Interaction_UI_Rabbit
   m_isActivatable: 1
   m_activateCrosshairIcon: {fileID: 0}
   m_isUsableAndEquippable: 0

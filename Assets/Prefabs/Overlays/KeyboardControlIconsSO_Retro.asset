@@ -1,0 +1,99 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25214ef3a5f9fb6499f79e46ca46a3ee, type: 3}
+  m_Name: KeyboardControlIconsSO_Retro
+  m_EditorClassIdentifier: 
+  m_keyboardLeft: {fileID: 0}
+  m_keyboardRight: {fileID: 0}
+  m_keyboardUp: {fileID: 0}
+  m_keyboardDown: {fileID: 0}
+  m_keyboardAlt: {fileID: 0}
+  m_keyboardCtrl: {fileID: 0}
+  m_keyboardShift: {fileID: 0}
+  m_keyboardSpace: {fileID: 0}
+  m_keyboardTab: {fileID: 0}
+  m_keyboardEnter: {fileID: 0}
+  m_keyboardEsc: {fileID: 0}
+  m_keyboardBackspace: {fileID: 0}
+  m_keyboardSlash: {fileID: 0}
+  m_keyboardTilde: {fileID: 0}
+  m_keyboardPlus: {fileID: 0}
+  m_keyboardMinus: {fileID: 0}
+  m_keyboardAsterisk: {fileID: 0}
+  m_keyboardIns: {fileID: 0}
+  m_keyboardHome: {fileID: 0}
+  m_keyboardEnd: {fileID: 0}
+  m_keyboardDel: {fileID: 0}
+  m_keyboardNumLock: {fileID: 0}
+  m_keyboardPageUp: {fileID: 0}
+  m_keyboardPageDown: {fileID: 0}
+  m_keyboardPrtScrn: {fileID: 0}
+  m_keyboardBracketsL: {fileID: 0}
+  m_keyboardBracketsR: {fileID: 0}
+  m_keyboardQuestionMark: {fileID: 0}
+  m_keyboardQuotation: {fileID: 0}
+  m_keyboardSemicolon: {fileID: 0}
+  m_keyboardF1: {fileID: 0}
+  m_keyboardF2: {fileID: 0}
+  m_keyboardF3: {fileID: 0}
+  m_keyboardF4: {fileID: 0}
+  m_keyboardF5: {fileID: 0}
+  m_keyboardF6: {fileID: 0}
+  m_keyboardF7: {fileID: 0}
+  m_keyboardF8: {fileID: 0}
+  m_keyboardF9: {fileID: 0}
+  m_keyboardF10: {fileID: 0}
+  m_keyboardF11: {fileID: 0}
+  m_keyboardF12: {fileID: 0}
+  m_keyboard0: {fileID: 0}
+  m_keyboard1: {fileID: 0}
+  m_keyboard2: {fileID: 0}
+  m_keyboard3: {fileID: 0}
+  m_keyboard4: {fileID: 0}
+  m_keyboard5: {fileID: 0}
+  m_keyboard6: {fileID: 0}
+  m_keyboard7: {fileID: 0}
+  m_keyboard8: {fileID: 0}
+  m_keyboard9: {fileID: 0}
+  m_keyboardA: {fileID: 0}
+  m_keyboardB: {fileID: 0}
+  m_keyboardC: {fileID: 0}
+  m_keyboardD: {fileID: 0}
+  m_keyboardE: {fileID: 0}
+  m_keyboardF: {fileID: 21300000, guid: 6e90c24d28f3c0241a8106e565002f47, type: 3}
+  m_keyboardG: {fileID: 0}
+  m_keyboardH: {fileID: 0}
+  m_keyboardI: {fileID: 0}
+  m_keyboardJ: {fileID: 0}
+  m_keyboardK: {fileID: 0}
+  m_keyboardL: {fileID: 0}
+  m_keyboardM: {fileID: 0}
+  m_keyboardN: {fileID: 0}
+  m_keyboardO: {fileID: 0}
+  m_keyboardP: {fileID: 0}
+  m_keyboardQ: {fileID: 0}
+  m_keyboardR: {fileID: 0}
+  m_keyboardS: {fileID: 0}
+  m_keyboardT: {fileID: 0}
+  m_keyboardU: {fileID: 0}
+  m_keyboardV: {fileID: 0}
+  m_keyboardW: {fileID: 0}
+  m_keyboardX: {fileID: 0}
+  m_keyboardY: {fileID: 0}
+  m_keyboardZ: {fileID: 0}
+  m_mouseLeft: {fileID: 21300000, guid: d7051febd67e65448baf3e594e9125bc, type: 3}
+  m_mouseMiddle: {fileID: 21300000, guid: a11da9531e8a2d0439a3d82e049c2225, type: 3}
+  m_mouseRight: {fileID: 21300000, guid: 6be809ef85f5b9743b486c3b15b493ef, type: 3}
+  m_mouseScrollUp: {fileID: 21300000, guid: feb7e36cb2b88684cb759bd77ff66a1e, type: 3}
+  m_mouseScrollDown: {fileID: 21300000, guid: feb7e36cb2b88684cb759bd77ff66a1e, type: 3}
+  m_mouseScroll: {fileID: 21300000, guid: 0315a731474547a469ab833fb166c07e, type: 3}
+  m_mouseX: {fileID: 21300000, guid: cf548135b0ff33f47904878ec441458a, type: 3}
