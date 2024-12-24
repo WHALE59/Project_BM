@@ -58,7 +58,7 @@ Material:
     m_Floats:
     - _AlphaClip: 1
     - _AlphaToMask: 1
-    - _Boolean: 1
+    - _Boolean: 0
     - _Boolean_1: 1
     - _Dirt_Amount: 0.01
     - _Dirt_power: 0.01
