@@ -30,6 +30,7 @@ namespace BM.Interactable
 
 				Destroy(sceneInteractable.InteractableModel.gameObject);
 				sceneInteractable.InteractableModel = Instantiate(m_openedModel, sceneInteractable.transform);
+
 			}
 			else if (m_isOpened)
 			{
@@ -40,6 +41,8 @@ namespace BM.Interactable
 				Destroy(sceneInteractable.InteractableModel.gameObject);
 				sceneInteractable.InteractableModel = Instantiate(m_closedModel, sceneInteractable.transform);
 			}
+
+			sceneInteractable.InteractableModel.StartHoveringEffect();
 		}
 
 	}

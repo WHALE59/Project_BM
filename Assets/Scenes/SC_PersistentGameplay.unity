@@ -707,10 +707,18 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5792073834160345636, guid: fc77e04753afc1d4f83e55414f5b04a4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6124075327187357840, guid: fc77e04753afc1d4f83e55414f5b04a4, type: 3}
       propertyPath: m_interactAction
       value: 
       objectReference: {fileID: 8989255321099727772}
+    - target: {fileID: 8243446345327728551, guid: fc77e04753afc1d4f83e55414f5b04a4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9144516432615733884, guid: fc77e04753afc1d4f83e55414f5b04a4, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
