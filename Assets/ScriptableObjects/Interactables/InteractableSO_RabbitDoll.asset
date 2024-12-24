@@ -23,8 +23,9 @@ MonoBehaviour:
     Path: event:/SFX/Interaction/2D_Interaction_UI_Rabbit
   m_isActivatable: 1
   m_activateCrosshairIcon: {fileID: 0}
+  m_eventOnActivation: {fileID: 0}
   m_isUsableAndEquippable: 0
-  m_useAndEquipIcon: {fileID: 0}
+  m_equipmentIcon: {fileID: 0}
   m_useCrosshairIcon: {fileID: 0}
   m_isUsedTo: []
   m_isUsedable: 0
@@ -32,5 +33,24 @@ MonoBehaviour:
   m_isCraftingMaterial: 0
   m_isCraftingMaterialOf: []
   m_isCraftedBy: []
-  m_displayNameKey: 
-  m_descriptionKey: 
+  m_displayName:
+    m_TableReference:
+      m_TableCollectionName: GUID:6bda748f0c1e0054fa5dcccfa488d4af
+    m_TableEntryReference:
+      m_KeyId: 1337637178388480
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_description:
+    m_TableReference:
+      m_TableCollectionName: GUID:6bda748f0c1e0054fa5dcccfa488d4af
+    m_TableEntryReference:
+      m_KeyId: 1337671487795200
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  references:
+    version: 2
+    RefIds: []

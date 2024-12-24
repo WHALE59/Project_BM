@@ -45,7 +45,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 265e4a6a238133e439dabc2411f8a82d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_meshRenderers: []
+  m_meshRenderers:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &7330541807824400577
 GameObject:
   m_ObjectHideFlags: 0

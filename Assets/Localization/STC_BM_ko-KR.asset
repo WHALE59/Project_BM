@@ -26,17 +26,20 @@ MonoBehaviour:
   - m_Id: 6603358810112
     m_Localized: "\uC624\uB798\uB41C \uC0C1\uC790\uC774\uB2E4."
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 737333007447752750
   - m_Id: 495538367311872
-    m_Localized: "\uD65C\uC131\uD654"
+    m_Localized: "\uD65C\uC131\uD654 ({displayName})"
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 737333007447752750
   - m_Id: 507864738902016
-    m_Localized: "\uC90D\uAE30"
+    m_Localized: "\uC90D\uAE30 ({displayName})"
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 737333007447752750
   - m_Id: 509385018912768
-    m_Localized: "\uC0AC\uC6A9({equipmentDisplayName})"
+    m_Localized: "\uC0AC\uC6A9 ({equipmentDisplayName})"
     m_Metadata:
       m_Items:
       - rid: 737333007447752750
@@ -65,11 +68,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 850519796690944
-    m_Localized: "\uB9C9\uB300"
+    m_Localized: "\uB098\uBB34 \uB9C9\uB300"
     m_Metadata:
       m_Items: []
   - m_Id: 850552445153280
-    m_Localized: "\uB9C9\uB300\uC774\uB2E4."
+    m_Localized: "\uB098\uBB34 \uB9C9\uB300\uC774\uB2E4."
     m_Metadata:
       m_Items: []
   - m_Id: 1044646555496448
@@ -78,6 +81,22 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 1044711969861632
     m_Localized: "\uC77C\uAE30\uC7A5\uC774\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1322503227781120
+    m_Localized: "\uC885\uC774 \uC0C1\uC790 \uB354\uBBF8"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1322550526947328
+    m_Localized: "\uC885\uC774 \uC0C1\uC790 \uB354\uBBF8\uC774\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1337637178388480
+    m_Localized: "\uD1A0\uB07C \uC778\uD615"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1337671487795200
+    m_Localized: "\uD1A0\uB07C \uC778\uD615\uC774\uB2E4."
     m_Metadata:
       m_Items: []
   references:
@@ -89,3 +108,6 @@ MonoBehaviour:
         m_Entries: 
         m_SharedEntries:
         - id: 509385018912768
+        - id: 6603358810112
+        - id: 495538367311872
+        - id: 507864738902016

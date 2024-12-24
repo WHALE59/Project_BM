@@ -10,9 +10,18 @@ namespace BM.Interactables
 		[SerializeField] private InteractableSO m_interactableSO;
 		[SerializeField] private InteractableModel m_interactableModel;
 
+		[SerializeField][HideInInspector] private bool m_isCollected = false;
+
+		private bool m_allowInteraction = true;
+
+		public bool IsInteractionAllowed => m_allowInteraction;
+
 		public InteractableSO InteractableSO => m_interactableSO;
 
-		[SerializeField][HideInInspector] private bool m_isCollected = false;
+		public void DisallowInteraction()
+		{
+			m_allowInteraction = false;
+		}
 
 		public void StartHovering()
 		{
@@ -35,6 +44,16 @@ namespace BM.Interactables
 			m_isCollected = true;
 
 			m_interactableModel.gameObject.SetActive(false);
+		}
+
+		public void StartActivation(InteractAction interactAction)
+		{
+			m_interactableSO.StartActivationEvent(interactAction, this);
+		}
+
+		public void FinishActivation(InteractAction interactAction)
+		{
+			m_interactableSO.FinishActivationEvent(interactAction, this);
 		}
 	}
 }
