@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d333f06e78dca745ab24568c8517ea4, type: 3}
   m_Name: InteractableSO_Stick
   m_EditorClassIdentifier: 
-  m_interactableModelPrefab: {fileID: 0}
   m_isCollectible: 1
-  m_collectingSoundEventReference:
+  m_collectingSound:
     Guid:
       Data1: -77043655
       Data2: 1296732471
@@ -22,8 +21,6 @@ MonoBehaviour:
       Data4: 890752613
     Path: event:/SFX/Interaction/2D_Interaction_UI_WoodenStick
   m_isActivatable: 0
-  m_activateCrosshairIcon: {fileID: 0}
-  m_eventOnActivation: {fileID: 0}
   m_isUsableAndEquippable: 0
   m_equipmentIcon: {fileID: 0}
   m_useCrosshairIcon: {fileID: 0}

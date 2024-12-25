@@ -209,10 +209,39 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7153274177152328098, guid: d3276d7bcbe47ed43806223c52955924, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7437038793915283019}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8032270855515153545, guid: d3276d7bcbe47ed43806223c52955924, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4766648983177447888}
   m_SourcePrefab: {fileID: 100100000, guid: d3276d7bcbe47ed43806223c52955924, type: 3}
 --- !u!4 &2420079873967353130 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7153274177152328098, guid: d3276d7bcbe47ed43806223c52955924, type: 3}
   m_PrefabInstance: {fileID: 4814437218225933448}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &3289891541143971841 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8032270855515153545, guid: d3276d7bcbe47ed43806223c52955924, type: 3}
+  m_PrefabInstance: {fileID: 4814437218225933448}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4766648983177447888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3289891541143971841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5a4f93e86539f54eb7279bc5124bbd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_logOnInteraction: 0
+  m_lockedSound:
+    Guid:
+      Data1: 1527764531
+      Data2: 1242466372
+      Data3: -1109399362
+      Data4: -2944623
+    Path: event:/SFX/Interaction/2D_Interaction_UI_Box_Locked
+  m_animator: {fileID: 5517015777011053001}

@@ -269,6 +269,7 @@ MonoBehaviour:
       Data4: -1242516243
     Path: event:/SFX/Interaction/2D_Interaction_UI_Hovering
   m_equipment: {fileID: 0}
+  m_logOnInteractableFoundAndLost: 0
 --- !u!114 &100915224993563351
 MonoBehaviour:
   m_ObjectHideFlags: 0

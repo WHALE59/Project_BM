@@ -14,12 +14,19 @@ namespace BM
 		[SerializeField] private float m_raycastDistance = 5.0f;
 		[SerializeField] private LayerMask m_layerMask = (1 << 6);
 
-		[Space()]
+		[Space]
 
 		[SerializeField] private bool m_enableHoveringSound = true;
 		[SerializeField] private EventReference m_hoveringSoundEventReference;
 
 		[SerializeField] private InteractableSO m_equipment;
+
+#if UNITY_EDITOR
+		[Space]
+
+		[SerializeField] private bool m_logOnInteractableFoundAndLost;
+#endif
+
 
 		private InteractableBase m_detectedInteractable;
 
@@ -31,7 +38,7 @@ namespace BM
 
 		private bool m_isHit;
 		private RaycastHit m_hitResult;
-		private Rigidbody m_hitRigidbodyOnLastFrame;
+		private InteractableModel m_hitModelOnLastFrame;
 
 		private Inventory m_inventory;
 
@@ -53,32 +60,28 @@ namespace BM
 				return;
 			}
 
-			InteractableSO interactableSO = m_detectedInteractable.InteractableSO;
-
-			if (null == interactableSO)
+			if (m_detectedInteractable.IsCollectible && !m_detectedInteractable.IsActivatable)
 			{
-				return;
-			}
+				// Collectible인 경우
 
-			if (interactableSO.IsCollectible)
-			{
+				// 조준자에서 사라져야 함
+
 				InteractableLost?.Invoke(m_detectedInteractable);
+
+				// 인벤토리 수납
+
+				m_inventory.PutIn(m_detectedInteractable);
 
 				// 씬에 배치된 Interactable의 수납 처리
 
 				m_detectedInteractable.SetCollected();
 				m_detectedInteractable = null;
 
-				// 효과음 재생
-
-				interactableSO.PlayOneShotCollectingSound();
-
-				// 인벤토리 수납
-
-				m_inventory.PutIn(interactableSO);
 			}
-			else if (interactableSO.IsActivatable)
+			else if (m_detectedInteractable.IsActivatable && !m_detectedInteractable.IsCollectible)
 			{
+				// Activatable인 경우
+
 				m_detectedInteractable.StartActivation(this);
 			}
 		}
@@ -102,7 +105,7 @@ namespace BM
 					m_detectedInteractable = null;
 				}
 
-				m_hitRigidbodyOnLastFrame = null;
+				m_hitModelOnLastFrame = null;
 
 				return;
 			}
@@ -114,30 +117,45 @@ namespace BM
 
 			if (m_isHit)
 			{
-				if (hitRigidbody == m_hitRigidbodyOnLastFrame)
+				if (hitRigidbody.TryGetComponent<InteractableBase>(out var newlyDetectedInteractable))
 				{
-					return;
-				}
+					// 몬가 검출이 된 것임
 
-				if (null != m_detectedInteractable)
-				{
-					FinishHoveringProcedure(m_detectedInteractable);
-					m_detectedInteractable = null;
-				}
-
-				if (hitRigidbody.TryGetComponent<InteractableBase>(out m_detectedInteractable))
-				{
-					if (m_detectedInteractable.IsInteractionAllowed)
+					// 이게 아예 탑 레벨에서 다른 것인가?
+					if (m_detectedInteractable != newlyDetectedInteractable)
 					{
-						StartHoveringProcedure(m_detectedInteractable);
+						// 이전 거 널 아니면 호버링 종료 처리
+						if (null != m_detectedInteractable)
+						{
+							FinishHoveringProcedure(m_detectedInteractable);
+							m_detectedInteractable = null;
+						}
+
+
+						if (newlyDetectedInteractable.IsInteractionAllowed)
+						{
+							m_detectedInteractable = newlyDetectedInteractable;
+							StartHoveringProcedure(m_detectedInteractable);
+						}
 					}
+					// 탑 레벨에서는 같다?
 					else
 					{
-						m_detectedInteractable = null;
+						InteractableModel newModel = newlyDetectedInteractable.InteractableModel;
+
+						// 모델이 다른 경우, 이전 모델 호버링 이펙트 끝내고 지금 모델 호버링 이펙트 
+						if (newModel != m_hitModelOnLastFrame)
+						{
+							if (null != m_hitModelOnLastFrame)
+							{
+								m_hitModelOnLastFrame.FinishHoveringEffect();
+							}
+
+							m_hitModelOnLastFrame = newModel;
+							m_hitModelOnLastFrame.StartHoveringEffect();
+						}
 					}
 				}
-
-				m_hitRigidbodyOnLastFrame = hitRigidbody;
 			}
 			else
 			{
@@ -146,8 +164,6 @@ namespace BM
 					FinishHoveringProcedure(m_detectedInteractable);
 					m_detectedInteractable = null;
 				}
-
-				m_hitRigidbodyOnLastFrame = null;
 			}
 		}
 
@@ -209,12 +225,47 @@ namespace BM
 			m_inputReaderSO.CollectOrActivateInputCanceled += FinishCollectOrActivate;
 		}
 
+		private void OnEnable()
+		{
+#if UNITY_EDITOR
+			InteractableFound += Debug_OnInteractableFound;
+			InteractableLost += Debug_OnInteractableLost;
+#endif
+		}
+
+		private void OnDisable()
+		{
+#if UNITY_EDITOR
+			InteractableFound -= Debug_OnInteractableFound;
+			InteractableLost -= Debug_OnInteractableLost;
+#endif
+		}
+
 		private void FixedUpdate()
 		{
 			HandleInteractRaycast();
 		}
 
 #if UNITY_EDITOR
+
+		private void Debug_OnInteractableFound(InteractableBase found)
+		{
+			if (m_logOnInteractableFoundAndLost)
+			{
+				Debug.Log($"{found.name} 탐지");
+			}
+
+		}
+
+		private void Debug_OnInteractableLost(InteractableBase lost)
+		{
+			if (m_logOnInteractableFoundAndLost)
+			{
+				Debug.Log($"{lost.name} 소실");
+			}
+
+		}
+
 		[UnityEditor.DrawGizmo(UnityEditor.GizmoType.Active | UnityEditor.GizmoType.NonSelected)]
 		private static void DrawRaycastResult(InteractAction target, UnityEditor.GizmoType _)
 		{
