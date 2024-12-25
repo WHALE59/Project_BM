@@ -103,6 +103,10 @@ MonoBehaviour:
     m_Localized: Curtain
     m_Metadata:
       m_Items: []
+  - m_Id: 1724151003557888
+    m_Localized: Lamp
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

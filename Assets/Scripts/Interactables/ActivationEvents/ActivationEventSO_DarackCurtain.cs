@@ -1,8 +1,7 @@
 using UnityEngine;
 using FMODUnity;
-using BM.Interactables;
 
-namespace BM.Interactable
+namespace BM.Interactables
 {
 
 	[CreateAssetMenu(menuName = "BM/SO/Activation Events/Darack Curtain", fileName = "ActivationEventSO_DarackCurtain")]

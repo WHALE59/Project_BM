@@ -95,6 +95,10 @@ MonoBehaviour:
     m_Key: Iteractable_DarackCurtain_DisplayName
     m_Metadata:
       m_Items: []
+  - m_Id: 1724151003557888
+    m_Key: Interactable_DarackLamp_DisplayName
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
