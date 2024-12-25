@@ -21,8 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_Gore_01
-  m_Shader: {fileID: -6465566751694194690, guid: 9225edde559a6b443aba3514ccc1e81e,
-    type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 9225edde559a6b443aba3514ccc1e81e, type: 3}
   m_Parent: {fileID: 2100000, guid: 1f7fcbcb2ed18874f8a2906666c55da8, type: 2}
   m_ModifiedSerializedProperties: 4
   m_ValidKeywords: []
@@ -60,7 +59,7 @@ Material:
     - _Boolean_1: 1
     - _Dirt_Amount: 0.01
     - _Dirt_power: 0.01
-    - _Float: 15.3
+    - _Float: 29.01
     - _FresnelAmount: -0.002
     - _FresnelContrast: 2.28
     - _FresnelIntensity: 0.11
@@ -72,7 +71,7 @@ Material:
     - _Grunge_Tiling: 0
     - _IsUsedFresnel: 0
     - _Normal_Intensity: 1
-    - _PixelizeAmount: 294
+    - _PixelizeAmount: 438
     - _QueueControl: 0
     - _RoughnessContrast: 0.61
     - _RoughnessPower: 1.86

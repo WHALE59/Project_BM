@@ -425,8 +425,8 @@
     },
     "m_FragmentContext": {
         "m_Position": {
-            "x": 504.9999694824219,
-            "y": 154.00001525878907
+            "x": 505.0000305175781,
+            "y": 154.0
         },
         "m_Blocks": [
             {
@@ -2363,7 +2363,7 @@
     "m_AlphaMode": 0,
     "m_RenderFace": 2,
     "m_AlphaClip": false,
-    "m_CastShadows": true,
+    "m_CastShadows": false,
     "m_ReceiveShadows": true,
     "m_SupportsLODCrossFade": false,
     "m_CustomEditorGUI": "",
@@ -2598,10 +2598,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -2286.000244140625,
-            "y": 0.000010013580322265625,
+            "x": -2287.0,
+            "y": -9.99999713897705,
             "width": 129.0,
-            "height": 34.00002670288086
+            "height": 33.9999885559082
         }
     },
     "m_Slots": [

@@ -7,6 +7,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: BlackEmissive
+    second: {fileID: 2100000, guid: 9610baccb45beaa49ba7bac9c7d6ff8b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: BlackGround
     second: {fileID: 2100000, guid: 046947ee123dc78468ba6bf4f605f651, type: 2}
   - first:
