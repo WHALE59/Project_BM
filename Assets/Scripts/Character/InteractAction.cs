@@ -36,7 +36,7 @@ namespace BM
 		public event Action<InteractableSO> Equipped;
 		public event Action Unequipped;
 
-		private bool m_isHit;
+		private bool m_isValidInteractionHit;
 		private RaycastHit m_hitResult;
 		private InteractableModel m_hitModelOnLastFrame;
 
@@ -93,76 +93,88 @@ namespace BM
 
 		private void HandleInteractRaycast()
 		{
-			bool isRaycastHit = Physics.Raycast(GetCameraRay(), out m_hitResult, m_raycastDistance, m_layerMask, QueryTriggerInteraction.Ignore);
+			InteractableBase newlyDetectedInteractable = null;
 
-			if (!isRaycastHit)
+			bool isRaycastHit = Physics.Raycast
+			(
+				ray: GetCameraRay(),
+				hitInfo: out m_hitResult,
+				maxDistance: m_raycastDistance,
+				layerMask: m_layerMask,
+				queryTriggerInteraction: QueryTriggerInteraction.Ignore
+			);
+
+			m_isValidInteractionHit = isRaycastHit;
+
+			if (isRaycastHit)
 			{
-				m_isHit = isRaycastHit;
+				Rigidbody hitRigidbody = m_hitResult.collider.attachedRigidbody;
+				bool hasAttachedRigidbody = null != hitRigidbody;
 
-				if (null != m_detectedInteractable)
+				m_isValidInteractionHit &= hasAttachedRigidbody;
+
+				if (hasAttachedRigidbody)
 				{
-					FinishHoveringProcedure(m_detectedInteractable);
-					m_detectedInteractable = null;
+					bool hasAttachedInteractable = hitRigidbody.TryGetComponent<InteractableBase>(out newlyDetectedInteractable);
+
+					m_isValidInteractionHit &= hasAttachedInteractable;
+
+					if (hasAttachedInteractable)
+					{
+						m_isValidInteractionHit &= newlyDetectedInteractable.IsInteractionAllowed;
+					}
 				}
-
-				m_hitModelOnLastFrame = null;
-
-				return;
 			}
 
-			Rigidbody hitRigidbody = m_hitResult.collider.attachedRigidbody;
-			bool hasAttachedRigidbody = null != hitRigidbody;
-
-			m_isHit = isRaycastHit && hasAttachedRigidbody;
-
-			if (m_isHit)
+			// 뭔가 상호작용 가능한 것이 실제로 검출 되었음
+			if (m_isValidInteractionHit)
 			{
-				if (hitRigidbody.TryGetComponent<InteractableBase>(out var newlyDetectedInteractable))
+				// 새로 검출된 것이 이전 프레임에 검출 된 것과 탑 레벨에서 다른 것
+				if (m_detectedInteractable != newlyDetectedInteractable)
 				{
-					// 몬가 검출이 된 것임
-
-					// 이게 아예 탑 레벨에서 다른 것인가?
-					if (m_detectedInteractable != newlyDetectedInteractable)
+					// 이전 프레임에 검출된 것이 null 이 아니라면, 이전 프레임에 호버링 절차를 종료 (TODO: "했다면, 종료?")
+					if (null != m_detectedInteractable)
 					{
-						// 이전 거 널 아니면 호버링 종료 처리
-						if (null != m_detectedInteractable)
-						{
-							FinishHoveringProcedure(m_detectedInteractable);
-							m_detectedInteractable = null;
-						}
-
-
-						if (newlyDetectedInteractable.IsInteractionAllowed)
-						{
-							m_detectedInteractable = newlyDetectedInteractable;
-							StartHoveringProcedure(m_detectedInteractable);
-						}
+						FinishHoveringProcedure(m_detectedInteractable);
+						m_detectedInteractable = null;
 					}
-					// 탑 레벨에서는 같다?
+
+					StartHoveringProcedure(newlyDetectedInteractable);
+					m_detectedInteractable = newlyDetectedInteractable;
+				}
+				// 새로 검출된 것이 이전 프레임에 검출된 것과 탑 레벨에서는 같은 것
+				else
+				{
+					InteractableModel newlyDetectedModel = newlyDetectedInteractable.Model;
+
+					// 내부의 모델이 변하였다
+					if (m_hitModelOnLastFrame != newlyDetectedModel)
+					{
+						if (null != m_hitModelOnLastFrame)
+						{
+							m_hitModelOnLastFrame.FinishHoveringEffect();
+						}
+
+						newlyDetectedModel.StartHoveringEffect();
+					}
+					// 내부의 모델도 변치 않았다
 					else
 					{
-						InteractableModel newModel = newlyDetectedInteractable.InteractableModel;
-
-						// 모델이 다른 경우, 이전 모델 호버링 이펙트 끝내고 지금 모델 호버링 이펙트 
-						if (newModel != m_hitModelOnLastFrame)
-						{
-							if (null != m_hitModelOnLastFrame)
-							{
-								m_hitModelOnLastFrame.FinishHoveringEffect();
-							}
-
-							m_hitModelOnLastFrame = newModel;
-							m_hitModelOnLastFrame.StartHoveringEffect();
-						}
+						// 아무 것도 하지 않아도 됨
 					}
+
+					m_hitModelOnLastFrame = newlyDetectedModel;
 				}
 			}
+			// 뭔가 상호작용 가능한 것이 하나도 검출 되지 않았음
 			else
 			{
 				if (null != m_detectedInteractable)
 				{
 					FinishHoveringProcedure(m_detectedInteractable);
+
 					m_detectedInteractable = null;
+					m_hitModelOnLastFrame = null;
 				}
 			}
 		}
@@ -274,15 +286,15 @@ namespace BM
 				return;
 			}
 
-			if (!target.m_isHit)
+			if (!target.m_isValidInteractionHit)
 			{
 				Gizmos.color = Color.white;
 			}
-			else if (target.m_isHit && null == target.m_detectedInteractable)
+			else if (target.m_isValidInteractionHit && null == target.m_detectedInteractable)
 			{
 				Gizmos.color = Color.yellow;
 			}
-			else if (target.m_isHit && null != target.m_detectedInteractable)
+			else if (target.m_isValidInteractionHit && null != target.m_detectedInteractable)
 			{
 				Gizmos.color = Color.green;
 			}
@@ -291,7 +303,7 @@ namespace BM
 
 			Ray ray = target.GetCameraRay();
 
-			if (!target.m_isHit)
+			if (!target.m_isValidInteractionHit)
 			{
 				Gizmos.DrawRay(ray.origin, ray.direction * target.m_raycastDistance);
 			}
@@ -317,7 +329,7 @@ namespace BM
 
 			Vector3 point = default;
 
-			if (target.m_isHit)
+			if (target.m_isValidInteractionHit)
 			{
 				point = target.m_hitResult.point;
 			}
@@ -344,7 +356,7 @@ namespace BM
 				}
 			}
 
-			if (target.m_isHit)
+			if (target.m_isValidInteractionHit)
 			{
 				Vector3 normal = target.m_hitResult.normal;
 				Gizmos.DrawRay(point, normal * 0.5f);

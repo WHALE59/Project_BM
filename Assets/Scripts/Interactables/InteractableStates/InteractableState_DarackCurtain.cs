@@ -29,7 +29,7 @@ namespace BM.Interactables
 		{
 			m_isOpened = true;
 
-			m_interactableBase.InteractableModel = m_modelOnOpened;
+			m_interactableBase.Model = m_modelOnOpened;
 
 			m_modelOnOpened.gameObject.SetActive(true);
 			m_modelOnClosed.gameObject.SetActive(false);
@@ -39,7 +39,7 @@ namespace BM.Interactables
 		{
 			m_isOpened = false;
 
-			m_interactableBase.InteractableModel = m_modelOnClosed;
+			m_interactableBase.Model = m_modelOnClosed;
 
 			m_modelOnOpened.gameObject.SetActive(false);
 			m_modelOnClosed.gameObject.SetActive(true);

@@ -11926,11 +11926,11 @@ Transform:
   - {fileID: 1163453363}
   - {fileID: 1246521995}
   - {fileID: 1557448048}
+  - {fileID: 693989495}
+  - {fileID: 573092649}
   - {fileID: 666726939}
   - {fileID: 846512268}
   - {fileID: 445910583}
-  - {fileID: 693989495}
-  - {fileID: 573092649}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1402350397 stripped

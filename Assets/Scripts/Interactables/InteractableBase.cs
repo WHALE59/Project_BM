@@ -21,7 +21,7 @@ namespace BM.Interactables
 
 		public InteractableSO InteractableSO => m_interactableSO;
 
-		public InteractableModel InteractableModel { get => m_interactableModel; set => m_interactableModel = value; }
+		public InteractableModel Model { get => m_interactableModel; set => m_interactableModel = value; }
 
 		public bool IsCollectible => m_interactableSO.IsCollectible;
 		public bool IsActivatable => m_interactableSO.IsActivatable;
