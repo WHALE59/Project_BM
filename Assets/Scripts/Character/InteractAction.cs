@@ -14,12 +14,25 @@ namespace BM
 		[SerializeField] private float m_raycastDistance = 5.0f;
 		[SerializeField] private LayerMask m_layerMask = (1 << 6);
 
-		[Space()]
+		[Space]
 
 		[SerializeField] private bool m_enableHoveringSound = true;
-		[SerializeField] private EventReference m_hoveringSoundEventReference;
+		[SerializeField] private EventReference m_soundOnHovering;
+
+		[Space]
+
+		[SerializeField] private EventReference m_defaultSoundOnCollecting;
+
+		[Space]
 
 		[SerializeField] private InteractableSO m_equipment;
+
+#if UNITY_EDITOR
+		[Space]
+
+		[SerializeField] private bool m_logOnInteractableFoundAndLost;
+#endif
+
 
 		private InteractableBase m_detectedInteractable;
 
@@ -29,9 +42,9 @@ namespace BM
 		public event Action<InteractableSO> Equipped;
 		public event Action Unequipped;
 
-		private bool m_isHit;
+		private bool m_isValidInteractionHit;
 		private RaycastHit m_hitResult;
-		private Rigidbody m_hitRigidbodyOnLastFrame;
+		private InteractableModel m_hitModelOnLastFrame;
 
 		private Inventory m_inventory;
 
@@ -53,32 +66,39 @@ namespace BM
 				return;
 			}
 
-			InteractableSO interactableSO = m_detectedInteractable.InteractableSO;
-
-			if (null == interactableSO)
+			if (m_detectedInteractable.IsCollectible && !m_detectedInteractable.IsActivatable)
 			{
-				return;
-			}
+				// Collectible인 경우
 
-			if (interactableSO.IsCollectible)
-			{
+				// 조준자에서 사라져야 함
+
 				InteractableLost?.Invoke(m_detectedInteractable);
 
+				// 인벤토리 수납
+
+				m_inventory.PutIn(m_detectedInteractable);
+
 				// 씬에 배치된 Interactable의 수납 처리
+
+				EventReference soundOnCollect = m_detectedInteractable.InteractableSO.SoundOnCollectingOverride;
+
+				if (soundOnCollect.IsNull)
+				{
+					RuntimeManager.PlayOneShot(m_defaultSoundOnCollecting);
+				}
+				else
+				{
+					RuntimeManager.PlayOneShot(soundOnCollect);
+				}
 
 				m_detectedInteractable.SetCollected();
 				m_detectedInteractable = null;
 
-				// 효과음 재생
-
-				interactableSO.PlayOneShotCollectingSound();
-
-				// 인벤토리 수납
-
-				m_inventory.PutIn(interactableSO);
 			}
-			else if (interactableSO.IsActivatable)
+			else if (m_detectedInteractable.IsActivatable && !m_detectedInteractable.IsCollectible)
 			{
+				// Activatable인 경우
+
 				m_detectedInteractable.StartActivation(this);
 			}
 		}
@@ -90,64 +110,89 @@ namespace BM
 
 		private void HandleInteractRaycast()
 		{
-			bool isRaycastHit = Physics.Raycast(GetCameraRay(), out m_hitResult, m_raycastDistance, m_layerMask, QueryTriggerInteraction.Ignore);
+			InteractableBase newlyDetectedInteractable = null;
 
-			if (!isRaycastHit)
+			bool isRaycastHit = Physics.Raycast
+			(
+				ray: GetCameraRay(),
+				hitInfo: out m_hitResult,
+				maxDistance: m_raycastDistance,
+				layerMask: m_layerMask,
+				queryTriggerInteraction: QueryTriggerInteraction.Ignore
+			);
+
+			m_isValidInteractionHit = isRaycastHit;
+
+			if (isRaycastHit)
 			{
-				m_isHit = isRaycastHit;
+				Rigidbody hitRigidbody = m_hitResult.collider.attachedRigidbody;
+				bool hasAttachedRigidbody = null != hitRigidbody;
 
-				if (null != m_detectedInteractable)
+				m_isValidInteractionHit &= hasAttachedRigidbody;
+
+				if (hasAttachedRigidbody)
 				{
-					FinishHoveringProcedure(m_detectedInteractable);
-					m_detectedInteractable = null;
+					bool hasAttachedInteractable = hitRigidbody.TryGetComponent<InteractableBase>(out newlyDetectedInteractable);
+
+					m_isValidInteractionHit &= hasAttachedInteractable;
+
+					if (hasAttachedInteractable)
+					{
+						m_isValidInteractionHit &= newlyDetectedInteractable.IsInteractionAllowed;
+					}
 				}
-
-				m_hitRigidbodyOnLastFrame = null;
-
-				return;
 			}
 
-			Rigidbody hitRigidbody = m_hitResult.collider.attachedRigidbody;
-			bool hasAttachedRigidbody = null != hitRigidbody;
-
-			m_isHit = isRaycastHit && hasAttachedRigidbody;
-
-			if (m_isHit)
+			// 뭔가 상호작용 가능한 것이 실제로 검출 되었음
+			if (m_isValidInteractionHit)
 			{
-				if (hitRigidbody == m_hitRigidbodyOnLastFrame)
+				// 새로 검출된 것이 이전 프레임에 검출 된 것과 탑 레벨에서 다른 것
+				if (m_detectedInteractable != newlyDetectedInteractable)
 				{
-					return;
-				}
-
-				if (null != m_detectedInteractable)
-				{
-					FinishHoveringProcedure(m_detectedInteractable);
-					m_detectedInteractable = null;
-				}
-
-				if (hitRigidbody.TryGetComponent<InteractableBase>(out m_detectedInteractable))
-				{
-					if (m_detectedInteractable.IsInteractionAllowed)
+					// 이전 프레임에 검출된 것이 null 이 아니라면, 이전 프레임에 호버링 절차를 종료 (TODO: "했다면, 종료?")
+					if (null != m_detectedInteractable)
 					{
-						StartHoveringProcedure(m_detectedInteractable);
-					}
-					else
-					{
+						FinishHoveringProcedure(m_detectedInteractable);
 						m_detectedInteractable = null;
 					}
-				}
 
-				m_hitRigidbodyOnLastFrame = hitRigidbody;
+					StartHoveringProcedure(newlyDetectedInteractable);
+					m_detectedInteractable = newlyDetectedInteractable;
+				}
+				// 새로 검출된 것이 이전 프레임에 검출된 것과 탑 레벨에서는 같은 것
+				else
+				{
+					InteractableModel newlyDetectedModel = newlyDetectedInteractable.Model;
+
+					// 내부의 모델이 변하였다
+					if (m_hitModelOnLastFrame != newlyDetectedModel)
+					{
+						if (null != m_hitModelOnLastFrame)
+						{
+							m_hitModelOnLastFrame.FinishHoveringEffect();
+						}
+
+						newlyDetectedModel.StartHoveringEffect();
+					}
+					// 내부의 모델도 변치 않았다
+					else
+					{
+						// 아무 것도 하지 않아도 됨
+					}
+
+					m_hitModelOnLastFrame = newlyDetectedModel;
+				}
 			}
+			// 뭔가 상호작용 가능한 것이 하나도 검출 되지 않았음
 			else
 			{
 				if (null != m_detectedInteractable)
 				{
 					FinishHoveringProcedure(m_detectedInteractable);
-					m_detectedInteractable = null;
-				}
 
-				m_hitRigidbodyOnLastFrame = null;
+					m_detectedInteractable = null;
+					m_hitModelOnLastFrame = null;
+				}
 			}
 		}
 
@@ -178,7 +223,7 @@ namespace BM
 		{
 			if (m_enableHoveringSound)
 			{
-				RuntimeManager.PlayOneShot(m_hoveringSoundEventReference);
+				RuntimeManager.PlayOneShot(m_soundOnHovering);
 			}
 		}
 
@@ -209,12 +254,47 @@ namespace BM
 			m_inputReaderSO.CollectOrActivateInputCanceled += FinishCollectOrActivate;
 		}
 
+		private void OnEnable()
+		{
+#if UNITY_EDITOR
+			InteractableFound += Debug_OnInteractableFound;
+			InteractableLost += Debug_OnInteractableLost;
+#endif
+		}
+
+		private void OnDisable()
+		{
+#if UNITY_EDITOR
+			InteractableFound -= Debug_OnInteractableFound;
+			InteractableLost -= Debug_OnInteractableLost;
+#endif
+		}
+
 		private void FixedUpdate()
 		{
 			HandleInteractRaycast();
 		}
 
 #if UNITY_EDITOR
+
+		private void Debug_OnInteractableFound(InteractableBase found)
+		{
+			if (m_logOnInteractableFoundAndLost)
+			{
+				Debug.Log($"{found.name} 탐지");
+			}
+
+		}
+
+		private void Debug_OnInteractableLost(InteractableBase lost)
+		{
+			if (m_logOnInteractableFoundAndLost)
+			{
+				Debug.Log($"{lost.name} 소실");
+			}
+
+		}
+
 		[UnityEditor.DrawGizmo(UnityEditor.GizmoType.Active | UnityEditor.GizmoType.NonSelected)]
 		private static void DrawRaycastResult(InteractAction target, UnityEditor.GizmoType _)
 		{
@@ -223,15 +303,15 @@ namespace BM
 				return;
 			}
 
-			if (!target.m_isHit)
+			if (!target.m_isValidInteractionHit)
 			{
 				Gizmos.color = Color.white;
 			}
-			else if (target.m_isHit && null == target.m_detectedInteractable)
+			else if (target.m_isValidInteractionHit && null == target.m_detectedInteractable)
 			{
 				Gizmos.color = Color.yellow;
 			}
-			else if (target.m_isHit && null != target.m_detectedInteractable)
+			else if (target.m_isValidInteractionHit && null != target.m_detectedInteractable)
 			{
 				Gizmos.color = Color.green;
 			}
@@ -240,7 +320,7 @@ namespace BM
 
 			Ray ray = target.GetCameraRay();
 
-			if (!target.m_isHit)
+			if (!target.m_isValidInteractionHit)
 			{
 				Gizmos.DrawRay(ray.origin, ray.direction * target.m_raycastDistance);
 			}
@@ -266,7 +346,7 @@ namespace BM
 
 			Vector3 point = default;
 
-			if (target.m_isHit)
+			if (target.m_isValidInteractionHit)
 			{
 				point = target.m_hitResult.point;
 			}
@@ -293,7 +373,7 @@ namespace BM
 				}
 			}
 
-			if (target.m_isHit)
+			if (target.m_isValidInteractionHit)
 			{
 				Vector3 normal = target.m_hitResult.normal;
 				Gizmos.DrawRay(point, normal * 0.5f);

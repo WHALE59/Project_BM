@@ -32,6 +32,7 @@ namespace BM
 			else if (interactableSO.IsActivatable)
 			{
 				// m_interactionCrosshair.SetCrosshair(interactableSO)
+				m_interactionCrosshair.SetActivatableCrosshair();
 			}
 		}
 

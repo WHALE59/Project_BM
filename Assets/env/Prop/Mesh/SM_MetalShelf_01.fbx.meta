@@ -9,6 +9,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: M_Prop02
     second: {fileID: 2100000, guid: 956b2a0ce75df4f4eb65777f921920bb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Wooden
+    second: {fileID: 2100000, guid: cf27b4e2dd4803c41a7b8211c04eb2aa, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -40,7 +45,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 100
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1

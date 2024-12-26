@@ -36,7 +36,7 @@ namespace BM
 		private LocomotiveAction m_locomotiveAction;
 		private LocomotiveImpulseGenerator m_locomotiveImpulseGenerator;
 
-		private const string PARAMSHEET_FOOTSTEP_NORMAL = "3D_M_Footsteps_DarackWood";
+		private const string PARAMSHEET_FOOTSTEP_NORMAL = "GaitState";
 		private const string PARAMSHEET_FOOTSTEP_CARPET = "3D_M_Footsteps_Carpet";
 
 		private PARAMETER_ID m_carpetID;

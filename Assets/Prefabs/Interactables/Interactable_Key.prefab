@@ -60,6 +60,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: InteractableModel_Key
       objectReference: {fileID: 0}
+    - target: {fileID: 7885139878302316505, guid: 88202997b8083d94baa7e181202c5fac, type: 3}
+      propertyPath: m_Size.x
+      value: 0.072820574
+      objectReference: {fileID: 0}
+    - target: {fileID: 7885139878302316505, guid: 88202997b8083d94baa7e181202c5fac, type: 3}
+      propertyPath: m_Size.y
+      value: 0.1903442
+      objectReference: {fileID: 0}
+    - target: {fileID: 7885139878302316505, guid: 88202997b8083d94baa7e181202c5fac, type: 3}
+      propertyPath: m_Size.z
+      value: 0.7162185
+      objectReference: {fileID: 0}
+    - target: {fileID: 7885139878302316505, guid: 88202997b8083d94baa7e181202c5fac, type: 3}
+      propertyPath: m_Center.x
+      value: -0.0103087025
+      objectReference: {fileID: 0}
+    - target: {fileID: 7885139878302316505, guid: 88202997b8083d94baa7e181202c5fac, type: 3}
+      propertyPath: m_Center.y
+      value: -0.0077074138
+      objectReference: {fileID: 0}
+    - target: {fileID: 7885139878302316505, guid: 88202997b8083d94baa7e181202c5fac, type: 3}
+      propertyPath: m_Center.z
+      value: -0.035416357
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

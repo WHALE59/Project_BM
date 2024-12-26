@@ -8,8 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_Cubemap_Night_01 1
-  m_Shader: {fileID: -6465566751694194690, guid: 38d497fb18cf5bd4d95771b7b8dc3535,
-    type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 38d497fb18cf5bd4d95771b7b8dc3535, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -55,7 +54,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _Exposure: 8
-    - _Float: 90
+    - _Float: 96.07
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Rotation: 338
