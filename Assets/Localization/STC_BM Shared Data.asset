@@ -18,87 +18,88 @@ MonoBehaviour:
   - m_Id: 495538367311872
     m_Key: Action_Activate
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 737333076142063649
   - m_Id: 507864738902016
     m_Key: Action_Collect
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 737333076142063650
   - m_Id: 509385018912768
     m_Key: Action_Use
     m_Metadata:
-      m_Items: []
-  - m_Id: 785522630537216
-    m_Key: Interactable_Key_DisplayName
-    m_Metadata:
-      m_Items: []
-  - m_Id: 850381632122880
-    m_Key: Interactable_Key_Description
-    m_Metadata:
-      m_Items: []
-  - m_Id: 850407875883008
-    m_Key: Interactable_Rope_DisplayName
-    m_Metadata:
-      m_Items: []
-  - m_Id: 850445184217088
-    m_Key: Interactable_Rope_Description
-    m_Metadata:
-      m_Items: []
-  - m_Id: 850471163736064
-    m_Key: Interactable_Straw_DisplayName
-    m_Metadata:
-      m_Items: []
-  - m_Id: 850495658471424
-    m_Key: Interactable_Straw_Description
-    m_Metadata:
-      m_Items: []
-  - m_Id: 850519796690944
-    m_Key: Interactable_Stick_DisplayName
-    m_Metadata:
-      m_Items: []
-  - m_Id: 850552445153280
-    m_Key: Interactable_Stick_Description
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1044646555496448
-    m_Key: Interactable_GirlsDiary_DisplayName
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1044711969861632
-    m_Key: Interactable_GirlsDiary_Description
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1322503227781120
-    m_Key: Interactable_CardboardPile_DisplayName
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1322550526947328
-    m_Key: Interactable_CardboardPile_Description
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1337637178388480
-    m_Key: Interactable_RabbitDoll_DisplayName
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1337671487795200
-    m_Key: Interactable_RabbitDoll_Description
-    m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 737333076142063651
   - m_Id: 6415911170048
     m_Key: Interactable_GirlsChest_DisplayName
     m_Metadata:
-      m_Items: []
-  - m_Id: 6603358810112
-    m_Key: Interactable_GirlsChest_Description
+      m_Items:
+      - rid: 737333076142063635
+  - m_Id: 785522630537216
+    m_Key: Interactable_Key_DisplayName
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 737333076142063636
+  - m_Id: 850381632122880
+    m_Key: Interactable_Key_Description
+    m_Metadata:
+      m_Items:
+      - rid: 737333076142063637
+  - m_Id: 850471163736064
+    m_Key: Interactable_Straw_DisplayName
+    m_Metadata:
+      m_Items:
+      - rid: 737333076142063638
+  - m_Id: 850495658471424
+    m_Key: Interactable_Straw_Description
+    m_Metadata:
+      m_Items:
+      - rid: 737333076142063639
+  - m_Id: 850407875883008
+    m_Key: Interactable_Rope_DisplayName
+    m_Metadata:
+      m_Items:
+      - rid: 737333076142063640
+  - m_Id: 850445184217088
+    m_Key: Interactable_Rope_Description
+    m_Metadata:
+      m_Items:
+      - rid: 737333076142063641
+  - m_Id: 850519796690944
+    m_Key: Interactable_Stick_DisplayName
+    m_Metadata:
+      m_Items:
+      - rid: 737333076142063642
+  - m_Id: 850552445153280
+    m_Key: Interactable_Stick_Description
+    m_Metadata:
+      m_Items:
+      - rid: 737333076142063643
+  - m_Id: 1337637178388480
+    m_Key: Interactable_RabbitDoll_DisplayName
+    m_Metadata:
+      m_Items:
+      - rid: 737333076142063644
+  - m_Id: 1044646555496448
+    m_Key: Interactable_GirlsDiary_DisplayName
+    m_Metadata:
+      m_Items:
+      - rid: 737333076142063645
+  - m_Id: 1322503227781120
+    m_Key: Interactable_CardboardPile_DisplayName
+    m_Metadata:
+      m_Items:
+      - rid: 737333076142063646
   - m_Id: 1550363100131328
-    m_Key: Iteractable_DarackCurtain_DisplayName
+    m_Key: Interactable_DarackCurtain_DisplayName
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 737333076142063647
   - m_Id: 1724151003557888
     m_Key: Interactable_DarackLamp_DisplayName
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 737333076142063648
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
@@ -110,3 +111,82 @@ MonoBehaviour:
       type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
       data:
         m_CustomEpoch: 1734683632503
+    - rid: 737333076142063635
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uB2E4\uB77D \uAE30\uC5B5\uACF5\uAC04 \uCC45\uC0C1 \uC704
+          \uC0C1\uC790"
+    - rid: 737333076142063636
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uB2E4\uB77D \uAE30\uC5B5\uACF5\uAC04 \uCE68\uB300 \uC544\uB798
+          \uC5F4\uC1E0"
+    - rid: 737333076142063637
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uB2E4\uB77D \uAE30\uC5B5\uACF5\uAC04 \uCE68\uB300 \uC544\uB798
+          \uC5F4\uC1E0"
+    - rid: 737333076142063638
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uB2E4\uB77D \uAE30\uC5B5\uACF5\uAC04 \uBCCF\uC9DA"
+    - rid: 737333076142063639
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uB2E4\uB77D \uAE30\uC5B5\uACF5\uAC04 \uBCCF\uC9DA"
+    - rid: 737333076142063640
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uB2E4\uB77D \uAE30\uC5B5\uACF5\uAC04 \uBC27\uC904"
+    - rid: 737333076142063641
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uB2E4\uB77D \uAE30\uC5B5\uACF5\uAC04 \uBC27\uC904"
+    - rid: 737333076142063642
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uB2E4\uB77D \uAE30\uC5B5\uACF5\uAC04 \uB9C9\uB300"
+    - rid: 737333076142063643
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uB2E4\uB77D \uAE30\uC5B5\uACF5\uAC04 \uB9C9\uB300"
+    - rid: 737333076142063644
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uB2E4\uB77D \uAE30\uC5B5\uACF5\uAC04 \uD1A0\uB07C \uC778\uD615"
+    - rid: 737333076142063645
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uB2E4\uB77D \uAE30\uC5B5\uACF5\uAC04 \uCC45\uC0C1 \uC704
+          \uC77C\uAE30\uC7A5"
+    - rid: 737333076142063646
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uB2E4\uB77D \uAE30\uC5B5\uACF5\uAC04 \uCE68\uB300 \uC606
+          \uC0C1\uC790 \uB354\uBBF8"
+    - rid: 737333076142063647
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uB2E4\uB77D \uAE30\uC5B5\uACF5\uAC04 \uCC3D\uBB38\uC5D0
+          \uB2EC\uB9B0 \uCEE4\uD2BC"
+    - rid: 737333076142063648
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uB2E4\uB77D \uAE30\uC5B5\uACF5\uAC04 \uCC45\uC0C1 \uC704
+          \uB7A8\uD504"
+    - rid: 737333076142063649
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uC0C1\uD638\uC791\uC6A9\uC2DC \uCEE8\uD2B8\uB864 \uAC00\uC774\uB4DC\uC5D0
+          \uD45C\uC2DC\uB420 \uBB38\uC790\uC5F4 (\uACE0\uC720 \uAE30\uB2A5 \uD65C\uC131\uD654)"
+    - rid: 737333076142063650
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uC0C1\uD638\uC791\uC6A9\uC2DC \uCEE8\uD2B8\uB864 \uAC00\uC774\uB4DC\uC5D0
+          \uD45C\uC2DC\uB420 \uBB38\uC790\uC5F4 (\uC778\uBCA4\uD1A0\uB9AC \uC218\uB0A9)"
+    - rid: 737333076142063651
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uC0C1\uD638\uC791\uC6A9\uC2DC \uCEE8\uD2B8\uB864 \uAC00\uC774\uB4DC\uC5D0
+          \uD45C\uC2DC\uB420 \uBB38\uC790\uC5F4 (\uC190\uC5D0 \uB4E0 \uC544\uC774\uD15C
+          \uC0AC\uC6A9)"

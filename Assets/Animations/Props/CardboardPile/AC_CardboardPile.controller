@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d27c04ae161bda458ea6c4dcfd49979, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_logOnStateTransition: 1
+  m_logOnStateTransition: 0
 --- !u!1107 &-6513136041963958930
 AnimatorStateMachine:
   serializedVersion: 6
