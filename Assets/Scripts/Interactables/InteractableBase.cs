@@ -57,7 +57,6 @@ namespace BM.Interactables
 		{
 			m_isCollected = true;
 
-			RuntimeManager.PlayOneShot(m_interactableSO.CollectingSound);
 
 			m_interactableModel.gameObject.SetActive(false);
 		}

@@ -13,15 +13,17 @@ MonoBehaviour:
   m_Name: InteractableSO_Rope
   m_EditorClassIdentifier: 
   m_isCollectible: 1
-  m_collectingSound:
+  m_soundOnCollectingOverride:
     Guid:
       Data1: -1584851567
       Data2: 1298177787
       Data3: -763317084
       Data4: -465268657
     Path: event:/SFX/Interaction/2D_Interaction_UI_Rope
+  m_inventoryIcon: {fileID: 0}
   m_isActivatable: 0
-  m_isUsableAndEquippable: 0
+  m_crosshairOnActivationOverride: {fileID: 0}
+  m_isUsable: 0
   m_equipmentIcon: {fileID: 0}
   m_useCrosshairIcon: {fileID: 0}
   m_isUsedTo: []

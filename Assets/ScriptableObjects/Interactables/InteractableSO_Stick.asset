@@ -13,15 +13,17 @@ MonoBehaviour:
   m_Name: InteractableSO_Stick
   m_EditorClassIdentifier: 
   m_isCollectible: 1
-  m_collectingSound:
+  m_soundOnCollectingOverride:
     Guid:
       Data1: -77043655
       Data2: 1296732471
       Data3: 646179730
       Data4: 890752613
     Path: event:/SFX/Interaction/2D_Interaction_UI_WoodenStick
+  m_inventoryIcon: {fileID: 0}
   m_isActivatable: 0
-  m_isUsableAndEquippable: 0
+  m_crosshairOnActivationOverride: {fileID: 0}
+  m_isUsable: 0
   m_equipmentIcon: {fileID: 0}
   m_useCrosshairIcon: {fileID: 0}
   m_isUsedTo: []

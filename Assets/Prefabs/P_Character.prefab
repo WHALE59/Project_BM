@@ -261,13 +261,20 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   m_enableHoveringSound: 1
-  m_hoveringSoundEventReference:
+  m_soundOnHovering:
     Guid:
       Data1: 821866600
       Data2: 1123763795
       Data3: 1894727809
       Data4: -1242516243
     Path: event:/SFX/Interaction/2D_Interaction_UI_Hovering
+  m_defaultSoundOnCollecting:
+    Guid:
+      Data1: 990203629
+      Data2: 1121073514
+      Data3: 1545112218
+      Data4: -334051407
+    Path: event:/SFX/UI Sound/2D_Button_Confirm_1
   m_equipment: {fileID: 0}
   m_logOnInteractableFoundAndLost: 0
 --- !u!114 &100915224993563351

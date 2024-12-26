@@ -32,6 +32,7 @@ MonoBehaviour:
         m_SheetId: 1079541364
         m_Columns:
         - rid: 737333076142063628
+        - rid: 737333076142063634
         - rid: 737333076142063629
         - rid: 737333076142063630
         - rid: 737333076142063631
@@ -43,21 +44,25 @@ MonoBehaviour:
     - rid: 737333076142063629
       type: {class: LocaleColumn, ns: UnityEditor.Localization.Plugins.Google.Columns, asm: Unity.Localization.Editor}
       data:
-        m_Column: B
+        m_Column: C
         m_LocaleIdentifier:
           m_Code: ko-KR
         m_IncludeComments: 0
     - rid: 737333076142063630
       type: {class: LocaleColumn, ns: UnityEditor.Localization.Plugins.Google.Columns, asm: Unity.Localization.Editor}
       data:
-        m_Column: C
+        m_Column: D
         m_LocaleIdentifier:
           m_Code: en-US
         m_IncludeComments: 0
     - rid: 737333076142063631
       type: {class: LocaleColumn, ns: UnityEditor.Localization.Plugins.Google.Columns, asm: Unity.Localization.Editor}
       data:
-        m_Column: D
+        m_Column: E
         m_LocaleIdentifier:
           m_Code: ja-JP
         m_IncludeComments: 0
+    - rid: 737333076142063634
+      type: {class: KeyCommentColumn, ns: UnityEditor.Localization.Plugins.Google.Columns, asm: Unity.Localization.Editor}
+      data:
+        m_Column: B

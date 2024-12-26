@@ -17,7 +17,13 @@ namespace BM
 		[Space]
 
 		[SerializeField] private bool m_enableHoveringSound = true;
-		[SerializeField] private EventReference m_hoveringSoundEventReference;
+		[SerializeField] private EventReference m_soundOnHovering;
+
+		[Space]
+
+		[SerializeField] private EventReference m_defaultSoundOnCollecting;
+
+		[Space]
 
 		[SerializeField] private InteractableSO m_equipment;
 
@@ -73,6 +79,17 @@ namespace BM
 				m_inventory.PutIn(m_detectedInteractable);
 
 				// 씬에 배치된 Interactable의 수납 처리
+
+				EventReference soundOnCollect = m_detectedInteractable.InteractableSO.SoundOnCollectingOverride;
+
+				if (soundOnCollect.IsNull)
+				{
+					RuntimeManager.PlayOneShot(m_defaultSoundOnCollecting);
+				}
+				else
+				{
+					RuntimeManager.PlayOneShot(soundOnCollect);
+				}
 
 				m_detectedInteractable.SetCollected();
 				m_detectedInteractable = null;
@@ -206,7 +223,7 @@ namespace BM
 		{
 			if (m_enableHoveringSound)
 			{
-				RuntimeManager.PlayOneShot(m_hoveringSoundEventReference);
+				RuntimeManager.PlayOneShot(m_soundOnHovering);
 			}
 		}
 

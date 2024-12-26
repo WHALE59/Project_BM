@@ -13,15 +13,17 @@ MonoBehaviour:
   m_Name: InteractableSO_Key
   m_EditorClassIdentifier: 
   m_isCollectible: 1
-  m_collectingSound:
+  m_soundOnCollectingOverride:
     Guid:
       Data1: -949149024
       Data2: 1142029610
       Data3: 1532048048
       Data4: 518036145
     Path: event:/SFX/Interaction/2D_Interaction_UI_Key
+  m_inventoryIcon: {fileID: 0}
   m_isActivatable: 0
-  m_isUsableAndEquippable: 0
+  m_crosshairOnActivationOverride: {fileID: 0}
+  m_isUsable: 0
   m_equipmentIcon: {fileID: 21300000, guid: 3a8c5ac3ace3494489ec9ccc27c82b1f, type: 3}
   m_useCrosshairIcon: {fileID: 0}
   m_isUsedTo:

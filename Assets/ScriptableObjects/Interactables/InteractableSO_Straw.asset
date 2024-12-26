@@ -13,15 +13,17 @@ MonoBehaviour:
   m_Name: InteractableSO_Straw
   m_EditorClassIdentifier: 
   m_isCollectible: 1
-  m_collectingSound:
+  m_soundOnCollectingOverride:
     Guid:
       Data1: 1624286051
       Data2: 1092824466
       Data3: 777511844
       Data4: -2061099760
     Path: event:/SFX/Interaction/2D_Interaction_UI_RiceStraw
+  m_inventoryIcon: {fileID: 0}
   m_isActivatable: 0
-  m_isUsableAndEquippable: 0
+  m_crosshairOnActivationOverride: {fileID: 0}
+  m_isUsable: 0
   m_equipmentIcon: {fileID: 0}
   m_useCrosshairIcon: {fileID: 0}
   m_isUsedTo: []

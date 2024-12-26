@@ -79,12 +79,12 @@ GameObject:
   - component: {fileID: 6554936032086764551}
   - component: {fileID: 4888311886747759957}
   m_Layer: 5
-  m_Name: OnDefault
+  m_Name: OnNormal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8550109233921697491
 RectTransform:
   m_ObjectHideFlags: 0
@@ -202,9 +202,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5125ecf937ba3740bd19b9cf93a366a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_crossHairOnDefault: {fileID: 4888311886747759957}
+  m_crossHairOnNormal: {fileID: 4888311886747759957}
   m_crossHairOnCollectible: {fileID: 2168261522907421852}
-  m_crossHairOnEtc: {fileID: 2333652917074989249}
+  m_crossHairOnActivatable: {fileID: 2333652917074989249}
 --- !u!1 &2054932982260863403
 GameObject:
   m_ObjectHideFlags: 0
@@ -222,7 +222,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1867200682454105749
 RectTransform:
   m_ObjectHideFlags: 0
@@ -240,7 +240,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 70}
+  m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &144905368821268104
 CanvasRenderer:
@@ -270,7 +270,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0c846991584cf234cb305ff34bf69851, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 44a6cc7c0234f504684e77a59ad9c60f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -297,7 +297,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1280743955007377489
 RectTransform:
   m_ObjectHideFlags: 0
@@ -367,7 +367,7 @@ GameObject:
   - component: {fileID: 1454855361988454884}
   - component: {fileID: 2333652917074989249}
   m_Layer: 5
-  m_Name: OnEtc
+  m_Name: OnActivatable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -390,7 +390,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 40, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1454855361988454884
 CanvasRenderer:
@@ -420,7 +420,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 5e857087a5c071741a171f893b52e87c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -603,6 +603,10 @@ PrefabInstance:
     - target: {fileID: 5469834573807223363, guid: f57ea5e1004eceb4ba18a0b7140ef723, type: 3}
       propertyPath: m_Name
       value: Equipment
+      objectReference: {fileID: 0}
+    - target: {fileID: 5469834573807223363, guid: f57ea5e1004eceb4ba18a0b7140ef723, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9161340183733513022, guid: f57ea5e1004eceb4ba18a0b7140ef723, type: 3}
       propertyPath: m_Pivot.x

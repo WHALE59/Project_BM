@@ -12,19 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d333f06e78dca745ab24568c8517ea4, type: 3}
   m_Name: InteractableSO_GirlsChest
   m_EditorClassIdentifier: 
-  m_interactableModelPrefab: {fileID: 3984473305591679304, guid: 7867cbc9c450cd948b7c29db63fc8d9f, type: 3}
   m_isCollectible: 0
-  m_collectingSoundEventReference:
+  m_soundOnCollectingOverride:
     Guid:
       Data1: 0
       Data2: 0
       Data3: 0
       Data4: 0
     Path: 
+  m_inventoryIcon: {fileID: 0}
   m_isActivatable: 1
-  m_activateCrosshairIcon: {fileID: 21300000, guid: 85ff640374d0f0449a9c4f6ba34ac68f, type: 3}
-  m_eventOnActivation: {fileID: 11400000, guid: a633186dda37a1e4e8c1bed7894eca65, type: 2}
-  m_isUsableAndEquippable: 0
+  m_crosshairOnActivationOverride: {fileID: 0}
+  m_isUsable: 0
   m_equipmentIcon: {fileID: 0}
   m_useCrosshairIcon: {fileID: 21300000, guid: 85ff640374d0f0449a9c4f6ba34ac68f, type: 3}
   m_isUsedTo: []
@@ -45,9 +44,9 @@ MonoBehaviour:
     m_LocalVariables: []
   m_description:
     m_TableReference:
-      m_TableCollectionName: GUID:6bda748f0c1e0054fa5dcccfa488d4af
+      m_TableCollectionName: 
     m_TableEntryReference:
-      m_KeyId: 6603358810112
+      m_KeyId: 0
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0

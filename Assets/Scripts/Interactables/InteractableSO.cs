@@ -8,37 +8,43 @@ namespace BM.Interactables
 	[CreateAssetMenu(menuName = "BM/SO/Interactable SO", fileName = "InteractableSO_Default")]
 	public class InteractableSO : ScriptableObject
 	{
-		[Header("사용성")]
-
+		[Header("Collectible Settings")]
 		[Space]
 
 		[SerializeField] private bool m_isCollectible;
-		[SerializeField] private EventReference m_collectingSound;
+		[SerializeField] private EventReference m_soundOnCollectingOverride;
+		[SerializeField] private Sprite m_inventoryIcon;
 
+		// InventoryModel;
+
+		[Header("Activatable Settings")]
 		[Space]
 
 		[SerializeField] private bool m_isActivatable;
+		[SerializeField] private Sprite m_crosshairOnActivationOverride;
 
+		[Header("Usable Settings")]
 		[Space]
 
-		[SerializeField] private bool m_isUsableAndEquippable;
+		[SerializeField] private bool m_isUsable;
 		[SerializeField] private Sprite m_equipmentIcon;
 		[SerializeField] private Sprite m_useCrosshairIcon;
 		[SerializeField] private List<InteractableSO> m_isUsedTo;
 
+		[Header("Usedable Settings")]
 		[Space]
 
 		[SerializeField] private bool m_isUsedable;
 		[SerializeField] private List<InteractableSO> m_isUsedBy;
 
-		[Header("조합 설정")]
+		[Header("Crafting Settings")]
 		[Space]
 
 		[SerializeField] private bool m_isCraftingMaterial;
 		[SerializeField] private List<InteractableSO> m_isCraftingMaterialOf;
 		[SerializeField] private List<InteractableSO> m_isCraftedBy;
 
-		[Header("아이템 설명")]
+		[Header("Text Data")]
 		[Space]
 
 		[SerializeField] private LocalizedString m_displayName;
@@ -58,7 +64,7 @@ namespace BM.Interactables
 		public Sprite EquipmentIcon => m_equipmentIcon;
 		public LocalizedString LocalizedDisplayName => m_displayName;
 
-		public EventReference CollectingSound => m_collectingSound;
+		public EventReference SoundOnCollectingOverride => m_soundOnCollectingOverride;
+		public Sprite CrosshairOnActivationOverride => m_crosshairOnActivationOverride;
 	}
-
 }
