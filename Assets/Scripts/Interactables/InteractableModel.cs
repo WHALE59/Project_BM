@@ -14,8 +14,13 @@ namespace BM.Interactables
 	[DisallowMultipleComponent]
 	public class InteractableModel : MonoBehaviour
 	{
+		[SerializeField] private bool m_enableHoveringEffect = true;
+
+		[Space]
+
 		[Tooltip("Fresnel 이펙트를 사용하는 머터리얼이 붙어 있는 메쉬 렌더러 오브젝트를 여기에 할당")]
 		[SerializeField] private List<MeshRenderer> m_meshRenderers;
+
 
 		private Color m_colorFirst = Color.white;
 		private Color m_colorSecond = Color.grey;
@@ -94,11 +99,21 @@ namespace BM.Interactables
 
 		public void StartHoveringEffect()
 		{
+			if (!m_enableHoveringEffect)
+			{
+				return;
+			}
+
 			SetFresnelEffect(enabled: true);
 		}
 
 		public void FinishHoveringEffect()
 		{
+			if (!m_enableHoveringEffect)
+			{
+				return;
+			}
+
 			SetFresnelEffect(enabled: false);
 		}
 	}
