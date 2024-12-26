@@ -1,7 +1,12 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Animations.meta
 guid: 5a563cb3de0b47a4591aa56c7550484c
 folderAsset: yes
 DefaultImporter:
+========
+guid: d0d0cfcd481cf4097a8c78cc943714b0
+TextScriptImporter:
+>>>>>>>> 008b08bbfe1346391fd915fdfb0838a7f5089c8b:Assets/Audio/BMFmod/Metadata/AudioFile/{4dfaf5d2-bd6c-4ef2-99aa-06a72e385546}.xml.meta
   externalObjects: {}
   userData: 
   assetBundleName: 

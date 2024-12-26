@@ -20,14 +20,9 @@ MonoBehaviour:
     - rid: 737333007447752748
   m_TableData:
   - m_Id: 6415911170048
-    m_Localized: Old Chest
+    m_Localized: old box
     m_Metadata:
       m_Items: []
-  - m_Id: 6603358810112
-    m_Localized: It's an old chest.
-    m_Metadata:
-      m_Items:
-      - rid: 737333007447752748
   - m_Id: 495538367311872
     m_Localized: Activate ({displayName})
     m_Metadata:
@@ -44,59 +39,59 @@ MonoBehaviour:
       m_Items:
       - rid: 737333007447752748
   - m_Id: 785522630537216
-    m_Localized: Key
+    m_Localized: flower shaped key
     m_Metadata:
       m_Items: []
   - m_Id: 850381632122880
-    m_Localized: It is a key.
+    m_Localized: A pretty flower-shaped key. I think I can open a box with a similar
+      symbol.
     m_Metadata:
       m_Items: []
   - m_Id: 850407875883008
-    m_Localized: Rope
+    m_Localized: tether
     m_Metadata:
       m_Items: []
   - m_Id: 850445184217088
-    m_Localized: It is a rope.
+    m_Localized: It's an old rope. Wouldn't it be possible to tie something tightly
+      together?
     m_Metadata:
       m_Items: []
   - m_Id: 850471163736064
-    m_Localized: Straw
+    m_Localized: rice straw
     m_Metadata:
       m_Items: []
   - m_Id: 850495658471424
-    m_Localized: It is a straw.
+    m_Localized: This is rice straw used as firewood. It seems like I don't use it
+      these days... I can use it however I want, right?
     m_Metadata:
       m_Items: []
   - m_Id: 850519796690944
-    m_Localized: Wooden Stick
+    m_Localized: rod
     m_Metadata:
       m_Items: []
   - m_Id: 850552445153280
-    m_Localized: It is a wooden stick.
+    m_Localized: solid wooden bar. I think I can use it to get the key, but something
+      is still missing...
     m_Metadata:
       m_Items: []
   - m_Id: 1044646555496448
-    m_Localized: Diary
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1044711969861632
-    m_Localized: It is a diary.
+    m_Localized: diary
     m_Metadata:
       m_Items: []
   - m_Id: 1322503227781120
-    m_Localized: Cardboard Pile
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1322550526947328
-    m_Localized: It is a cardboard pile.
+    m_Localized: pile of paper boxes
     m_Metadata:
       m_Items: []
   - m_Id: 1337637178388480
-    m_Localized: Rabbit Doll
+    m_Localized: rabbit doll
     m_Metadata:
       m_Items: []
-  - m_Id: 1337671487795200
-    m_Localized: It is a rabbit doll.
+  - m_Id: 1550363100131328
+    m_Localized: curtain
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1724151003557888
+    m_Localized: pupil hole
     m_Metadata:
       m_Items: []
   references:
@@ -108,6 +103,5 @@ MonoBehaviour:
         m_Entries: 
         m_SharedEntries:
         - id: 509385018912768
-        - id: 6603358810112
         - id: 495538367311872
         - id: 507864738902016

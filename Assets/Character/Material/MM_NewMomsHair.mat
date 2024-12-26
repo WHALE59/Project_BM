@@ -56,15 +56,15 @@ Material:
     - _AlphaToMask: 1
     - _Blend: 1
     - _BlendModePreserveSpecular: 1
-    - _Boolean: 1
-    - _Boolean_1: 1
+    - _Boolean: 0
+    - _Boolean_1: 0
     - _CastShadows: 1
     - _Cull: 0
     - _Depth: -16
     - _DstBlend: 0
     - _Float: 150
     - _Normal_Intensity: 0.75
-    - _PixelizeAmount: 200
+    - _PixelizeAmount: 2000
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1

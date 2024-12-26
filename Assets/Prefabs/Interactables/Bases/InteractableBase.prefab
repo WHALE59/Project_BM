@@ -45,14 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38fabdb4a1a567946ab26a888d9df21a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_isEquipAndPlaceable: 0
-  m_isCollectible: 0
-  m_isActivatable: 0
-  m_isUsable: 0
-  m_isUsedable: 0
-  m_materialOnPlacement: {fileID: 2100000, guid: 3a8b3b04d3bce0a4faaa0010e68171f1,
-    type: 2}
-  m_modelChild: {fileID: 0}
+  m_interactableSO: {fileID: 11400000, guid: 99c13bc47f0542f42b7e97a93d137c29, type: 2}
+  m_interactableModel: {fileID: 0}
+  m_isCollected: 0
 --- !u!54 &8799338642035694980
 Rigidbody:
   m_ObjectHideFlags: 0

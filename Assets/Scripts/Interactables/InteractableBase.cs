@@ -1,5 +1,6 @@
 #pragma warning disable CS0414
 
+using FMODUnity;
 using UnityEngine;
 
 namespace BM.Interactables
@@ -14,13 +15,26 @@ namespace BM.Interactables
 
 		private bool m_allowInteraction = true;
 
+		private InteractableStateBase m_state;
+
 		public bool IsInteractionAllowed => m_allowInteraction;
 
 		public InteractableSO InteractableSO => m_interactableSO;
 
+		public InteractableModel Model { get => m_interactableModel; set => m_interactableModel = value; }
+
+		public bool IsCollectible => m_interactableSO.IsCollectible;
+		public bool IsActivatable => m_interactableSO.IsActivatable;
+
+
 		public void DisallowInteraction()
 		{
 			m_allowInteraction = false;
+		}
+
+		public void AllowInteraction()
+		{
+			m_allowInteraction = true;
 		}
 
 		public void StartHovering()
@@ -43,17 +57,29 @@ namespace BM.Interactables
 		{
 			m_isCollected = true;
 
+
 			m_interactableModel.gameObject.SetActive(false);
 		}
 
 		public void StartActivation(InteractAction interactAction)
 		{
-			m_interactableSO.StartActivationEvent(interactAction, this);
+			if (null != m_state)
+			{
+				m_state.StartActivate(interactAction, this);
+			}
 		}
 
 		public void FinishActivation(InteractAction interactAction)
 		{
-			m_interactableSO.FinishActivationEvent(interactAction, this);
+			if (null != m_state)
+			{
+				m_state.FinishActivate(interactAction, this);
+			}
+		}
+
+		private void Awake()
+		{
+			m_state = GetComponent<InteractableStateBase>();
 		}
 	}
 }
