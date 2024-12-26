@@ -271,10 +271,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5584115710835087325, guid: c87dfb29e81bd2c488b77fa744121756, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1732419935}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c87dfb29e81bd2c488b77fa744121756, type: 3}
 --- !u!4 &93774809 stripped
 Transform:
@@ -7392,7 +7389,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9170431112737509190, guid: b26ebf897ff8f894d913350c6773f71c, type: 3}
       propertyPath: m_Name
-      value: Interactable_DarackCurtainBase_Right
+      value: Interactable_DarackCurtain_Right
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7903,7 +7900,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9170431112737509190, guid: d51dcd8625326334da66049d20ae2c4b, type: 3}
       propertyPath: m_Name
-      value: Interactable_DarackCurtainBase_Left
+      value: Interactable_DarackCurtain_Left
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -13066,8 +13063,8 @@ Transform:
   - {fileID: 1053821915}
   - {fileID: 1161982755}
   - {fileID: 1163453363}
-  - {fileID: 1246521995}
   - {fileID: 1557448048}
+  - {fileID: 1246521995}
   - {fileID: 693989495}
   - {fileID: 573092649}
   - {fileID: 666726939}
@@ -13976,32 +13973,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b336b935e6f57184781140917726de3f, type: 3}
---- !u!1 &1732419932 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5584115710835087325, guid: c87dfb29e81bd2c488b77fa744121756, type: 3}
-  m_PrefabInstance: {fileID: 49993118}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &1732419935
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1732419932}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: d52b59239ba19384592ff1f65baca9fc, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!4 &1734238139 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9066325930449276824, guid: b336b935e6f57184781140917726de3f, type: 3}

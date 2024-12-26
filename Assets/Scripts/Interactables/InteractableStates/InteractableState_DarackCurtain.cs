@@ -10,7 +10,8 @@ namespace BM.Interactables
 {
 	public class InteractableState_DarackCurtain : InteractableStateBase
 	{
-		[SerializeField] private EventReference m_manipulatingSound;
+		[SerializeField] private EventReference m_soundOnOpening;
+		[SerializeField] private EventReference m_soundOnClosing;
 
 		[Space]
 
@@ -25,20 +26,17 @@ namespace BM.Interactables
 
 		private InteractableBase m_interactableBase;
 
-		public void Open()
+		public void SwitchModelToOpen()
 		{
-			m_isOpened = true;
-
 			m_interactableBase.Model = m_modelOnOpened;
 
 			m_modelOnOpened.gameObject.SetActive(true);
 			m_modelOnClosed.gameObject.SetActive(false);
+
 		}
 
-		public void Close()
+		public void SwitchModelToClose()
 		{
-			m_isOpened = false;
-
 			m_interactableBase.Model = m_modelOnClosed;
 
 			m_modelOnOpened.gameObject.SetActive(false);
@@ -52,18 +50,28 @@ namespace BM.Interactables
 
 			if (!m_isOpened)
 			{
-				Open();
+				SwitchModelToOpen();
+
+				m_isOpened = true;
+
+				if (!m_soundOnOpening.IsNull)
+				{
+					RuntimeManager.PlayOneShot(m_soundOnOpening);
+				}
 			}
 			else
 			{
-				Close();
-			}
+				SwitchModelToClose();
 
-			if (!m_manipulatingSound.IsNull)
-			{
-				RuntimeManager.PlayOneShot(m_manipulatingSound);
+				m_isOpened = false;
+
+				if (!m_soundOnClosing.IsNull)
+				{
+					RuntimeManager.PlayOneShot(m_soundOnClosing);
+				}
 			}
 		}
+
 		protected override void Awake()
 		{
 			base.Awake();
@@ -76,11 +84,11 @@ namespace BM.Interactables
 
 			if (m_isOpenOnStart)
 			{
-				Open();
+				SwitchModelToOpen();
 			}
 			else
 			{
-				Close();
+				SwitchModelToClose();
 			}
 		}
 	}

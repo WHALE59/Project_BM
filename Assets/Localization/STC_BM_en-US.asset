@@ -91,7 +91,15 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1724151003557888
-    m_Localized: pupil hole
+    m_Localized: lamp
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2155834211250176
+    m_Localized: This is... my room... this is it
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2155834303524864
+    m_Localized: It's locked. I think there was a key somewhere.
     m_Metadata:
       m_Items: []
   references:

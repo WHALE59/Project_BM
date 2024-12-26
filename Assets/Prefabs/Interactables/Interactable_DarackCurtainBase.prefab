@@ -78,13 +78,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_logOnInteraction: 0
-  m_manipulatingSound:
+  m_soundOnOpening:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: -1573940961
+      Data2: 1272863845
+      Data3: -245836896
+      Data4: 83088934
+    Path: event:/SFX/Interaction/2D_Interaction_UI_Curtain_Opening
+  m_soundOnClosing:
+    Guid:
+      Data1: 1740433792
+      Data2: 1237645351
+      Data3: 519337898
+      Data4: 1431031958
+    Path: event:/SFX/Interaction/2D_Interaction_UI_Curtain_Closing
   m_modelOnOpened: {fileID: 0}
   m_modelOnClosed: {fileID: 0}
   m_isOpenOnStart: 1

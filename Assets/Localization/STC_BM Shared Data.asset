@@ -100,6 +100,14 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - rid: 737333076142063648
+  - m_Id: 2155834211250176
+    m_Key: Voice_Character_Darack_GameStart
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2155834303524864
+    m_Key: Voice_Character_Darack_BoxLocked
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
