@@ -32,6 +32,11 @@ namespace BM.Interactables
 			m_allowInteraction = false;
 		}
 
+		public void AllowInteraction()
+		{
+			m_allowInteraction = true;
+		}
+
 		public void StartHovering()
 		{
 			if (null != m_interactableModel)

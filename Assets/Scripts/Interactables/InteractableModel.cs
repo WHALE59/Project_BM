@@ -23,7 +23,9 @@ namespace BM.Interactables
 		private float m_contrast = .01f;
 		private float m_range = .37f;
 
+		private InteractableBase m_interactableBase;
 
+		public InteractableBase InteractableBase => m_interactableBase;
 
 		private List<Material> m_fresnelMaterials = new();
 		private const string FRESNEL_PROPERTY_NAME = "_IsUsedFresnel";
@@ -57,6 +59,8 @@ namespace BM.Interactables
 
 		private void Awake()
 		{
+			m_interactableBase = transform.parent.GetComponent<InteractableBase>();
+
 			// Set layer for interact action
 
 			foreach (MeshRenderer renderer in m_meshRenderers)

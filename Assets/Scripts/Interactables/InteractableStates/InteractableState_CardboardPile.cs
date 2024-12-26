@@ -9,7 +9,6 @@ namespace BM.Interactables
 		[SerializeField] private EventReference m_movingSound;
 
 		[SerializeField] private Animator m_animator;
-		[SerializeField] private string m_animatorMoveTriggerName = "Move";
 
 		public override void StartActivate(InteractAction _, InteractableBase interactionObject)
 		{
@@ -19,7 +18,7 @@ namespace BM.Interactables
 
 			if (null != m_animator)
 			{
-				m_animator.SetTrigger(m_animatorMoveTriggerName);
+				m_animator.SetTrigger("Move");
 			}
 
 			// 이동 사운드를 재생
@@ -28,10 +27,6 @@ namespace BM.Interactables
 			{
 				RuntimeManager.PlayOneShot(m_movingSound);
 			}
-
-			// 추가적인 상호작용을 비활성화
-
-			interactionObject.DisallowInteraction();
 		}
 	}
 }

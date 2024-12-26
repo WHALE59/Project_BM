@@ -12,6 +12,46 @@ PrefabInstance:
       propertyPath: m_Name
       value: InteractableModel_GirlsChest
       objectReference: {fileID: 0}
+    - target: {fileID: 4524052310032989727, guid: 7867cbc9c450cd948b7c29db63fc8d9f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.33916247
+      objectReference: {fileID: 0}
+    - target: {fileID: 4524052310032989727, guid: 7867cbc9c450cd948b7c29db63fc8d9f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.39324754
+      objectReference: {fileID: 0}
+    - target: {fileID: 4524052310032989727, guid: 7867cbc9c450cd948b7c29db63fc8d9f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.0002922173
+      objectReference: {fileID: 0}
+    - target: {fileID: 4524052310032989727, guid: 7867cbc9c450cd948b7c29db63fc8d9f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7070941
+      objectReference: {fileID: 0}
+    - target: {fileID: 4524052310032989727, guid: 7867cbc9c450cd948b7c29db63fc8d9f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.70709455
+      objectReference: {fileID: 0}
+    - target: {fileID: 4524052310032989727, guid: 7867cbc9c450cd948b7c29db63fc8d9f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.0042093243
+      objectReference: {fileID: 0}
+    - target: {fileID: 4524052310032989727, guid: 7867cbc9c450cd948b7c29db63fc8d9f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.0042094137
+      objectReference: {fileID: 0}
+    - target: {fileID: 4524052310032989727, guid: 7867cbc9c450cd948b7c29db63fc8d9f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90.682
+      objectReference: {fileID: 0}
+    - target: {fileID: 4524052310032989727, guid: 7867cbc9c450cd948b7c29db63fc8d9f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 89.997
+      objectReference: {fileID: 0}
+    - target: {fileID: 4524052310032989727, guid: 7867cbc9c450cd948b7c29db63fc8d9f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -89.99701
+      objectReference: {fileID: 0}
     - target: {fileID: 7469964300939794553, guid: 7867cbc9c450cd948b7c29db63fc8d9f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
