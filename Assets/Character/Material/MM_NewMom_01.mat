@@ -84,14 +84,14 @@ Material:
     - _02_GrungeMap_BlendAmount: 0.01
     - _02_GrungeMap_BlendContrast: 1
     - _02_GrungeMap_Tiling: 0.5
-    - _Boolean: 1
-    - _Boolean_1: 1
+    - _Boolean: 0
+    - _Boolean_1: 0
     - _Depth: -16
     - _Float: 800
     - _GrundgeMap_Mixin: 1
     - _IsUsedSecondTexture: 0
     - _Normal_Intensity: 1
-    - _PixelizeAmount: 400
+    - _PixelizeAmount: 2000
     - _Pixelize_Amount: 45
     - _Pixelize_Grunge: 0.3
     - _Pixelize_Grunge2: 10

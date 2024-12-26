@@ -866,6 +866,10 @@ PrefabInstance:
       propertyPath: m_noiseTarget
       value: 
       objectReference: {fileID: 1145930475}
+    - target: {fileID: 4645497750645279393, guid: 69492b5dfb0cbcc458b019f0747a1bb3, type: 3}
+      propertyPath: m_StepOffset
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 5976178325819853717, guid: 69492b5dfb0cbcc458b019f0747a1bb3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

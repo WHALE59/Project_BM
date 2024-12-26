@@ -91,7 +91,7 @@ Material:
     - _GrundgeMap_Mixin: 1
     - _IsUsedSecondTexture: 0
     - _Normal_Intensity: 1
-    - _PixelizeAmount: 400
+    - _PixelizeAmount: 2000
     - _Pixelize_Amount: 45
     - _Pixelize_Grunge: 0.3
     - _Pixelize_Grunge2: 10
