@@ -178,11 +178,11 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.1
-  far clip plane: 5000
-  field of view: 40
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 85
   orthographic: 0
-  orthographic size: 10
+  orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -269,28 +269,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72ece51f2901e7445ab60da3685d6b5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ShowDebugText: 0
-  m_ShowCameraFrustum: 1
-  m_IgnoreTimeScale: 0
-  m_WorldUpOverride: {fileID: 0}
-  m_UpdateMethod: 2
-  m_BlendUpdateMethod: 1
-  m_DefaultBlend:
-    m_Style: 1
-    m_Time: 2
-    m_CustomCurve:
+  ShowDebugText: 0
+  ShowCameraFrustum: 1
+  IgnoreTimeScale: 0
+  WorldUpOverride: {fileID: 0}
+  ChannelMask: -1
+  UpdateMethod: 1
+  BlendUpdateMethod: 1
+  LensModeOverride:
+    Enabled: 0
+    DefaultMode: 2
+  DefaultBlend:
+    Style: 1
+    Time: 2
+    CustomCurve:
       serializedVersion: 2
       m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  m_CustomBlends: {fileID: 0}
-  m_CameraCutEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_CameraActivatedEvent:
-    m_PersistentCalls:
-      m_Calls: []
+  CustomBlends: {fileID: 0}
 --- !u!114 &330585549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -318,8 +316,8 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 8796257274636605331, guid: 818f988dcb7ace941832f979e2baeafd, type: 3}
-      propertyPath: m_Follow
+    - target: {fileID: 8510949376170499455, guid: 818f988dcb7ace941832f979e2baeafd, type: 3}
+      propertyPath: Target.TrackingTarget
       value: 
       objectReference: {fileID: 1732844865}
     - target: {fileID: 9143089813706663566, guid: 818f988dcb7ace941832f979e2baeafd, type: 3}
@@ -369,14 +367,19 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 9152481037392610282, guid: 818f988dcb7ace941832f979e2baeafd, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1489279139}
-    - targetCorrespondingSourceObject: {fileID: 5723768295410269711, guid: 818f988dcb7ace941832f979e2baeafd, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1729504726}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 818f988dcb7ace941832f979e2baeafd, type: 3}
+--- !u!114 &1145930475 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8069877817568718913, guid: 818f988dcb7ace941832f979e2baeafd, type: 3}
+  m_PrefabInstance: {fileID: 809124608}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1158129913 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 250672880566776770, guid: fc77e04753afc1d4f83e55414f5b04a4, type: 3}
@@ -405,94 +408,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!1 &1489279132 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9152481037392610282, guid: 818f988dcb7ace941832f979e2baeafd, type: 3}
-  m_PrefabInstance: {fileID: 809124608}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1489279139
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1489279132}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb7194dc27b9df64c8beca7482ee8e0d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PlayerIndex: -1
-  AutoEnableInputs: 1
-  XYAxis: {fileID: -8181108963744638241, guid: 99473f1924180e24386d8e89df2e08a6, type: 3}
-  ZAxis: {fileID: 0}
---- !u!1 &1729504723 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5723768295410269711, guid: 818f988dcb7ace941832f979e2baeafd, type: 3}
-  m_PrefabInstance: {fileID: 809124608}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1729504726
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1729504723}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c9beda531928fc40968802117a5d256, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_RecenterTarget: 0
-  m_VerticalAxis:
-    Value: 0
-    m_SpeedMode: 0
-    m_MaxSpeed: 300
-    m_AccelTime: 0.1
-    m_DecelTime: 0.1
-    m_InputAxisName: Mouse Y
-    m_InputAxisValue: 0
-    m_InvertInput: 1
-    m_MinValue: -70
-    m_MaxValue: 70
-    m_Wrap: 0
-    m_Recentering:
-      m_enabled: 0
-      m_WaitTime: 1
-      m_RecenteringTime: 2
-      m_LegacyHeadingDefinition: -1
-      m_LegacyVelocityFilterStrength: -1
-  m_VerticalRecentering:
-    m_enabled: 0
-    m_WaitTime: 1
-    m_RecenteringTime: 2
-    m_LegacyHeadingDefinition: -1
-    m_LegacyVelocityFilterStrength: -1
-  m_HorizontalAxis:
-    Value: 0
-    m_SpeedMode: 0
-    m_MaxSpeed: 300
-    m_AccelTime: 0.1
-    m_DecelTime: 0.1
-    m_InputAxisName: Mouse X
-    m_InputAxisValue: 0
-    m_InvertInput: 0
-    m_MinValue: -180
-    m_MaxValue: 180
-    m_Wrap: 1
-    m_Recentering:
-      m_enabled: 0
-      m_WaitTime: 1
-      m_RecenteringTime: 2
-      m_LegacyHeadingDefinition: -1
-      m_LegacyVelocityFilterStrength: -1
-  m_HorizontalRecentering:
-    m_enabled: 0
-    m_WaitTime: 1
-    m_RecenteringTime: 2
-    m_LegacyHeadingDefinition: -1
-    m_LegacyVelocityFilterStrength: -1
-  m_ApplyBeforeBody: 0
 --- !u!4 &1732844865 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2543932865098810727, guid: 69492b5dfb0cbcc458b019f0747a1bb3, type: 3}
@@ -1096,7 +1011,7 @@ PrefabInstance:
     - target: {fileID: 100915224993563351, guid: 69492b5dfb0cbcc458b019f0747a1bb3, type: 3}
       propertyPath: m_noiseTarget
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1145930475}
     - target: {fileID: 5976178325819853717, guid: 69492b5dfb0cbcc458b019f0747a1bb3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
