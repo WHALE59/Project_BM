@@ -1,6 +1,6 @@
 using System.Collections;
 
-using Unity.Cinemachine;
+using Cinemachine;
 using UnityEngine;
 
 namespace BM
@@ -40,22 +40,22 @@ namespace BM
 		{
 			float elapsedTime = 0f;
 
-			float startAmp = m_noiseTarget.AmplitudeGain;
-			float startFreq = m_noiseTarget.FrequencyGain;
+			float startAmp = m_noiseTarget.m_AmplitudeGain;
+			float startFreq = m_noiseTarget.m_FrequencyGain;
 
 			while (elapsedTime < m_duration)
 			{
 				elapsedTime += Time.deltaTime;
 				float ratio = Mathf.Clamp01(elapsedTime / m_duration);
 
-				m_noiseTarget.AmplitudeGain = Mathf.Lerp(startAmp, targetAmplitudeGain, ratio);
-				m_noiseTarget.FrequencyGain = Mathf.Lerp(startFreq, targetFrequencyGain, ratio);
+				m_noiseTarget.m_AmplitudeGain = Mathf.Lerp(startAmp, targetAmplitudeGain, ratio);
+				m_noiseTarget.m_FrequencyGain = Mathf.Lerp(startFreq, targetFrequencyGain, ratio);
 
 				yield return null;
 			}
 
-			m_noiseTarget.AmplitudeGain = targetAmplitudeGain;
-			m_noiseTarget.FrequencyGain = targetFrequencyGain;
+			m_noiseTarget.m_AmplitudeGain = targetAmplitudeGain;
+			m_noiseTarget.m_FrequencyGain = targetFrequencyGain;
 
 			yield break;
 		}
