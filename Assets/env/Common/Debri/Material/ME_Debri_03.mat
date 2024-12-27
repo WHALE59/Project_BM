@@ -40,11 +40,14 @@ Material:
     m_Ints: []
     m_Floats:
     - _AlphaToMask: 1
+    - _Boolean: 0
+    - _Boolean_1: 0
     - _CastShadows: 1
     - _Cull: 2
     - _DstBlend: 0
+    - _Float: 230
     - _Normal_Intensity: 1
-    - _PixelizeAmount: 667
+    - _PixelizeAmount: 197
     - _Surface: 0
     - _ZTest: 4
     - _ZWrite: 1

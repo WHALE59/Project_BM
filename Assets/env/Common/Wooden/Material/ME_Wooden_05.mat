@@ -78,7 +78,7 @@ Material:
     - _Boolean: 1
     - _Boolean_1: 1
     - _Depth: -12
-    - _Float: 20
+    - _Float: 34.3
     - _GrundgeMap_Mixin: 0.15
     - _Intersection_Contrast: 1
     - _Intersection_amount: 0.5
