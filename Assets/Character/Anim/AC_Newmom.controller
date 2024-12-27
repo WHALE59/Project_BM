@@ -1,14 +1,14 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1102 &-6648362601516623929
+--- !u!1102 &-4920080442926760410
 AnimatorState:
   serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ClimbingUp
-  m_Speed: 0.5
+  m_Name: A_LowCrawl
+  m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
   m_StateMachineBehaviours: []
@@ -20,7 +20,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -203655887218126122, guid: c295d733395e8ec4585ee730f9770dbd, type: 3}
+  m_Motion: {fileID: -203655887218126122, guid: b9e5884f67801564f9c8ca29fbe39cb6, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -36,8 +36,8 @@ AnimatorStateMachine:
   m_Name: Base Layer
   m_ChildStates:
   - serializedVersion: 1
-    m_State: {fileID: -6648362601516623929}
-    m_Position: {x: 290, y: 250, z: 0}
+    m_State: {fileID: -4920080442926760410}
+    m_Position: {x: 190, y: 190, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -47,7 +47,7 @@ AnimatorStateMachine:
   m_EntryPosition: {x: 210, y: 70, z: 0}
   m_ExitPosition: {x: 640, y: 50, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
-  m_DefaultState: {fileID: -6648362601516623929}
+  m_DefaultState: {fileID: -4920080442926760410}
 --- !u!91 &9100000
 AnimatorController:
   m_ObjectHideFlags: 0

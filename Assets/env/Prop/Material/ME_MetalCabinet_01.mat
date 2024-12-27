@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_Gore_02
+  m_Name: ME_MetalCabinet_01
   m_Shader: {fileID: -6465566751694194690, guid: 9225edde559a6b443aba3514ccc1e81e, type: 3}
   m_Parent: {fileID: 2100000, guid: 1f7fcbcb2ed18874f8a2906666c55da8, type: 2}
   m_ModifiedSerializedProperties: 4
@@ -38,15 +38,15 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _01_BaseCol:
-        m_Texture: {fileID: 2800000, guid: 3fa0da7f0e7bc2b4395212c8255758ff, type: 3}
+        m_Texture: {fileID: 2800000, guid: 910dc20a688505b49b7a5c1812b97584, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _01_Masked:
-        m_Texture: {fileID: 2800000, guid: 1dfcd2b5c1f7c3d44a949737a4414530, type: 3}
+        m_Texture: {fileID: 2800000, guid: e16238751dae6454d8dbd297fbe2444a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _01_Normal:
-        m_Texture: {fileID: 2800000, guid: c4fa18c897e064f46b4d2526929909c9, type: 3}
+        m_Texture: {fileID: 2800000, guid: baf7b9830057f294cbddc734a0cbd4ed, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DirtBasscol:
@@ -59,7 +59,7 @@ Material:
     - _Boolean_1: 1
     - _Dirt_Amount: 0.01
     - _Dirt_power: 0.01
-    - _Float: 23.4
+    - _Float: 35.2
     - _FresnelAmount: -0.002
     - _FresnelContrast: 2.28
     - _FresnelIntensity: 0.11
@@ -71,10 +71,10 @@ Material:
     - _Grunge_Tiling: 0
     - _IsUsedFresnel: 0
     - _Normal_Intensity: 1
-    - _PixelizeAmount: 271
+    - _PixelizeAmount: 1000
     - _QueueControl: 0
-    - _RoughnessContrast: 0.61
-    - _RoughnessPower: 1.86
+    - _RoughnessContrast: 0.94
+    - _RoughnessPower: 1.6
     - _TimeSpeed: 2
     - _Top_Pixelize_step: 0
     - _depth: -24.1
