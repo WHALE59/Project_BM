@@ -85,7 +85,7 @@ Material:
     - _Intersection_power: 0.08
     - _IsUsedFresnel: 0
     - _IsUsedSecondTexture: 0
-    - _Normal_Intensity: 2
+    - _Normal_Intensity: 1.3
     - _PixelizeAmount: 1000
     - _Pixelize_Amount: 551
     - _Pixelize_Grunge: 2.5
