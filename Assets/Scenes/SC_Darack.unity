@@ -268,6 +268,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Interactable_DarackLamp
       objectReference: {fileID: 0}
+    - target: {fileID: 6795293149184450967, guid: c87dfb29e81bd2c488b77fa744121756, type: 3}
+      propertyPath: m_enableHoveringEffect
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -443,6 +447,51 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dfdfe62201a0d03458c583d64425febe, type: 3}
+--- !u!1 &172638581 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5054035950751167261, guid: 3ce98e968640b5f41b17c379633dbea0, type: 3}
+  m_PrefabInstance: {fileID: 2098656264}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &172638582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 172638581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69beb381e244f92449b8c4cf954630e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TrackedObjects:
+  - rid: 4282368611947642927
+  references:
+    version: 2
+    RefIds:
+    - rid: 4282368611947642927
+      type: {class: TrackedTransform, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects, asm: Unity.Localization}
+      data:
+        m_Target: {fileID: 172638583}
+        m_TrackedProperties:
+          items:
+          - rid: 4282368611947642928
+    - rid: 4282368611947642928
+      type: {class: FloatTrackedProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_LocalPosition.z
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko-KR
+          value: 0.5315832
+        - localeIdentifier:
+            m_Code: en-US
+          value: 0.526
+--- !u!4 &172638583 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5019078365177315755, guid: 3ce98e968640b5f41b17c379633dbea0, type: 3}
+  m_PrefabInstance: {fileID: 2098656264}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &251763059
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -556,6 +605,10 @@ PrefabInstance:
     - target: {fileID: 4351548197713919474, guid: 18f5fa9ab1f6db5428b99888f7cf3961, type: 3}
       propertyPath: m_Name
       value: Interactable_Key
+      objectReference: {fileID: 0}
+    - target: {fileID: 8102268914032950998, guid: 18f5fa9ab1f6db5428b99888f7cf3961, type: 3}
+      propertyPath: m_enableHoveringEffect
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1080,6 +1133,10 @@ PrefabInstance:
     - target: {fileID: 6672165957143521445, guid: d53b4a1a2ec315d4b9a7d2e8dd78315d, type: 3}
       propertyPath: m_Name
       value: Interactable_Stick
+      objectReference: {fileID: 0}
+    - target: {fileID: 7631816062824390354, guid: d53b4a1a2ec315d4b9a7d2e8dd78315d, type: 3}
+      propertyPath: m_enableHoveringEffect
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7057,6 +7114,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1381641764}
     m_Modifications:
+    - target: {fileID: 5457360250207642018, guid: fd1e1b9bd1f67b942999873055371dd6, type: 3}
+      propertyPath: m_enableHoveringEffect
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5811218749858639246, guid: fd1e1b9bd1f67b942999873055371dd6, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.2634335
@@ -7449,6 +7510,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1381641764}
     m_Modifications:
+    - target: {fileID: 3508693264677709646, guid: 16256ff0cd25b9c4e9a59c7fc233f595, type: 3}
+      propertyPath: m_enableHoveringEffect
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4716869199573929576, guid: 16256ff0cd25b9c4e9a59c7fc233f595, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.47158813
@@ -7769,6 +7834,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Interactable_GirlsChest
       objectReference: {fileID: 0}
+    - target: {fileID: 4023050139165960058, guid: 17a2f8caefbec334ca5f0161e826a3a0, type: 3}
+      propertyPath: m_enableHoveringEffect
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7854,6 +7923,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1381641764}
     m_Modifications:
+    - target: {fileID: 3499515846937594758, guid: d51dcd8625326334da66049d20ae2c4b, type: 3}
+      propertyPath: m_enableHoveringEffect
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8322152645934402157, guid: d51dcd8625326334da66049d20ae2c4b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.8784118
@@ -8016,6 +8089,10 @@ PrefabInstance:
     - target: {fileID: 2291261898292619135, guid: 99eec5cfbda93e94c81baaf7dab49aeb, type: 3}
       propertyPath: m_Name
       value: Interactable_CardboardPile
+      objectReference: {fileID: 0}
+    - target: {fileID: 8312802330992576377, guid: 99eec5cfbda93e94c81baaf7dab49aeb, type: 3}
+      propertyPath: m_enableHoveringEffect
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -13706,6 +13783,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1381641764}
     m_Modifications:
+    - target: {fileID: 4678101914607233840, guid: cd07cd43075c287459c68aadb511beac, type: 3}
+      propertyPath: m_enableHoveringEffect
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5811218749858639246, guid: cd07cd43075c287459c68aadb511beac, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.790474
@@ -14419,6 +14500,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Interactable_GirlsDiary
       objectReference: {fileID: 0}
+    - target: {fileID: 8461238296204476194, guid: 3da35772ef337ae48b3ce74ab3fd58a8, type: 3}
+      propertyPath: m_enableHoveringEffect
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8954184622184233712, guid: 3da35772ef337ae48b3ce74ab3fd58a8, type: 3}
       propertyPath: m_LocalPosition.x
       value: -6.842412
@@ -14625,6 +14710,66 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5019078365177315755, guid: b27094de1c4c41442874a750ac1967ed, type: 3}
   m_PrefabInstance: {fileID: 1172961410}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2098656264
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5019078365177315755, guid: 3ce98e968640b5f41b17c379633dbea0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -3.5966923
+      objectReference: {fileID: 0}
+    - target: {fileID: 5019078365177315755, guid: 3ce98e968640b5f41b17c379633dbea0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.9999685
+      objectReference: {fileID: 0}
+    - target: {fileID: 5019078365177315755, guid: 3ce98e968640b5f41b17c379633dbea0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.526
+      objectReference: {fileID: 0}
+    - target: {fileID: 5019078365177315755, guid: 3ce98e968640b5f41b17c379633dbea0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5019078365177315755, guid: 3ce98e968640b5f41b17c379633dbea0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5019078365177315755, guid: 3ce98e968640b5f41b17c379633dbea0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5019078365177315755, guid: 3ce98e968640b5f41b17c379633dbea0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5019078365177315755, guid: 3ce98e968640b5f41b17c379633dbea0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5019078365177315755, guid: 3ce98e968640b5f41b17c379633dbea0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5019078365177315755, guid: 3ce98e968640b5f41b17c379633dbea0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5054035950751167261, guid: 3ce98e968640b5f41b17c379633dbea0, type: 3}
+      propertyPath: m_Name
+      value: Prop_Book_F_MementoMori
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5054035950751167261, guid: 3ce98e968640b5f41b17c379633dbea0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 172638582}
+  m_SourcePrefab: {fileID: 100100000, guid: 3ce98e968640b5f41b17c379633dbea0, type: 3}
 --- !u!1001 &2118213712
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14936,3 +15081,4 @@ SceneRoots:
   - {fileID: 1381641764}
   - {fileID: 1876360364}
   - {fileID: 816128674}
+  - {fileID: 2098656264}

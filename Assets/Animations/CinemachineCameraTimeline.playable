@@ -672,6 +672,22 @@ MonoBehaviour:
     m_ScenePreview: 1
   m_DurationMode: 0
   m_MarkerTrack: {fileID: 0}
+--- !u!114 &713744452826902574
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90fb794a295e73545af71bcdb7375791, type: 3}
+  m_Name: CinemachineShot
+  m_EditorClassIdentifier: 
+  DisplayName: 
+  VirtualCamera:
+    exposedName: 8c7273a52792a44b18d00f9d383c4a5c
+    defaultValue: {fileID: 0}
 --- !u!114 &4868311417781185877
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -746,6 +762,39 @@ MonoBehaviour:
       m_RotationOrder: 4
     m_MixOutCurve:
       serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
+    m_DisplayName: "1\uBC88 \uB530\uAE4C\uB9AC \uAC00\uC0C1 \uCE74\uBA54\uB77C"
+  - m_Version: 1
+    m_Start: 5
+    m_ClipIn: 0
+    m_Asset: {fileID: 4868311417781185877}
+    m_Duration: 5
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: 6661002832091437867}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: 0.7666666666666666
+    m_BlendOutDuration: -1
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
         time: 0
@@ -777,17 +826,17 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: "1\uBC88 \uB530\uAE4C\uB9AC \uAC00\uC0C1 \uCE74\uBA54\uB77C"
+    m_DisplayName: "2\uBC88 \uB530\uAE4C\uB9AC \uAC00\uC0C1 \uCE74\uBA54\uB77C"
   - m_Version: 1
-    m_Start: 5
+    m_Start: 14.683333333333334
     m_ClipIn: 0
-    m_Asset: {fileID: 4868311417781185877}
+    m_Asset: {fileID: 713744452826902574}
     m_Duration: 5
     m_TimeScale: 1
     m_ParentTrack: {fileID: 6661002832091437867}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
-    m_BlendInDuration: 0.7666666666666666
+    m_BlendInDuration: -1
     m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
@@ -846,7 +895,7 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: "2\uBC88 \uB530\uAE4C\uB9AC \uAC00\uC0C1 \uCE74\uBA54\uB77C"
+    m_DisplayName: "\uB2E4\uAC00\uAC00\uAE30  \uAE30\uC5B5\uACF5\uAC04"
   m_Markers:
     m_Objects: []
   TrackPriority: 0
