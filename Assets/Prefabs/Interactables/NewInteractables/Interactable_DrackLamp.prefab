@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8463961890131266870}
   - component: {fileID: 4202800872303632810}
   m_Layer: 0
-  m_Name: NewInteractable_DrackLamp
+  m_Name: Interactable_DrackLamp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -139,6 +139,22 @@ PrefabInstance:
     - target: {fileID: 5275144571174261605, guid: 5f76c9b5510e0f345a40ef67ff004bee, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8626710137938360483, guid: 5f76c9b5510e0f345a40ef67ff004bee, type: 3}
+      propertyPath: m_Range
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8626710137938360483, guid: 5f76c9b5510e0f345a40ef67ff004bee, type: 3}
+      propertyPath: m_Intensity
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8626710137938360483, guid: 5f76c9b5510e0f345a40ef67ff004bee, type: 3}
+      propertyPath: m_BounceIntensity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8626710137938360483, guid: 5f76c9b5510e0f345a40ef67ff004bee, type: 3}
+      propertyPath: m_ColorTemperature
+      value: 4105
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

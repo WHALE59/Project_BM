@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4556363786907215336}
   - component: {fileID: 7174986096496948221}
   m_Layer: 0
-  m_Name: NewInteractable_CardboardPile
+  m_Name: Interactable_CardboardPile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

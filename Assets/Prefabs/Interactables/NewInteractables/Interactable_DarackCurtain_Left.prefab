@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 508176762582194961}
   - component: {fileID: 9011941336766159115}
   m_Layer: 0
-  m_Name: NewInteractable_DarackCurtain_Left
+  m_Name: Interactable_DarackCurtain_Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
