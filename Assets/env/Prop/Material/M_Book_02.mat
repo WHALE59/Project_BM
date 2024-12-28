@@ -67,7 +67,7 @@ Material:
     - _GrungeMap_Power: 0.01
     - _Grunge_Tiling: 0
     - _IsUsedFresnel: 0
-    - _Normal_Intensity: 0.1
+    - _Normal_Intensity: 0.5
     - _PixelizeAmount: 1000
     - _QueueControl: 0
     - _RoughnessContrast: 0.1
