@@ -59,7 +59,7 @@ namespace BM
 			return Camera.main.ViewportPointToRay(viewportPoint);
 		}
 
-		private void StartCollectOrActivate()
+		private void InteractAction_CollectOrActivateInputPerformed()
 		{
 			if (null == m_detectedInteractable)
 			{
@@ -103,7 +103,35 @@ namespace BM
 			}
 		}
 
-		private void FinishCollectOrActivate()
+		private void InteractAction_CollectOrActivateInputCanceled()
+		{
+
+		}
+
+		private void InteractAction_UseInputPerformed()
+		{
+			if (null == m_detectedInteractable)
+			{
+				return;
+			}
+
+			if (null == m_equipment)
+			{
+				return;
+			}
+
+			if (!(m_equipment.IsUsable && m_detectedInteractable.IsUsedable))
+			{
+				if (m_equipment.IsUsedTo(m_detectedInteractable))
+				{
+					m_detectedInteractable.StartUsage(this, m_equipment);
+				}
+
+				return;
+			}
+		}
+
+		private void InteractAction_UseInputCanceled()
 		{
 
 		}
@@ -250,12 +278,17 @@ namespace BM
 		{
 			m_inventory = GetComponent<Inventory>();
 
-			m_inputReaderSO.CollectOrActivateInputPerformed += StartCollectOrActivate;
-			m_inputReaderSO.CollectOrActivateInputCanceled += FinishCollectOrActivate;
 		}
+
 
 		private void OnEnable()
 		{
+			m_inputReaderSO.CollectOrActivateInputPerformed += InteractAction_CollectOrActivateInputPerformed;
+			m_inputReaderSO.CollectOrActivateInputCanceled += InteractAction_CollectOrActivateInputCanceled;
+
+			m_inputReaderSO.UseInputPerformed += InteractAction_UseInputPerformed;
+			m_inputReaderSO.UseInputCanceled += InteractAction_UseInputCanceled;
+
 #if UNITY_EDITOR
 			InteractableFound += Debug_OnInteractableFound;
 			InteractableLost += Debug_OnInteractableLost;
@@ -264,6 +297,12 @@ namespace BM
 
 		private void OnDisable()
 		{
+			m_inputReaderSO.CollectOrActivateInputPerformed -= InteractAction_CollectOrActivateInputPerformed;
+			m_inputReaderSO.CollectOrActivateInputCanceled -= InteractAction_CollectOrActivateInputCanceled;
+
+			m_inputReaderSO.UseInputPerformed -= InteractAction_UseInputPerformed;
+			m_inputReaderSO.UseInputCanceled -= InteractAction_UseInputCanceled;
+
 #if UNITY_EDITOR
 			InteractableFound -= Debug_OnInteractableFound;
 			InteractableLost -= Debug_OnInteractableLost;

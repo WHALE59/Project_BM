@@ -1,0 +1,153 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &514502610095742676
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8729015344552151250}
+  - component: {fileID: 4199585900324189826}
+  - component: {fileID: 2612454744780333181}
+  m_Layer: 0
+  m_Name: NewInteractable_GirlsDiary
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8729015344552151250
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 514502610095742676}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8898155670318341408}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4199585900324189826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 514502610095742676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38fabdb4a1a567946ab26a888d9df21a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_interactableSO: {fileID: 11400000, guid: 65df1ee161a0e08428c10f9e74a03066, type: 2}
+  m_interactableModel: {fileID: 3142822974650829841}
+  m_isCollected: 0
+  m_logOnHovering: 0
+  m_logOnInteraction: 0
+--- !u!54 &2612454744780333181
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 514502610095742676}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!1001 &6867826148002814277
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8729015344552151250}
+    m_Modifications:
+    - target: {fileID: 2608694753397245029, guid: bbafda7c0248fa44286793ec146ba4ba, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2608694753397245029, guid: bbafda7c0248fa44286793ec146ba4ba, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2608694753397245029, guid: bbafda7c0248fa44286793ec146ba4ba, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2608694753397245029, guid: bbafda7c0248fa44286793ec146ba4ba, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2608694753397245029, guid: bbafda7c0248fa44286793ec146ba4ba, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2608694753397245029, guid: bbafda7c0248fa44286793ec146ba4ba, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2608694753397245029, guid: bbafda7c0248fa44286793ec146ba4ba, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2608694753397245029, guid: bbafda7c0248fa44286793ec146ba4ba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2608694753397245029, guid: bbafda7c0248fa44286793ec146ba4ba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2608694753397245029, guid: bbafda7c0248fa44286793ec146ba4ba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7485438998642369310, guid: bbafda7c0248fa44286793ec146ba4ba, type: 3}
+      propertyPath: m_Name
+      value: InteractableModel_GirlsDiary
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bbafda7c0248fa44286793ec146ba4ba, type: 3}
+--- !u!114 &3142822974650829841 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8418045356228941140, guid: bbafda7c0248fa44286793ec146ba4ba, type: 3}
+  m_PrefabInstance: {fileID: 6867826148002814277}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 265e4a6a238133e439dabc2411f8a82d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &8898155670318341408 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2608694753397245029, guid: bbafda7c0248fa44286793ec146ba4ba, type: 3}
+  m_PrefabInstance: {fileID: 6867826148002814277}
+  m_PrefabAsset: {fileID: 0}

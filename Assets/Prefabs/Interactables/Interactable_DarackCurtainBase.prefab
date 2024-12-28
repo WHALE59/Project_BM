@@ -55,43 +55,5 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8032270855515153545, guid: d3276d7bcbe47ed43806223c52955924, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 6216136004173303686}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d3276d7bcbe47ed43806223c52955924, type: 3}
---- !u!1 &6458994180139729191 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8032270855515153545, guid: d3276d7bcbe47ed43806223c52955924, type: 3}
-  m_PrefabInstance: {fileID: 3952664265596298670}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &6216136004173303686
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6458994180139729191}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 240151a2de90b864a9faba40f0ce7efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_logOnInteraction: 0
-  m_soundOnOpening:
-    Guid:
-      Data1: -1573940961
-      Data2: 1272863845
-      Data3: -245836896
-      Data4: 83088934
-    Path: event:/SFX/Interaction/2D_Interaction_UI_Curtain_Opening
-  m_soundOnClosing:
-    Guid:
-      Data1: 1740433792
-      Data2: 1237645351
-      Data3: 519337898
-      Data4: 1431031958
-    Path: event:/SFX/Interaction/2D_Interaction_UI_Curtain_Closing
-  m_modelOnOpened: {fileID: 0}
-  m_modelOnClosed: {fileID: 0}
-  m_isOpenOnStart: 1

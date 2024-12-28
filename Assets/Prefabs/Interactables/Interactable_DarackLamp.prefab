@@ -187,44 +187,13 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7153274177152328098, guid: d3276d7bcbe47ed43806223c52955924, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8088376359705905631}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8032270855515153545, guid: d3276d7bcbe47ed43806223c52955924, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1295494624089346903}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d3276d7bcbe47ed43806223c52955924, type: 3}
 --- !u!4 &6147992193734264909 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7153274177152328098, guid: d3276d7bcbe47ed43806223c52955924, type: 3}
   m_PrefabInstance: {fileID: 3897732046868736495}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &6444613047883418982 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8032270855515153545, guid: d3276d7bcbe47ed43806223c52955924, type: 3}
-  m_PrefabInstance: {fileID: 3897732046868736495}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1295494624089346903
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6444613047883418982}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65780bd7a4784b447bab7ad037dbdc58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_logOnInteraction: 0
-  m_manipulatingSound:
-    Guid:
-      Data1: 1168874016
-      Data2: 1336895692
-      Data3: -1665030527
-      Data4: -1155746408
-    Path: event:/Ambience/2D_M_Ambience_Bulb_OneShot
-  m_lightSource: {fileID: 8192394979954886130}
-  m_emissiveRenderer: {fileID: 889251994640051231}
-  m_emissivePropertyName: _Emssive_Power
 --- !u!1001 &5159360166841869251
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -285,11 +254,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 6739346510244023070}
   m_SourcePrefab: {fileID: 100100000, guid: 5f76c9b5510e0f345a40ef67ff004bee, type: 3}
---- !u!23 &889251994640051231 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 5462579676997947356, guid: 5f76c9b5510e0f345a40ef67ff004bee, type: 3}
-  m_PrefabInstance: {fileID: 5159360166841869251}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1057412107676741798 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5275144571174261605, guid: 5f76c9b5510e0f345a40ef67ff004bee, type: 3}
