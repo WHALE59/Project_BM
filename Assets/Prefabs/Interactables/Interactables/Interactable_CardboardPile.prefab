@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4603463791622239872}
   - component: {fileID: 5269806342213691938}
-  - component: {fileID: 4556363786907215336}
   - component: {fileID: 7174986096496948221}
+  - component: {fileID: 2838486069913105291}
   m_Layer: 0
   m_Name: Interactable_CardboardPile
   m_TagString: Untagged
@@ -56,30 +56,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &4556363786907215336
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8332729168683627977}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e9e8ff019fd02d43a589c1731aaf9bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_interactableSO: {fileID: 11400000, guid: f93268bdd1e864c4bb6ac3d42ec530c0, type: 2}
-  m_interactableModel: {fileID: 3419078068208925064}
-  m_isCollected: 0
-  m_logOnHovering: 0
-  m_logOnInteraction: 0
-  m_soundOnMoving:
-    Guid:
-      Data1: -323269395
-      Data2: 1140122215
-      Data3: -1876774736
-      Data4: -216191740
-    Path: event:/SFX/Interaction/2D_Interaction_UI_BoxSlide
 --- !u!54 &7174986096496948221
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -107,6 +83,30 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2838486069913105291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8332729168683627977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e9e8ff019fd02d43a589c1731aaf9bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_interactableSO: {fileID: 11400000, guid: f93268bdd1e864c4bb6ac3d42ec530c0, type: 2}
+  m_interactableModel: {fileID: 3419078068208925064}
+  m_isCollected: 0
+  m_logOnHovering: 0
+  m_logOnInteraction: 0
+  m_soundOnMoving:
+    Guid:
+      Data1: -323269395
+      Data2: 1140122215
+      Data3: -1876774736
+      Data4: -216191740
+    Path: event:/SFX/Interaction/2D_Interaction_UI_BoxSlide
 --- !u!1001 &2504708614060704856
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -53,7 +53,7 @@ namespace BM
 		private Ray GetCameraRay()
 		{
 			// Screen mid point
-			Vector3 viewportPoint = new(0.5f, 0.5f, 0.0f);
+			Vector3 viewportPoint = new(.5f, .5f, .0f);
 
 			// NOTE: This can be broken when Camera.main is not gameplay camera
 			return Camera.main.ViewportPointToRay(viewportPoint);
@@ -120,14 +120,15 @@ namespace BM
 				return;
 			}
 
-			if (!(m_equipment.IsUsable && m_detectedInteractable.IsUsedable))
+			if (!m_equipment.IsUsable || !m_detectedInteractable.IsUsedable)
 			{
-				if (m_equipment.IsUsedTo(m_detectedInteractable))
-				{
-					m_detectedInteractable.StartUsage(this, m_equipment);
-				}
-
 				return;
+			}
+
+			// TODO: Implement IsUsedBy
+			if (m_equipment.IsUsedTo(m_detectedInteractable))
+			{
+				m_detectedInteractable.StartUsage(this, m_equipment);
 			}
 		}
 
@@ -166,7 +167,7 @@ namespace BM
 
 					if (hasAttachedInteractable)
 					{
-						m_isValidInteractionHit &= newlyDetectedInteractable.IsInteractionAllowed;
+						m_isValidInteractionHit &= newlyDetectedInteractable.IsDetectionAllowed;
 					}
 				}
 			}

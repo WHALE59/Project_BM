@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace BM.Interactables
 {
-	public class Interactable_DarackLamp : InteractableBase
+	public class DarackLamp : InteractableBase
 	{
 		[Header("Sound Settings")]
 		[Space]

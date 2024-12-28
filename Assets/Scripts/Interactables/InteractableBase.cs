@@ -21,8 +21,20 @@ namespace BM.Interactables
 		[Space]
 #endif
 
-		private bool m_allowInteraction = true;
+		private bool m_allowDetection = true;
+		protected bool m_allowInteraction = true;
 
+		/// <summary>
+		/// <see cref="InteractAction"/>에 의해 감지 자체가 허용 되는지의 여부
+		/// </summary>
+		public bool IsDetectionAllowed => m_allowDetection;
+
+		/// <summary>
+		/// <see cref="InteractAction"/>에 의해 Use 혹은 Activate가 허용 되는지의 여부
+		/// </summary>
+		/// <remarks>
+		/// <c>false</c>를 반환하는 경우, <see cref="InteractAction"/>에 의해 감지는 되지만, 아무런 상호작용을 할 수 없다는 뜻이다. <br/>
+		/// </remarks>
 		public bool IsInteractionAllowed => m_allowInteraction;
 
 		public InteractableSO InteractableSO => m_interactableSO;
@@ -39,12 +51,12 @@ namespace BM.Interactables
 
 		public void AllowInteraction()
 		{
-			m_allowInteraction = true;
+			m_allowDetection = true;
 		}
 
 		public void DisallowInteraction()
 		{
-			m_allowInteraction = false;
+			m_allowDetection = false;
 		}
 
 		public void StartHovering()

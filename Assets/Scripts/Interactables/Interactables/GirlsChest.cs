@@ -4,7 +4,7 @@ using UnityEngine;
 namespace BM.Interactables
 {
 	[RequireComponent(typeof(Animator))]
-	public class Interactable_GirlsChest : InteractableBase
+	public class GirlsChest : InteractableBase
 	{
 		[Header("Sound Effects")]
 		[Space]

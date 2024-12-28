@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 1619804461792657616}
   - component: {fileID: 3956737473972697106}
   - component: {fileID: 4994381324440253178}
-  - component: {fileID: 5930517481016450132}
+  - component: {fileID: 2706644670784606189}
   m_Layer: 0
-  m_Name: Interactable_DarackKey
+  m_Name: Interactable_DarackKey_Far
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -83,7 +83,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &5930517481016450132
+--- !u!114 &2706644670784606189
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -100,6 +100,7 @@ MonoBehaviour:
   m_isCollected: 0
   m_logOnHovering: 0
   m_logOnInteraction: 0
+  m_DarackKeyNearPrefab: {fileID: 4223250354205480081, guid: 2007e962af6300e40b83b6d8f5b471f8, type: 3}
 --- !u!1001 &6360950616116001519
 PrefabInstance:
   m_ObjectHideFlags: 0

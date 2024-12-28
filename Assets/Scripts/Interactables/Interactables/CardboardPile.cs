@@ -4,32 +4,38 @@ using UnityEngine;
 namespace BM.Interactables
 {
 	[RequireComponent(typeof(Animator))]
-	public class Interactable_DarackKey : InteractableBase
+	public class CardboardPile : InteractableBase
 	{
-		private bool m_isReachable = false;
+		[Header("Sound Settings")]
+		[Space]
+
+		[SerializeField] private EventReference m_soundOnMoving;
 
 		private Animator m_animator;
+
+		private bool m_isMoved = false;
+
 		public override void StartActivation(InteractAction _)
 		{
 			base.StartActivation(_);
 
-			if (!m_isReachable)
+			if (m_isMoved)
 			{
 				return;
 			}
-		}
 
-		public override void StartUsage(InteractAction _0, InteractableSO _1)
-		{
-			base.StartUsage(_0, _1);
-
-			m_isReachable = true;
 			m_animator.SetTrigger("Move");
+
+			if (!m_soundOnMoving.IsNull)
+			{
+				RuntimeManager.PlayOneShot(m_soundOnMoving);
+			}
+
+			m_isMoved = true;
 		}
 
 		protected override void Awake()
 		{
-			base.Awake();
 			m_animator = GetComponent<Animator>();
 		}
 	}
