@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 866da2b9a75a01046af35460690c688f, type: 3}
+  m_Name: VoiceLineSO_Darack_GirlsChest_Locked
+  m_EditorClassIdentifier: 
+  m_voiceSound:
+    Guid:
+      Data1: -1995313706
+      Data2: 1081677316
+      Data3: 889619601
+      Data4: -419308963
+    Path: event:/SFX/Voice/Charcter/Darack/2D_M_Voice_BoxLocked
+  m_subtitle:
+    m_TableReference:
+      m_TableCollectionName: GUID:6bda748f0c1e0054fa5dcccfa488d4af
+    m_TableEntryReference:
+      m_KeyId: 2155834303524864
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  references:
+    version: 2
+    RefIds: []

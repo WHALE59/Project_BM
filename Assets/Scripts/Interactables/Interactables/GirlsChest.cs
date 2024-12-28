@@ -13,6 +13,10 @@ namespace BM.Interactables
 		[SerializeField] private EventReference m_unlockingSound;
 		[SerializeField] private EventReference m_openingSound;
 
+		[Space]
+
+		[SerializeField] private VoiceLineSO m_voiceOnLocked;
+
 		private Animator m_animator;
 		private bool m_isLocked = true;
 		private bool m_isOpened = false;
@@ -29,6 +33,8 @@ namespace BM.Interactables
 				{
 					RuntimeManager.PlayOneShot(m_lockedSound);
 				}
+
+				m_voiceOnLocked.Play();
 			}
 			else
 			{
