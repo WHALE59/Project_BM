@@ -22310,7 +22310,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6350099554670406998, guid: 9aa1434ee33ca8644af4559a40467a01, type: 3}
       propertyPath: m_Name
-      value: Interactable_Key
+      value: Interactable_DarackKey
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

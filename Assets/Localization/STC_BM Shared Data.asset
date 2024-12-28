@@ -36,12 +36,12 @@ MonoBehaviour:
       m_Items:
       - rid: 737333076142063635
   - m_Id: 785522630537216
-    m_Key: Interactable_Key_DisplayName
+    m_Key: Interactable_DarackKey_DisplayName
     m_Metadata:
       m_Items:
       - rid: 737333076142063636
   - m_Id: 850381632122880
-    m_Key: Interactable_Key_Description
+    m_Key: Interactable_DarackKey_Description
     m_Metadata:
       m_Items:
       - rid: 737333076142063637
@@ -106,6 +106,14 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 2155834303524864
     m_Key: Voice_Character_Darack_BoxLocked
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2894546125664256
+    m_Key: Interactable_Broom_DisplayName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2894546251493376
+    m_Key: Interactable_Broom_Description
     m_Metadata:
       m_Items: []
   m_Metadata:

@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1619804461792657616}
   - component: {fileID: 3956737473972697106}
-  - component: {fileID: 1602066614572352782}
+  - component: {fileID: 4994381324440253178}
+  - component: {fileID: 5930517481016450132}
   m_Layer: 0
-  m_Name: Interactable_Key
+  m_Name: Interactable_DarackKey
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -57,11 +58,32 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1602066614572352782
+--- !u!95 &4994381324440253178
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6350099554670406998}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5d4246247c55a4a48b436abc86963477, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5930517481016450132
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -70,7 +92,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6350099554670406998}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38fabdb4a1a567946ab26a888d9df21a, type: 3}
+  m_Script: {fileID: 11500000, guid: dcad931f49015bc47a064270ffc0739d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_interactableSO: {fileID: 11400000, guid: 5a994d3b71f17c249b67efc4d5fefcdc, type: 2}

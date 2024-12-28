@@ -106,6 +106,14 @@ MonoBehaviour:
       \uAC83 \uAC19\uC740\uB370."
     m_Metadata:
       m_Items: []
+  - m_Id: 2894546125664256
+    m_Localized: "\uBE57\uC790\uB8E8"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2894546251493376
+    m_Localized: "\uBE57\uC790\uB8E8 \uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

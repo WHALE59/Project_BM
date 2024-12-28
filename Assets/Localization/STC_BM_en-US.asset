@@ -52,8 +52,8 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 850445184217088
-    m_Localized: It's an old rope. Wouldn't it be possible to tie something tightly
-      together?
+    m_Localized: "It's an old rope. Wouldn\u2019t it be possible to tie something
+      tightly together?"
     m_Metadata:
       m_Items: []
   - m_Id: 850471163736064
@@ -95,11 +95,19 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 2155834211250176
-    m_Localized: This is... my room... this is it
+    m_Localized: This is... my room... right?
     m_Metadata:
       m_Items: []
   - m_Id: 2155834303524864
     m_Localized: It's locked. I think there was a key somewhere.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2894546125664256
+    m_Localized: broomstick
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2894546251493376
+    m_Localized: It's a broom.
     m_Metadata:
       m_Items: []
   references:

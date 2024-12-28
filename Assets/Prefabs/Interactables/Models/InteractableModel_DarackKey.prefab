@@ -18,7 +18,7 @@ PrefabInstance:
       objectReference: {fileID: 6355948735376976343}
     - target: {fileID: 2063907200293791334, guid: f1ac23f949a3a154ca2e1a348c569869, type: 3}
       propertyPath: m_Name
-      value: InteractableModel_Key
+      value: InteractableModel_DarackKey
       objectReference: {fileID: 0}
     - target: {fileID: 6878709375647990045, guid: f1ac23f949a3a154ca2e1a348c569869, type: 3}
       propertyPath: m_LocalPosition.x
@@ -173,8 +173,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.00072820403, y: 0.0019034405, z: 0.007162182}
-  m_Center: {x: -0.00010308712, y: -0.00007707167, z: -0.0003541633}
+  m_Size: {x: 0.0728204, y: 0.19034407, z: 0.7162183}
+  m_Center: {x: -0.010308713, y: -0.00770717, z: -0.035416465}
 --- !u!4 &5224159554947977912 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 572c283044d18c14ebbfb2e18224734f, type: 3}
