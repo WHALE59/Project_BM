@@ -85,14 +85,14 @@ Material:
     - _Intersection_power: 0.08
     - _IsUsedFresnel: 0
     - _IsUsedSecondTexture: 0
-    - _Normal_Intensity: 1.3
+    - _Normal_Intensity: 1.5
     - _PixelizeAmount: 1000
     - _Pixelize_Amount: 551
     - _Pixelize_Grunge: 2.5
     - _Pixelize_Grunge2: 2
     - _Pixelize_step: 12.5
-    - _RoughnessContrast: 0.58
-    - _RoughnessPower: 0.4
+    - _RoughnessContrast: -0.05
+    - _RoughnessPower: 0.71
     - _Tint_power: -0.42
     - _intersect_Contrast: 6.55
     m_Colors:

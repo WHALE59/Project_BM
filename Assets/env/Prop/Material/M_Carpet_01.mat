@@ -60,6 +60,7 @@ Material:
     - _AlphaToMask: 1
     - _Boolean: 0
     - _Boolean_1: 0
+    - _CastShadows: 1
     - _Dirt_Amount: 0.01
     - _Dirt_power: 0.01
     - _DstBlend: 0
@@ -74,11 +75,11 @@ Material:
     - _GrungeMap_Power: 0.01
     - _Grunge_Tiling: 0
     - _IsUsedFresnel: 0
-    - _Normal_Intensity: 1.5
-    - _PixelizeAmount: 381
+    - _Normal_Intensity: 0.8
+    - _PixelizeAmount: 1000
     - _QueueControl: 0
-    - _RoughnessContrast: 0.95
-    - _RoughnessPower: 0.73
+    - _RoughnessContrast: -1
+    - _RoughnessPower: 1
     - _Surface: 0
     - _TimeSpeed: 2
     - _Top_Pixelize_step: 0

@@ -74,10 +74,10 @@ Material:
     - _GrungeMap_Power: 0.01
     - _Grunge_Tiling: 0
     - _IsUsedFresnel: 0
-    - _Normal_Intensity: 3
-    - _PixelizeAmount: 1000
+    - _Normal_Intensity: 1
+    - _PixelizeAmount: 168
     - _QueueControl: 0
-    - _RoughnessContrast: 1.25
+    - _RoughnessContrast: -2
     - _RoughnessPower: 0.5
     - _Surface: 0
     - _TimeSpeed: 2
@@ -87,5 +87,5 @@ Material:
     m_Colors:
     - _FresnelColor: {r: 1, g: 0.6156863, b: 0, a: 1}
     - _FresnelColor2: {r: 1, g: 0, b: 0.5217905, a: 0}
-    - _TintColor: {r: 0.6509434, g: 0.58566755, b: 0.36538804, a: 0}
+    - _TintColor: {r: 0.5, g: 0.48407212, b: 0.4316038, a: 0}
   m_BuildTextureStacks: []
