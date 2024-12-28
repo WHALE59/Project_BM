@@ -73,7 +73,7 @@ Material:
     - _01_GrungeMap_BlendAmount: 1.04
     - _01_GrungeMap_BlendContrast: 0.44
     - _01_GrungeMap_BlendPower: 0.35
-    - _01_GrungeMap_Tiling: -0.09
+    - _01_GrungeMap_Tiling: 0.46
     - _02_GrungeMap_BlendAmount: 1.69
     - _02_GrungeMap_BlendContrast: 0.07
     - _02_GrungeMap_BlendPower: -1.76
@@ -87,13 +87,13 @@ Material:
     - _Intersection_amount: 0.5
     - _Intersection_power: 0.08
     - _IsUsedSecondTexture: 1
-    - _Normal_Intensity: 2
+    - _Normal_Intensity: 1
     - _Pixelize_Amount: 400
     - _Pixelize_Grunge: 2
     - _Pixelize_Grunge2: 2
     - _Pixelize_step: 3.31
-    - _RoughnessContrast: 0.91
-    - _RoughnessPower: 0.909
+    - _RoughnessContrast: 1.05
+    - _RoughnessPower: 0.75
     - _Tint_power: -0.42
     - _intersect_Contrast: 6.55
     m_Colors:

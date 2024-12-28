@@ -89,10 +89,10 @@ MonoBehaviour:
     m_Value: 0.1
   intensity:
     m_OverrideState: 1
-    m_Value: 3
+    m_Value: 5
   scatter:
     m_OverrideState: 1
-    m_Value: 0.45
+    m_Value: 0.167
   clamp:
     m_OverrideState: 1
     m_Value: 65472
@@ -226,11 +226,11 @@ MonoBehaviour:
   active: 1
   texture:
     m_OverrideState: 1
-    m_Value: {fileID: 2800000, guid: ac1023b1f016e754a98f91c0ed93782e, type: 3}
+    m_Value: {fileID: 2800000, guid: 01effdaaf5b73d14cbcc8e7659c007a0, type: 3}
     dimension: 1
   contribution:
     m_OverrideState: 1
-    m_Value: 0.5
+    m_Value: 0.8
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -272,7 +272,7 @@ MonoBehaviour:
   active: 1
   intensity:
     m_OverrideState: 1
-    m_Value: 0.262
+    m_Value: 0.3
 --- !u!114 &996195809247626257
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -288,15 +288,15 @@ MonoBehaviour:
   active: 1
   postExposure:
     m_OverrideState: 1
-    m_Value: 0.2
+    m_Value: 0.1
   contrast:
     m_OverrideState: 1
     m_Value: 0
   colorFilter:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: {r: 1, g: 1, b: 1, a: 1}
   hueShift:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 0
   saturation:
     m_OverrideState: 0
@@ -400,7 +400,7 @@ MonoBehaviour:
     m_Value: {x: 1, y: 1, z: 1, w: 0.07629428}
   gamma:
     m_OverrideState: 1
-    m_Value: {x: 1, y: 1, z: 1, w: 0.2547067}
+    m_Value: {x: 1, y: 1, z: 1, w: 0.1986755}
   gain:
-    m_OverrideState: 0
-    m_Value: {x: 1, y: 1, z: 1, w: 0}
+    m_OverrideState: 1
+    m_Value: {x: 1, y: 1, z: 1, w: 0.29139072}

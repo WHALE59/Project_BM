@@ -21,8 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_BedBadding_01
-  m_Shader: {fileID: -6465566751694194690, guid: 9225edde559a6b443aba3514ccc1e81e,
-    type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 9225edde559a6b443aba3514ccc1e81e, type: 3}
   m_Parent: {fileID: 2100000, guid: 1f7fcbcb2ed18874f8a2906666c55da8, type: 2}
   m_ModifiedSerializedProperties: 4
   m_ValidKeywords: []
@@ -71,10 +70,10 @@ Material:
     - _GrungeMap_Power: 0.01
     - _Grunge_Tiling: 0
     - _IsUsedFresnel: 0
-    - _Normal_Intensity: 1
+    - _Normal_Intensity: 0.5
     - _PixelizeAmount: 1000
     - _QueueControl: 0
-    - _RoughnessContrast: 0.1
+    - _RoughnessContrast: -0.57
     - _RoughnessPower: 0.1
     - _TimeSpeed: 2
     - _Top_Pixelize_step: 0

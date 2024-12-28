@@ -20,44 +20,63 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_Emssive_01
+  m_Name: M_Emssive_02
   m_Shader: {fileID: -6465566751694194690, guid: 074425de975cb3640b6afa608442523c, type: 3}
   m_Parent: {fileID: 2100000, guid: 046947ee123dc78468ba6bf4f605f651, type: 2}
   m_ModifiedSerializedProperties: 30
   m_ValidKeywords:
-  - _ALPHAPREMULTIPLY_ON
+  - _ALPHATEST_ON
   - _RECEIVE_SHADOWS_OFF
   - _SURFACE_TYPE_TRANSPARENT
   m_InvalidKeywords: []
-  m_LightmapFlags: 1
+  m_LightmapFlags: 0
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 1
   m_CustomRenderQueue: 3000
   stringTagMap:
     RenderType: Transparent
   disabledShaderPasses:
-  - DepthOnly
+  - SHADOWCASTER
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
-    m_TexEnvs: []
+    m_TexEnvs:
+    - _01_BaseCol:
+        m_Texture: {fileID: 2800000, guid: a81626d565c357e43a1a94369e45720d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _01_Masked:
+        m_Texture: {fileID: 2800000, guid: e67a5488261982c44a8784000797c898, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _01_Normal:
+        m_Texture: {fileID: 2800000, guid: 71105ec6ed02fc6489cac52e5b8b20b6, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AlphaClip: 0
+    - _AlphaAmount: -1.54
+    - _AlphaAmount_1: -0.93
+    - _AlphaClip: 1
+    - _AlphaToMask: 0
     - _Blend: 2
-    - _CastShadows: 1
+    - _BlendModePreserveSpecular: 0
+    - _CastShadows: 0
     - _Cull: 2
     - _DstBlend: 1
-    - _Emssive_Power: 5
-    - _IsusedALPHA: 0
+    - _Emssive_Power: 0.05
+    - _IsusedALPHA: 1
+    - _Normal_Intensity: 9.5
     - _ReceiveShadows: 0
-    - _SrcBlend: 1
+    - _RoughnessContrast: -2
+    - _RoughnessPower: 0
+    - _SrcBlend: 5
     - _Surface: 1
     - _WorkflowMode: 1
-    - _ZTest: 2
-    - _ZWrite: 0
-    - _ZWriteControl: 0
+    - _ZTest: 4
+    - _ZWrite: 1
+    - _ZWriteControl: 1
     m_Colors:
-    - _Emissive_Color: {r: 1, g: 1, b: 1, a: 0}
-    - _Tint_Color: {r: 0, g: 0, b: 0, a: 0}
+    - _Emissive_Color: {r: 0.084905684, g: 0.084905684, b: 0.084905684, a: 0}
+    - _Tint_Color: {r: 0.5471698, g: 0.5175337, b: 0.24003202, a: 1}
   m_BuildTextureStacks: []
