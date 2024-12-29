@@ -52,5 +52,6 @@ namespace BM.Interactables
 
 		public bool IsCollectible => m_isCollectible;
 		public bool IsActivatable => m_isActivatable;
+		public InteractableModel InteractableModelPrefab => m_interactableModelPrefab;
 	}
 }

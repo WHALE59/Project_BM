@@ -15,10 +15,13 @@ namespace BM
 		[SerializeField] InputReaderSO m_InputReader;
 		[SerializeField] GameObject m_Book;
 		[SerializeField] EndlessBook m_Book_Page;
+		[SerializeField] GameObject m_Inventory_RenderObj;
 		[SerializeField] private List<InteractableSO> m_inventory = new();
 		[SerializeField] private InteractableSO m_Equipped = null;
-		[SerializeField] Camera m_Inventory_ViewCamera;
-		[SerializeField] RectTransform m_Inventory_RenderTexture;
+		[SerializeField] Camera m_Player_Camera;
+		//[SerializeField] RectTransform m_Inventory_RenderTexture;
+		[SerializeField] LayerMask m_LayerMask;
+		[SerializeField] GameObject m_RenderObj;
 
 		// Start is called before the first frame update
 		void Start()
@@ -31,7 +34,10 @@ namespace BM
 		// Update is called once per frame
 		void Update()
 		{
-			return;
+			if(m_RenderObj.GetComponent<MeshFilter>().mesh)
+			{
+				m_RenderObj.transform.Rotate(0f, 10 * Time.deltaTime, 0f);
+			}
 		}
 
 		void Render()
@@ -115,6 +121,15 @@ namespace BM
 			}
 
 			m_Book_Page.TurnToPage(m_Book_Page.CurrentPageNumber + 20, EndlessBook.PageTurnTimeTypeEnum.TotalTurnTime, 1.2f);
+
+			if(m_Book_Page.CurrentPageNumber == 21|| m_Book_Page.CurrentPageNumber == 22)
+			{
+				m_Inventory_RenderObj.SetActive(true);
+			}
+			else
+			{
+				m_Inventory_RenderObj.SetActive(false);
+			}
 			return;
 		}
 
@@ -132,6 +147,16 @@ namespace BM
 			}
 
 			m_Book_Page.TurnToPage(m_Book_Page.CurrentPageNumber - 20, EndlessBook.PageTurnTimeTypeEnum.TotalTurnTime, 1.2f);
+
+
+			if (m_Book_Page.CurrentPageNumber == 21 || m_Book_Page.CurrentPageNumber == 22)
+			{
+				m_Inventory_RenderObj.SetActive(true);
+			}
+			else
+			{
+				m_Inventory_RenderObj.SetActive(false);
+			}
 			return;
 		}
 
@@ -163,55 +188,79 @@ namespace BM
 
 		private void OnClick_LeftCanceled()
 		{
-			OnEquipment();
+			GameObject pObj = Raycast();
+			if (pObj != null)
+			{
+				string stName = pObj.name;
+				stName = stName.Replace("Slot", "");
+				stName = stName.Replace("_Collider", "");
+				int iCount = int.Parse(stName);
+				if (Get_ItemCount() != 0 && Get_ItemCount() >= iCount - 1)
+				{
+						OnChangeRender3D(m_inventory[iCount - 1]);
+				}
+				
+				
+			}
 			return;
 		}
 
 		private void OnClick_RightPerformed()
 		{
-			return;
-		}
+			
+		} 
 
 		private void OnClick_RightCanceled()
 		{
+			GameObject pObj = Raycast();
+			if (pObj != null)
+			{
+				OnEquipment(pObj);
+			}
+			//OnEquipment();
 			return;
 		}
-		public void OnEquipment()
+		public void OnEquipment(GameObject pObj)
 		{
-
-			//Ray rRay = Raycast();
-			//RaycastHit rhHit;
-			////Debug.DrawRay(rRay);
-			
-			//if (Physics.Raycast(rRay, out rhHit, Mathf.Infinity/*, raycastLayerMask*/))
-			//{
-			//	string stName = rhHit.transform.gameObject.name;
-			//	stName.Replace("Slot", "");
-			//	int iCount = int.Parse(stName);
-			//	if (Get_ItemCount() != 0 && Get_ItemCount() >= iCount - 1)
-			//	{
-			//		m_Equipped = m_inventory[iCount - 1];
-			//	}
-			//	else
-			//	{
-			//		Debug.LogWarning("!비어있는 슬롯!");
-			//	}
-			//}
-			//else
-			//{
-			//	Debug.LogWarning("!슬롯 없음!");
-			//}
-			
+			string stName = pObj.name;
+			stName = stName.Replace("Slot", "");
+			stName = stName.Replace("_Collider", "");
+			int iCount = int.Parse(stName);
+			if (Get_ItemCount() != 0 && Get_ItemCount() >= iCount - 1)
+			{
+				m_Equipped = m_inventory[iCount - 1];
+			}
+			else
+			{
+				Debug.LogWarning("!비어있는 슬롯!");
+			}
 		}
 
-		private void Raycast()
+		private void OnChangeRender3D(InteractableSO InteractableObj)
 		{
-			//Vector2 vMousePos = Input.mousePosition;
-			//Vector3 vViewportPoint = m_Inventory_ViewCamera.ScreenToViewportPoint(vMousePos);
+			if (InteractableObj != null)
+			{
+				//GameObject pObj
+			}
+		}
 
-			//Vector2 hitPointNormalized = new Vector2(vViewportPoint.x, vViewportPoint.y);
+		private GameObject Raycast()
+		{
+			RaycastHit rhHit;
+			Ray rRay = m_Player_Camera.ScreenPointToRay(Input.mousePosition);
+			//m_Inventory_ViewCamera
 
-
+			if (Physics.Raycast(rRay, out rhHit, 1000, 9))
+			{
+				//OnEquipment(rhHit.transform.gameObject);
+				Debug.Log("성원아 너가 이겼어");
+				return rhHit.transform.gameObject;
+			}
+			else
+			{
+				Debug.Log("성원아 넌 병신이야");
+				return null;
+			}
 		}
 
 		public void Add_Item(InteractableSO ItemSO)
