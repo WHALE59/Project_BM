@@ -20,7 +20,7 @@ MonoBehaviour:
       Data3: 646179730
       Data4: 890752613
     Path: event:/SFX/Interaction/2D_Interaction_UI_WoodenStick
-  m_inventoryIcon: {fileID: 0}
+  m_inventoryIcon: {fileID: 21300000, guid: 90a32331e4507b94db843a0b79a48ce2, type: 3}
   m_isActivatable: 0
   m_crosshairOnActivationOverride: {fileID: 0}
   m_isUsable: 0

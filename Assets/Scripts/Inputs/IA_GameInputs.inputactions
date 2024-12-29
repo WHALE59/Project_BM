@@ -67,6 +67,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "TraverseEquipmentOrUnequip",
+                    "type": "Button",
+                    "id": "02691848-67e4-4d13-9cbf-a74e61950aec",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Hold(duration=0.4,pressPoint=0.5)",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -375,6 +384,17 @@
                     "processors": "",
                     "groups": ";BM_PC",
                     "action": "Use",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9f6093ae-9f47-4251-a590-827107239cf4",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";BM_PC",
+                    "action": "TraverseEquipmentOrUnequip",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

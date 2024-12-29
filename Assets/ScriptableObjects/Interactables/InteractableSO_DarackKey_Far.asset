@@ -24,7 +24,7 @@ MonoBehaviour:
   m_isActivatable: 1
   m_crosshairOnActivationOverride: {fileID: 0}
   m_isUsable: 0
-  m_equipmentIcon: {fileID: 21300000, guid: 3a8c5ac3ace3494489ec9ccc27c82b1f, type: 3}
+  m_equipmentIcon: {fileID: 0}
   m_useCrosshairIcon: {fileID: 0}
   m_isUsedTo: []
   m_isUsedable: 1

@@ -76,13 +76,14 @@ GameObject:
   - component: {fileID: 8762723058960736455}
   - component: {fileID: 676317188041148196}
   - component: {fileID: 5337080429642422780}
-  - component: {fileID: 6448649718899218689}
-  - component: {fileID: 3781311540657731409}
-  - component: {fileID: 4630992091899181617}
-  - component: {fileID: 100915224993563351}
   - component: {fileID: 9151683990528567533}
+  - component: {fileID: 6448649718899218689}
   - component: {fileID: 4819816543261910351}
+  - component: {fileID: 100915224993563351}
+  - component: {fileID: 4630992091899181617}
   - component: {fileID: 3206800542811517752}
+  - component: {fileID: 6279455334332561965}
+  - component: {fileID: 3781311540657731409}
   m_Layer: 3
   m_Name: P_Character
   m_TagString: Untagged
@@ -214,6 +215,21 @@ MonoBehaviour:
   m_properties: {fileID: 11400000, guid: 0a82ae126b59d2d45999f2c82c914acc, type: 2}
   m_cameraTarget: {fileID: 2543932865098810727}
   m_logOnStateChange: 0
+--- !u!114 &9151683990528567533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7093824059209778154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 213369faae58995408058607bafeb65c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_locomotiveProperty: {fileID: 11400000, guid: 0a82ae126b59d2d45999f2c82c914acc, type: 2}
+  m_inputReader: {fileID: 11400000, guid: 314b40c975fd3d349a30c23aa2faddeb, type: 2}
+  m_logOnLocomotiveImpulse: 0
 --- !u!114 &6448649718899218689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -231,7 +247,7 @@ MonoBehaviour:
   m_shakeShape: 2
   m_shakeDuration: 0.25
   m_shakeVelocity: {x: 0, y: -0.125, z: 0}
---- !u!114 &3781311540657731409
+--- !u!114 &4819816543261910351
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -240,9 +256,39 @@ MonoBehaviour:
   m_GameObject: {fileID: 7093824059209778154}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 532be701bae784e4e80256da8a563dfa, type: 3}
+  m_Script: {fileID: 11500000, guid: 213d24eec5b39204db82391aaf5f9a57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_normalEvent:
+    Guid:
+      Data1: -2127832985
+      Data2: 1082006622
+      Data3: 276251803
+      Data4: 30334235
+    Path: event:/SFX/Darack/3D_M_Footsteps_DarackWood
+  m_carpetEvent:
+    Guid:
+      Data1: -1549508697
+      Data2: 1188440277
+      Data3: -1354421877
+      Data4: 1215331836
+    Path: event:/SFX/Darack/3D_M_Footsteps_Carpet
+  m_logOnFMODError: 0
+--- !u!114 &100915224993563351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7093824059209778154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5aef7702cb4edb448b54129cdb49d90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_noiseTarget: {fileID: 0}
+  m_locomotiveProperty: {fileID: 11400000, guid: 0a82ae126b59d2d45999f2c82c914acc, type: 2}
+  m_duration: 0.4
 --- !u!114 &4630992091899181617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -275,65 +321,7 @@ MonoBehaviour:
       Data3: 1545112218
       Data4: -334051407
     Path: event:/SFX/UI Sound/2D_Button_Confirm_1
-  m_equipment: {fileID: 0}
   m_logOnInteractableFoundAndLost: 0
---- !u!114 &100915224993563351
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7093824059209778154}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5aef7702cb4edb448b54129cdb49d90, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_noiseTarget: {fileID: 0}
-  m_locomotiveProperty: {fileID: 11400000, guid: 0a82ae126b59d2d45999f2c82c914acc, type: 2}
-  m_duration: 0.4
---- !u!114 &9151683990528567533
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7093824059209778154}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 213369faae58995408058607bafeb65c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_locomotiveProperty: {fileID: 11400000, guid: 0a82ae126b59d2d45999f2c82c914acc, type: 2}
-  m_inputReader: {fileID: 11400000, guid: 314b40c975fd3d349a30c23aa2faddeb, type: 2}
-  m_logOnLocomotiveImpulse: 0
---- !u!114 &4819816543261910351
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7093824059209778154}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 213d24eec5b39204db82391aaf5f9a57, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_normalEvent:
-    Guid:
-      Data1: -2127832985
-      Data2: 1082006622
-      Data3: 276251803
-      Data4: 30334235
-    Path: event:/SFX/Darack/3D_M_Footsteps_DarackWood
-  m_carpetEvent:
-    Guid:
-      Data1: -1549508697
-      Data2: 1188440277
-      Data3: -1354421877
-      Data4: 1215331836
-    Path: event:/SFX/Darack/3D_M_Footsteps_Carpet
-  m_logOnFMODError: 0
 --- !u!114 &3206800542811517752
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -346,7 +334,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d10e7106f42eaa46b40ea6e73b8f851, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_inventory: []
+  m_collectedSOs: []
+--- !u!114 &6279455334332561965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7093824059209778154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a142f5077187cbe43a145b75bcbaa613, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_inputReader: {fileID: 11400000, guid: 314b40c975fd3d349a30c23aa2faddeb, type: 2}
+  m_equipmentSO: {fileID: 0}
+  m_logOnUseActionProcedure: 0
+--- !u!114 &3781311540657731409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7093824059209778154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 532be701bae784e4e80256da8a563dfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7658585729986315391
 GameObject:
   m_ObjectHideFlags: 0

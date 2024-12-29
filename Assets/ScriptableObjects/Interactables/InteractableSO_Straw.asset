@@ -20,7 +20,7 @@ MonoBehaviour:
       Data3: 777511844
       Data4: -2061099760
     Path: event:/SFX/Interaction/2D_Interaction_UI_RiceStraw
-  m_inventoryIcon: {fileID: 0}
+  m_inventoryIcon: {fileID: 21300000, guid: 2ad1b8a9e3813764faadfd7bea769f96, type: 3}
   m_isActivatable: 0
   m_crosshairOnActivationOverride: {fileID: 0}
   m_isUsable: 0

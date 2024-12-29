@@ -7,27 +7,29 @@ using UnityEngine;
 namespace BM
 {
 	[DisallowMultipleComponent]
-	[RequireComponent(typeof(Inventory))]
+	[RequireComponent(typeof(CollectAction))]
 	public class InteractAction : MonoBehaviour
 	{
+		[Header("Input Settings")]
+		[Space]
+
 		[SerializeField] private InputReaderSO m_inputReaderSO;
+
+		[Header("Detection Settings")]
+		[Space]
+
 		[SerializeField] private float m_raycastDistance = 5.0f;
 		[SerializeField] private LayerMask m_layerMask = (1 << 6);
 
+		[Header("Sound Settings")]
 		[Space]
 
 		[SerializeField] private bool m_enableHoveringSound = true;
 		[SerializeField] private EventReference m_soundOnHovering;
-
-		[Space]
-
 		[SerializeField] private EventReference m_defaultSoundOnCollecting;
 
-		[Space]
-
-		[SerializeField] private InteractableSO m_equipment;
-
 #if UNITY_EDITOR
+		[Header("Debug")]
 		[Space]
 
 		[SerializeField] private bool m_logOnInteractableFoundAndLost;
@@ -39,16 +41,12 @@ namespace BM
 		public event Action<InteractableBase> InteractableFound;
 		public event Action<InteractableBase> InteractableLost;
 
-		public event Action<InteractableSO> Equipped;
-		public event Action Unequipped;
-
 		private bool m_isValidInteractionHit;
 		private RaycastHit m_hitResult;
 		private InteractableModel m_hitModelOnLastFrame;
 
-		private Inventory m_inventory;
-
-		public InteractableSO Equipment => m_equipment;
+		private CollectAction m_inventory;
+		private UseAction m_equipment;
 
 		private Ray GetCameraRay()
 		{
@@ -61,6 +59,8 @@ namespace BM
 
 		private void InteractAction_CollectOrActivateInputPerformed()
 		{
+			// TODO: Collect Action
+
 			if (null == m_detectedInteractable)
 			{
 				return;
@@ -104,35 +104,6 @@ namespace BM
 		}
 
 		private void InteractAction_CollectOrActivateInputCanceled()
-		{
-
-		}
-
-		private void InteractAction_UseInputPerformed()
-		{
-			if (null == m_detectedInteractable)
-			{
-				return;
-			}
-
-			if (null == m_equipment)
-			{
-				return;
-			}
-
-			if (!m_equipment.IsUsable || !m_detectedInteractable.IsUsedable)
-			{
-				return;
-			}
-
-			// TODO: Implement IsUsedBy
-			if (m_equipment.IsUsedTo(m_detectedInteractable))
-			{
-				m_detectedInteractable.StartUsage(this, m_equipment);
-			}
-		}
-
-		private void InteractAction_UseInputCanceled()
 		{
 
 		}
@@ -246,7 +217,7 @@ namespace BM
 		}
 
 		/// <summary>
-		/// 호버링 시작 하였을 때의 UI의 변경 등을 여기서 처리
+		/// 호버링을 시작 하였을 때에, 캐릭터 쪽에서 처리하여야 하는 로직을 여기에 작성.
 		/// </summary>
 		private void StartHovering(InteractableBase interactable)
 		{
@@ -257,38 +228,22 @@ namespace BM
 		}
 
 		/// <summary>
-		/// 호버링 종료 하였을 때의 UI의 변경 등을 여기서 처리
+		/// 호버링을 종료 하였을 때에, 캐릭터 쪽에서 처리하여야 하는 로직을 여기에 작성.
 		/// </summary>
 		private void FinishHovering(InteractableBase interactable)
 		{
 		}
 
-		private void OnValidate()
-		{
-			if (null != m_equipment)
-			{
-				Equipped?.Invoke(m_equipment);
-			}
-			else
-			{
-				Unequipped?.Invoke();
-			}
-		}
-
 		private void Awake()
 		{
-			m_inventory = GetComponent<Inventory>();
-
+			m_inventory = GetComponent<CollectAction>();
+			m_equipment = GetComponent<UseAction>();
 		}
-
 
 		private void OnEnable()
 		{
 			m_inputReaderSO.CollectOrActivateInputPerformed += InteractAction_CollectOrActivateInputPerformed;
 			m_inputReaderSO.CollectOrActivateInputCanceled += InteractAction_CollectOrActivateInputCanceled;
-
-			m_inputReaderSO.UseInputPerformed += InteractAction_UseInputPerformed;
-			m_inputReaderSO.UseInputCanceled += InteractAction_UseInputCanceled;
 
 #if UNITY_EDITOR
 			InteractableFound += Debug_OnInteractableFound;
@@ -300,9 +255,6 @@ namespace BM
 		{
 			m_inputReaderSO.CollectOrActivateInputPerformed -= InteractAction_CollectOrActivateInputPerformed;
 			m_inputReaderSO.CollectOrActivateInputCanceled -= InteractAction_CollectOrActivateInputCanceled;
-
-			m_inputReaderSO.UseInputPerformed -= InteractAction_UseInputPerformed;
-			m_inputReaderSO.UseInputCanceled -= InteractAction_UseInputCanceled;
 
 #if UNITY_EDITOR
 			InteractableFound -= Debug_OnInteractableFound;

@@ -66,23 +66,31 @@ namespace BM.Interactables
 		public Sprite EquipmentIcon => m_equipmentIcon;
 		public LocalizedString LocalizedDisplayName => m_displayName;
 
-		public bool IsUsedTo(InteractableBase interactable)
+		public bool IsUsedTo(InteractableSO target)
 		{
-			InteractableSO from = this;
-			InteractableSO to = interactable.InteractableSO;
-
-			foreach (InteractableSO fto in from.m_isUsedTo)
+			foreach (InteractableSO thisTarget in m_isUsedTo)
 			{
-				if (fto == to)
+				if (thisTarget != target)
 				{
-					foreach (InteractableSO tfo in to.m_isUsedBy)
-					{
-						if (tfo == from)
-						{
-							return true;
-						}
-					}
+					continue;
 				}
+
+				return true;
+			}
+
+			return false;
+		}
+
+		public bool IsUsedBy(InteractableSO target)
+		{
+			foreach (InteractableSO thisTarget in m_isUsedBy)
+			{
+				if (thisTarget != target)
+				{
+					continue;
+				}
+
+				return true;
 			}
 
 			return false;

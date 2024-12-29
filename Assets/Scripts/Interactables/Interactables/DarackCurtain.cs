@@ -1,10 +1,9 @@
 using FMODUnity;
 using UnityEngine;
-using UnityEngine.Localization.SmartFormat.Utilities;
 
 namespace BM.Interactables
 {
-	public class Interactable_DarackCurtain : InteractableBase
+	public class DarackCurtain : InteractableBase
 	{
 		[Header("Sound Settings")]
 		[Space]
@@ -62,6 +61,12 @@ namespace BM.Interactables
 			}
 		}
 
+		/// <summary>
+		/// 에디터에서 <see cref="m_modelOnClosed"/>와 <see cref="m_modelOnOpened"/> 둘 중 하나만 활성화 되어있어야 하며, 해당 상태를 기준으로 <see cref="m_isOpened"/>와 <see cref="Model"/>을 설정한다.
+		/// </summary>
+		/// <remarks>
+		/// 만일 둘이 동시에 활성화 되어 있는 경우, <see cref="m_modelOnOpened"/>가 활성화 된 것을 시작 상태로 설정한다..
+		/// </remarks>
 		protected override void Start()
 		{
 			bool isStartOpened = m_modelOnOpened.gameObject.activeSelf;

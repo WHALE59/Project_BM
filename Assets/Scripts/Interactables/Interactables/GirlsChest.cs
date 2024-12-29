@@ -27,6 +27,7 @@ namespace BM.Interactables
 
 			if (m_isLocked)
 			{
+				// 애니메이션 이벤트로, 애니메이션이 끝날 때까지 상호작용 불허
 				m_animator.SetTrigger("Locked");
 
 				if (!m_lockedSound.IsNull)
@@ -42,6 +43,7 @@ namespace BM.Interactables
 
 				if (!m_isOpened)
 				{
+					// 애니메이션 이벤트로, 애니메이션이 끝날 때까지 상호작용 불허
 					m_animator.SetTrigger("Open");
 
 					if (!m_openingSound.IsNull)
@@ -54,9 +56,9 @@ namespace BM.Interactables
 			}
 		}
 
-		public override void StartUsage(InteractAction _, InteractableSO equipment)
+		public override void StartUsage(UseAction _0, InteractableSO _1)
 		{
-			base.StartUsage(_, equipment);
+			base.StartUsage(_0, _1);
 
 			// GirlsChest의 Use로직은 잠금을 해제하는 것이고,
 			// 잠금이 이미 해제되었다면 더 이상 Use 로직을 진행할 필요가 없음.
@@ -66,6 +68,7 @@ namespace BM.Interactables
 				return;
 			}
 
+			// 애니메이션 이벤트로, 애니메이션이 끝날 때까지 상호작용 불허
 			m_animator.SetTrigger("Unlock");
 
 			if (!m_unlockingSound.IsNull)

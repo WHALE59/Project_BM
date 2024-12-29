@@ -7,19 +7,19 @@ namespace BM
 	[DisallowMultipleComponent]
 	public class EquipmentOverlay : MonoBehaviour
 	{
-		[SerializeField] private InteractAction m_interactAction;
+		[SerializeField] private UseAction m_useAction;
 
 		[Space()]
 
 		[SerializeField] private Image m_equipmentIcon;
 
-		private void EquipmentOverlay_Equipped(InteractableSO interactableSO)
+		private void EquipmentOverlay_Equipped(InteractableSO equipped)
 		{
 			m_equipmentIcon.gameObject.SetActive(true);
-			m_equipmentIcon.sprite = interactableSO.EquipmentIcon;
+			m_equipmentIcon.sprite = equipped.EquipmentIcon;
 		}
 
-		private void EquipmentOverlay_Unequipped()
+		private void EquipmentOverlay_Unequipped(InteractableSO unequipped)
 		{
 			m_equipmentIcon.sprite = null;
 			m_equipmentIcon.gameObject.SetActive(false);
@@ -27,14 +27,16 @@ namespace BM
 
 		private void OnEnable()
 		{
-			m_interactAction.Equipped += EquipmentOverlay_Equipped;
-			m_interactAction.Unequipped += EquipmentOverlay_Unequipped;
+			m_useAction.Equipped += EquipmentOverlay_Equipped;
+			m_useAction.Unequipped += EquipmentOverlay_Unequipped;
+			m_useAction.Used += EquipmentOverlay_Unequipped;
 		}
 
 		private void OnDisable()
 		{
-			m_interactAction.Equipped -= EquipmentOverlay_Equipped;
-			m_interactAction.Unequipped -= EquipmentOverlay_Unequipped;
+			m_useAction.Equipped -= EquipmentOverlay_Equipped;
+			m_useAction.Unequipped -= EquipmentOverlay_Unequipped;
+			m_useAction.Used -= EquipmentOverlay_Unequipped;
 		}
 	}
 }

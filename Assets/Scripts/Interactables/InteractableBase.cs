@@ -117,12 +117,12 @@ namespace BM.Interactables
 #endif
 		}
 
-		public virtual void StartUsage(InteractAction interactionSubject, InteractableSO equipment)
+		public virtual void StartUsage(UseAction user, InteractableSO equipment)
 		{
 #if UNITY_EDITOR
 			if (m_logOnInteraction)
 			{
-				Debug.Log($"주체 {interactionSubject.name}의 장비 {equipment.name}에 의하여 {name} Use 시작");
+				Debug.Log($"주체 {user.name}의 장비 {equipment.name}에 의하여 {name} Use 시작");
 			}
 #endif
 		}

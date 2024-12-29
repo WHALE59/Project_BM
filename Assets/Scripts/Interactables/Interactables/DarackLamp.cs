@@ -14,13 +14,19 @@ namespace BM.Interactables
 		[Space]
 
 		[SerializeField] private Light m_lightSource;
+
+		[Tooltip("이미시브 머터리얼이 부착되어 있는 메쉬 렌더러를 할당")]
 		[SerializeField] private MeshRenderer m_emissiveRenderer;
+
 		[SerializeField] private string m_emissivePropertyName;
 
 		private bool m_isTurnedOn = true;
-		private float m_initialLightIntensity;
+
 		private Material m_emissiveMaterial;
 		private int m_emissiveID;
+
+		private float m_initialLightIntensity;
+		private float m_initialEmissivePower;
 
 		public override void StartActivation(InteractAction _)
 		{
@@ -36,7 +42,7 @@ namespace BM.Interactables
 			else
 			{
 				m_lightSource.intensity = m_initialLightIntensity;
-				m_emissiveMaterial.SetFloat(m_emissiveID, 1);
+				m_emissiveMaterial.SetFloat(m_emissiveID, m_initialEmissivePower);
 
 				m_isTurnedOn = true;
 			}
@@ -51,7 +57,6 @@ namespace BM.Interactables
 		{
 			base.Start();
 
-			m_initialLightIntensity = m_lightSource.intensity;
 			m_emissiveID = Shader.PropertyToID(m_emissivePropertyName);
 
 			foreach (Material material in m_emissiveRenderer.materials)
@@ -62,9 +67,11 @@ namespace BM.Interactables
 				}
 
 				m_emissiveMaterial = material;
-				return;
+				break;
 			}
-		}
 
+			m_initialLightIntensity = m_lightSource.intensity;
+			m_initialEmissivePower = m_emissiveMaterial.GetFloat(m_emissiveID);
+		}
 	}
 }
