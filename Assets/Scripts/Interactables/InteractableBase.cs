@@ -25,15 +25,15 @@ namespace BM.Interactables
 		protected bool m_allowInteraction = true;
 
 		/// <summary>
-		/// <see cref="InteractAction"/>에 의해 감지 자체가 허용 되는지의 여부
+		/// <see cref="InteractableDetector"/>에 의해 감지 자체가 허용 되는지의 여부
 		/// </summary>
 		public bool IsDetectionAllowed => m_allowDetection;
 
 		/// <summary>
-		/// <see cref="InteractAction"/>에 의해 Use 혹은 Activate가 허용 되는지의 여부
+		/// <see cref="InteractableDetector"/>에 의해 Use 혹은 Activate가 허용 되는지의 여부
 		/// </summary>
 		/// <remarks>
-		/// <c>false</c>를 반환하는 경우, <see cref="InteractAction"/>에 의해 감지는 되지만, 아무런 상호작용을 할 수 없다는 뜻이다. <br/>
+		/// <c>false</c>를 반환하는 경우, <see cref="InteractableDetector"/>에 의해 감지는 되지만, 아무런 상호작용을 할 수 없다는 뜻이다. <br/>
 		/// </remarks>
 		public bool IsInteractionAllowed => m_allowInteraction;
 
@@ -97,17 +97,17 @@ namespace BM.Interactables
 			m_interactableModel.gameObject.SetActive(false);
 		}
 
-		public virtual void StartActivation(InteractAction interactionSubject)
+		public virtual void StartActivation(ActivateAction activator)
 		{
 #if UNITY_EDITOR
 			if (m_logOnInteraction)
 			{
-				Debug.Log($"주체 {interactionSubject}에 의하여 {name} Activate 시작");
+				Debug.Log($"주체 {activator}에 의하여 {name} Activate 시작");
 			}
 #endif
 		}
 
-		public virtual void FinishActivation(InteractAction interactionSubject)
+		public virtual void FinishActivation(InteractableDetector interactionSubject)
 		{
 #if UNITY_EDITOR
 			if (m_logOnInteraction)
@@ -127,7 +127,7 @@ namespace BM.Interactables
 #endif
 		}
 
-		public virtual void FinishUsage(InteractAction interactionSubject, InteractableSO equipment)
+		public virtual void FinishUsage(InteractableDetector interactionSubject, InteractableSO equipment)
 		{
 #if UNITY_EDITOR
 			if (m_logOnInteraction)

@@ -8,7 +8,7 @@ namespace BM.Interactables
 		[SerializeField] private InteractableBase m_DarackKeyNearPrefab;
 
 		private Animator m_animator;
-		public override void StartActivation(InteractAction _)
+		public override void StartActivation(ActivateAction _)
 		{
 			base.StartActivation(_);
 

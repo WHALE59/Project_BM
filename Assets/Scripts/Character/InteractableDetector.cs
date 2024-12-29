@@ -7,14 +7,8 @@ using UnityEngine;
 namespace BM
 {
 	[DisallowMultipleComponent]
-	[RequireComponent(typeof(CollectAction))]
-	public class InteractAction : MonoBehaviour
+	public class InteractableDetector : MonoBehaviour
 	{
-		[Header("Input Settings")]
-		[Space]
-
-		[SerializeField] private InputReaderSO m_inputReaderSO;
-
 		[Header("Detection Settings")]
 		[Space]
 
@@ -36,8 +30,6 @@ namespace BM
 #endif
 
 
-		private InteractableBase m_detectedInteractable;
-
 		public event Action<InteractableBase> InteractableFound;
 		public event Action<InteractableBase> InteractableLost;
 
@@ -45,8 +37,9 @@ namespace BM
 		private RaycastHit m_hitResult;
 		private InteractableModel m_hitModelOnLastFrame;
 
-		private CollectAction m_inventory;
-		private UseAction m_equipment;
+		private InteractableBase m_detectedInteractable;
+
+		public InteractableBase DetectedInteractable => m_detectedInteractable;
 
 		private Ray GetCameraRay()
 		{
@@ -57,55 +50,10 @@ namespace BM
 			return Camera.main.ViewportPointToRay(viewportPoint);
 		}
 
-		private void InteractAction_CollectOrActivateInputPerformed()
+		public void DetectedInteractableGone()
 		{
-			// TODO: Collect Action
-
-			if (null == m_detectedInteractable)
-			{
-				return;
-			}
-
-			if (m_detectedInteractable.IsCollectible && !m_detectedInteractable.IsActivatable)
-			{
-				// Collectible인 경우
-
-				// 조준자에서 사라져야 함
-
-				InteractableLost?.Invoke(m_detectedInteractable);
-
-				// 인벤토리 수납
-
-				m_inventory.PutIn(m_detectedInteractable);
-
-				// 씬에 배치된 Interactable의 수납 처리
-
-				EventReference soundOnCollect = m_detectedInteractable.InteractableSO.SoundOnCollectingOverride;
-
-				if (soundOnCollect.IsNull)
-				{
-					RuntimeManager.PlayOneShot(m_defaultSoundOnCollecting);
-				}
-				else
-				{
-					RuntimeManager.PlayOneShot(soundOnCollect);
-				}
-
-				m_detectedInteractable.SetCollected();
-				m_detectedInteractable = null;
-
-			}
-			else if (m_detectedInteractable.IsActivatable && !m_detectedInteractable.IsCollectible)
-			{
-				// Activatable인 경우
-
-				m_detectedInteractable.StartActivation(this);
-			}
-		}
-
-		private void InteractAction_CollectOrActivateInputCanceled()
-		{
-
+			InteractableLost?.Invoke(m_detectedInteractable);
+			m_detectedInteractable = null;
 		}
 
 		private void HandleInteractRaycast()
@@ -234,17 +182,8 @@ namespace BM
 		{
 		}
 
-		private void Awake()
-		{
-			m_inventory = GetComponent<CollectAction>();
-			m_equipment = GetComponent<UseAction>();
-		}
-
 		private void OnEnable()
 		{
-			m_inputReaderSO.CollectOrActivateInputPerformed += InteractAction_CollectOrActivateInputPerformed;
-			m_inputReaderSO.CollectOrActivateInputCanceled += InteractAction_CollectOrActivateInputCanceled;
-
 #if UNITY_EDITOR
 			InteractableFound += Debug_OnInteractableFound;
 			InteractableLost += Debug_OnInteractableLost;
@@ -253,9 +192,6 @@ namespace BM
 
 		private void OnDisable()
 		{
-			m_inputReaderSO.CollectOrActivateInputPerformed -= InteractAction_CollectOrActivateInputPerformed;
-			m_inputReaderSO.CollectOrActivateInputCanceled -= InteractAction_CollectOrActivateInputCanceled;
-
 #if UNITY_EDITOR
 			InteractableFound -= Debug_OnInteractableFound;
 			InteractableLost -= Debug_OnInteractableLost;
@@ -288,7 +224,7 @@ namespace BM
 		}
 
 		[UnityEditor.DrawGizmo(UnityEditor.GizmoType.Active | UnityEditor.GizmoType.NonSelected)]
-		private static void DrawRaycastResult(InteractAction target, UnityEditor.GizmoType _)
+		private static void DrawRaycastResult(InteractableDetector target, UnityEditor.GizmoType _)
 		{
 			if (null == Camera.main || !Application.isPlaying)
 			{

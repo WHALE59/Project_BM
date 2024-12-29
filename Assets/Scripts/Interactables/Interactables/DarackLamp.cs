@@ -28,7 +28,7 @@ namespace BM.Interactables
 		private float m_initialLightIntensity;
 		private float m_initialEmissivePower;
 
-		public override void StartActivation(InteractAction _)
+		public override void StartActivation(ActivateAction _)
 		{
 			base.StartActivation(_);
 

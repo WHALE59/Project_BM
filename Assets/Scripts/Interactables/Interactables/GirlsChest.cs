@@ -21,7 +21,7 @@ namespace BM.Interactables
 		private bool m_isLocked = true;
 		private bool m_isOpened = false;
 
-		public override void StartActivation(InteractAction _)
+		public override void StartActivation(ActivateAction _)
 		{
 			base.StartActivation(_);
 

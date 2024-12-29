@@ -380,34 +380,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1158129913 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 250672880566776770, guid: fc77e04753afc1d4f83e55414f5b04a4, type: 3}
-  m_PrefabInstance: {fileID: 2140568068258052124}
-  m_PrefabAsset: {fileID: 0}
---- !u!223 &1158129916
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1158129913}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 25
-  m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
-  m_TargetDisplay: 0
 --- !u!4 &1732844865 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2543932865098810727, guid: 69492b5dfb0cbcc458b019f0747a1bb3, type: 3}
@@ -609,13 +581,13 @@ PrefabInstance:
       value: Overlay_Interaction
       objectReference: {fileID: 0}
     - target: {fileID: 287002654372066110, guid: fc77e04753afc1d4f83e55414f5b04a4, type: 3}
+      propertyPath: m_detector
+      value: 
+      objectReference: {fileID: 8989255321099727772}
+    - target: {fileID: 287002654372066110, guid: fc77e04753afc1d4f83e55414f5b04a4, type: 3}
       propertyPath: m_useAction
       value: 
       objectReference: {fileID: 8989255321099727768}
-    - target: {fileID: 287002654372066110, guid: fc77e04753afc1d4f83e55414f5b04a4, type: 3}
-      propertyPath: m_interactAction
-      value: 
-      objectReference: {fileID: 8989255321099727772}
     - target: {fileID: 1879341248379046382, guid: fc77e04753afc1d4f83e55414f5b04a4, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -744,22 +716,6 @@ PrefabInstance:
       propertyPath: m_useAction
       value: 
       objectReference: {fileID: 8989255321099727768}
-    - target: {fileID: 6124075327187357840, guid: fc77e04753afc1d4f83e55414f5b04a4, type: 3}
-      propertyPath: m_interactAction
-      value: 
-      objectReference: {fileID: 8989255321099727772}
-    - target: {fileID: 6232840856794843410, guid: fc77e04753afc1d4f83e55414f5b04a4, type: 3}
-      propertyPath: m_Interactable
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6232840856794843410, guid: fc77e04753afc1d4f83e55414f5b04a4, type: 3}
-      propertyPath: m_BlocksRaycasts
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8243446345327728551, guid: fc77e04753afc1d4f83e55414f5b04a4, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 9144516432615733884, guid: fc77e04753afc1d4f83e55414f5b04a4, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -783,10 +739,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 250672880566776770, guid: fc77e04753afc1d4f83e55414f5b04a4, type: 3}
-      insertIndex: 1
-      addedObject: {fileID: 1158129916}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc77e04753afc1d4f83e55414f5b04a4, type: 3}
 --- !u!1001 &2239865860351591872
 PrefabInstance:
@@ -1120,7 +1073,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8989255321099727766}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea3fffd2489c2794a8c6877057d85378, type: 3}
+  m_Script: {fileID: 11500000, guid: a30c7886359482849812b9280af33a0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807

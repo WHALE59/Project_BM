@@ -25,18 +25,26 @@ namespace BM
 			m_equipmentIcon.gameObject.SetActive(false);
 		}
 
+		private void EquipmentOverlay_Used(InteractableSO equipped)
+		{
+			m_equipmentIcon.sprite = null;
+			m_equipmentIcon.gameObject.SetActive(false);
+		}
+
 		private void OnEnable()
 		{
 			m_useAction.Equipped += EquipmentOverlay_Equipped;
 			m_useAction.Unequipped += EquipmentOverlay_Unequipped;
-			m_useAction.Used += EquipmentOverlay_Unequipped;
+
+			m_useAction.Used += EquipmentOverlay_Used;
 		}
 
 		private void OnDisable()
 		{
 			m_useAction.Equipped -= EquipmentOverlay_Equipped;
 			m_useAction.Unequipped -= EquipmentOverlay_Unequipped;
-			m_useAction.Used -= EquipmentOverlay_Unequipped;
+
+			m_useAction.Used -= EquipmentOverlay_Used;
 		}
 	}
 }

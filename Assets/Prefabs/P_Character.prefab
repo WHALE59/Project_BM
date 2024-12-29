@@ -83,6 +83,7 @@ GameObject:
   - component: {fileID: 4630992091899181617}
   - component: {fileID: 3206800542811517752}
   - component: {fileID: 6279455334332561965}
+  - component: {fileID: 6567220715599052240}
   - component: {fileID: 3781311540657731409}
   m_Layer: 3
   m_Name: P_Character
@@ -298,11 +299,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7093824059209778154}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea3fffd2489c2794a8c6877057d85378, type: 3}
+  m_Script: {fileID: 11500000, guid: a30c7886359482849812b9280af33a0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_inputReaderSO: {fileID: 11400000, guid: 314b40c975fd3d349a30c23aa2faddeb, type: 2}
-  m_raycastDistance: 1.5
+  m_raycastDistance: 5
   m_layerMask:
     serializedVersion: 2
     m_Bits: 64
@@ -334,6 +334,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d10e7106f42eaa46b40ea6e73b8f851, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_inputReaderSO: {fileID: 11400000, guid: 314b40c975fd3d349a30c23aa2faddeb, type: 2}
+  m_defaultSoundOnCollect:
+    Guid:
+      Data1: 990203629
+      Data2: 1121073514
+      Data3: 1545112218
+      Data4: -334051407
+    Path: event:/SFX/UI Sound/2D_Button_Confirm_1
   m_collectedSOs: []
 --- !u!114 &6279455334332561965
 MonoBehaviour:
@@ -350,6 +358,19 @@ MonoBehaviour:
   m_inputReader: {fileID: 11400000, guid: 314b40c975fd3d349a30c23aa2faddeb, type: 2}
   m_equipmentSO: {fileID: 0}
   m_logOnUseActionProcedure: 0
+--- !u!114 &6567220715599052240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7093824059209778154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ca1628925b1f364bbde019a17fdc8c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_inputReader: {fileID: 11400000, guid: 314b40c975fd3d349a30c23aa2faddeb, type: 2}
 --- !u!114 &3781311540657731409
 MonoBehaviour:
   m_ObjectHideFlags: 0

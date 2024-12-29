@@ -34,7 +34,7 @@ namespace BM.Interactables
 			m_modelOnClosed.gameObject.SetActive(true);
 		}
 
-		public override void StartActivation(InteractAction _)
+		public override void StartActivation(ActivateAction _)
 		{
 			base.StartActivation(_);
 

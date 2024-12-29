@@ -9,7 +9,7 @@ namespace BM
 	[DisallowMultipleComponent]
 	public class ControlGuideOverlay : MonoBehaviour
 	{
-		[SerializeField] private InteractAction m_interactAction;
+		[SerializeField] private InteractableDetector m_detector;
 		[SerializeField] private UseAction m_useAction;
 
 		[Space()]
@@ -35,6 +35,7 @@ namespace BM
 		[SerializeField] private string m_activateSmartStringKey = "displayName";
 
 		private InteractableSO m_equipment;
+		private bool m_enabled = false;
 
 		private void ControlGuideOverlay_InteractableFound(InteractableBase interactable)
 		{
@@ -44,6 +45,7 @@ namespace BM
 			}
 
 			// 장비 가 있다면 장비 컨트롤 가이드 ON 
+			m_enabled = true;
 
 			if (null != m_equipment)
 			{
@@ -92,6 +94,8 @@ namespace BM
 				return;
 			}
 
+			m_enabled = false;
+
 			m_useControlGuide.gameObject.SetActive(false);
 			m_collectControlGuide.gameObject.SetActive(false);
 			m_activateControlGuide.gameObject.SetActive(false);
@@ -103,11 +107,21 @@ namespace BM
 
 			// TODO: ~를 ~에 로 스마트 스트링 자체를 바꿀 것
 			m_useControlStringEvent.StringReference[m_useSmartStringKey] = equipped.LocalizedDisplayName;
+
+			if (m_enabled)
+			{
+				m_useControlGuide.gameObject.SetActive(true);
+			}
 		}
 
 		private void ControlGuideOverlay_Unequipped(InteractableSO unequipped)
 		{
 			m_equipment = null;
+
+			if (m_enabled)
+			{
+				m_useControlGuide.gameObject.SetActive(false);
+			}
 		}
 
 		private void Awake()
@@ -119,8 +133,8 @@ namespace BM
 
 		private void OnEnable()
 		{
-			m_interactAction.InteractableFound += ControlGuideOverlay_InteractableFound;
-			m_interactAction.InteractableLost += ControlGuideOverlay_InteractableLost;
+			m_detector.InteractableFound += ControlGuideOverlay_InteractableFound;
+			m_detector.InteractableLost += ControlGuideOverlay_InteractableLost;
 
 			m_useAction.Equipped += ControlGuideOverlay_Equipped;
 			m_useAction.Unequipped += ControlGuideOverlay_Unequipped;
@@ -129,8 +143,8 @@ namespace BM
 
 		private void OnDisable()
 		{
-			m_interactAction.InteractableFound -= ControlGuideOverlay_InteractableFound;
-			m_interactAction.InteractableLost -= ControlGuideOverlay_InteractableLost;
+			m_detector.InteractableFound -= ControlGuideOverlay_InteractableFound;
+			m_detector.InteractableLost -= ControlGuideOverlay_InteractableLost;
 
 			m_useAction.Equipped -= ControlGuideOverlay_Equipped;
 			m_useAction.Unequipped -= ControlGuideOverlay_Unequipped;
