@@ -2,7 +2,6 @@ using System;
 
 using UnityEngine;
 
-
 namespace BM
 {
 	[DisallowMultipleComponent]

@@ -1,7 +1,7 @@
-
 using BM.Interactables;
 using FMODUnity;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 
 namespace BM
@@ -28,7 +28,6 @@ namespace BM
 
 		[SerializeField] private bool m_logOnInteractableFoundAndLost;
 #endif
-
 
 		public event Action<InteractableBase> InteractableFound;
 		public event Action<InteractableBase> InteractableLost;
@@ -80,7 +79,7 @@ namespace BM
 
 				if (hasAttachedRigidbody)
 				{
-					bool hasAttachedInteractable = hitRigidbody.TryGetComponent<InteractableBase>(out newlyDetectedInteractable);
+					bool hasAttachedInteractable = hitRigidbody.TryGetComponent(out newlyDetectedInteractable);
 
 					m_isValidInteractionHit &= hasAttachedInteractable;
 
@@ -167,7 +166,7 @@ namespace BM
 		/// <summary>
 		/// 호버링을 시작 하였을 때에, 캐릭터 쪽에서 처리하여야 하는 로직을 여기에 작성.
 		/// </summary>
-		private void StartHovering(InteractableBase interactable)
+		private void StartHovering(InteractableBase _)
 		{
 			if (m_enableHoveringSound)
 			{
@@ -178,7 +177,7 @@ namespace BM
 		/// <summary>
 		/// 호버링을 종료 하였을 때에, 캐릭터 쪽에서 처리하여야 하는 로직을 여기에 작성.
 		/// </summary>
-		private void FinishHovering(InteractableBase interactable)
+		private void FinishHovering(InteractableBase _)
 		{
 		}
 
@@ -224,6 +223,7 @@ namespace BM
 		}
 
 		[UnityEditor.DrawGizmo(UnityEditor.GizmoType.Active | UnityEditor.GizmoType.NonSelected)]
+		[SuppressMessage("Style", "IDE0051")]
 		private static void DrawRaycastResult(InteractableDetector target, UnityEditor.GizmoType _)
 		{
 			if (null == Camera.main || !Application.isPlaying)
@@ -272,7 +272,7 @@ namespace BM
 
 			// Raycast Result 그리기
 
-			Vector3 point = default;
+			Vector3 point;
 
 			if (target.m_isValidInteractionHit)
 			{

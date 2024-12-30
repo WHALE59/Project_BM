@@ -1,6 +1,5 @@
 using System;
 using System.IO;
-using System.Linq;
 
 using UnityEditor;
 using UnityEngine;
@@ -24,18 +23,18 @@ namespace BM.Editors
 
 			serializedObject.Update();
 
-			var sceneCount = SceneManager.sceneCountInBuildSettings;
+			int sceneCount = SceneManager.sceneCountInBuildSettings;
 			string[] buildSceneNames = new string[sceneCount];
 
-			for (var i = 0; i < sceneCount; ++i)
+			for (int i = 0; i < sceneCount; ++i)
 			{
-				var scenePath = SceneUtility.GetScenePathByBuildIndex(i);
+				string scenePath = SceneUtility.GetScenePathByBuildIndex(i);
 				buildSceneNames[i] = Path.GetFileNameWithoutExtension(scenePath);
 			}
 
 			buildSceneNames = Array.FindAll(buildSceneNames, (sceneName) => sceneName != "SC_PersistentGameplay");
 
-			var selectedSceneIndex = Mathf.Max(0, Array.IndexOf(buildSceneNames, m_startSceneProperty.stringValue));
+			int selectedSceneIndex = Mathf.Max(0, Array.IndexOf(buildSceneNames, m_startSceneProperty.stringValue));
 
 			selectedSceneIndex = EditorGUILayout.Popup("시작 씬", selectedSceneIndex, buildSceneNames);
 			m_startSceneProperty.stringValue = buildSceneNames[selectedSceneIndex];

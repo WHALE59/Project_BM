@@ -1,3 +1,5 @@
+#pragma warning disable IDE0251
+
 using System;
 using UnityEngine;
 
@@ -84,18 +86,14 @@ namespace BM
 
 		public CameraNoiseProperty GetCameraNoisePropertyByState(in LocomotiveAction.State state)
 		{
-			switch (state)
+			return state switch
 			{
-				default:
-				case LocomotiveAction.State.Idle:
-					return m_cameraNoisePropertyOnIdle;
-				case LocomotiveAction.State.NormalJog:
-					return m_cameraNoisePropertyOnNormalJog;
-				case LocomotiveAction.State.WalkedJog:
-					return m_cameraNoisePropertyOnWalkedJog;
-				case LocomotiveAction.State.CrouchedJog:
-					return m_cameraNoisePropertyOnCrouchedJog;
-			}
+				LocomotiveAction.State.NormalJog => m_cameraNoisePropertyOnNormalJog,
+				LocomotiveAction.State.WalkedJog => m_cameraNoisePropertyOnWalkedJog,
+				LocomotiveAction.State.CrouchedJog => m_cameraNoisePropertyOnCrouchedJog,
+
+				_ => m_cameraNoisePropertyOnIdle,
+			};
 		}
 
 		private ref LocomotiveProperty GetLocomotivePropertyByState(in LocomotiveAction.State state)

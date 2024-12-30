@@ -35,7 +35,7 @@ namespace BM
 		public event Action<InteractableSO> Unequipped;
 		public event Action<InteractableSO> Used;
 
-		private InteractableDetector m_detedctor;
+		private InteractableDetector m_detector;
 		private CollectAction m_inventory;
 
 		private void UseAction_UseInputPerformed()
@@ -164,7 +164,7 @@ namespace BM
 
 		private void Awake()
 		{
-			m_detedctor = GetComponent<InteractableDetector>();
+			m_detector = GetComponent<InteractableDetector>();
 			m_inventory = GetComponent<CollectAction>();
 		}
 
@@ -176,8 +176,8 @@ namespace BM
 			m_inputReader.UnequipInputEvent += UseAction_UnequipInputEvent;
 			m_inputReader.TraverseEquipmentInputEvent += UseAction_TraverseEquipmentInputEvent;
 
-			m_detedctor.InteractableFound += UseAction_InteractableFound;
-			m_detedctor.InteractableLost += UseAction_InteractableLost;
+			m_detector.InteractableFound += UseAction_InteractableFound;
+			m_detector.InteractableLost += UseAction_InteractableLost;
 		}
 
 		private void OnDisable()
@@ -188,8 +188,8 @@ namespace BM
 			m_inputReader.UnequipInputEvent -= UseAction_UnequipInputEvent;
 			m_inputReader.TraverseEquipmentInputEvent -= UseAction_TraverseEquipmentInputEvent;
 
-			m_detedctor.InteractableFound -= UseAction_InteractableFound;
-			m_detedctor.InteractableLost -= UseAction_InteractableLost;
+			m_detector.InteractableFound -= UseAction_InteractableFound;
+			m_detector.InteractableLost -= UseAction_InteractableLost;
 		}
 	}
 }

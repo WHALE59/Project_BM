@@ -1,10 +1,8 @@
+using System.Collections;
+using System.Diagnostics.CodeAnalysis;
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.Collections;
-using System.Collections.Generic;
-
-
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -16,8 +14,8 @@ namespace BM
 	public class CharacterStart : MonoBehaviour
 	{
 		[SerializeField] private GameObject m_characterPrefab;
-		private const string m_persistentGameplaySceneName = "SC_PersistentGameplay";
 
+		private const string m_persistentGameplaySceneName = "SC_PersistentGameplay";
 		private static bool m_isPersistentGameplaySceneLoadAlreadyRequested = false;
 
 		private IEnumerator LoadRoutine(AsyncOperation operation)
@@ -36,54 +34,54 @@ namespace BM
 		{
 			// PersistentGameplay 씬이 로드되지 않았으면 로드한다.
 
-			var isPersistentGameplaySceneLoaded = false;
+			bool isPersistentGameplaySceneLoaded = false;
 
-			for (var i = 0; i < SceneManager.sceneCount; ++i)
+			for (int i = 0; i < SceneManager.sceneCount; ++i)
 			{
 				isPersistentGameplaySceneLoaded |= SceneManager.GetSceneAt(i).name == m_persistentGameplaySceneName;
 			}
 
-			var shouldLoadPersistentGameplayScene = !isPersistentGameplaySceneLoaded && !m_isPersistentGameplaySceneLoadAlreadyRequested;
+			bool shouldLoadPersistentGameplayScene = !isPersistentGameplaySceneLoaded && !m_isPersistentGameplaySceneLoadAlreadyRequested;
 
 			if (shouldLoadPersistentGameplayScene)
 			{
 				m_isPersistentGameplaySceneLoadAlreadyRequested = true;
 
-				var operation = SceneManager.LoadSceneAsync(m_persistentGameplaySceneName, LoadSceneMode.Additive);
+				AsyncOperation operation = SceneManager.LoadSceneAsync(m_persistentGameplaySceneName, LoadSceneMode.Additive);
 
 				StartCoroutine(LoadRoutine(operation));
 			}
 		}
 
-
 #if UNITY_EDITOR
 		[DrawGizmo(GizmoType.Active | GizmoType.NonSelected)]
+		[SuppressMessage("Style", "IDE0051", Justification = "Used by Unity's DrawGizmo attribute.")]
 		private static void DrawCharacterBound(CharacterStart target, GizmoType _)
 		{
-			var characterPrefab = target.m_characterPrefab;
+			GameObject characterPrefab = target.m_characterPrefab;
 
 			if (!characterPrefab)
 			{
 				return;
 			}
 
-			if (characterPrefab.TryGetComponent<CharacterController>(out var characterController))
+			if (characterPrefab.TryGetComponent(out CharacterController characterController))
 			{
-				var radius = characterController.radius;
-				var height = characterController.height;
-				var center = characterController.center + target.transform.position;
+				float radius = characterController.radius;
+				float height = characterController.height;
+				Vector3 center = characterController.center + target.transform.position;
 
-				var halfExtents = new Vector3(radius, height / 2.0f, radius);
+				Vector3 halfExtents = new(radius, height / 2.0f, radius);
 
-				var isCollideWithWorld = Physics.OverlapBox(center, halfExtents, Quaternion.identity, ~(1 << 3)).Length != 0;
+				bool isCollideWithWorld = Physics.OverlapBox(center, halfExtents, Quaternion.identity, ~(1 << 3)).Length != 0;
 
 				Gizmos.color = isCollideWithWorld ? Color.red : Color.green;
 				Gizmos.DrawWireCube(center, 2.0f * halfExtents);
 
-				if (characterPrefab.TryGetComponent<LocomotiveAction>(out var locomotiveAction))
+				if (characterPrefab.TryGetComponent(out LocomotiveAction locomotiveAction))
 				{
-					var start = target.transform.position + locomotiveAction.CameraTargetLocalPosition;
-					var direction = target.transform.forward;
+					Vector3 start = target.transform.position + locomotiveAction.CameraTargetLocalPosition;
+					Vector3 direction = target.transform.forward;
 
 					Gizmos.color = Color.yellow;
 

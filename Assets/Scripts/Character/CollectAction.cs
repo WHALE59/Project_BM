@@ -25,7 +25,6 @@ namespace BM
 
 		[SerializeField] private List<InteractableSO> m_collectedSOs = new();
 
-
 		private InteractableDetector m_detector;
 		private UseAction m_useAction;
 

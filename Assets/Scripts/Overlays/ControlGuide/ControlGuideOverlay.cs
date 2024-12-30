@@ -1,8 +1,6 @@
 using BM.Interactables;
 using UnityEngine;
-using UnityEngine.Localization;
 using UnityEngine.Localization.Components;
-using UnityEngine.Localization.SmartFormat.PersistentVariables;
 
 namespace BM
 {
@@ -71,8 +69,6 @@ namespace BM
 
 				m_collectControlGuide.gameObject.SetActive(true);
 				m_activateControlGuide.gameObject.SetActive(false);
-
-
 			}
 			else if (!interactableSO.IsCollectible && interactableSO.IsActivatable)
 			{

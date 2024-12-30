@@ -1,5 +1,7 @@
 #pragma warning disable CS0414
 
+using System.Diagnostics.CodeAnalysis;
+
 using UnityEngine;
 
 namespace BM.Interactables
@@ -10,6 +12,7 @@ namespace BM.Interactables
 		[SerializeField] private InteractableSO m_interactableSO;
 		[SerializeField] private InteractableModel m_interactableModel;
 
+		[SuppressMessage("Style", "IDE0052", Justification = "추후에 Scene Loading 로직이 완성되면 사용")]
 		[SerializeField][HideInInspector] private bool m_isCollected = false;
 
 #if UNITY_EDITOR

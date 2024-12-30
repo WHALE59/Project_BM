@@ -21,7 +21,6 @@ namespace BM.Interactables
 		[Tooltip("Fresnel 이펙트를 사용하는 머터리얼이 붙어 있는 메쉬 렌더러 오브젝트를 여기에 할당")]
 		[SerializeField] private List<MeshRenderer> m_meshRenderers;
 
-
 		private Color m_colorFirst = Color.white;
 		private Color m_colorSecond = Color.grey;
 		private float m_amount = -.7f;

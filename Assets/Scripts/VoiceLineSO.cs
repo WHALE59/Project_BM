@@ -8,7 +8,7 @@ namespace BM
 	public class VoiceLineSO : ScriptableObject
 	{
 		[SerializeField] private EventReference m_voiceSound;
-		[SerializeField] LocalizedString m_subtitle;
+		[SerializeField] private LocalizedString m_subtitle;
 
 		public void Play()
 		{
