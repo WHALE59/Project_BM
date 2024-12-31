@@ -1,8 +1,6 @@
 using BM.Interactables;
 using UnityEngine;
-using UnityEngine.Localization;
 using UnityEngine.Localization.Components;
-using UnityEngine.Localization.SmartFormat.PersistentVariables;
 
 namespace BM
 {
@@ -18,23 +16,17 @@ namespace BM
 
 		[Space()]
 
-		[SerializeField] private ControlGuideComponent m_useControlGuide;
+		[SerializeField] private ControlGuideComponent m_controlGuideOnUseAction;
 		[SerializeField] private LocalizeStringEvent m_useControlStringEvent;
 		[SerializeField] private string m_useSmartStringKey = "equipmentDisplayName";
 
 		[Space()]
 
-		[SerializeField] private ControlGuideComponent m_collectControlGuide;
-		[SerializeField] private LocalizeStringEvent m_collectControlStringEvent;
-		[SerializeField] private string m_collectSmartStringKey = "displayName";
+		[SerializeField] private ControlGuideComponent m_controlGuideOnInteractAction;
+		[SerializeField] private LocalizeStringEvent m_stringEventOnInteractAction;
+		[SerializeField] private string m_smartKeyOnInteractAction = "displayName";
 
-		[Space()]
-
-		[SerializeField] private ControlGuideComponent m_activateControlGuide;
-		[SerializeField] private LocalizeStringEvent m_activateControlStringEvent;
-		[SerializeField] private string m_activateSmartStringKey = "displayName";
-
-		private InteractableSO m_equipment;
+		private ItemSO m_equipment;
 		private bool m_enabled = false;
 
 		private void ControlGuideOverlay_InteractableFound(InteractableBase interactable)
@@ -44,19 +36,12 @@ namespace BM
 				return;
 			}
 
-			// 장비 가 있다면 장비 컨트롤 가이드 ON 
 			m_enabled = true;
 
+			// 장비 가 있다면 장비 컨트롤 가이드 ON 
 			if (null != m_equipment)
 			{
-				m_useControlGuide.gameObject.SetActive(true);
-			}
-
-			InteractableSO interactableSO = interactable.InteractableSO;
-
-			if (null == interactableSO)
-			{
-				return;
+				m_controlGuideOnUseAction.gameObject.SetActive(true);
 			}
 
 			/*
@@ -65,26 +50,8 @@ namespace BM
 			 * * 배타적으로 Activatable인 경우
 			 */
 
-			if (interactableSO.IsCollectible && !interactableSO.IsActivatable)
-			{
-				m_collectControlStringEvent.StringReference[m_collectSmartStringKey] = interactableSO.LocalizedDisplayName;
-
-				m_collectControlGuide.gameObject.SetActive(true);
-				m_activateControlGuide.gameObject.SetActive(false);
-
-
-			}
-			else if (!interactableSO.IsCollectible && interactableSO.IsActivatable)
-			{
-				m_activateControlStringEvent.StringReference[m_activateSmartStringKey] = interactableSO.LocalizedDisplayName;
-
-				m_collectControlGuide.gameObject.SetActive(false);
-				m_activateControlGuide.gameObject.SetActive(true);
-			}
-			else
-			{
-				Debug.Log("If you see this, you're SO fucked up...");
-			}
+			m_controlGuideOnInteractAction.gameObject.SetActive(true);
+			m_stringEventOnInteractAction.StringReference[m_smartKeyOnInteractAction] = interactable.ControlGuideLocalizedString;
 		}
 
 		private void ControlGuideOverlay_InteractableLost(InteractableBase interactable)
@@ -96,12 +63,11 @@ namespace BM
 
 			m_enabled = false;
 
-			m_useControlGuide.gameObject.SetActive(false);
-			m_collectControlGuide.gameObject.SetActive(false);
-			m_activateControlGuide.gameObject.SetActive(false);
+			m_controlGuideOnUseAction.gameObject.SetActive(false);
+			m_controlGuideOnInteractAction.gameObject.SetActive(false);
 		}
 
-		private void ControlGuideOverlay_Equipped(InteractableSO equipped)
+		private void ControlGuideOverlay_Equipped(ItemSO equipped)
 		{
 			m_equipment = equipped;
 
@@ -110,27 +76,25 @@ namespace BM
 
 			if (m_enabled)
 			{
-				m_useControlGuide.gameObject.SetActive(true);
+				m_controlGuideOnUseAction.gameObject.SetActive(true);
 			}
 		}
 
-		private void ControlGuideOverlay_Unequipped(InteractableSO unequipped)
+		private void ControlGuideOverlay_Unequipped(ItemSO unequipped)
 		{
 			m_equipment = null;
 
 			if (m_enabled)
 			{
-				m_useControlGuide.gameObject.SetActive(false);
+				m_controlGuideOnUseAction.gameObject.SetActive(false);
 			}
 		}
 
 		private void Awake()
 		{
-			m_useControlGuide.gameObject.SetActive(false);
-			m_collectControlGuide.gameObject.SetActive(false);
-			m_activateControlGuide.gameObject.SetActive(false);
+			m_controlGuideOnUseAction.gameObject.SetActive(false);
+			m_controlGuideOnInteractAction.gameObject.SetActive(false);
 		}
-
 		private void OnEnable()
 		{
 			m_detector.InteractableFound += ControlGuideOverlay_InteractableFound;

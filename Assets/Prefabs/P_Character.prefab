@@ -342,7 +342,8 @@ MonoBehaviour:
       Data3: 1545112218
       Data4: -334051407
     Path: event:/SFX/UI Sound/2D_Button_Confirm_1
-  m_collectedSOs: []
+  m_collectedSOs:
+  - {fileID: 11400000, guid: 0bc47fcbfb944da4fb553cba44c13f69, type: 2}
 --- !u!114 &6279455334332561965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -356,7 +357,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_inputReader: {fileID: 11400000, guid: 314b40c975fd3d349a30c23aa2faddeb, type: 2}
-  m_equipmentSO: {fileID: 0}
+  m_equipment: {fileID: 0}
   m_logOnUseActionProcedure: 0
 --- !u!114 &6567220715599052240
 MonoBehaviour:

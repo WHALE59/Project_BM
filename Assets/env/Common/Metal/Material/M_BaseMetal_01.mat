@@ -58,11 +58,11 @@ Material:
     - _Boolean: 0
     - _Boolean_1: 0
     - _Float: 48.2
-    - _FresnelAmount: -0.002
-    - _FresnelContrast: 2.28
+    - _FresnelAmount: 0.7
+    - _FresnelContrast: 0.01
     - _FresnelIntensity: 0.11
     - _FresnelPower: 1
-    - _Fresnelrange: 7.72
+    - _Fresnelrange: 0.37
     - _IsUsedFresnel: 0
     - _Normal_Intensity: 0.2
     - _PixelizeAmount: 1000
@@ -72,7 +72,7 @@ Material:
     - _Top_Pixelize_step: 7.37
     - _depth: -12.5
     m_Colors:
-    - _FresnelColor: {r: 1, g: 0.61552286, b: 0, a: 1}
-    - _FresnelColor2: {r: 1, g: 0, b: 0.5217905, a: 0}
+    - _FresnelColor: {r: 1, g: 1, b: 1, a: 1}
+    - _FresnelColor2: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _TintColor: {r: 0.6792453, g: 0.54860383, b: 0.49021003, a: 0}
   m_BuildTextureStacks: []

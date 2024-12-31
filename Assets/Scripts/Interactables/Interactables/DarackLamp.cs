@@ -6,12 +6,10 @@ namespace BM.Interactables
 	public class DarackLamp : InteractableBase
 	{
 		[Header("Sound Settings")]
-		[Space]
 
 		[SerializeField] private EventReference m_soundOnManipulation;
 
 		[Header("Appearance Settings")]
-		[Space]
 
 		[SerializeField] private Light m_lightSource;
 
@@ -28,9 +26,9 @@ namespace BM.Interactables
 		private float m_initialLightIntensity;
 		private float m_initialEmissivePower;
 
-		public override void StartActivation(ActivateAction _)
+		public override void StartInteraction(InteractAction _)
 		{
-			base.StartActivation(_);
+			base.StartInteraction(_);
 
 			if (m_isTurnedOn)
 			{
@@ -55,7 +53,7 @@ namespace BM.Interactables
 
 		protected override void Awake()
 		{
-			base.Start();
+			base.Awake();
 
 			m_emissiveID = Shader.PropertyToID(m_emissivePropertyName);
 

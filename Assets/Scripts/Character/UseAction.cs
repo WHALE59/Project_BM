@@ -8,35 +8,32 @@ namespace BM
 	/// 장착한 것은 항상 Usable 함을 가정한다.
 	/// </remarks>
 	[DisallowMultipleComponent]
-	[RequireComponent(typeof(CollectAction))]
+	[RequireComponent(typeof(Inventory))]
 	[RequireComponent(typeof(InteractableDetector))]
 	public class UseAction : MonoBehaviour
 	{
 		[Header("Input Settings")]
-		[Space]
 
 		[SerializeField] private InputReaderSO m_inputReader;
 
 		[Header("Editor Manual Equipment")]
-		[Space]
 
-		[SerializeField] private InteractableSO m_equipmentSO;
+		[SerializeField] private ItemSO m_equipment;
 
 #if UNITY_EDITOR
 		[Header("Debug")]
-		[Space]
 
 		[SerializeField] private bool m_logOnUseActionProcedure = false;
 #endif
 
 		private InteractableBase m_detectedInteractable;
 
-		public event Action<InteractableSO> Equipped;
-		public event Action<InteractableSO> Unequipped;
-		public event Action<InteractableSO> Used;
+		public event Action<ItemSO> Equipped;
+		public event Action<ItemSO> Unequipped;
+		public event Action<ItemSO> Used;
 
-		private InteractableDetector m_detedctor;
-		private CollectAction m_inventory;
+		private InteractableDetector m_detector;
+		private Inventory m_inventory;
 
 		private void UseAction_UseInputPerformed()
 		{
@@ -51,7 +48,7 @@ namespace BM
 				return;
 			}
 
-			if (null == m_equipmentSO) // TODO Usable 에 대해 고려 해야하는지?
+			if (null == m_equipment) // TODO Usable 에 대해 고려 해야하는지?
 			{
 #if UNITY_EDITOR
 				if (m_logOnUseActionProcedure)
@@ -62,9 +59,7 @@ namespace BM
 				return;
 			}
 
-			InteractableSO detectedSO = m_detectedInteractable.InteractableSO;
-
-			if (!detectedSO.IsUsedable)
+			if (!m_detectedInteractable.IsUsedable)
 			{
 #if UNITY_EDITOR
 				if (m_logOnUseActionProcedure)
@@ -75,23 +70,23 @@ namespace BM
 				return;
 			}
 
-			if (!m_equipmentSO.IsUsedTo(detectedSO))
+			if (!m_equipment.IsUsedTo(m_detectedInteractable))
 			{
 #if UNITY_EDITOR
 				if (m_logOnUseActionProcedure)
 				{
-					Debug.Log($"{m_equipmentSO.name}는 {m_detectedInteractable.name}에 사용할 수 없습니다.");
+					Debug.Log($"{m_equipment.name}는 {m_detectedInteractable.name}에 사용할 수 없습니다.");
 				}
 #endif
 				return;
 			}
 
-			if (!detectedSO.IsUsedBy(m_equipmentSO))
+			if (!m_detectedInteractable.IsUsedBy(m_equipment))
 			{
 #if UNITY_EDITOR
 				if (m_logOnUseActionProcedure)
 				{
-					Debug.Log($"{m_detectedInteractable.name}은 {m_equipmentSO.name}에 의해 사용되지 않습니다.");
+					Debug.Log($"{m_detectedInteractable.name}은 {m_equipment.name}에 의해 사용되지 않습니다.");
 				}
 #endif
 				return;
@@ -99,43 +94,38 @@ namespace BM
 
 			// Use 시작
 
-			m_detectedInteractable.StartUsage(this, m_equipmentSO);
+			m_detectedInteractable.StartUsage(this, m_equipment);
 
-			Used?.Invoke(m_equipmentSO);
-			m_equipmentSO = null;
-		}
-
-		private void UseAction_UseInputCanceled()
-		{
-
+			Used?.Invoke(m_equipment);
+			m_equipment = null;
 		}
 
 		private void UseAction_TraverseEquipmentInputEvent()
 		{
-			InteractableSO usable = m_inventory.TryGetNextUsableItem();
+			ItemSO usable = m_inventory.TryGetNextUsableItem();
 
 			if (null != usable)
 			{
-				m_equipmentSO = usable;
-				Equipped?.Invoke(m_equipmentSO);
+				m_equipment = usable;
+				Equipped?.Invoke(m_equipment);
 			}
 			else
 			{
 				// 아무것도 없어서 장비할 수가 없는 상태
-				Unequipped?.Invoke(m_equipmentSO);
-				m_equipmentSO = null;
+				Unequipped?.Invoke(m_equipment);
+				m_equipment = null;
 			}
 		}
 
 		private void UseAction_UnequipInputEvent()
 		{
-			if (null == m_equipmentSO)
+			if (null == m_equipment)
 			{
 				return;
 			}
 
-			Unequipped?.Invoke(m_equipmentSO);
-			m_equipmentSO = null;
+			Unequipped?.Invoke(m_equipment);
+			m_equipment = null;
 		}
 
 		private void UseAction_InteractableFound(InteractableBase found)
@@ -151,45 +141,43 @@ namespace BM
 #if UNITY_EDITOR
 		private void OnValidate()
 		{
-			if (null != m_equipmentSO)
+			if (null != m_equipment)
 			{
-				Equipped?.Invoke(m_equipmentSO);
+				Equipped?.Invoke(m_equipment);
 			}
 			else
 			{
-				Unequipped?.Invoke(m_equipmentSO);
+				Unequipped?.Invoke(m_equipment);
 			}
 		}
 #endif
 
 		private void Awake()
 		{
-			m_detedctor = GetComponent<InteractableDetector>();
-			m_inventory = GetComponent<CollectAction>();
+			m_detector = GetComponent<InteractableDetector>();
+			m_inventory = GetComponent<Inventory>();
 		}
 
 		private void OnEnable()
 		{
 			m_inputReader.UseInputPerformed += UseAction_UseInputPerformed;
-			m_inputReader.UseInputCanceled += UseAction_UseInputCanceled;
 
 			m_inputReader.UnequipInputEvent += UseAction_UnequipInputEvent;
 			m_inputReader.TraverseEquipmentInputEvent += UseAction_TraverseEquipmentInputEvent;
 
-			m_detedctor.InteractableFound += UseAction_InteractableFound;
-			m_detedctor.InteractableLost += UseAction_InteractableLost;
+			m_detector.InteractableFound += UseAction_InteractableFound;
+			m_detector.InteractableLost += UseAction_InteractableLost;
 		}
 
 		private void OnDisable()
 		{
 			m_inputReader.UseInputPerformed -= UseAction_UseInputPerformed;
-			m_inputReader.UseInputCanceled -= UseAction_UseInputCanceled;
 
 			m_inputReader.UnequipInputEvent -= UseAction_UnequipInputEvent;
 			m_inputReader.TraverseEquipmentInputEvent -= UseAction_TraverseEquipmentInputEvent;
 
-			m_detedctor.InteractableFound -= UseAction_InteractableFound;
-			m_detedctor.InteractableLost -= UseAction_InteractableLost;
+			m_detector.InteractableFound -= UseAction_InteractableFound;
+			m_detector.InteractableLost -= UseAction_InteractableLost;
 		}
 	}
 }

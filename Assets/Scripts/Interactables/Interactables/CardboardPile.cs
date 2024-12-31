@@ -7,7 +7,6 @@ namespace BM.Interactables
 	public class CardboardPile : InteractableBase
 	{
 		[Header("Sound Settings")]
-		[Space]
 
 		[SerializeField] private EventReference m_soundOnMoving;
 
@@ -18,9 +17,9 @@ namespace BM.Interactables
 		/// 지정된 루트 모션 애니메이션이 재생되어 위치가 이동한다. 한 번 활성화 하였으면, 더이상 활성화 되지 않는다.
 		/// 또한, 애니메이션 이벤트로 애니메이션이 재생된 이후로는 모든 상호작용을 금지한다.
 		/// </summary>
-		public override void StartActivation(ActivateAction _)
+		public override void StartInteraction(InteractAction _)
 		{
-			base.StartActivation(_);
+			base.StartInteraction(_);
 
 			if (m_isMoved)
 			{
@@ -35,11 +34,15 @@ namespace BM.Interactables
 				RuntimeManager.PlayOneShot(m_soundOnMoving);
 			}
 
+			DisallowInteraction();
+
 			m_isMoved = true;
 		}
 
 		protected override void Awake()
 		{
+			base.Awake();
+
 			m_animator = GetComponent<Animator>();
 		}
 	}

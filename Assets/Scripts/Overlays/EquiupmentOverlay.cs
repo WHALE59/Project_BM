@@ -13,19 +13,19 @@ namespace BM
 
 		[SerializeField] private Image m_equipmentIcon;
 
-		private void EquipmentOverlay_Equipped(InteractableSO equipped)
+		private void EquipmentOverlay_Equipped(ItemSO equipped)
 		{
 			m_equipmentIcon.gameObject.SetActive(true);
 			m_equipmentIcon.sprite = equipped.EquipmentIcon;
 		}
 
-		private void EquipmentOverlay_Unequipped(InteractableSO unequipped)
+		private void EquipmentOverlay_Unequipped(ItemSO unequipped)
 		{
 			m_equipmentIcon.sprite = null;
 			m_equipmentIcon.gameObject.SetActive(false);
 		}
 
-		private void EquipmentOverlay_Used(InteractableSO equipped)
+		private void EquipmentOverlay_Used(ItemSO equipped)
 		{
 			m_equipmentIcon.sprite = null;
 			m_equipmentIcon.gameObject.SetActive(false);

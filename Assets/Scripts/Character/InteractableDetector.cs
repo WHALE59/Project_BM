@@ -1,8 +1,11 @@
-
 using BM.Interactables;
 using FMODUnity;
 using System;
 using UnityEngine;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace BM
 {
@@ -10,13 +13,11 @@ namespace BM
 	public class InteractableDetector : MonoBehaviour
 	{
 		[Header("Detection Settings")]
-		[Space]
 
 		[SerializeField] private float m_raycastDistance = 5.0f;
 		[SerializeField] private LayerMask m_layerMask = (1 << 6);
 
 		[Header("Sound Settings")]
-		[Space]
 
 		[SerializeField] private bool m_enableHoveringSound = true;
 		[SerializeField] private EventReference m_soundOnHovering;
@@ -24,18 +25,16 @@ namespace BM
 
 #if UNITY_EDITOR
 		[Header("Debug")]
-		[Space]
 
 		[SerializeField] private bool m_logOnInteractableFoundAndLost;
 #endif
-
 
 		public event Action<InteractableBase> InteractableFound;
 		public event Action<InteractableBase> InteractableLost;
 
 		private bool m_isValidInteractionHit;
 		private RaycastHit m_hitResult;
-		private InteractableModel m_hitModelOnLastFrame;
+		//private InteractableModel m_hitModelOnLastFrame;
 
 		private InteractableBase m_detectedInteractable;
 
@@ -80,7 +79,7 @@ namespace BM
 
 				if (hasAttachedRigidbody)
 				{
-					bool hasAttachedInteractable = hitRigidbody.TryGetComponent<InteractableBase>(out newlyDetectedInteractable);
+					bool hasAttachedInteractable = hitRigidbody.TryGetComponent(out newlyDetectedInteractable);
 
 					m_isValidInteractionHit &= hasAttachedInteractable;
 
@@ -110,25 +109,25 @@ namespace BM
 				// 새로 검출된 것이 이전 프레임에 검출된 것과 탑 레벨에서는 같은 것
 				else
 				{
-					InteractableModel newlyDetectedModel = newlyDetectedInteractable.Model;
+					//InteractableModel newlyDetectedModel = newlyDetectedInteractable.Model;
 
-					// 내부의 모델이 변하였다
-					if (m_hitModelOnLastFrame != newlyDetectedModel)
-					{
-						if (null != m_hitModelOnLastFrame)
-						{
-							m_hitModelOnLastFrame.FinishHoveringEffect();
-						}
+					//// 내부의 모델이 변하였다
+					//if (m_hitModelOnLastFrame != newlyDetectedModel)
+					//{
+					//	if (null != m_hitModelOnLastFrame)
+					//	{
+					//		m_hitModelOnLastFrame.FinishHoveringEffect();
+					//	}
 
-						newlyDetectedModel.StartHoveringEffect();
-					}
-					// 내부의 모델도 변치 않았다
-					else
-					{
-						// 아무 것도 하지 않아도 됨
-					}
+					//	newlyDetectedModel.StartHoveringEffect();
+					//}
+					//// 내부의 모델도 변치 않았다
+					//else
+					//{
+					//	// 아무 것도 하지 않아도 됨
+					//}
 
-					m_hitModelOnLastFrame = newlyDetectedModel;
+					//m_hitModelOnLastFrame = newlyDetectedModel;
 				}
 			}
 			// 뭔가 상호작용 가능한 것이 하나도 검출 되지 않았음
@@ -139,7 +138,7 @@ namespace BM
 					FinishHoveringProcedure(m_detectedInteractable);
 
 					m_detectedInteractable = null;
-					m_hitModelOnLastFrame = null;
+					//m_hitModelOnLastFrame = null;
 				}
 			}
 		}
@@ -167,7 +166,7 @@ namespace BM
 		/// <summary>
 		/// 호버링을 시작 하였을 때에, 캐릭터 쪽에서 처리하여야 하는 로직을 여기에 작성.
 		/// </summary>
-		private void StartHovering(InteractableBase interactable)
+		private void StartHovering(InteractableBase _)
 		{
 			if (m_enableHoveringSound)
 			{
@@ -178,7 +177,7 @@ namespace BM
 		/// <summary>
 		/// 호버링을 종료 하였을 때에, 캐릭터 쪽에서 처리하여야 하는 로직을 여기에 작성.
 		/// </summary>
-		private void FinishHovering(InteractableBase interactable)
+		private void FinishHovering(InteractableBase _)
 		{
 		}
 
@@ -223,26 +222,15 @@ namespace BM
 
 		}
 
-		[UnityEditor.DrawGizmo(UnityEditor.GizmoType.Active | UnityEditor.GizmoType.NonSelected)]
-		private static void DrawRaycastResult(InteractableDetector target, UnityEditor.GizmoType _)
+		[DrawGizmo(GizmoType.Active | GizmoType.NonSelected)]
+		private static void DrawRaycastResult(InteractableDetector target, GizmoType _)
 		{
 			if (null == Camera.main || !Application.isPlaying)
 			{
 				return;
 			}
 
-			if (!target.m_isValidInteractionHit)
-			{
-				Gizmos.color = Color.white;
-			}
-			else if (target.m_isValidInteractionHit && null == target.m_detectedInteractable)
-			{
-				Gizmos.color = Color.yellow;
-			}
-			else if (target.m_isValidInteractionHit && null != target.m_detectedInteractable)
-			{
-				Gizmos.color = Color.green;
-			}
+			Gizmos.color = target.m_isValidInteractionHit ? Color.green : Color.white;
 
 			// Ray 그리기
 
@@ -272,7 +260,7 @@ namespace BM
 
 			// Raycast Result 그리기
 
-			Vector3 point = default;
+			Vector3 point;
 
 			if (target.m_isValidInteractionHit)
 			{
@@ -285,20 +273,7 @@ namespace BM
 
 			if (null != target.m_detectedInteractable)
 			{
-				InteractableSO interactableSO = target.m_detectedInteractable.InteractableSO;
-
-				if (null != interactableSO)
-				{
-
-					if (interactableSO.IsCollectible && !interactableSO.IsActivatable)
-					{
-						Gizmos.DrawWireSphere(point, .1f);
-					}
-					else if (interactableSO.IsActivatable && !interactableSO.IsCollectible)
-					{
-						Gizmos.DrawWireCube(point, new(.1f, .1f, .1f));
-					}
-				}
+				Gizmos.DrawWireSphere(point, .1f);
 			}
 
 			if (target.m_isValidInteractionHit)

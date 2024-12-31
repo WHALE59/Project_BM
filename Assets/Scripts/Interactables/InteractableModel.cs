@@ -21,20 +21,13 @@ namespace BM.Interactables
 		[Tooltip("Fresnel 이펙트를 사용하는 머터리얼이 붙어 있는 메쉬 렌더러 오브젝트를 여기에 할당")]
 		[SerializeField] private List<MeshRenderer> m_meshRenderers;
 
+		[Space]
+		[SerializeField] private FresnelEffectSO m_fresnelEffectSO;
 
-		private Color m_colorFirst = Color.white;
-		private Color m_colorSecond = Color.grey;
-		private float m_amount = -.7f;
-		private float m_contrast = .01f;
-		private float m_range = .37f;
-
+		private List<Material> m_fresnelMaterials = new();
 		private InteractableBase m_interactableBase;
 
 		public InteractableBase InteractableBase => m_interactableBase;
-
-		private List<Material> m_fresnelMaterials = new();
-		private const string FRESNEL_PROPERTY_NAME = "_IsUsedFresnel";
-		private int m_fresnelID;
 
 		private void SetFresnelEffect(bool enabled)
 		{
@@ -46,7 +39,8 @@ namespace BM.Interactables
 				{
 					foreach (Material sharedMaterial in renderer.sharedMaterials)
 					{
-						sharedMaterial.SetInt(Shader.PropertyToID(FRESNEL_PROPERTY_NAME), enabled ? 1 : 0);
+						m_fresnelEffectSO.TryApplyFresnelDataToMaterial(sharedMaterial);
+						FresnelEffectSO.TrySetFresnelEffectToMaterial(sharedMaterial, enabled);
 					}
 
 					continue;
@@ -58,7 +52,7 @@ namespace BM.Interactables
 
 			foreach (Material material in m_fresnelMaterials)
 			{
-				material.SetInt(m_fresnelID, enabled ? 1 : 0);
+				FresnelEffectSO.TrySetFresnelEffectToMaterial(material, enabled);
 			}
 		}
 
@@ -73,25 +67,13 @@ namespace BM.Interactables
 				renderer.gameObject.layer = 6;
 			}
 
-			m_fresnelID = Shader.PropertyToID(FRESNEL_PROPERTY_NAME);
-
 			// Cache material reference
 
 			foreach (MeshRenderer renderer in m_meshRenderers)
 			{
 				foreach (Material material in renderer.materials)
 				{
-					if (!material.HasProperty(m_fresnelID))
-					{
-						continue;
-					}
-
-					material.SetColor("_FresnelColor", m_colorFirst);
-					material.SetColor("_FresnelColor2", m_colorSecond);
-					material.SetFloat("_FresnelAmount", m_amount);
-					material.SetFloat("_FresnelContrast", m_contrast);
-					material.SetFloat("_Fresnelrange", m_range);
-
+					m_fresnelEffectSO.TryApplyFresnelDataToMaterial(material);
 					m_fresnelMaterials.Add(material);
 				}
 			}

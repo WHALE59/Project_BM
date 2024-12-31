@@ -9,44 +9,18 @@ namespace BM
 	[RequireComponent(typeof(CanvasGroup))]
 	public class InteractionOverlay : MonoBehaviour
 	{
+		[Header("External Reference")]
+
 		[SerializeField] private InteractableDetector m_detector;
-
 		[SerializeField] private InteractionCrosshair m_interactionCrosshair;
-		private void InteractionOverlay_InteractableFound(InteractableBase interactable)
+
+		private void InteractionOverlay_InteractableFound(InteractableBase found)
 		{
-			// 호버링 상태 돌입
-
-			InteractableSO interactableSO = interactable.InteractableSO;
-
-			if (null == interactableSO)
-			{
-				return;
-			}
-
-			// TODO: Usable has highest priority
-
-			if (interactableSO.IsCollectible)
-			{
-				m_interactionCrosshair.SetCollectibleCrosshair();
-			}
-			else if (interactableSO.IsActivatable)
-			{
-				// m_interactionCrosshair.SetCrosshair(interactableSO)
-				m_interactionCrosshair.SetActivatableCrosshair();
-			}
+			m_interactionCrosshair.SetCrosshair(found.InteractionCrosshair);
 		}
 
-		private void InteractionOverlay_InteractableLost(InteractableBase interactable)
+		private void InteractionOverlay_InteractableLost(InteractableBase lost)
 		{
-			// 호버링 상태 해제
-
-			InteractableSO interactableSO = interactable.InteractableSO;
-
-			if (null == interactableSO)
-			{
-				return;
-			}
-
 			m_interactionCrosshair.SetDefaultCrosshair();
 		}
 

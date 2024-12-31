@@ -8,9 +8,10 @@ namespace BM.Interactables
 		[SerializeField] private InteractableBase m_DarackKeyNearPrefab;
 
 		private Animator m_animator;
-		public override void StartActivation(ActivateAction _)
+
+		public override void StartInteraction(InteractAction _)
 		{
-			base.StartActivation(_);
+			base.StartInteraction(_);
 
 			// TODO: "열쇠가 멀리 있어서 집을 수 없다" 라는 정보를 대사, UI 등으로 플레이어에게 전달
 		}
@@ -19,7 +20,7 @@ namespace BM.Interactables
 		/// 애니메이션이 시작되면 <see cref="InteractableBase.DisallowInteraction"/>이 호출되어, 
 		/// 이 객체가 파괴되기 전 까지 상호작용을 불허한다.
 		/// </summary>
-		public override void StartUsage(UseAction _0, InteractableSO _1)
+		public override void StartUsage(UseAction _0, ItemSO _1)
 		{
 			base.StartUsage(_0, _1);
 

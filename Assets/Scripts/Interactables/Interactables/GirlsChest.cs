@@ -1,4 +1,5 @@
 using FMODUnity;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace BM.Interactables
@@ -6,8 +7,13 @@ namespace BM.Interactables
 	[RequireComponent(typeof(Animator))]
 	public class GirlsChest : InteractableBase
 	{
+		[SerializeField] private FresnelEffectSO m_effectOnLockedNotify;
+		[SerializeField] private FresnelEffectSO m_effectOnUnlocking;
+		[SerializeField] private FresnelEffectSO m_effectOnCanOpen;
+
+		[SerializeField] List<MeshRenderer> m_openableRenderers;
+
 		[Header("Sound Effects")]
-		[Space]
 
 		[SerializeField] private EventReference m_lockedSound;
 		[SerializeField] private EventReference m_unlockingSound;
@@ -21,14 +27,52 @@ namespace BM.Interactables
 		private bool m_isLocked = true;
 		private bool m_isOpened = false;
 
-		public override void StartActivation(ActivateAction _)
+		public void GirlsChest_LockedAnimationStarted()
 		{
-			base.StartActivation(_);
+			m_enableHoveringEffect = false;
+			DisallowInteraction();
+			EnableFresnelEffectOnMeshGroup(m_effectOnLockedNotify, m_hoveringRenderers);
+		}
+
+		public void GirlsChest_LockedAnimationFinished()
+		{
+			m_enableHoveringEffect = true;
+			DisableFresnelEffectOnMeshGroup(m_hoveringRenderers);
+			AllowInteraction();
+		}
+
+		public void GirlsChest_UnlockingAnimationStarted()
+		{
+			m_enableHoveringEffect = false;
+			DisallowInteraction();
+
+			EnableFresnelEffectOnMeshGroup(m_effectOnUnlocking, m_hoveringRenderers);
+		}
+
+		public void GirlsChest_UnlockingAnimationFinished()
+		{
+			m_enableHoveringEffect = true;
+
+			DisableFresnelEffectOnMeshGroup(m_hoveringRenderers);
+
+			m_hoveringRenderers = m_openableRenderers;
+			m_fresnelEffectSO = m_effectOnCanOpen;
+
+			TrySetHoveringRendererEffectData(m_fresnelEffectSO, m_hoveringRenderers);
+
+			AllowInteraction();
+		}
+
+		public override void StartInteraction(InteractAction _)
+		{
+			base.StartInteraction(_);
 
 			if (m_isLocked)
 			{
 				// 애니메이션 이벤트로, 애니메이션이 끝날 때까지 상호작용 불허
 				m_animator.SetTrigger("Locked");
+
+				GirlsChest_LockedAnimationStarted();
 
 				if (!m_lockedSound.IsNull)
 				{
@@ -56,7 +100,7 @@ namespace BM.Interactables
 			}
 		}
 
-		public override void StartUsage(UseAction _0, InteractableSO _1)
+		public override void StartUsage(UseAction _0, ItemSO _1)
 		{
 			base.StartUsage(_0, _1);
 
@@ -81,6 +125,8 @@ namespace BM.Interactables
 
 		protected override void Awake()
 		{
+			base.Awake();
+
 			m_animator = GetComponent<Animator>();
 		}
 	}

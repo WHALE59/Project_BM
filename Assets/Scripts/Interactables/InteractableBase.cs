@@ -1,19 +1,41 @@
 #pragma warning disable CS0414
 
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization;
 
 namespace BM.Interactables
 {
 	[DisallowMultipleComponent]
+	[RequireComponent(typeof(Rigidbody))]
 	public class InteractableBase : MonoBehaviour
 	{
-		[SerializeField] private InteractableSO m_interactableSO;
-		[SerializeField] private InteractableModel m_interactableModel;
+		[Header("Root Appearance")]
 
-		[SerializeField][HideInInspector] private bool m_isCollected = false;
+		[SerializeField] protected GameObject m_rootAppearance;
+
+		[Header("Hovering Settings")]
+
+		[SerializeField] protected List<Collider> m_hoveringColliders = new();
+
+		[Header("Hovering Effect Settings")]
+
+		[SerializeField] protected bool m_enableHoveringEffect = true;
+		[SerializeField] protected List<MeshRenderer> m_hoveringRenderers = new();
+		[SerializeField] protected FresnelEffectSO m_fresnelEffectSO;
+		[SerializeField] private Sprite m_interactionCrosshair;
+
+		[Header("Usage Settings")]
+
+		[SerializeField] private bool m_isUsedable = false;
+		[SerializeField] private List<ItemSO> m_usedBy = new();
+
+		[Header("Control Guide Settings")]
+
+		[SerializeField] private LocalizedString m_controlGuideLocalizedString;
 
 #if UNITY_EDITOR
-		[Space]
+		[Header("Debug")]
 
 		[SerializeField] private bool m_logOnHovering = false;
 		[SerializeField] private bool m_logOnInteraction = false;
@@ -21,8 +43,18 @@ namespace BM.Interactables
 		[Space]
 #endif
 
+		private int m_detectionLayer = 6;
+
 		private bool m_allowDetection = true;
 		protected bool m_allowInteraction = true;
+		private bool m_isHovering = false;
+
+		protected bool IsHovering => m_isHovering;
+		protected int DetectionLayer => m_detectionLayer;
+
+		public bool IsUsedable => m_isUsedable;
+		public LocalizedString ControlGuideLocalizedString => m_controlGuideLocalizedString;
+		public Sprite InteractionCrosshair => m_interactionCrosshair;
 
 		/// <summary>
 		/// <see cref="InteractableDetector"/>에 의해 감지 자체가 허용 되는지의 여부
@@ -37,17 +69,20 @@ namespace BM.Interactables
 		/// </remarks>
 		public bool IsInteractionAllowed => m_allowInteraction;
 
-		public InteractableSO InteractableSO => m_interactableSO;
+		public bool IsUsedBy(ItemSO usable)
+		{
+			foreach (ItemSO thisTarget in m_usedBy)
+			{
+				if (thisTarget != usable)
+				{
+					continue;
+				}
 
-		public InteractableModel Model { get => m_interactableModel; protected set => m_interactableModel = value; }
+				return true;
+			}
 
-		public bool IsCollectible => m_interactableSO.IsCollectible;
-
-		public bool IsActivatable => m_interactableSO.IsActivatable;
-
-		public bool IsUsable => m_interactableSO.IsUsable;
-
-		public bool IsUsedable => m_interactableSO.IsUsedable;
+			return false;
+		}
 
 		public void AllowInteraction()
 		{
@@ -68,10 +103,9 @@ namespace BM.Interactables
 			}
 #endif
 
-			if (null != m_interactableModel)
-			{
-				m_interactableModel.StartHoveringEffect();
-			}
+			m_isHovering = true;
+
+			StartHoveringEffect();
 		}
 
 		public void FinishHovering()
@@ -84,40 +118,76 @@ namespace BM.Interactables
 			}
 #endif
 
-			if (null != m_interactableModel)
+			m_isHovering = false;
+
+			FinishHoveringEffect();
+		}
+
+		public virtual void StartHoveringEffect()
+		{
+			if (!m_enableHoveringEffect)
 			{
-				m_interactableModel.FinishHoveringEffect();
+				return;
+			}
+
+			// TODO: This can be problem
+			EnableFresnelEffectOnMeshGroup(m_fresnelEffectSO, m_hoveringRenderers);
+		}
+
+		public virtual void FinishHoveringEffect()
+		{
+			if (!m_enableHoveringEffect)
+			{
+				return;
+			}
+
+			DisableFresnelEffectOnMeshGroup(m_hoveringRenderers);
+		}
+
+		protected void SetActiveHoveringColliders(List<Collider> colliders, bool enabled)
+		{
+			foreach (Collider collider in colliders)
+			{
+				collider.enabled = enabled;
 			}
 		}
 
-		public void SetCollected()
-		{
-			m_isCollected = true;
+		// TODO: Optimization Problem
 
-			m_interactableModel.gameObject.SetActive(false);
+		protected void EnableFresnelEffectOnMeshGroup(FresnelEffectSO effect, List<MeshRenderer> meshGroup)
+		{
+			foreach (MeshRenderer renderer in meshGroup)
+			{
+				foreach (Material material in renderer.materials)
+				{
+					effect.TryApplyFresnelDataToMaterial(material);
+					FresnelEffectSO.TrySetFresnelEffectToMaterial(material, enabled);
+				}
+			}
 		}
 
-		public virtual void StartActivation(ActivateAction activator)
+		protected void DisableFresnelEffectOnMeshGroup(List<MeshRenderer> meshGroup)
+		{
+			foreach (MeshRenderer renderer in meshGroup)
+			{
+				foreach (Material material in renderer.materials)
+				{
+					FresnelEffectSO.TrySetFresnelEffectToMaterial(material, false);
+				}
+			}
+		}
+
+		public virtual void StartInteraction(InteractAction interactor)
 		{
 #if UNITY_EDITOR
 			if (m_logOnInteraction)
 			{
-				Debug.Log($"주체 {activator}에 의하여 {name} Activate 시작");
+				Debug.Log($"주체 {interactor}에 의하여 {name} Activate 시작");
 			}
 #endif
 		}
 
-		public virtual void FinishActivation(InteractableDetector interactionSubject)
-		{
-#if UNITY_EDITOR
-			if (m_logOnInteraction)
-			{
-				Debug.Log($"주체 {interactionSubject}에 의하여 {name} Activate 종료");
-			}
-#endif
-		}
-
-		public virtual void StartUsage(UseAction user, InteractableSO equipment)
+		public virtual void StartUsage(UseAction user, ItemSO equipment)
 		{
 #if UNITY_EDITOR
 			if (m_logOnInteraction)
@@ -127,17 +197,60 @@ namespace BM.Interactables
 #endif
 		}
 
-		public virtual void FinishUsage(InteractableDetector interactionSubject, InteractableSO equipment)
+		protected void TrySetHoveringColliderLayer(List<Collider> colliders)
 		{
-#if UNITY_EDITOR
-			if (m_logOnInteraction)
+			if (null == colliders)
 			{
-				Debug.Log($"주체 {interactionSubject.name}의 장비 {equipment.name} 에 의하여 {name} Use 종료");
+				return;
 			}
-#endif
+
+			foreach (Collider collider in colliders)
+			{
+				collider.gameObject.layer = m_detectionLayer;
+			}
 		}
 
-		protected virtual void Awake() { }
+		protected void TrySetHoveringRendererEffectData(FresnelEffectSO effect, List<MeshRenderer> renderers)
+		{
+			if (null == renderers)
+			{
+				return;
+			}
+
+			HashSet<Material> fresnelMaterials = new();
+
+			foreach (MeshRenderer renderer in renderers)
+			{
+				foreach (Material material in renderer.materials)
+				{
+					if (fresnelMaterials.Contains(material))
+					{
+						continue;
+					}
+
+					if (effect.TryApplyFresnelDataToMaterial(material))
+					{
+						fresnelMaterials.Add(material);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Rigidbody의 Kinematic 설정과 초기 설정된 인터랙션 Collider와 호버링 머터리얼 설정을 진행함. 만일 상속하는 경우 반드시 베이스 콜을 해 주어야 함.
+		/// </summary>
+		protected virtual void Awake()
+		{
+			GetComponent<Rigidbody>().isKinematic = true;
+
+			// initialize Models.
+
+			TrySetHoveringColliderLayer(m_hoveringColliders);
+			TrySetHoveringRendererEffectData(m_fresnelEffectSO, m_hoveringRenderers);
+		}
+
+		protected virtual void OnEnable() { }
 		protected virtual void Start() { }
+		protected virtual void OnDisable() { }
 	}
 }

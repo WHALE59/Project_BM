@@ -79,6 +79,9 @@ Material:
     - _Boolean_1: 0
     - _Depth: -12
     - _Float: 50.5
+    - _FresnelAmount: 0.7
+    - _FresnelContrast: 0.01
+    - _Fresnelrange: 0.37
     - _GrundgeMap_Mixin: 0.15
     - _Intersection_Contrast: 1
     - _Intersection_amount: 0.5
@@ -97,6 +100,8 @@ Material:
     - _intersect_Contrast: 6.55
     m_Colors:
     - _01_GrundgeMap_Offset: {r: 1.14, g: 1.94, b: -3.4, a: 0}
+    - _FresnelColor: {r: 1, g: 1, b: 1, a: 1}
+    - _FresnelColor2: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _Tint_Color: {r: 1, g: 1, b: 1, a: 0}
     - _intersect_Color: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []

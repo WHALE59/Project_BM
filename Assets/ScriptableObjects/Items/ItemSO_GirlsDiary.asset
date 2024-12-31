@@ -9,27 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d333f06e78dca745ab24568c8517ea4, type: 3}
-  m_Name: InteractableSO_Broom
+  m_Script: {fileID: 11500000, guid: 4ef0193eb877fe24b8361fce35f94429, type: 3}
+  m_Name: ItemSO_GirlsDiary
   m_EditorClassIdentifier: 
-  m_isCollectible: 0
-  m_soundOnCollectingOverride:
-    Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
-  m_inventoryIcon: {fileID: 21300000, guid: dd0ce465d32bbfc48aa482034a49e840, type: 3}
-  m_isActivatable: 0
-  m_crosshairOnActivationOverride: {fileID: 0}
-  m_isUsable: 1
-  m_equipmentIcon: {fileID: 21300000, guid: dd0ce465d32bbfc48aa482034a49e840, type: 3}
+  m_inventoryIcon: {fileID: 0}
+  m_isUsable: 0
+  m_equipmentIcon: {fileID: 0}
   m_useCrosshairIcon: {fileID: 0}
-  m_isUsedTo:
-  - {fileID: 11400000, guid: 5a994d3b71f17c249b67efc4d5fefcdc, type: 2}
-  m_isUsedable: 0
-  m_isUsedBy: []
+  m_usedTo: []
   m_isCraftingMaterial: 0
   m_isCraftingMaterialOf: []
   m_isCraftedBy: []
@@ -37,16 +24,16 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: GUID:6bda748f0c1e0054fa5dcccfa488d4af
     m_TableEntryReference:
-      m_KeyId: 2894546125664256
+      m_KeyId: 1044646555496448
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
   m_description:
     m_TableReference:
-      m_TableCollectionName: GUID:6bda748f0c1e0054fa5dcccfa488d4af
+      m_TableCollectionName: 
     m_TableEntryReference:
-      m_KeyId: 2894546251493376
+      m_KeyId: 0
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0

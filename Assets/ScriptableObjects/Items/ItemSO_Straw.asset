@@ -9,43 +9,32 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d333f06e78dca745ab24568c8517ea4, type: 3}
-  m_Name: InteractableSO_RabbitDoll
+  m_Script: {fileID: 11500000, guid: 4ef0193eb877fe24b8361fce35f94429, type: 3}
+  m_Name: ItemSO_Straw
   m_EditorClassIdentifier: 
-  m_isCollectible: 0
-  m_soundOnCollectingOverride:
-    Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
-  m_inventoryIcon: {fileID: 0}
-  m_isActivatable: 1
-  m_crosshairOnActivationOverride: {fileID: 0}
+  m_inventoryIcon: {fileID: 21300000, guid: 2ad1b8a9e3813764faadfd7bea769f96, type: 3}
   m_isUsable: 0
   m_equipmentIcon: {fileID: 0}
   m_useCrosshairIcon: {fileID: 0}
-  m_isUsedTo: []
-  m_isUsedable: 0
-  m_isUsedBy: []
-  m_isCraftingMaterial: 0
-  m_isCraftingMaterialOf: []
+  m_usedTo: []
+  m_isCraftingMaterial: 1
+  m_isCraftingMaterialOf:
+  - {fileID: 11400000, guid: 0bc47fcbfb944da4fb553cba44c13f69, type: 2}
   m_isCraftedBy: []
   m_displayName:
     m_TableReference:
       m_TableCollectionName: GUID:6bda748f0c1e0054fa5dcccfa488d4af
     m_TableEntryReference:
-      m_KeyId: 1337637178388480
+      m_KeyId: 850471163736064
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
   m_description:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: GUID:6bda748f0c1e0054fa5dcccfa488d4af
     m_TableEntryReference:
-      m_KeyId: 0
+      m_KeyId: 850495658471424
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
