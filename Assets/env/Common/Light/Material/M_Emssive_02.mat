@@ -25,8 +25,6 @@ Material:
   m_Parent: {fileID: 2100000, guid: 046947ee123dc78468ba6bf4f605f651, type: 2}
   m_ModifiedSerializedProperties: 30
   m_ValidKeywords:
-  - _ALPHATEST_ON
-  - _RECEIVE_SHADOWS_OFF
   - _SURFACE_TYPE_TRANSPARENT
   m_InvalidKeywords: []
   m_LightmapFlags: 0
@@ -55,28 +53,28 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AlphaAmount: -1.54
-    - _AlphaAmount_1: -0.93
-    - _AlphaClip: 1
+    - _AlphaAmount: 2.16
+    - _AlphaAmount_1: -0.975
+    - _AlphaClip: 0
     - _AlphaToMask: 0
     - _Blend: 2
     - _BlendModePreserveSpecular: 0
     - _CastShadows: 0
     - _Cull: 2
     - _DstBlend: 1
-    - _Emssive_Power: 0.05
+    - _Emssive_Power: -0.09
     - _IsusedALPHA: 1
-    - _Normal_Intensity: 9.5
-    - _ReceiveShadows: 0
+    - _Normal_Intensity: 0
+    - _ReceiveShadows: 1
     - _RoughnessContrast: -2
     - _RoughnessPower: 0
     - _SrcBlend: 5
     - _Surface: 1
     - _WorkflowMode: 1
-    - _ZTest: 4
+    - _ZTest: 2
     - _ZWrite: 1
     - _ZWriteControl: 1
     m_Colors:
     - _Emissive_Color: {r: 0.084905684, g: 0.084905684, b: 0.084905684, a: 0}
-    - _Tint_Color: {r: 0.5471698, g: 0.5175337, b: 0.24003202, a: 1}
+    - _Tint_Color: {r: 0.6698113, g: 0.63621676, b: 0.33806515, a: 1}
   m_BuildTextureStacks: []
