@@ -16,9 +16,9 @@ namespace BM
 		{
 			m_characterStarts.Clear();
 
-			for (var i = 0; i < SceneManager.sceneCount; ++i)
+			for (int i = 0; i < SceneManager.sceneCount; ++i)
 			{
-				var loadedScene = SceneManager.GetSceneAt(i);
+				Scene loadedScene = SceneManager.GetSceneAt(i);
 
 				// 이 스크립트가 부착된 오브젝트는 반드시 SC_PersistentGameplay 씬에 존재한다고 가정
 				if (gameObject.scene == loadedScene)
@@ -26,9 +26,9 @@ namespace BM
 					continue;
 				}
 
-				foreach (var rootGameObject in loadedScene.GetRootGameObjects())
+				foreach (GameObject rootGameObject in loadedScene.GetRootGameObjects())
 				{
-					if (rootGameObject.TryGetComponent<CharacterStart>(out var characterStart))
+					if (rootGameObject.TryGetComponent(out CharacterStart characterStart))
 					{
 						m_characterStarts.Add(characterStart);
 					}

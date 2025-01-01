@@ -1,5 +1,7 @@
 #pragma warning disable CS0414
 
+using System.Diagnostics.CodeAnalysis;
+
 using UnityEngine;
 
 namespace BM.Interactables
@@ -10,6 +12,7 @@ namespace BM.Interactables
 		[SerializeField] private InteractableSO m_interactableSO;
 		[SerializeField] private InteractableModel m_interactableModel;
 
+		[SuppressMessage("Style", "IDE0052", Justification = "추후에 Scene Loading 로직이 완성되면 사용")]
 		[SerializeField][HideInInspector] private bool m_isCollected = false;
 
 #if UNITY_EDITOR
@@ -21,8 +24,20 @@ namespace BM.Interactables
 		[Space]
 #endif
 
-		private bool m_allowInteraction = true;
+		private bool m_allowDetection = true;
+		protected bool m_allowInteraction = true;
 
+		/// <summary>
+		/// <see cref="InteractableDetector"/>에 의해 감지 자체가 허용 되는지의 여부
+		/// </summary>
+		public bool IsDetectionAllowed => m_allowDetection;
+
+		/// <summary>
+		/// <see cref="InteractableDetector"/>에 의해 Use 혹은 Activate가 허용 되는지의 여부
+		/// </summary>
+		/// <remarks>
+		/// <c>false</c>를 반환하는 경우, <see cref="InteractableDetector"/>에 의해 감지는 되지만, 아무런 상호작용을 할 수 없다는 뜻이다. <br/>
+		/// </remarks>
 		public bool IsInteractionAllowed => m_allowInteraction;
 
 		public InteractableSO InteractableSO => m_interactableSO;
@@ -39,12 +54,12 @@ namespace BM.Interactables
 
 		public void AllowInteraction()
 		{
-			m_allowInteraction = true;
+			m_allowDetection = true;
 		}
 
 		public void DisallowInteraction()
 		{
-			m_allowInteraction = false;
+			m_allowDetection = false;
 		}
 
 		public void StartHovering()
@@ -85,17 +100,17 @@ namespace BM.Interactables
 			m_interactableModel.gameObject.SetActive(false);
 		}
 
-		public virtual void StartActivation(InteractAction interactionSubject)
+		public virtual void StartActivation(ActivateAction activator)
 		{
 #if UNITY_EDITOR
 			if (m_logOnInteraction)
 			{
-				Debug.Log($"주체 {interactionSubject}에 의하여 {name} Activate 시작");
+				Debug.Log($"주체 {activator}에 의하여 {name} Activate 시작");
 			}
 #endif
 		}
 
-		public virtual void FinishActivation(InteractAction interactionSubject)
+		public virtual void FinishActivation(InteractableDetector interactionSubject)
 		{
 #if UNITY_EDITOR
 			if (m_logOnInteraction)
@@ -105,17 +120,17 @@ namespace BM.Interactables
 #endif
 		}
 
-		public virtual void StartUsage(InteractAction interactionSubject, InteractableSO equipment)
+		public virtual void StartUsage(UseAction user, InteractableSO equipment)
 		{
 #if UNITY_EDITOR
 			if (m_logOnInteraction)
 			{
-				Debug.Log($"주체 {interactionSubject.name}의 장비 {equipment.name}에 의하여 {name} Use 시작");
+				Debug.Log($"주체 {user.name}의 장비 {equipment.name}에 의하여 {name} Use 시작");
 			}
 #endif
 		}
 
-		public virtual void FinishUsage(InteractAction interactionSubject, InteractableSO equipment)
+		public virtual void FinishUsage(InteractableDetector interactionSubject, InteractableSO equipment)
 		{
 #if UNITY_EDITOR
 			if (m_logOnInteraction)

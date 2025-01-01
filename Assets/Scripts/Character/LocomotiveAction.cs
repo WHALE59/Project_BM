@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 
 using UnityEngine;
-
+using System.Diagnostics.CodeAnalysis;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -395,6 +395,7 @@ namespace BM
 		/// 캐릭터의 전방을 그린다.
 		/// </summary>
 		[DrawGizmo(GizmoType.Active)]
+		[SuppressMessage("Style", "IDE0051")]
 		private static void DrawForwardGizmo(LocomotiveAction target, GizmoType _)
 		{
 			if (!target.m_cameraTarget)
@@ -415,6 +416,7 @@ namespace BM
 		}
 
 		[DrawGizmo(GizmoType.Active | GizmoType.Selected)]
+		[SuppressMessage("Style", "IDE0051")]
 		private static void DrawCrouchingRoutineStuckPointGizmo(LocomotiveAction target, GizmoType _)
 		{
 			if (!target.m_isStuckWhileCrouching)

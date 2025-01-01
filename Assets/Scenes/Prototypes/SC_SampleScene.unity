@@ -28867,7 +28867,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5879446607956075044, guid: 8309228978410a74fb78358e95673a06, type: 3}
       propertyPath: m_Name
-      value: NewInteractable_DrackLamp
+      value: Interactable_DrackLamp
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -28941,7 +28941,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1929927981111236613, guid: 179637cc419fe964ca4c0be26127a6ed, type: 3}
       propertyPath: m_Name
-      value: NewInteractable_Rope
+      value: Interactable_Rope
       objectReference: {fileID: 0}
     - target: {fileID: 2210091008671181337, guid: 179637cc419fe964ca4c0be26127a6ed, type: 3}
       propertyPath: m_LocalPosition.x
@@ -29003,7 +29003,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5135747821523861832, guid: 23141f5c433a6a14fb6070d0c25e698c, type: 3}
       propertyPath: m_Name
-      value: NewInteractable_Straw
+      value: Interactable_Straw
       objectReference: {fileID: 0}
     - target: {fileID: 5779272743772091188, guid: 23141f5c433a6a14fb6070d0c25e698c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -29065,7 +29065,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1057577249338966066, guid: aa7af378690ed0e4092e53486a4c1180, type: 3}
       propertyPath: m_Name
-      value: NewInteractable_DarackCurtain_Left
+      value: Interactable_DarackCurtain_Left
       objectReference: {fileID: 0}
     - target: {fileID: 9099374054206571237, guid: aa7af378690ed0e4092e53486a4c1180, type: 3}
       propertyPath: m_LocalPosition.x
@@ -29167,7 +29167,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8651967257250580878, guid: c8f3e0957df856d479c9c0670136f42d, type: 3}
       propertyPath: m_Name
-      value: NewInteractable_RabbitDoll
+      value: Interactable_RabbitDoll
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -29189,31 +29189,31 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1619804461792657616, guid: 9aa1434ee33ca8644af4559a40467a01, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.365
+      value: -4.010651
       objectReference: {fileID: 0}
     - target: {fileID: 1619804461792657616, guid: 9aa1434ee33ca8644af4559a40467a01, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.889
+      value: 0.52610165
       objectReference: {fileID: 0}
     - target: {fileID: 1619804461792657616, guid: 9aa1434ee33ca8644af4559a40467a01, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.478
+      value: -0.90031075
       objectReference: {fileID: 0}
     - target: {fileID: 1619804461792657616, guid: 9aa1434ee33ca8644af4559a40467a01, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7490349
+      value: -0.32430002
       objectReference: {fileID: 0}
     - target: {fileID: 1619804461792657616, guid: 9aa1434ee33ca8644af4559a40467a01, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0.6283546
       objectReference: {fileID: 0}
     - target: {fileID: 1619804461792657616, guid: 9aa1434ee33ca8644af4559a40467a01, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.66253066
+      value: -0.6283546
       objectReference: {fileID: 0}
     - target: {fileID: 1619804461792657616, guid: 9aa1434ee33ca8644af4559a40467a01, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0.32430002
       objectReference: {fileID: 0}
     - target: {fileID: 1619804461792657616, guid: 9aa1434ee33ca8644af4559a40467a01, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -29229,7 +29229,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6350099554670406998, guid: 9aa1434ee33ca8644af4559a40467a01, type: 3}
       propertyPath: m_Name
-      value: NewInteractable_Key
+      value: Interactable_DarackKey_Far
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -29286,7 +29286,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5952138647997809402, guid: 9ebf47a893a599c41a0df708f9a9b3a0, type: 3}
       propertyPath: m_Name
-      value: NewInteractable_Stick
+      value: Interactable_Stick
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -29303,7 +29303,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 514502610095742676, guid: 17368fa4bc15dae43aeb999c232aba9e, type: 3}
       propertyPath: m_Name
-      value: NewInteractable_GirlsDiary
+      value: Interactable_GirlsDiary
       objectReference: {fileID: 0}
     - target: {fileID: 8729015344552151250, guid: 17368fa4bc15dae43aeb999c232aba9e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -29405,7 +29405,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8332729168683627977, guid: bc1d5f030274cf94cb14bbd1ddb16e04, type: 3}
       propertyPath: m_Name
-      value: NewInteractable_CardboardPile
+      value: Interactable_CardboardPile
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -29422,7 +29422,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4633374188836113346, guid: 9cd393051a5c86048ab4a29688d1b3c6, type: 3}
       propertyPath: m_Name
-      value: NewInteractable_GirlsChest
+      value: Interactable_GirlsChest
       objectReference: {fileID: 0}
     - target: {fileID: 5116289429562352095, guid: 9cd393051a5c86048ab4a29688d1b3c6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -29479,7 +29479,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4393314752159744790, guid: 2241d379014b6344ba2ef18cbe9edad4, type: 3}
       propertyPath: m_Name
-      value: NewInteractable_DarackCurtain_Right
+      value: Interactable_DarackCurtain_Right
       objectReference: {fileID: 0}
     - target: {fileID: 6209594415739334649, guid: 2241d379014b6344ba2ef18cbe9edad4, type: 3}
       propertyPath: m_LocalPosition.x

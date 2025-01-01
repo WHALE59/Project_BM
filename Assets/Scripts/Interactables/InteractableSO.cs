@@ -50,7 +50,6 @@ namespace BM.Interactables
 		[SerializeField] private LocalizedString m_displayName;
 		[SerializeField] private LocalizedString m_description;
 
-
 		/// <remarks>
 		/// 게임 로직상 Collectible과 Activatable은 동시에 가질 수 있는 속성이 아니지만, 이 프로퍼티의 반환값이 참이라고 해서, <see cref="IsActivatable"/>의 반환값이 거짓임이 보장되지는 않는다.
 		/// </remarks>
@@ -66,23 +65,31 @@ namespace BM.Interactables
 		public Sprite EquipmentIcon => m_equipmentIcon;
 		public LocalizedString LocalizedDisplayName => m_displayName;
 
-		public bool IsUsedTo(InteractableBase interactable)
+		public bool IsUsedTo(InteractableSO target)
 		{
-			InteractableSO from = this;
-			InteractableSO to = interactable.InteractableSO;
-
-			foreach (InteractableSO fto in from.m_isUsedTo)
+			foreach (InteractableSO thisTarget in m_isUsedTo)
 			{
-				if (fto == to)
+				if (thisTarget != target)
 				{
-					foreach (InteractableSO tfo in to.m_isUsedBy)
-					{
-						if (tfo == from)
-						{
-							return true;
-						}
-					}
+					continue;
 				}
+
+				return true;
+			}
+
+			return false;
+		}
+
+		public bool IsUsedBy(InteractableSO target)
+		{
+			foreach (InteractableSO thisTarget in m_isUsedBy)
+			{
+				if (thisTarget != target)
+				{
+					continue;
+				}
+
+				return true;
 			}
 
 			return false;

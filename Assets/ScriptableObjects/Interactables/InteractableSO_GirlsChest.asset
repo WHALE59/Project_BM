@@ -29,7 +29,7 @@ MonoBehaviour:
   m_isUsedTo: []
   m_isUsedable: 1
   m_isUsedBy:
-  - {fileID: 11400000, guid: 5a994d3b71f17c249b67efc4d5fefcdc, type: 2}
+  - {fileID: 11400000, guid: 797e70f83ebdc5c4eb2fe29e47ae906a, type: 2}
   m_isCraftingMaterial: 0
   m_isCraftingMaterialOf: []
   m_isCraftedBy: []

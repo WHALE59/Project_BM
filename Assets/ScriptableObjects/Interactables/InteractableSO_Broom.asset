@@ -20,11 +20,11 @@ MonoBehaviour:
       Data3: 0
       Data4: 0
     Path: 
-  m_inventoryIcon: {fileID: 0}
+  m_inventoryIcon: {fileID: 21300000, guid: dd0ce465d32bbfc48aa482034a49e840, type: 3}
   m_isActivatable: 0
   m_crosshairOnActivationOverride: {fileID: 0}
   m_isUsable: 1
-  m_equipmentIcon: {fileID: 0}
+  m_equipmentIcon: {fileID: 21300000, guid: dd0ce465d32bbfc48aa482034a49e840, type: 3}
   m_useCrosshairIcon: {fileID: 0}
   m_isUsedTo:
   - {fileID: 11400000, guid: 5a994d3b71f17c249b67efc4d5fefcdc, type: 2}

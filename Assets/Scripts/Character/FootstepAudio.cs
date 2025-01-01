@@ -1,7 +1,6 @@
 using FMOD;
 using FMOD.Studio;
 using FMODUnity;
-
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
@@ -120,18 +119,14 @@ namespace BM
 		/// </summary>
 		private static void GetParameterID(in string parameterName, in EventInstance instance, out PARAMETER_ID parameterID)
 		{
-			EventDescription eventDescription;
-
-			if (instance.getDescription(out eventDescription) != FMOD.RESULT.OK)
+			if (instance.getDescription(out EventDescription eventDescription) != FMOD.RESULT.OK)
 			{
 #if UNITY_EDITOR
 				Debug.Log($"{instance}의 Event Description을 찾을 수 없습니다.");
 #endif
 			}
 
-			PARAMETER_DESCRIPTION gaitParameterDescription;
-
-			if (eventDescription.getParameterDescriptionByName(parameterName, out gaitParameterDescription) != FMOD.RESULT.OK)
+			if (eventDescription.getParameterDescriptionByName(parameterName, out PARAMETER_DESCRIPTION gaitParameterDescription) != FMOD.RESULT.OK)
 			{
 #if UNITY_EDITOR
 				Debug.Log($"{eventDescription}의 {parameterName} Parameter Description을 찾을 수 없습니다.");

@@ -76,13 +76,15 @@ GameObject:
   - component: {fileID: 8762723058960736455}
   - component: {fileID: 676317188041148196}
   - component: {fileID: 5337080429642422780}
-  - component: {fileID: 6448649718899218689}
-  - component: {fileID: 3781311540657731409}
-  - component: {fileID: 4630992091899181617}
-  - component: {fileID: 100915224993563351}
   - component: {fileID: 9151683990528567533}
+  - component: {fileID: 6448649718899218689}
   - component: {fileID: 4819816543261910351}
+  - component: {fileID: 100915224993563351}
+  - component: {fileID: 4630992091899181617}
   - component: {fileID: 3206800542811517752}
+  - component: {fileID: 6279455334332561965}
+  - component: {fileID: 6567220715599052240}
+  - component: {fileID: 3781311540657731409}
   m_Layer: 3
   m_Name: P_Character
   m_TagString: Untagged
@@ -214,6 +216,21 @@ MonoBehaviour:
   m_properties: {fileID: 11400000, guid: 0a82ae126b59d2d45999f2c82c914acc, type: 2}
   m_cameraTarget: {fileID: 2543932865098810727}
   m_logOnStateChange: 0
+--- !u!114 &9151683990528567533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7093824059209778154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 213369faae58995408058607bafeb65c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_locomotiveProperty: {fileID: 11400000, guid: 0a82ae126b59d2d45999f2c82c914acc, type: 2}
+  m_inputReader: {fileID: 11400000, guid: 314b40c975fd3d349a30c23aa2faddeb, type: 2}
+  m_logOnLocomotiveImpulse: 0
 --- !u!114 &6448649718899218689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -231,82 +248,6 @@ MonoBehaviour:
   m_shakeShape: 2
   m_shakeDuration: 0.25
   m_shakeVelocity: {x: 0, y: -0.125, z: 0}
---- !u!114 &3781311540657731409
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7093824059209778154}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 532be701bae784e4e80256da8a563dfa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &4630992091899181617
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7093824059209778154}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea3fffd2489c2794a8c6877057d85378, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_inputReaderSO: {fileID: 11400000, guid: 314b40c975fd3d349a30c23aa2faddeb, type: 2}
-  m_raycastDistance: 1.5
-  m_layerMask:
-    serializedVersion: 2
-    m_Bits: 64
-  m_enableHoveringSound: 1
-  m_soundOnHovering:
-    Guid:
-      Data1: 821866600
-      Data2: 1123763795
-      Data3: 1894727809
-      Data4: -1242516243
-    Path: event:/SFX/Interaction/2D_Interaction_UI_Hovering
-  m_defaultSoundOnCollecting:
-    Guid:
-      Data1: 990203629
-      Data2: 1121073514
-      Data3: 1545112218
-      Data4: -334051407
-    Path: event:/SFX/UI Sound/2D_Button_Confirm_1
-  m_equipment: {fileID: 0}
-  m_logOnInteractableFoundAndLost: 0
---- !u!114 &100915224993563351
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7093824059209778154}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5aef7702cb4edb448b54129cdb49d90, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_noiseTarget: {fileID: 0}
-  m_locomotiveProperty: {fileID: 11400000, guid: 0a82ae126b59d2d45999f2c82c914acc, type: 2}
-  m_duration: 0.4
---- !u!114 &9151683990528567533
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7093824059209778154}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 213369faae58995408058607bafeb65c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_locomotiveProperty: {fileID: 11400000, guid: 0a82ae126b59d2d45999f2c82c914acc, type: 2}
-  m_inputReader: {fileID: 11400000, guid: 314b40c975fd3d349a30c23aa2faddeb, type: 2}
-  m_logOnLocomotiveImpulse: 0
 --- !u!114 &4819816543261910351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -334,6 +275,53 @@ MonoBehaviour:
       Data4: 1215331836
     Path: event:/SFX/Darack/3D_M_Footsteps_Carpet
   m_logOnFMODError: 0
+--- !u!114 &100915224993563351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7093824059209778154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5aef7702cb4edb448b54129cdb49d90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_noiseTarget: {fileID: 0}
+  m_locomotiveProperty: {fileID: 11400000, guid: 0a82ae126b59d2d45999f2c82c914acc, type: 2}
+  m_duration: 0.4
+--- !u!114 &4630992091899181617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7093824059209778154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a30c7886359482849812b9280af33a0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_raycastDistance: 5
+  m_layerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  m_enableHoveringSound: 1
+  m_soundOnHovering:
+    Guid:
+      Data1: 821866600
+      Data2: 1123763795
+      Data3: 1894727809
+      Data4: -1242516243
+    Path: event:/SFX/Interaction/2D_Interaction_UI_Hovering
+  m_defaultSoundOnCollecting:
+    Guid:
+      Data1: 990203629
+      Data2: 1121073514
+      Data3: 1545112218
+      Data4: -334051407
+    Path: event:/SFX/UI Sound/2D_Button_Confirm_1
+  m_logOnInteractableFoundAndLost: 0
 --- !u!114 &3206800542811517752
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -346,7 +334,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d10e7106f42eaa46b40ea6e73b8f851, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_inventory: []
+  m_inputReaderSO: {fileID: 11400000, guid: 314b40c975fd3d349a30c23aa2faddeb, type: 2}
+  m_defaultSoundOnCollect:
+    Guid:
+      Data1: 990203629
+      Data2: 1121073514
+      Data3: 1545112218
+      Data4: -334051407
+    Path: event:/SFX/UI Sound/2D_Button_Confirm_1
+  m_collectedSOs: []
+--- !u!114 &6279455334332561965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7093824059209778154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a142f5077187cbe43a145b75bcbaa613, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_inputReader: {fileID: 11400000, guid: 314b40c975fd3d349a30c23aa2faddeb, type: 2}
+  m_equipmentSO: {fileID: 0}
+  m_logOnUseActionProcedure: 0
+--- !u!114 &6567220715599052240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7093824059209778154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ca1628925b1f364bbde019a17fdc8c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_inputReader: {fileID: 11400000, guid: 314b40c975fd3d349a30c23aa2faddeb, type: 2}
+--- !u!114 &3781311540657731409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7093824059209778154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 532be701bae784e4e80256da8a563dfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7658585729986315391
 GameObject:
   m_ObjectHideFlags: 0

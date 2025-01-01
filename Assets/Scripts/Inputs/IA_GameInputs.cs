@@ -91,6 +91,15 @@ namespace BM
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""TraverseEquipmentOrUnequip"",
+                    ""type"": ""Button"",
+                    ""id"": ""02691848-67e4-4d13-9cbf-a74e61950aec"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": ""Hold(duration=0.4,pressPoint=0.5)"",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -401,6 +410,17 @@ namespace BM
                     ""action"": ""Use"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9f6093ae-9f47-4251-a590-827107239cf4"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";BM_PC"",
+                    ""action"": ""TraverseEquipmentOrUnequip"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -472,6 +492,7 @@ namespace BM
             m_Gameplay_CollectOrActivate = m_Gameplay.FindAction("CollectOrActivate", throwIfNotFound: true);
             m_Gameplay_Use = m_Gameplay.FindAction("Use", throwIfNotFound: true);
             m_Gameplay_ToggleDeveloperOverlay = m_Gameplay.FindAction("ToggleDeveloperOverlay", throwIfNotFound: true);
+            m_Gameplay_TraverseEquipmentOrUnequip = m_Gameplay.FindAction("TraverseEquipmentOrUnequip", throwIfNotFound: true);
             // UserInterface
             m_UserInterface = asset.FindActionMap("UserInterface", throwIfNotFound: true);
             m_UserInterface_Newaction = m_UserInterface.FindAction("New action", throwIfNotFound: true);
@@ -549,6 +570,7 @@ namespace BM
         private readonly InputAction m_Gameplay_CollectOrActivate;
         private readonly InputAction m_Gameplay_Use;
         private readonly InputAction m_Gameplay_ToggleDeveloperOverlay;
+        private readonly InputAction m_Gameplay_TraverseEquipmentOrUnequip;
         public struct GameplayActions
         {
             private @IA_GameInputs m_Wrapper;
@@ -560,6 +582,7 @@ namespace BM
             public InputAction @CollectOrActivate => m_Wrapper.m_Gameplay_CollectOrActivate;
             public InputAction @Use => m_Wrapper.m_Gameplay_Use;
             public InputAction @ToggleDeveloperOverlay => m_Wrapper.m_Gameplay_ToggleDeveloperOverlay;
+            public InputAction @TraverseEquipmentOrUnequip => m_Wrapper.m_Gameplay_TraverseEquipmentOrUnequip;
             public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -590,6 +613,9 @@ namespace BM
                 @ToggleDeveloperOverlay.started += instance.OnToggleDeveloperOverlay;
                 @ToggleDeveloperOverlay.performed += instance.OnToggleDeveloperOverlay;
                 @ToggleDeveloperOverlay.canceled += instance.OnToggleDeveloperOverlay;
+                @TraverseEquipmentOrUnequip.started += instance.OnTraverseEquipmentOrUnequip;
+                @TraverseEquipmentOrUnequip.performed += instance.OnTraverseEquipmentOrUnequip;
+                @TraverseEquipmentOrUnequip.canceled += instance.OnTraverseEquipmentOrUnequip;
             }
 
             private void UnregisterCallbacks(IGameplayActions instance)
@@ -615,6 +641,9 @@ namespace BM
                 @ToggleDeveloperOverlay.started -= instance.OnToggleDeveloperOverlay;
                 @ToggleDeveloperOverlay.performed -= instance.OnToggleDeveloperOverlay;
                 @ToggleDeveloperOverlay.canceled -= instance.OnToggleDeveloperOverlay;
+                @TraverseEquipmentOrUnequip.started -= instance.OnTraverseEquipmentOrUnequip;
+                @TraverseEquipmentOrUnequip.performed -= instance.OnTraverseEquipmentOrUnequip;
+                @TraverseEquipmentOrUnequip.canceled -= instance.OnTraverseEquipmentOrUnequip;
             }
 
             public void RemoveCallbacks(IGameplayActions instance)
@@ -705,6 +734,7 @@ namespace BM
             void OnCollectOrActivate(InputAction.CallbackContext context);
             void OnUse(InputAction.CallbackContext context);
             void OnToggleDeveloperOverlay(InputAction.CallbackContext context);
+            void OnTraverseEquipmentOrUnequip(InputAction.CallbackContext context);
         }
         public interface IUserInterfaceActions
         {

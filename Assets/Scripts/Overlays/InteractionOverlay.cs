@@ -1,7 +1,6 @@
 using BM.Interactables;
-using TMPro;
+
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace BM
 {
@@ -9,7 +8,7 @@ namespace BM
 	[RequireComponent(typeof(CanvasGroup))]
 	public class InteractionOverlay : MonoBehaviour
 	{
-		[SerializeField] private InteractAction m_interactAction;
+		[SerializeField] private InteractableDetector m_detector;
 
 		[SerializeField] private InteractionCrosshair m_interactionCrosshair;
 		private void InteractionOverlay_InteractableFound(InteractableBase interactable)
@@ -52,19 +51,19 @@ namespace BM
 
 		private void OnEnable()
 		{
-			if (null != m_interactAction)
+			if (null != m_detector)
 			{
-				m_interactAction.InteractableFound += InteractionOverlay_InteractableFound;
-				m_interactAction.InteractableLost += InteractionOverlay_InteractableLost;
+				m_detector.InteractableFound += InteractionOverlay_InteractableFound;
+				m_detector.InteractableLost += InteractionOverlay_InteractableLost;
 			}
 		}
 
 		private void OnDisable()
 		{
-			if (null != m_interactAction)
+			if (null != m_detector)
 			{
-				m_interactAction.InteractableFound -= InteractionOverlay_InteractableFound;
-				m_interactAction.InteractableLost -= InteractionOverlay_InteractableLost;
+				m_detector.InteractableFound -= InteractionOverlay_InteractableFound;
+				m_detector.InteractableLost -= InteractionOverlay_InteractableLost;
 			}
 		}
 	}

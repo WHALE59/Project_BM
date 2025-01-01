@@ -1,11 +1,9 @@
 using System.Collections;
-
 using Unity.Cinemachine;
 using UnityEngine;
 
 namespace BM
 {
-
 	[DisallowMultipleComponent]
 	[RequireComponent(typeof(LocomotiveAction))]
 	public class CameraNoiseHandler : MonoBehaviour

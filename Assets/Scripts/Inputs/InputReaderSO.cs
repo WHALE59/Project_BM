@@ -56,6 +56,9 @@ namespace BM
 		public event UnityAction CollectOrActivateInputPerformed = delegate { };
 		public event UnityAction CollectOrActivateInputCanceled = delegate { };
 
+		public event UnityAction UnequipInputEvent = delegate { };
+		public event UnityAction TraverseEquipmentInputEvent = delegate { };
+
 		// Debug
 
 		public event UnityAction ToggleDeveloperInputPerformed = delegate { };
@@ -215,6 +218,28 @@ namespace BM
 					break;
 				case InputActionPhase.Canceled:
 					CollectOrActivateInputCanceled.Invoke();
+					break;
+			}
+		}
+
+
+		private bool m_unequipCalled = false;
+
+		void IGameplayActions.OnTraverseEquipmentOrUnequip(InputAction.CallbackContext context)
+		{
+			switch (context.phase)
+			{
+				case InputActionPhase.Canceled:
+					if (!m_unequipCalled)
+					{
+						TraverseEquipmentInputEvent.Invoke();
+					}
+					m_unequipCalled = false;
+					break;
+
+				case InputActionPhase.Performed:
+					UnequipInputEvent.Invoke();
+					m_unequipCalled = true;
 					break;
 			}
 		}

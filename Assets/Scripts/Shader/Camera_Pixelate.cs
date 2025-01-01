@@ -33,10 +33,10 @@ namespace BM
 			//if (1 > m_stTargetSize.iHeight) { m_stTargetSize.iHeight = 1; }
 
 			// 후처리용 이미지의 사이즈 정의
-			
+
 			int iWidth = m_eMode == EPixelScreenMode.Resize ? m_stTargetSize.iWidth : m_iScreenWidth / (int)m_iScreenScaleFactor;
 			int iHeight = m_eMode == EPixelScreenMode.Resize ? m_stTargetSize.iHeight : m_iScreenHeight / (int)m_iScreenScaleFactor;
-			
+
 			// 이미지 생성
 			m_cRenderTexture = new RenderTexture(iWidth, iHeight, 24)
 			{
@@ -48,7 +48,7 @@ namespace BM
 			m_cRender_Camera.targetTexture = m_cRenderTexture;
 			m_cDisplay.gameObject.SetActive(true);
 			m_cDisplay.texture = m_cRenderTexture;
-			
+
 		}
 
 		bool CheckScreenResize()
@@ -60,7 +60,7 @@ namespace BM
 		public EPixelScreenMode m_eMode;
 		public ScreenSize m_stTargetSize = new ScreenSize { iWidth = Screen.width, iHeight = Screen.height };
 		public uint m_iScreenScaleFactor = 1;
-		
+
 		private Camera m_cRender_Camera;
 		private RenderTexture m_cRenderTexture;
 		private int m_iScreenWidth;

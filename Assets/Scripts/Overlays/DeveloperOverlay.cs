@@ -38,14 +38,14 @@ namespace BM
 				Destroy(childTransform.gameObject);
 			}
 
-			var buttonIndex = 0;
+			int buttonIndex = 0;
 
-			for (var i = 0; i < SceneManager.sceneCountInBuildSettings; ++i)
+			for (int i = 0; i < SceneManager.sceneCountInBuildSettings; ++i)
 			{
 				// 빌드 씬 목록 받아오기
 
-				var scene = SceneUtility.GetScenePathByBuildIndex(i);
-				var sceneName = Path.GetFileNameWithoutExtension(scene);
+				string scene = SceneUtility.GetScenePathByBuildIndex(i);
+				string sceneName = Path.GetFileNameWithoutExtension(scene);
 
 				if (m_sceneNameToExclude.Contains(sceneName))
 				{
@@ -54,7 +54,7 @@ namespace BM
 
 				// 버튼 생성
 
-				var buttonGameObject = Instantiate
+				Button buttonGameObject = Instantiate
 				(
 					original: m_buttonPrefab,
 					parent: m_buttonGroup.transform
@@ -62,7 +62,7 @@ namespace BM
 
 				buttonGameObject.name = $"Button_{buttonIndex:D2}";
 
-				var textComponent = buttonGameObject.GetComponentInChildren<TMP_Text>();
+				TMP_Text textComponent = buttonGameObject.GetComponentInChildren<TMP_Text>();
 				textComponent.text = sceneName;
 
 				// 씬 로드 이벤트 바인딩
@@ -83,9 +83,9 @@ namespace BM
 
 			var unloadSceneNames = new List<string>();
 
-			for (var i = 0; i < SceneManager.sceneCount; ++i)
+			for (int i = 0; i < SceneManager.sceneCount; ++i)
 			{
-				var loadedScene = SceneManager.GetSceneAt(i);
+				Scene loadedScene = SceneManager.GetSceneAt(i);
 
 				if (loadedScene.name == m_persistentGameplaySceneName)
 				{
@@ -106,7 +106,7 @@ namespace BM
 
 			// 언로드 작업
 
-			foreach (var toUnload in toUnloads)
+			foreach (string toUnload in toUnloads)
 			{
 				unloadOperations.Add(SceneManager.UnloadSceneAsync(toUnload));
 			}
@@ -120,7 +120,7 @@ namespace BM
 
 			// 로드 작업 시작
 
-			var loadOperation = SceneManager.LoadSceneAsync(toLoad, LoadSceneMode.Additive);
+			AsyncOperation loadOperation = SceneManager.LoadSceneAsync(toLoad, LoadSceneMode.Additive);
 
 			while (!loadOperation.isDone)
 			{

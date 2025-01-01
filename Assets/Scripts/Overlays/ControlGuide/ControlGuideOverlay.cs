@@ -1,15 +1,14 @@
 using BM.Interactables;
 using UnityEngine;
-using UnityEngine.Localization;
 using UnityEngine.Localization.Components;
-using UnityEngine.Localization.SmartFormat.PersistentVariables;
 
 namespace BM
 {
 	[DisallowMultipleComponent]
 	public class ControlGuideOverlay : MonoBehaviour
 	{
-		[SerializeField] private InteractAction m_interactAction;
+		[SerializeField] private InteractableDetector m_detector;
+		[SerializeField] private UseAction m_useAction;
 
 		[Space()]
 
@@ -33,11 +32,22 @@ namespace BM
 		[SerializeField] private LocalizeStringEvent m_activateControlStringEvent;
 		[SerializeField] private string m_activateSmartStringKey = "displayName";
 
+		private InteractableSO m_equipment;
+		private bool m_enabled = false;
+
 		private void ControlGuideOverlay_InteractableFound(InteractableBase interactable)
 		{
 			if (!m_isControlGuideEnabled)
 			{
 				return;
+			}
+
+			// 장비 가 있다면 장비 컨트롤 가이드 ON 
+			m_enabled = true;
+
+			if (null != m_equipment)
+			{
+				m_useControlGuide.gameObject.SetActive(true);
 			}
 
 			InteractableSO interactableSO = interactable.InteractableSO;
@@ -53,19 +63,12 @@ namespace BM
 			 * * 배타적으로 Activatable인 경우
 			 */
 
-			if (null != m_interactAction.Equipment)
-			{
-				m_useControlGuide.gameObject.SetActive(true);
-			}
-
 			if (interactableSO.IsCollectible && !interactableSO.IsActivatable)
 			{
 				m_collectControlStringEvent.StringReference[m_collectSmartStringKey] = interactableSO.LocalizedDisplayName;
 
 				m_collectControlGuide.gameObject.SetActive(true);
 				m_activateControlGuide.gameObject.SetActive(false);
-
-
 			}
 			else if (!interactableSO.IsCollectible && interactableSO.IsActivatable)
 			{
@@ -76,7 +79,7 @@ namespace BM
 			}
 			else
 			{
-				Debug.Log("If you see this, you're fucked up...");
+				Debug.Log("If you see this, you're SO fucked up...");
 			}
 		}
 
@@ -87,38 +90,34 @@ namespace BM
 				return;
 			}
 
+			m_enabled = false;
+
 			m_useControlGuide.gameObject.SetActive(false);
 			m_collectControlGuide.gameObject.SetActive(false);
 			m_activateControlGuide.gameObject.SetActive(false);
 		}
 
-		private void ControlGuideOverlay_Equipped(InteractableSO interactableSO)
+		private void ControlGuideOverlay_Equipped(InteractableSO equipped)
 		{
+			m_equipment = equipped;
+
 			// TODO: ~를 ~에 로 스마트 스트링 자체를 바꿀 것
-			m_useControlStringEvent.StringReference[m_useSmartStringKey] = interactableSO.LocalizedDisplayName;
+			m_useControlStringEvent.StringReference[m_useSmartStringKey] = equipped.LocalizedDisplayName;
+
+			if (m_enabled)
+			{
+				m_useControlGuide.gameObject.SetActive(true);
+			}
 		}
 
-		private void ControlGuideOverlay_Unequipped()
+		private void ControlGuideOverlay_Unequipped(InteractableSO unequipped)
 		{
+			m_equipment = null;
 
-		}
-
-		private void OnEnable()
-		{
-			m_interactAction.InteractableFound += ControlGuideOverlay_InteractableFound;
-			m_interactAction.InteractableLost += ControlGuideOverlay_InteractableLost;
-
-			m_interactAction.Equipped += ControlGuideOverlay_Equipped;
-			m_interactAction.Unequipped += ControlGuideOverlay_Unequipped;
-		}
-
-		private void OnDisable()
-		{
-			m_interactAction.InteractableFound -= ControlGuideOverlay_InteractableFound;
-			m_interactAction.InteractableLost -= ControlGuideOverlay_InteractableLost;
-
-			m_interactAction.Equipped -= ControlGuideOverlay_Equipped;
-			m_interactAction.Unequipped -= ControlGuideOverlay_Unequipped;
+			if (m_enabled)
+			{
+				m_useControlGuide.gameObject.SetActive(false);
+			}
 		}
 
 		private void Awake()
@@ -126,6 +125,26 @@ namespace BM
 			m_useControlGuide.gameObject.SetActive(false);
 			m_collectControlGuide.gameObject.SetActive(false);
 			m_activateControlGuide.gameObject.SetActive(false);
+		}
+
+		private void OnEnable()
+		{
+			m_detector.InteractableFound += ControlGuideOverlay_InteractableFound;
+			m_detector.InteractableLost += ControlGuideOverlay_InteractableLost;
+
+			m_useAction.Equipped += ControlGuideOverlay_Equipped;
+			m_useAction.Unequipped += ControlGuideOverlay_Unequipped;
+			m_useAction.Used += ControlGuideOverlay_Unequipped;
+		}
+
+		private void OnDisable()
+		{
+			m_detector.InteractableFound -= ControlGuideOverlay_InteractableFound;
+			m_detector.InteractableLost -= ControlGuideOverlay_InteractableLost;
+
+			m_useAction.Equipped -= ControlGuideOverlay_Equipped;
+			m_useAction.Unequipped -= ControlGuideOverlay_Unequipped;
+			m_useAction.Used -= ControlGuideOverlay_Unequipped;
 		}
 	}
 }
