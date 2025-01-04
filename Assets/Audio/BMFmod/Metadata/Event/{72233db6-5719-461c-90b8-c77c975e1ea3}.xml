@@ -165,7 +165,7 @@
 			<value>-5</value>
 		</property>
 		<property name="name">
-			<value>Memory Ambience</value>
+			<value>M_Ambience</value>
 		</property>
 		<relationship name="effectChain">
 			<destination>{5b704332-c74c-42b7-a997-81dfd058427a}</destination>
@@ -1014,7 +1014,7 @@
 			<value>-19</value>
 		</property>
 		<property name="name">
-			<value>Memory Transition</value>
+			<value>M_Transition</value>
 		</property>
 		<relationship name="effectChain">
 			<destination>{8eaf5f16-2aaf-4222-bbdf-0891793d341a}</destination>
