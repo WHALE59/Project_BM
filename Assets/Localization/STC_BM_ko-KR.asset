@@ -101,16 +101,16 @@ MonoBehaviour:
     m_Localized: "\uC5EC\uAE34... \uB0B4\uBC29... \uC774\uC796\uC544"
     m_Metadata:
       m_Items: []
-  - m_Id: 2155834303524864
+  - m_Id: 6506419131723778
+    m_Localized: "\uBE57\uC790\uB8E8"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6506419131723779
     m_Localized: "\uC7A0\uACBC\uC5B4. \uC5B4\uB514 \uC5F4\uC1E0\uAC00 \uC788\uB358
       \uAC83 \uAC19\uC740\uB370."
     m_Metadata:
       m_Items: []
-  - m_Id: 2894546125664256
-    m_Localized: "\uBE57\uC790\uB8E8"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 2894546251493376
+  - m_Id: 6511876277743616
     m_Localized: "\uBE57\uC790\uB8E8 \uC785\uB2C8\uB2E4."
     m_Metadata:
       m_Items: []

@@ -9,8 +9,7 @@ namespace BM
 	[RequireComponent(typeof(Inventory))]
 	public class InteractAction : MonoBehaviour
 	{
-		[Header("Input Settings")]
-		[Space]
+		[Header("입력 설정")]
 
 		[SerializeField] private InputReaderSO m_inputReader;
 
@@ -31,7 +30,7 @@ namespace BM
 				return;
 			}
 
-			detected.StartInteraction(this);
+			detected.StartInteract(this);
 		}
 
 		private void Awake()

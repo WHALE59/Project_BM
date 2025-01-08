@@ -16,104 +16,112 @@ MonoBehaviour:
   m_TableCollectionNameGuidString: 6bda748f0c1e0054fa5dcccfa488d4af
   m_Entries:
   - m_Id: 495538367311872
-    m_Key: Action_Activate
+    m_Key: Character_Action_Activate_ControlGuideDisplayName
     m_Metadata:
       m_Items:
       - rid: 737333076142063649
   - m_Id: 507864738902016
-    m_Key: Action_Collect
+    m_Key: Character_Action_Collect_ControlGuideDisplayName
     m_Metadata:
       m_Items:
       - rid: 737333076142063650
   - m_Id: 509385018912768
-    m_Key: Action_Use
+    m_Key: Character_Action_Use_ControlGuideDisplayName
     m_Metadata:
       m_Items:
       - rid: 737333076142063651
-  - m_Id: 6415911170048
-    m_Key: Interactable_GirlsChest_DisplayName
-    m_Metadata:
-      m_Items:
-      - rid: 737333076142063635
-  - m_Id: 785522630537216
-    m_Key: Interactable_DarackKey_DisplayName
-    m_Metadata:
-      m_Items:
-      - rid: 737333076142063636
-  - m_Id: 850381632122880
-    m_Key: Interactable_DarackKey_Description
-    m_Metadata:
-      m_Items:
-      - rid: 737333076142063637
-  - m_Id: 850471163736064
-    m_Key: Interactable_Straw_DisplayName
-    m_Metadata:
-      m_Items:
-      - rid: 737333076142063638
-  - m_Id: 850495658471424
-    m_Key: Interactable_Straw_Description
-    m_Metadata:
-      m_Items:
-      - rid: 737333076142063639
-  - m_Id: 850407875883008
-    m_Key: Interactable_Rope_DisplayName
-    m_Metadata:
-      m_Items:
-      - rid: 737333076142063640
-  - m_Id: 850445184217088
-    m_Key: Interactable_Rope_Description
-    m_Metadata:
-      m_Items:
-      - rid: 737333076142063641
-  - m_Id: 850519796690944
-    m_Key: Interactable_Stick_DisplayName
-    m_Metadata:
-      m_Items:
-      - rid: 737333076142063642
-  - m_Id: 850552445153280
-    m_Key: Interactable_Stick_Description
-    m_Metadata:
-      m_Items:
-      - rid: 737333076142063643
-  - m_Id: 1337637178388480
-    m_Key: Interactable_RabbitDoll_DisplayName
-    m_Metadata:
-      m_Items:
-      - rid: 737333076142063644
-  - m_Id: 1044646555496448
-    m_Key: Interactable_GirlsDiary_DisplayName
-    m_Metadata:
-      m_Items:
-      - rid: 737333076142063645
   - m_Id: 1322503227781120
-    m_Key: Interactable_CardboardPile_DisplayName
+    m_Key: Interactable_CardboardPile_ControlGuideDisplayName
     m_Metadata:
       m_Items:
       - rid: 737333076142063646
   - m_Id: 1550363100131328
-    m_Key: Interactable_DarackCurtain_DisplayName
+    m_Key: Interactable_DarackCurtain_ControlGuideDisplayName
     m_Metadata:
       m_Items:
       - rid: 737333076142063647
+  - m_Id: 6506419060420608
+    m_Key: Interactable_DarackKey_Far_ControlGuideDisplayName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6506419131723776
+    m_Key: Interactable_DarackKey_Near_ControlGuideDisplayName
+    m_Metadata:
+      m_Items: []
   - m_Id: 1724151003557888
-    m_Key: Interactable_DarackLamp_DisplayName
+    m_Key: Interactable_DarackLamp_ControlGuideDisplayName
     m_Metadata:
       m_Items:
       - rid: 737333076142063648
+  - m_Id: 6415911170048
+    m_Key: Interactable_GirlsChest_ControlGuideDisplayName
+    m_Metadata:
+      m_Items:
+      - rid: 737333076142063635
+  - m_Id: 1044646555496448
+    m_Key: Interactable_GirlsDiary_ControlGuideDisplayName
+    m_Metadata:
+      m_Items:
+      - rid: 737333076142063645
+  - m_Id: 1337637178388480
+    m_Key: Interactable_RabbitDoll_ControlGuideDisplayName
+    m_Metadata:
+      m_Items:
+      - rid: 737333076142063644
+  - m_Id: 6511876277743616
+    m_Key: Item_Broom_InventoryDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6506419131723778
+    m_Key: Item_Broom_InventoryDisplayName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 850381632122880
+    m_Key: Item_DarackKey_InventoryDescription
+    m_Metadata:
+      m_Items:
+      - rid: 737333076142063637
+  - m_Id: 785522630537216
+    m_Key: Item_DarackKey_InventoryDisplayName
+    m_Metadata:
+      m_Items:
+      - rid: 737333076142063636
+  - m_Id: 850445184217088
+    m_Key: Item_Rope_InventoryDescription
+    m_Metadata:
+      m_Items:
+      - rid: 737333076142063641
+  - m_Id: 850407875883008
+    m_Key: Item_Rope_InventoryDisplayName
+    m_Metadata:
+      m_Items:
+      - rid: 737333076142063640
+  - m_Id: 850552445153280
+    m_Key: Item_Stick_InventoryDescription
+    m_Metadata:
+      m_Items:
+      - rid: 737333076142063643
+  - m_Id: 850519796690944
+    m_Key: Item_Stick_InventoryDisplayName
+    m_Metadata:
+      m_Items:
+      - rid: 737333076142063642
+  - m_Id: 850495658471424
+    m_Key: Item_Straw_InventoryDescription
+    m_Metadata:
+      m_Items:
+      - rid: 737333076142063639
+  - m_Id: 850471163736064
+    m_Key: Item_Straw_InventoryDisplayName
+    m_Metadata:
+      m_Items:
+      - rid: 737333076142063638
+  - m_Id: 6506419131723779
+    m_Key: Voice_Character_Darack_GirlsChestLocked
+    m_Metadata:
+      m_Items: []
   - m_Id: 2155834211250176
     m_Key: Voice_Character_Darack_GameStart
-    m_Metadata:
-      m_Items: []
-  - m_Id: 2155834303524864
-    m_Key: Voice_Character_Darack_BoxLocked
-    m_Metadata:
-      m_Items: []
-  - m_Id: 2894546125664256
-    m_Key: Interactable_Broom_DisplayName
-    m_Metadata:
-      m_Items: []
-  - m_Id: 2894546251493376
-    m_Key: Interactable_Broom_Description
     m_Metadata:
       m_Items: []
   m_Metadata:

@@ -20,9 +20,9 @@ namespace BM.Interactables
 
 		private bool m_isStrawCollected = false;
 
-		public override void StartInteraction(InteractAction interactor)
+		public override void StartInteract(InteractAction interactor)
 		{
-			base.StartInteraction(interactor);
+			base.StartInteract(interactor);
 
 			if (m_isStrawCollected)
 			{

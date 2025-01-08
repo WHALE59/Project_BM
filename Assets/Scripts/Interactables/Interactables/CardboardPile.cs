@@ -15,11 +15,11 @@ namespace BM.Interactables
 
 		/// <summary>
 		/// 지정된 루트 모션 애니메이션이 재생되어 위치가 이동한다. 한 번 활성화 하였으면, 더이상 활성화 되지 않는다.
-		/// 또한, 애니메이션 이벤트로 애니메이션이 재생된 이후로는 모든 상호작용을 금지한다.
+		/// 또, 한번 상호작용 한 이후에는 다시 상호작용 하는 것을 금한다.
 		/// </summary>
-		public override void StartInteraction(InteractAction _)
+		public override void StartInteract(InteractAction _)
 		{
-			base.StartInteraction(_);
+			base.StartInteract(_);
 
 			if (m_isMoved)
 			{

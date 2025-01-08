@@ -39,11 +39,11 @@ MonoBehaviour:
       m_Items:
       - rid: 737333007447752749
   - m_Id: 785522630537216
-    m_Localized: "\u82B1\u306E\u5F62\u306E\u9375"
+    m_Localized: "\u82B1\u5F62\u306E\u9375"
     m_Metadata:
       m_Items: []
   - m_Id: 850381632122880
-    m_Localized: "\u304D\u308C\u3044\u306A\u82B1\u306E\u5F62\u306E\u9375\u3002"
+    m_Localized: "\u304D\u308C\u3044\u306A\u82B1\u306E\u5F62\u306E\u9375\u3002\u4F3C\u305F\u3088\u3046\u306A\u6A21\u69D8\u306E\u5165\u3063\u305F\u7BB1\u3092\u958B\u3051\u308B\u3068\u601D\u3044\u307E\u3059\u3002"
     m_Metadata:
       m_Items: []
   - m_Id: 850407875883008
@@ -59,7 +59,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 850495658471424
-    m_Localized: "\u6C57\u611F\u3067\u4F7F\u3063\u305F\u7A32\u308F\u3089\u3060\u3002\u6700\u8FD1\u306F\u4F7F\u3063\u3066\u3044\u306A\u3044\u3088\u3046\u3060\u304C\u3002"
+    m_Localized: "\u6C57\u611F\u3067\u4F7F\u3063\u305F\u7A32\u308F\u3089\u3060\u3002\u6700\u8FD1\u306F\u4F7F\u3063\u3066\u3044\u306A\u3044\u3088\u3046\u3060\u304C..\u79C1\u306E\u601D\u3044\u901A\u308A\u306B\u66F8\u304F\u3053\u3068\u304C\u3067\u304D\u308B\u3060\u308D\u3046\uFF1F"
     m_Metadata:
       m_Items: []
   - m_Id: 850519796690944
@@ -94,15 +94,15 @@ MonoBehaviour:
     m_Localized: "\u3053\u3053\u3067\u306F\u2026\u79C1\u306E\u90E8\u5C4B\u2026\u3053\u308C\u3067\u3059\u3002"
     m_Metadata:
       m_Items: []
-  - m_Id: 2155834303524864
-    m_Localized: "\u30ED\u30C3\u30AF\u3057\u307E\u3057\u305F\u3002\u3069\u3053\u306E\u9375\u304C\u3042\u3063\u305F\u3088\u3046\u3060\u304C\u3002"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 2894546125664256
+  - m_Id: 6506419131723778
     m_Localized: "\u307B\u3046\u304D"
     m_Metadata:
       m_Items: []
-  - m_Id: 2894546251493376
+  - m_Id: 6506419131723779
+    m_Localized: "\u30ED\u30C3\u30AF\u3057\u307E\u3057\u305F\u3002\u3069\u3053\u306E\u9375\u304C\u3042\u3063\u305F\u3088\u3046\u3060\u304C\u3002"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6511876277743616
     m_Localized: "\u307B\u3046\u304D\u3067\u3059\u3002"
     m_Metadata:
       m_Items: []

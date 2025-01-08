@@ -4,16 +4,25 @@ using UnityEngine;
 
 namespace BM.Interactables
 {
+	/// <summary>
+	/// Locked <=(Activate)=> Locked Notifying
+	/// Locked =(Use DarackKey)=> Openable
+	/// Openable =(Activate)=> Opening => Opened
+	/// </summary>
 	[RequireComponent(typeof(Animator))]
 	public class GirlsChest : InteractableBase
 	{
-		[SerializeField] private FresnelEffectSO m_effectOnLockedNotify;
-		[SerializeField] private FresnelEffectSO m_effectOnUnlocking;
-		[SerializeField] private FresnelEffectSO m_effectOnCanOpen;
+		[Tooltip("상자가 잠겼음을 나타낼 때 효과가 적용될 메쉬 그룹과 프레스넬 효과 정보")]
+		[SerializeField] private FresnelEffectGroup m_effectGroupOnLockedNotifying;
 
-		[SerializeField] List<MeshRenderer> m_openableRenderers;
+		[Tooltip("상자가 열리는 중임을 나타낼 때 효과가 적용될 메쉬 그룹과 프레스넬 효과 정보")]
+		[SerializeField] private FresnelEffectGroup m_effectGroupOnUnlocking;
 
-		[Header("Sound Effects")]
+		[Tooltip("상자가 상호작용 가능한(열 수 있는) 상태일 때 프레스넬 효과 정보")]
+		[SerializeField] private FresnelEffectSO m_effectDataOnOpenable;
+
+
+		[Header("사운드 효과")]
 
 		[SerializeField] private EventReference m_lockedSound;
 		[SerializeField] private EventReference m_unlockingSound;
@@ -27,52 +36,45 @@ namespace BM.Interactables
 		private bool m_isLocked = true;
 		private bool m_isOpened = false;
 
-		public void GirlsChest_LockedAnimationStarted()
-		{
-			m_enableHoveringEffect = false;
-			DisallowInteraction();
-			EnableFresnelEffectOnMeshGroup(m_effectOnLockedNotify, m_hoveringRenderers);
-		}
-
-		public void GirlsChest_LockedAnimationFinished()
-		{
+		public void GirlsChest_LockedNotifyingAnimationFinished()
+ {
 			m_enableHoveringEffect = true;
-			DisableFresnelEffectOnMeshGroup(m_hoveringRenderers);
+
+			m_effectGroupOnLockedNotifying.Disable();
+
+			if (IsHovering)
+			{
+				m_currentHoveringGroup.EnableEffect();
+			}
+
 			AllowInteraction();
-		}
-
-		public void GirlsChest_UnlockingAnimationStarted()
-		{
-			m_enableHoveringEffect = false;
-			DisallowInteraction();
-
-			EnableFresnelEffectOnMeshGroup(m_effectOnUnlocking, m_hoveringRenderers);
 		}
 
 		public void GirlsChest_UnlockingAnimationFinished()
 		{
 			m_enableHoveringEffect = true;
+			m_currentHoveringGroup.ChangeEffect(m_effectDataOnOpenable);
 
-			DisableFresnelEffectOnMeshGroup(m_hoveringRenderers);
-
-			m_hoveringRenderers = m_openableRenderers;
-			m_fresnelEffectSO = m_effectOnCanOpen;
-
-			TrySetHoveringRendererEffectData(m_fresnelEffectSO, m_hoveringRenderers);
+			m_effectGroupOnUnlocking.Disable();
 
 			AllowInteraction();
 		}
 
-		public override void StartInteraction(InteractAction _)
+		public override void StartInteract(InteractAction _)
 		{
-			base.StartInteraction(_);
+			base.StartInteract(_);
 
 			if (m_isLocked)
 			{
-				// 애니메이션 이벤트로, 애니메이션이 끝날 때까지 상호작용 불허
 				m_animator.SetTrigger("Locked");
 
-				GirlsChest_LockedAnimationStarted();
+				// 지금부터 Locked Notifying 애니메이션이 끝날 때까지 상호작용 불허
+
+				m_enableHoveringEffect = false;
+				m_currentHoveringGroup.DisableEffect();
+				DisallowInteraction();
+
+				m_effectGroupOnLockedNotifying.Enable();
 
 				if (!m_lockedSound.IsNull)
 				{
@@ -90,6 +92,12 @@ namespace BM.Interactables
 					// 애니메이션 이벤트로, 애니메이션이 끝날 때까지 상호작용 불허
 					m_animator.SetTrigger("Open");
 
+					m_enableHoveringEffect = false;
+					m_currentHoveringGroup.DisableEffect();
+					DisallowInteraction();
+
+					m_effectGroupOnUnlocking.Enable();
+
 					if (!m_openingSound.IsNull)
 					{
 						RuntimeManager.PlayOneShot(m_openingSound);
@@ -100,9 +108,9 @@ namespace BM.Interactables
 			}
 		}
 
-		public override void StartUsage(UseAction _0, ItemSO _1)
+		public override void StartUse(UseAction _0, ItemSO _1)
 		{
-			base.StartUsage(_0, _1);
+			base.StartUse(_0, _1);
 
 			// GirlsChest의 Use로직은 잠금을 해제하는 것이고,
 			// 잠금이 이미 해제되었다면 더 이상 Use 로직을 진행할 필요가 없음.
@@ -113,6 +121,7 @@ namespace BM.Interactables
 			}
 
 			// 애니메이션 이벤트로, 애니메이션이 끝날 때까지 상호작용 불허
+
 			m_animator.SetTrigger("Unlock");
 
 			if (!m_unlockingSound.IsNull)
@@ -128,6 +137,9 @@ namespace BM.Interactables
 			base.Awake();
 
 			m_animator = GetComponent<Animator>();
+
+			m_effectGroupOnLockedNotifying.Initialize();
+			m_effectGroupOnUnlocking.Initialize();
 		}
 	}
 }

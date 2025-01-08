@@ -1,80 +1,39 @@
 using FMODUnity;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace BM.Interactables
 {
 	public class DarackCurtain : InteractableBase
 	{
-		[Header("Sound Settings")]
+		[Header("사운드 설정")]
 
 		[SerializeField] private EventReference m_soundOnOpening;
 		[SerializeField] private EventReference m_soundOnClosing;
 
-		[Header("Opened & Closed Models")]
+		[Header("Opened 상태")]
 
 		[SerializeField] private GameObject m_modelOnOpened;
-		[SerializeField] private List<MeshRenderer> m_hoveringRenderersOnOpened;
+		[SerializeField] private HoveringEffectGroup m_hoveringEffectGroupOnOpened;
 
-		[SerializeField] private List<Collider> m_hoveringCollidersOnOpened = new();
-
-		[Space]
+		[Header("Closed 상태")]
 
 		[SerializeField] private GameObject m_modelOnClosed;
-		[SerializeField] private List<MeshRenderer> m_hoveringRenderersOnClosed;
-		[SerializeField] private List<Collider> m_hoveringCollidersOnClosed = new();
+		[SerializeField] private HoveringEffectGroup m_hoveringEffectGroupOnClosed;
 
 		private bool m_isOpened = false;
 
-		public void SwitchModelToOpen()
+		public override void StartInteract(InteractAction _)
 		{
-			m_modelOnOpened.SetActive(true);
-			m_modelOnClosed.SetActive(false);
-
-			m_hoveringRenderers = m_hoveringRenderersOnOpened;
-
-			m_hoveringColliders = m_hoveringCollidersOnOpened;
-			SetActiveHoveringColliders(m_hoveringColliders, true);
-			SetActiveHoveringColliders(m_hoveringCollidersOnClosed, false);
-
-			if (IsHovering)
-			{
-				EnableFresnelEffectOnMeshGroup(m_fresnelEffectSO, m_hoveringRenderersOnOpened);
-			}
-			else
-			{
-				DisableFresnelEffectOnMeshGroup(m_hoveringRenderersOnOpened);
-			}
-		}
-
-		public void SwitchModelToClose()
-		{
-			m_modelOnOpened.SetActive(false);
-			m_modelOnClosed.SetActive(true);
-
-			m_hoveringRenderers = m_hoveringRenderersOnClosed;
-
-			m_hoveringColliders = m_hoveringCollidersOnClosed;
-			SetActiveHoveringColliders(m_hoveringColliders, true);
-			SetActiveHoveringColliders(m_hoveringCollidersOnOpened, false);
-
-			if (IsHovering)
-			{
-				EnableFresnelEffectOnMeshGroup(m_fresnelEffectSO, m_hoveringRenderersOnClosed);
-			}
-			else
-			{
-				DisableFresnelEffectOnMeshGroup(m_hoveringRenderersOnClosed);
-			}
-		}
-
-		public override void StartInteraction(InteractAction _)
-		{
-			base.StartInteraction(_);
+			base.StartInteract(_);
 
 			if (!m_isOpened)
 			{
-				SwitchModelToOpen();
+				// Switch to Open
+
+				m_modelOnClosed.SetActive(false);
+
+				m_modelOnOpened.SetActive(true);
+				m_currentHoveringGroup = m_hoveringEffectGroupOnOpened;
 
 				m_isOpened = true;
 
@@ -85,7 +44,13 @@ namespace BM.Interactables
 			}
 			else
 			{
-				SwitchModelToClose();
+				// Switch to Close
+
+				m_modelOnOpened.SetActive(false);
+
+				m_modelOnClosed.SetActive(true);
+				m_currentHoveringGroup = m_hoveringEffectGroupOnClosed;
+
 				m_isOpened = false;
 
 				if (!m_soundOnClosing.IsNull)
@@ -93,17 +58,23 @@ namespace BM.Interactables
 					RuntimeManager.PlayOneShot(m_soundOnClosing);
 				}
 			}
+
+			if (IsHovering)
+			{
+				m_currentHoveringGroup.EnableEffect();
+			}
+			else
+			{
+				m_currentHoveringGroup.DisableEffect();
+			}
 		}
 
 		protected override void Awake()
 		{
 			base.Awake();
 
-			TrySetHoveringColliderLayer(m_hoveringCollidersOnOpened);
-			TrySetHoveringColliderLayer(m_hoveringCollidersOnClosed);
-
-			TrySetHoveringRendererEffectData(m_fresnelEffectSO, m_hoveringRenderersOnClosed);
-			TrySetHoveringRendererEffectData(m_fresnelEffectSO, m_hoveringRenderersOnOpened);
+			m_hoveringEffectGroupOnOpened.Initialize();
+			m_hoveringEffectGroupOnClosed.Initialize();
 		}
 
 		/// <summary>
@@ -122,28 +93,20 @@ namespace BM.Interactables
 			if (isStartOpened && !isStartClosed)
 			{
 				m_isOpened = true;
-				m_hoveringRenderers = m_hoveringRenderersOnOpened;
 
-				m_hoveringColliders = m_hoveringCollidersOnOpened;
-
-				SetActiveHoveringColliders(m_hoveringColliders, true);
-				SetActiveHoveringColliders(m_hoveringCollidersOnClosed, false);
+				m_currentHoveringGroup = m_hoveringEffectGroupOnOpened;
 			}
 			else if (!isStartOpened && isStartClosed)
 			{
 				m_isOpened = false;
-				m_hoveringRenderers = m_hoveringRenderersOnClosed;
 
-				SetActiveHoveringColliders(m_hoveringColliders, true);
-				SetActiveHoveringColliders(m_hoveringCollidersOnOpened, false);
+				m_currentHoveringGroup = m_hoveringEffectGroupOnClosed;
 			}
 			else
 			{
 				m_isOpened = true;
-				m_hoveringRenderers = m_hoveringRenderersOnOpened;
 
-				SetActiveHoveringColliders(m_hoveringColliders, true);
-				SetActiveHoveringColliders(m_hoveringCollidersOnClosed, false);
+				m_currentHoveringGroup = m_hoveringEffectGroupOnOpened;
 
 				m_modelOnOpened.SetActive(true);
 				m_modelOnClosed.SetActive(false);

@@ -1,5 +1,7 @@
 #pragma warning disable CS0414
 
+using System;
+
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Localization;
@@ -10,50 +12,49 @@ namespace BM.Interactables
 	[RequireComponent(typeof(Rigidbody))]
 	public class InteractableBase : MonoBehaviour
 	{
-		[Header("Root Appearance")]
+		[Header("외형 오브젝트의 루트 설정")]
 
 		[SerializeField] protected GameObject m_rootAppearance;
 
-		[Header("Hovering Settings")]
-
-		[SerializeField] protected List<Collider> m_hoveringColliders = new();
-
-		[Header("Hovering Effect Settings")]
+		[Header("기본 호버링 이펙트 설정")]
 
 		[SerializeField] protected bool m_enableHoveringEffect = true;
-		[SerializeField] protected List<MeshRenderer> m_hoveringRenderers = new();
-		[SerializeField] protected FresnelEffectSO m_fresnelEffectSO;
-		[SerializeField] private Sprite m_interactionCrosshair;
+		[Tooltip("호버링이 감지되는 영역 콜라이더와, 호버링이 시작되었을 때에 적용될 프레스넬 효과와 메쉬 그룹에 관한 데이터. 할당하지 않고 상속 쪽에서 처리할 수도 있음")]
+		[SerializeField] protected HoveringEffectGroup m_defaultHoveringEffectGroup;
 
-		[Header("Usage Settings")]
+		protected HoveringEffectGroup m_currentHoveringGroup;
+
+		[Header("Usedable 설정")]
 
 		[SerializeField] private bool m_isUsedable = false;
 		[SerializeField] private List<ItemSO> m_usedBy = new();
 
-		[Header("Control Guide Settings")]
+		[Header("UI 설정")]
 
-		[SerializeField] private LocalizedString m_controlGuideLocalizedString;
+		[SerializeField] private Sprite m_interactionCrosshair;
+
+		[Tooltip("이 상호작용 오브젝트가 컨트롤 가이드 UI에 표시할 상호작용 행동의 이름을 나타내는 LocalizedString")]
+		[SerializeField] private LocalizedString m_controlGuideAction;
+
+		[Tooltip("이 상호작용 오브젝트가 컨트롤 가이드 UI에 표시될 때 그 표시 이름을 나타내는 LocalizedString")]
+		[SerializeField] private LocalizedString m_controlGuideDisplayName;
 
 #if UNITY_EDITOR
 		[Header("Debug")]
 
 		[SerializeField] private bool m_logOnHovering = false;
-		[SerializeField] private bool m_logOnInteraction = false;
+		[SerializeField] private bool m_logOnInteract = false;
+		[SerializeField] private bool m_logOnUse = false;
 
 		[Space]
 #endif
-
-		private int m_detectionLayer = 6;
-
 		private bool m_allowDetection = true;
 		protected bool m_allowInteraction = true;
 		private bool m_isHovering = false;
 
 		protected bool IsHovering => m_isHovering;
-		protected int DetectionLayer => m_detectionLayer;
 
 		public bool IsUsedable => m_isUsedable;
-		public LocalizedString ControlGuideLocalizedString => m_controlGuideLocalizedString;
 		public Sprite InteractionCrosshair => m_interactionCrosshair;
 
 		/// <summary>
@@ -105,7 +106,18 @@ namespace BM.Interactables
 
 			m_isHovering = true;
 
-			StartHoveringEffect();
+			if (!m_enableHoveringEffect)
+			{
+				return;
+			}
+
+			// 호버링 시각 효과(프레스넬 효과) 시작
+
+			if (null != m_currentHoveringGroup)
+			{
+				m_currentHoveringGroup.EnableEffect();
+			}
+
 		}
 
 		public void FinishHovering()
@@ -120,133 +132,63 @@ namespace BM.Interactables
 
 			m_isHovering = false;
 
-			FinishHoveringEffect();
-		}
+			// 호버링 시각 효과(프레스넬 효과) 끝
 
-		public virtual void StartHoveringEffect()
-		{
 			if (!m_enableHoveringEffect)
 			{
 				return;
 			}
 
-			// TODO: This can be problem
-			EnableFresnelEffectOnMeshGroup(m_fresnelEffectSO, m_hoveringRenderers);
-		}
-
-		public virtual void FinishHoveringEffect()
-		{
-			if (!m_enableHoveringEffect)
+			if (null != m_currentHoveringGroup)
 			{
-				return;
-			}
-
-			DisableFresnelEffectOnMeshGroup(m_hoveringRenderers);
-		}
-
-		protected void SetActiveHoveringColliders(List<Collider> colliders, bool enabled)
-		{
-			foreach (Collider collider in colliders)
-			{
-				collider.enabled = enabled;
+				m_currentHoveringGroup.DisableEffect();
 			}
 		}
 
 		// TODO: Optimization Problem
 
-		protected void EnableFresnelEffectOnMeshGroup(FresnelEffectSO effect, List<MeshRenderer> meshGroup)
-		{
-			foreach (MeshRenderer renderer in meshGroup)
-			{
-				foreach (Material material in renderer.materials)
-				{
-					effect.TryApplyFresnelDataToMaterial(material);
-					FresnelEffectSO.TrySetFresnelEffectToMaterial(material, enabled);
-				}
-			}
-		}
-
-		protected void DisableFresnelEffectOnMeshGroup(List<MeshRenderer> meshGroup)
-		{
-			foreach (MeshRenderer renderer in meshGroup)
-			{
-				foreach (Material material in renderer.materials)
-				{
-					FresnelEffectSO.TrySetFresnelEffectToMaterial(material, false);
-				}
-			}
-		}
-
-		public virtual void StartInteraction(InteractAction interactor)
+		/// <summary>
+		/// 캐릭터가 상호작용(키보드 F)을 수행할 때 호출
+		/// </summary>
+		public virtual void StartInteract(InteractAction interactor)
 		{
 #if UNITY_EDITOR
-			if (m_logOnInteraction)
+			if (m_logOnInteract)
 			{
 				Debug.Log($"주체 {interactor}에 의하여 {name} Activate 시작");
 			}
 #endif
 		}
 
-		public virtual void StartUsage(UseAction user, ItemSO equipment)
+		/// <summary>
+		/// 캐릭터가 사용 (마우스 LMB)을 수행할 때 호출
+		/// </summary>
+		public virtual void StartUse(UseAction user, ItemSO equipment)
 		{
 #if UNITY_EDITOR
-			if (m_logOnInteraction)
+			if (m_logOnUse)
 			{
 				Debug.Log($"주체 {user.name}의 장비 {equipment.name}에 의하여 {name} Use 시작");
 			}
 #endif
 		}
 
-		protected void TrySetHoveringColliderLayer(List<Collider> colliders)
-		{
-			if (null == colliders)
-			{
-				return;
-			}
-
-			foreach (Collider collider in colliders)
-			{
-				collider.gameObject.layer = m_detectionLayer;
-			}
-		}
-
-		protected void TrySetHoveringRendererEffectData(FresnelEffectSO effect, List<MeshRenderer> renderers)
-		{
-			if (null == renderers)
-			{
-				return;
-			}
-
-			HashSet<Material> fresnelMaterials = new();
-
-			foreach (MeshRenderer renderer in renderers)
-			{
-				foreach (Material material in renderer.materials)
-				{
-					if (fresnelMaterials.Contains(material))
-					{
-						continue;
-					}
-
-					if (effect.TryApplyFresnelDataToMaterial(material))
-					{
-						fresnelMaterials.Add(material);
-					}
-				}
-			}
-		}
-
 		/// <summary>
-		/// Rigidbody의 Kinematic 설정과 초기 설정된 인터랙션 Collider와 호버링 머터리얼 설정을 진행함. 만일 상속하는 경우 반드시 베이스 콜을 해 주어야 함.
+		/// Rigidbody의 Kinematic 설정과 <see cref="HoveringEffectGroup"/>의 초기화를 진행함. 
 		/// </summary>
+		/// <remarks>
+		/// 이 클래스를 상속하는 경우 베이스 콜을 반드시 잊지 말것!
+		/// </remarks>
 		protected virtual void Awake()
 		{
 			GetComponent<Rigidbody>().isKinematic = true;
 
-			// initialize Models.
+			if (null != m_defaultHoveringEffectGroup)
+			{
+				m_defaultHoveringEffectGroup.Initialize();
+			}
 
-			TrySetHoveringColliderLayer(m_hoveringColliders);
-			TrySetHoveringRendererEffectData(m_fresnelEffectSO, m_hoveringRenderers);
+			m_currentHoveringGroup = m_defaultHoveringEffectGroup;
 		}
 
 		protected virtual void OnEnable() { }

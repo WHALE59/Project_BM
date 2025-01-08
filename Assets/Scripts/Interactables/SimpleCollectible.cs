@@ -13,9 +13,9 @@ namespace BM.Interactables
 		[SerializeField] private EventReference m_soundOnCollect;
 
 
-		public override void StartInteraction(InteractAction collector)
+		public override void StartInteract(InteractAction collector)
 		{
-			base.StartInteraction(collector);
+			base.StartInteract(collector);
 
 			collector.CollectItem(m_itemToCollect);
 			m_rootAppearance.SetActive(false);

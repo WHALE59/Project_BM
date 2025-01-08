@@ -106,16 +106,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_rootAppearance: {fileID: 3268892521169087671}
-  m_hoveringColliders:
-  - {fileID: 7415360561268144043}
   m_enableHoveringEffect: 1
-  m_hoveringRenderers:
-  - {fileID: 6030845907221686693}
-  m_fresnelEffectSO: {fileID: 11400000, guid: ae6ccbf9bacba6d40b681f9de8ac62c1, type: 2}
-  m_interactionCrosshair: {fileID: 21300000, guid: 44a6cc7c0234f504684e77a59ad9c60f, type: 3}
+  m_defaultHoveringEffectGroup:
+    colliderGroup:
+    - {fileID: 7415360561268144043}
+    fresnelEffectGroup:
+      meshGroup:
+      - {fileID: 6030845907221686693}
+      effect: {fileID: 11400000, guid: ae6ccbf9bacba6d40b681f9de8ac62c1, type: 2}
   m_isUsedable: 0
   m_usedBy: []
-  m_controlGuideLocalizedString:
+  m_interactionCrosshair: {fileID: 21300000, guid: 44a6cc7c0234f504684e77a59ad9c60f, type: 3}
+  m_controlGuideAction:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_controlGuideDisplayName:
     m_TableReference:
       m_TableCollectionName: 
     m_TableEntryReference:
@@ -125,7 +136,8 @@ MonoBehaviour:
     m_WaitForCompletion: 0
     m_LocalVariables: []
   m_logOnHovering: 0
-  m_logOnInteraction: 0
+  m_logOnInteract: 0
+  m_logOnUse: 0
   m_itemToCollect: {fileID: 11400000, guid: 797e70f83ebdc5c4eb2fe29e47ae906a, type: 2}
   m_soundOnCollect:
     Guid:

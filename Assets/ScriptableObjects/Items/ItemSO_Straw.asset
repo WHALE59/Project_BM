@@ -13,15 +13,7 @@ MonoBehaviour:
   m_Name: ItemSO_Straw
   m_EditorClassIdentifier: 
   m_inventoryIcon: {fileID: 21300000, guid: 2ad1b8a9e3813764faadfd7bea769f96, type: 3}
-  m_isUsable: 0
-  m_equipmentIcon: {fileID: 0}
-  m_useCrosshairIcon: {fileID: 0}
-  m_usedTo: []
-  m_isCraftingMaterial: 1
-  m_isCraftingMaterialOf:
-  - {fileID: 11400000, guid: 0bc47fcbfb944da4fb553cba44c13f69, type: 2}
-  m_isCraftedBy: []
-  m_displayName:
+  m_inventoryDisplayName:
     m_TableReference:
       m_TableCollectionName: GUID:6bda748f0c1e0054fa5dcccfa488d4af
     m_TableEntryReference:
@@ -30,7 +22,7 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  m_description:
+  m_inventoryDescription:
     m_TableReference:
       m_TableCollectionName: GUID:6bda748f0c1e0054fa5dcccfa488d4af
     m_TableEntryReference:
@@ -39,6 +31,10 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
+  m_isUsable: 0
+  m_equipmentIcon: {fileID: 0}
+  m_useCrosshairIcon: {fileID: 0}
+  m_usedTo: []
   references:
     version: 2
     RefIds: []

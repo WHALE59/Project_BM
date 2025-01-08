@@ -39,8 +39,8 @@ namespace BM.Interactables
 				{
 					foreach (Material sharedMaterial in renderer.sharedMaterials)
 					{
-						m_fresnelEffectSO.TryApplyFresnelDataToMaterial(sharedMaterial);
-						FresnelEffectSO.TrySetFresnelEffectToMaterial(sharedMaterial, enabled);
+						//m_fresnelEffectSO.TryApplyFresnelDataToMaterial(sharedMaterial);
+						//FresnelEffectSO.TrySetFresnelEffectToMaterial(sharedMaterial, enabled);
 					}
 
 					continue;
@@ -52,7 +52,7 @@ namespace BM.Interactables
 
 			foreach (Material material in m_fresnelMaterials)
 			{
-				FresnelEffectSO.TrySetFresnelEffectToMaterial(material, enabled);
+				//FresnelEffectSO.TrySetFresnelEffectToMaterial(material, enabled);
 			}
 		}
 
@@ -73,7 +73,7 @@ namespace BM.Interactables
 			{
 				foreach (Material material in renderer.materials)
 				{
-					m_fresnelEffectSO.TryApplyFresnelDataToMaterial(material);
+					//m_fresnelEffectSO.TryApplyFresnelDataToMaterial(material);
 					m_fresnelMaterials.Add(material);
 				}
 			}

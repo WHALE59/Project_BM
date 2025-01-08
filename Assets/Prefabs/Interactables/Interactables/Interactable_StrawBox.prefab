@@ -152,39 +152,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_rootAppearance: {fileID: 8453165053417267783}
-  m_hoveringColliders:
-  - {fileID: 3279841708692694897}
   m_enableHoveringEffect: 1
-  m_hoveringRenderers:
-  - {fileID: 1918085340451392699}
-  - {fileID: 5696232164206315082}
-  - {fileID: 8677830724707496724}
-  - {fileID: 781184793510715187}
-  - {fileID: 2212980912035643400}
-  - {fileID: 4021092093865503289}
-  - {fileID: 276917865067309722}
-  - {fileID: 4497765202250812104}
-  - {fileID: 7040912533456349350}
-  - {fileID: 8164834845626767101}
-  - {fileID: 259677863906989559}
-  - {fileID: 7914957584097869289}
-  - {fileID: 1559046064727521896}
-  - {fileID: 8243666386553982193}
-  m_fresnelEffectSO: {fileID: 11400000, guid: ae6ccbf9bacba6d40b681f9de8ac62c1, type: 2}
-  m_interactionCrosshair: {fileID: 21300000, guid: 44a6cc7c0234f504684e77a59ad9c60f, type: 3}
+  m_defaultHoveringEffectGroup:
+    colliderGroup:
+    - {fileID: 3279841708692694897}
+    fresnelEffectGroup:
+      meshGroup:
+      - {fileID: 1918085340451392699}
+      - {fileID: 5696232164206315082}
+      - {fileID: 8677830724707496724}
+      - {fileID: 781184793510715187}
+      - {fileID: 2212980912035643400}
+      - {fileID: 4021092093865503289}
+      - {fileID: 276917865067309722}
+      - {fileID: 4497765202250812104}
+      - {fileID: 7040912533456349350}
+      - {fileID: 8164834845626767101}
+      - {fileID: 259677863906989559}
+      - {fileID: 7914957584097869289}
+      - {fileID: 1559046064727521896}
+      - {fileID: 8243666386553982193}
+      effect: {fileID: 11400000, guid: ae6ccbf9bacba6d40b681f9de8ac62c1, type: 2}
   m_isUsedable: 0
   m_usedBy: []
-  m_controlGuideLocalizedString:
+  m_interactionCrosshair: {fileID: 21300000, guid: 44a6cc7c0234f504684e77a59ad9c60f, type: 3}
+  m_controlGuideAction:
     m_TableReference:
-      m_TableCollectionName: GUID:6bda748f0c1e0054fa5dcccfa488d4af
+      m_TableCollectionName: 
     m_TableEntryReference:
-      m_KeyId: 507864738902016
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_controlGuideDisplayName:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
   m_logOnHovering: 0
-  m_logOnInteraction: 0
+  m_logOnInteract: 0
+  m_logOnUse: 0
   m_strawParent: {fileID: 234536945066177906}
   m_soundOnCollectingStraw:
     Guid:

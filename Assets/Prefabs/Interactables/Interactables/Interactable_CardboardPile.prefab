@@ -133,26 +133,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_rootAppearance: {fileID: 4998803856059521381}
-  m_hoveringColliders:
-  - {fileID: 6275526327787092175}
-  - {fileID: 5979785081026850874}
-  - {fileID: 2391054544480490777}
-  - {fileID: 3785231726290756584}
-  - {fileID: 1470228182200437227}
-  - {fileID: 1936664185636295565}
   m_enableHoveringEffect: 1
-  m_hoveringRenderers:
-  - {fileID: 2196366667533627441}
-  - {fileID: 1986189637089818820}
-  - {fileID: 7512726945597103591}
-  - {fileID: 4968226353564041739}
-  - {fileID: 7210890848100247560}
-  - {fileID: 2192428888701684178}
-  m_fresnelEffectSO: {fileID: 11400000, guid: 54a03f0711e20624cbcf85d798852ace, type: 2}
-  m_interactionCrosshair: {fileID: 21300000, guid: 44a6cc7c0234f504684e77a59ad9c60f, type: 3}
+  m_defaultHoveringEffectGroup:
+    colliderGroup:
+    - {fileID: 6275526327787092175}
+    - {fileID: 5979785081026850874}
+    - {fileID: 2391054544480490777}
+    - {fileID: 3785231726290756584}
+    - {fileID: 1470228182200437227}
+    - {fileID: 1936664185636295565}
+    fresnelEffectGroup:
+      meshGroup:
+      - {fileID: 2196366667533627441}
+      - {fileID: 1986189637089818820}
+      - {fileID: 7512726945597103591}
+      - {fileID: 4968226353564041739}
+      - {fileID: 7210890848100247560}
+      - {fileID: 2192428888701684178}
+      effect: {fileID: 11400000, guid: 54a03f0711e20624cbcf85d798852ace, type: 2}
   m_isUsedable: 0
   m_usedBy: []
-  m_controlGuideLocalizedString:
+  m_interactionCrosshair: {fileID: 21300000, guid: 44a6cc7c0234f504684e77a59ad9c60f, type: 3}
+  m_controlGuideAction:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_controlGuideDisplayName:
     m_TableReference:
       m_TableCollectionName: 
     m_TableEntryReference:
@@ -162,7 +173,8 @@ MonoBehaviour:
     m_WaitForCompletion: 0
     m_LocalVariables: []
   m_logOnHovering: 0
-  m_logOnInteraction: 0
+  m_logOnInteract: 0
+  m_logOnUse: 0
   m_soundOnMoving:
     Guid:
       Data1: -323269395

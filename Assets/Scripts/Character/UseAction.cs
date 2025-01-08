@@ -94,7 +94,7 @@ namespace BM
 
 			// Use 시작
 
-			m_detectedInteractable.StartUsage(this, m_equipment);
+			m_detectedInteractable.StartUse(this, m_equipment);
 
 			Used?.Invoke(m_equipment);
 			m_equipment = null;

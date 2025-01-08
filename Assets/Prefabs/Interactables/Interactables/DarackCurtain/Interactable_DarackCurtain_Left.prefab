@@ -106,14 +106,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_rootAppearance: {fileID: 5636726821410246700}
-  m_hoveringColliders: []
   m_enableHoveringEffect: 1
-  m_hoveringRenderers: []
-  m_fresnelEffectSO: {fileID: 11400000, guid: 54a03f0711e20624cbcf85d798852ace, type: 2}
-  m_interactionCrosshair: {fileID: 21300000, guid: 44a6cc7c0234f504684e77a59ad9c60f, type: 3}
+  m_defaultHoveringEffectGroup:
+    colliderGroup: []
+    fresnelEffectGroup:
+      meshGroup: []
+      effect: {fileID: 0}
   m_isUsedable: 0
   m_usedBy: []
-  m_controlGuideLocalizedString:
+  m_interactionCrosshair: {fileID: 21300000, guid: 44a6cc7c0234f504684e77a59ad9c60f, type: 3}
+  m_controlGuideAction:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_controlGuideDisplayName:
     m_TableReference:
       m_TableCollectionName: 
     m_TableEntryReference:
@@ -123,7 +134,8 @@ MonoBehaviour:
     m_WaitForCompletion: 0
     m_LocalVariables: []
   m_logOnHovering: 0
-  m_logOnInteraction: 0
+  m_logOnInteract: 0
+  m_logOnUse: 0
   m_soundOnOpening:
     Guid:
       Data1: -1573940961
@@ -139,15 +151,21 @@ MonoBehaviour:
       Data4: 1431031958
     Path: event:/SFX/Interaction/2D_Interaction_UI_Curtain_Closing
   m_modelOnOpened: {fileID: 3002717706875494038}
-  m_hoveringRenderersOnOpened:
-  - {fileID: 8617516952677114229}
-  m_hoveringCollidersOnOpened:
-  - {fileID: 7958722104787980087}
+  m_hoveringEffectGroupOnOpened:
+    colliderGroup:
+    - {fileID: 7958722104787980087}
+    fresnelEffectGroup:
+      meshGroup:
+      - {fileID: 8617516952677114229}
+      effect: {fileID: 11400000, guid: 54a03f0711e20624cbcf85d798852ace, type: 2}
   m_modelOnClosed: {fileID: 705831448711269691}
-  m_hoveringRenderersOnClosed:
-  - {fileID: 1478392748678635879}
-  m_hoveringCollidersOnClosed:
-  - {fileID: 6332015236789155887}
+  m_hoveringEffectGroupOnClosed:
+    colliderGroup:
+    - {fileID: 6332015236789155887}
+    fresnelEffectGroup:
+      meshGroup:
+      - {fileID: 1478392748678635879}
+      effect: {fileID: 11400000, guid: 54a03f0711e20624cbcf85d798852ace, type: 2}
   references:
     version: 2
     RefIds: []

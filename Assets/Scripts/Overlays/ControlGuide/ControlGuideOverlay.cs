@@ -51,7 +51,7 @@ namespace BM
 			 */
 
 			m_controlGuideOnInteractAction.gameObject.SetActive(true);
-			m_stringEventOnInteractAction.StringReference[m_smartKeyOnInteractAction] = interactable.ControlGuideLocalizedString;
+			//m_stringEventOnInteractAction.StringReference[m_smartKeyOnInteractAction] = interactable.ControlGuideLocalizedString;
 		}
 
 		private void ControlGuideOverlay_InteractableLost(InteractableBase interactable)

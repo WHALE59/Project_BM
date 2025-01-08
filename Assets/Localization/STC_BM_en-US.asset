@@ -98,15 +98,15 @@ MonoBehaviour:
     m_Localized: This is... my room... right?
     m_Metadata:
       m_Items: []
-  - m_Id: 2155834303524864
-    m_Localized: It's locked. I think there was a key somewhere.
-    m_Metadata:
-      m_Items: []
-  - m_Id: 2894546125664256
+  - m_Id: 6506419131723778
     m_Localized: broomstick
     m_Metadata:
       m_Items: []
-  - m_Id: 2894546251493376
+  - m_Id: 6506419131723779
+    m_Localized: It's locked. I think there was a key somewhere.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6511876277743616
     m_Localized: It's a broom.
     m_Metadata:
       m_Items: []

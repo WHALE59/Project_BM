@@ -12,12 +12,12 @@ namespace BM
 	[DisallowMultipleComponent]
 	public class InteractableDetector : MonoBehaviour
 	{
-		[Header("Detection Settings")]
+		[Header("감지 설정")]
 
-		[SerializeField] private float m_raycastDistance = 5.0f;
+		[SerializeField] private float m_raycastDistance = 2.5f;
 		[SerializeField] private LayerMask m_layerMask = (1 << 6);
 
-		[Header("Sound Settings")]
+		[Header("감지 사운드 설정")]
 
 		[SerializeField] private bool m_enableHoveringSound = true;
 		[SerializeField] private EventReference m_soundOnHovering;
@@ -29,15 +29,27 @@ namespace BM
 		[SerializeField] private bool m_logOnInteractableFoundAndLost;
 #endif
 
-		public event Action<InteractableBase> InteractableFound;
-		public event Action<InteractableBase> InteractableLost;
-
 		private bool m_isValidInteractionHit;
 		private RaycastHit m_hitResult;
-		//private InteractableModel m_hitModelOnLastFrame;
 
 		private InteractableBase m_detectedInteractable;
 
+		/// <summary>
+		/// 캐릭터가 어떤 대상에 호버링한 시점과 그 대상을 알고 싶으면 구독
+		/// </summary>
+		public event Action<InteractableBase> InteractableFound;
+
+		/// <summary>
+		/// 캐릭터가 어떤 대상에 호버링을 중지한 시점과 그 대상을 알고 싶으면 구독
+		/// </summary>
+		public event Action<InteractableBase> InteractableLost;
+
+		/// <summary>
+		/// 외부에서 감지된 상호작용 오브젝트가 있는 지 질의할 때에 사용.
+		/// </summary>
+		/// <remarks> 
+		/// 감지된 상호작용 오브젝트가 존재하지 않으면 <c>null</c>을 반환함을 주의
+		/// </remarks>
 		public InteractableBase DetectedInteractable => m_detectedInteractable;
 
 		private Ray GetCameraRay()
@@ -47,12 +59,6 @@ namespace BM
 
 			// NOTE: This can be broken when Camera.main is not gameplay camera
 			return Camera.main.ViewportPointToRay(viewportPoint);
-		}
-
-		public void DetectedInteractableGone()
-		{
-			InteractableLost?.Invoke(m_detectedInteractable);
-			m_detectedInteractable = null;
 		}
 
 		private void HandleInteractRaycast()
@@ -109,25 +115,6 @@ namespace BM
 				// 새로 검출된 것이 이전 프레임에 검출된 것과 탑 레벨에서는 같은 것
 				else
 				{
-					//InteractableModel newlyDetectedModel = newlyDetectedInteractable.Model;
-
-					//// 내부의 모델이 변하였다
-					//if (m_hitModelOnLastFrame != newlyDetectedModel)
-					//{
-					//	if (null != m_hitModelOnLastFrame)
-					//	{
-					//		m_hitModelOnLastFrame.FinishHoveringEffect();
-					//	}
-
-					//	newlyDetectedModel.StartHoveringEffect();
-					//}
-					//// 내부의 모델도 변치 않았다
-					//else
-					//{
-					//	// 아무 것도 하지 않아도 됨
-					//}
-
-					//m_hitModelOnLastFrame = newlyDetectedModel;
 				}
 			}
 			// 뭔가 상호작용 가능한 것이 하나도 검출 되지 않았음
@@ -138,7 +125,6 @@ namespace BM
 					FinishHoveringProcedure(m_detectedInteractable);
 
 					m_detectedInteractable = null;
-					//m_hitModelOnLastFrame = null;
 				}
 			}
 		}
