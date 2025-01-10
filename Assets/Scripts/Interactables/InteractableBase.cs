@@ -39,6 +39,19 @@ namespace BM.Interactables
 		[Tooltip("이 상호작용 오브젝트가 컨트롤 가이드 UI에 표시될 때 그 표시 이름을 나타내는 LocalizedString")]
 		[SerializeField] private LocalizedString m_controlGuideDisplayName;
 
+		public LocalizedString ControlGuideLocalizedString
+		{
+			get
+			{
+				if (!m_controlGuideAction.ContainsKey("displayName"))
+				{
+					m_controlGuideAction.Add("displayName", m_controlGuideDisplayName);
+				}
+
+				return m_controlGuideAction;
+			}
+		}
+
 #if UNITY_EDITOR
 		[Header("Debug")]
 
@@ -189,6 +202,7 @@ namespace BM.Interactables
 			}
 
 			m_currentHoveringGroup = m_defaultHoveringEffectGroup;
+
 		}
 
 		protected virtual void OnEnable() { }

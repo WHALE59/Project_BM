@@ -1,4 +1,3 @@
-using FMODUnity;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Localization;
@@ -31,7 +30,7 @@ namespace BM.Interactables
 		public Sprite EquipmentIcon => m_equipmentIcon;
 		public Sprite InventoryIcon => m_inventoryIcon;
 
-		public LocalizedString LocalizedDisplayName => m_inventoryDisplayName;
+		public LocalizedString LocalizedInventoryDisplayName => m_inventoryDisplayName;
 
 		public bool IsUsedTo(InteractableBase usedable)
 		{

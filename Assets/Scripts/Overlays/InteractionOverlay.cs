@@ -1,7 +1,5 @@
 using BM.Interactables;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace BM
 {

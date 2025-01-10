@@ -24775,18 +24775,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1381641764}
     m_Modifications:
-    - target: {fileID: 2319646828066942507, guid: 9cd393051a5c86048ab4a29688d1b3c6, type: 3}
-      propertyPath: m_fuckYo.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2319646828066942507, guid: 9cd393051a5c86048ab4a29688d1b3c6, type: 3}
-      propertyPath: m_effectGroups.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2319646828066942507, guid: 9cd393051a5c86048ab4a29688d1b3c6, type: 3}
-      propertyPath: m_fuckYo.Array.data[0].meshGroup.Array.size
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 4633374188836113346, guid: 9cd393051a5c86048ab4a29688d1b3c6, type: 3}
       propertyPath: m_Name
       value: Interactable_GirlsChest

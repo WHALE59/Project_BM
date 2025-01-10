@@ -37,7 +37,7 @@ namespace BM.Interactables
 		private bool m_isOpened = false;
 
 		public void GirlsChest_LockedNotifyingAnimationFinished()
- {
+		{
 			m_enableHoveringEffect = true;
 
 			m_effectGroupOnLockedNotifying.Disable();
@@ -96,7 +96,6 @@ namespace BM.Interactables
 					m_currentHoveringGroup.DisableEffect();
 					DisallowInteraction();
 
-					m_effectGroupOnUnlocking.Enable();
 
 					if (!m_openingSound.IsNull)
 					{
@@ -123,6 +122,12 @@ namespace BM.Interactables
 			// 애니메이션 이벤트로, 애니메이션이 끝날 때까지 상호작용 불허
 
 			m_animator.SetTrigger("Unlock");
+
+			m_enableHoveringEffect = false;
+			m_currentHoveringGroup.DisableEffect();
+			DisallowInteraction();
+
+			m_effectGroupOnUnlocking.Enable();
 
 			if (!m_unlockingSound.IsNull)
 			{

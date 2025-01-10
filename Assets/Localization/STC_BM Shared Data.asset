@@ -68,6 +68,18 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - rid: 737333076142063644
+  - m_Id: 7578874214559744
+    m_Key: Interactable_Rope_ControlGuideDisplayName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7578874306834432
+    m_Key: Interactable_StrawBox_ControlGuideDisplayName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7578874306834433
+    m_Key: Interactable_Stick_ControlGuideDisplayName
+    m_Metadata:
+      m_Items: []
   - m_Id: 6511876277743616
     m_Key: Item_Broom_InventoryDescription
     m_Metadata:
