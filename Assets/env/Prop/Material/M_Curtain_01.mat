@@ -63,7 +63,7 @@ Material:
     - _Dirt_Amount: 0.01
     - _Dirt_power: 0.01
     - _DstBlend: 0
-    - _Float: 45.14
+    - _Float: 98.13
     - _FresnelAmount: -0.002
     - _FresnelContrast: 2.28
     - _FresnelIntensity: 0.11
@@ -75,7 +75,7 @@ Material:
     - _Grunge_Tiling: 0
     - _IsUsedFresnel: 0
     - _Normal_Intensity: 1
-    - _PixelizeAmount: 98
+    - _PixelizeAmount: 366
     - _QueueControl: 0
     - _RoughnessContrast: -2
     - _RoughnessPower: 0.5
@@ -87,5 +87,5 @@ Material:
     m_Colors:
     - _FresnelColor: {r: 1, g: 0.6156863, b: 0, a: 1}
     - _FresnelColor2: {r: 1, g: 0, b: 0.5217905, a: 0}
-    - _TintColor: {r: 0.5, g: 0.48407212, b: 0.4316038, a: 0}
+    - _TintColor: {r: 0.8018868, g: 0.8018868, b: 0.8018868, a: 0}
   m_BuildTextureStacks: []

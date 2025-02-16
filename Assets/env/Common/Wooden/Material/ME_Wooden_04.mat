@@ -81,14 +81,14 @@ Material:
     - _Boolean: 1
     - _Boolean_1: 1
     - _Depth: -12
-    - _Float: 34
+    - _Float: 62.8
     - _GrundgeMap_Mixin: 1
     - _Intersection_Contrast: 1
     - _Intersection_amount: 0.5
     - _Intersection_power: 0.08
     - _IsUsedSecondTexture: 1
     - _Normal_Intensity: 2
-    - _Pixelize_Amount: 90
+    - _Pixelize_Amount: 366
     - _Pixelize_Grunge: 2
     - _Pixelize_Grunge2: 2
     - _Pixelize_step: 3.31

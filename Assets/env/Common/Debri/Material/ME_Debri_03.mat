@@ -45,9 +45,9 @@ Material:
     - _CastShadows: 1
     - _Cull: 2
     - _DstBlend: 0
-    - _Float: 111
+    - _Float: 180.3
     - _Normal_Intensity: 1
-    - _PixelizeAmount: 133
+    - _PixelizeAmount: 1000
     - _Surface: 0
     - _ZTest: 4
     - _ZWrite: 1

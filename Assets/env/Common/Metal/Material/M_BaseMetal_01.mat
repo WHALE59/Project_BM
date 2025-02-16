@@ -70,6 +70,9 @@ Material:
     - _RoughnessPower: 0.7
     - _TimeSpeed: 2
     - _Top_Pixelize_step: 7.37
+    - _UseCameraClipping: 0
+    - _UseVertexJitter: 0
+    - _VertexResolution: 337.7
     - _depth: -12.5
     m_Colors:
     - _FresnelColor: {r: 1, g: 0.61552286, b: 0, a: 1}

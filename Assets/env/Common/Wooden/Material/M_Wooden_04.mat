@@ -70,14 +70,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _01_GrungeMap_BlendAmount: 1.04
-    - _01_GrungeMap_BlendContrast: 0.44
+    - _01_GrungeMap_BlendAmount: 2.7
+    - _01_GrungeMap_BlendContrast: 0.57
     - _01_GrungeMap_BlendPower: 0.35
-    - _01_GrungeMap_Tiling: 0.46
+    - _01_GrungeMap_Tiling: 0.22
     - _02_GrungeMap_BlendAmount: 1.69
-    - _02_GrungeMap_BlendContrast: 0.07
+    - _02_GrungeMap_BlendContrast: 3.64
     - _02_GrungeMap_BlendPower: -1.76
-    - _02_GrungeMap_Tiling: 0.05
+    - _02_GrungeMap_Tiling: 0.15
     - _Boolean: 0
     - _Boolean_1: 0
     - _Depth: -12
@@ -88,13 +88,15 @@ Material:
     - _Intersection_power: 0.08
     - _IsUsedSecondTexture: 1
     - _Normal_Intensity: 1
-    - _Pixelize_Amount: 400
+    - _Pixelize_Amount: 248
     - _Pixelize_Grunge: 2
     - _Pixelize_Grunge2: 2
     - _Pixelize_step: 3.31
     - _RoughnessContrast: 1.05
     - _RoughnessPower: 0.75
     - _Tint_power: -0.42
+    - _UseCameraClipping: 0
+    - _UseVertexJitter: 0
     - _intersect_Contrast: 6.55
     m_Colors:
     - _01_GrundgeMap_Offset: {r: 1.14, g: 1.94, b: -3.4, a: 0}

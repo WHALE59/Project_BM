@@ -59,7 +59,7 @@ Material:
     - _Boolean_1: 1
     - _Dirt_Amount: 0.01
     - _Dirt_power: 0.01
-    - _Float: 691.38
+    - _Float: 119.1
     - _FresnelAmount: -0.002
     - _FresnelContrast: 2.28
     - _FresnelIntensity: 0.11
@@ -71,12 +71,15 @@ Material:
     - _Grunge_Tiling: 0
     - _IsUsedFresnel: 0
     - _Normal_Intensity: 1
-    - _PixelizeAmount: 414
+    - _PixelizeAmount: 436
     - _QueueControl: 0
     - _RoughnessContrast: 0.94
     - _RoughnessPower: 1.6
     - _TimeSpeed: 2
     - _Top_Pixelize_step: 0
+    - _UseCameraClipping: 0
+    - _UseVertexJitter: 0
+    - _VertexResolution: 46.55
     - _depth: -24.1
     m_Colors:
     - _FresnelColor: {r: 1, g: 0.6156863, b: 0, a: 1}
