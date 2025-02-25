@@ -52,7 +52,18 @@ namespace BM
 
 			if (null != m_characterEquipment)
 			{
-				m_controlGuideOnUseAction.Enable();
+
+				if (!m_useActionLocalizedString.ContainsKey("equipmentDisplayName"))
+				{
+					m_useActionLocalizedString.Add("equipmentDisplayName", m_characterEquipment.LocalizedInventoryDisplayName);
+				}
+				else
+				{
+					m_useActionLocalizedString["equipmentDisplayName"] = m_characterEquipment.LocalizedInventoryDisplayName;
+				}
+				string useActionText = await m_useActionLocalizedString.GetLocalizedStringAsync().Task;
+
+				m_controlGuideOnUseAction.EnableWithText(useActionText);
 			}
 
 			// (2) 감지된 interactable의 InteractAction Control Guide 구성
@@ -94,30 +105,30 @@ namespace BM
 			// TODO: ContainsKey 없이도 작동하는지 확인
 			// 장비하고 있는 것으로 Use Action Control Guide 구성
 
-			if (!m_useActionLocalizedString.ContainsKey("equipmentDisplayName"))
-			{
-				m_useActionLocalizedString.Add("equipmentDisplayName", m_characterEquipment.LocalizedInventoryDisplayName);
-			}
-			else
-			{
-				m_useActionLocalizedString["equipmentDisplayName"] = m_characterEquipment.LocalizedInventoryDisplayName;
-			}
+			//if (!m_useActionLocalizedString.ContainsKey("equipmentDisplayName"))
+			//{
+			//	m_useActionLocalizedString.Add("equipmentDisplayName", m_characterEquipment.LocalizedInventoryDisplayName);
+			//}
+			//else
+			//{
+			//	m_useActionLocalizedString["equipmentDisplayName"] = m_characterEquipment.LocalizedInventoryDisplayName;
+			//}
 
-			string useActionText = await m_useActionLocalizedString.GetLocalizedStringAsync().Task;
+			//string useActionText = await m_useActionLocalizedString.GetLocalizedStringAsync().Task;
 
 #if UNITY_EDITOR
-			if (m_logOnControlGuideLocalized)
-			{
-				Debug.Log($"장비 {equipped}에 대한 GetLocalizedStringAsync의 결과로 {useActionText} 반환");
-			}
+			//if (m_logOnControlGuideLocalized)
+			//{
+			//	Debug.Log($"장비 {equipped}에 대한 GetLocalizedStringAsync의 결과로 {useActionText} 반환");
+			//}
 #endif
-			m_controlGuideOnUseAction.SetText(useActionText);
+			//m_controlGuideOnUseAction.SetText(useActionText);
 
 			// 지금 오버레이가 활성화된 상태였으면 지금 활성화도 해야함 (예: 호버링 하던 중 장비)
-			if (m_enabled)
-			{
-				m_controlGuideOnUseAction.Enable();
-			}
+			//if (m_enabled)
+			//{
+			//	m_controlGuideOnUseAction.Enable();
+			//}
 		}
 
 		private void ControlGuideOverlay_Unequipped(ItemSO unequipped)

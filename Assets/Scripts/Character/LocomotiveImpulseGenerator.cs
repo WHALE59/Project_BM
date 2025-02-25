@@ -2,6 +2,11 @@ using System;
 
 using UnityEngine;
 
+#if UNITY_EDITOR
+using UnityEditor;
+using System.Collections.Generic;
+#endif
+
 
 namespace BM
 {
@@ -30,6 +35,10 @@ namespace BM
 
 		private float m_previousInitialImpulseTime;
 
+#if UNITY_EDITOR
+		Queue<Tuple<LocomotiveAction.State, Vector3>> m_impulsePositionHistory = new();
+#endif
+
 		private void LocomotiveImpulseGenerator_LocomotiveStateChanged(LocomotiveAction.State state)
 		{
 			m_state = state;
@@ -38,13 +47,49 @@ namespace BM
 		private void GenerateLocomotionImpulse()
 		{
 			// 체공 중이거나, 이동 할 의도가 없거나, 움직이지 않고 있다면 Impulse가 생성되어서는 안 됨.
-			if (!m_locomotiveAction.IsGrounded || !m_locomotiveAction.IsDesiredToMove || !m_locomotiveAction.IsMoving)
+
+			if (!m_locomotiveAction.IsGrounded)
 			{
+#if UNITY_EDITOR
+				if (m_logOnLocomotiveImpulse)
+				{
+					Debug.Log("캐릭터가 지면에 닿아있지 않기 때문에 Locomotion Impulse를 발생시키지 않습니다.");
+				}
+#endif
 				return;
 			}
 
+			if (!m_locomotiveAction.IsDesiredToMove)
+			{
+#if UNITY_EDITOR
+				if (m_logOnLocomotiveImpulse)
+				{
+					Debug.Log("캐릭터가 움직이려는 의도가 없기 때문에 Locomotion Impulse를 발생시키지 않습니다.");
+				}
+#endif
+				return;
+			}
+
+			if (!m_locomotiveAction.IsMoving)
+			{
+#if UNITY_EDITOR
+				if (m_logOnLocomotiveImpulse)
+				{
+					Debug.Log("캐릭터가 움직이고 있지 않기 때문에 Locomotion Impulse를 발생시키지 않습니다.");
+				}
+#endif
+				return;
+			}
+
+
 			if (m_state == LocomotiveAction.State.Idle)
 			{
+#if UNITY_EDITOR
+				if (m_logOnLocomotiveImpulse)
+				{
+					Debug.Log("캐릭터의 Locomotive State가 Idle이기 때문에 Locomotion Impulse를 발생시키지 않습니다.");
+				}
+#endif
 				return;
 			}
 
@@ -68,6 +113,15 @@ namespace BM
 					m_hasTriggeredInitialImpulse = true;
 
 					LocomotiveImpulseGenerated?.Invoke(transform.position, currentImpulseForce);
+
+#if UNITY_EDITOR
+					m_impulsePositionHistory.Enqueue(new(m_state, transform.position));
+					if (m_impulsePositionHistory.Count > 20)
+					{
+						m_impulsePositionHistory.Dequeue();
+					}
+#endif
+
 					m_elapsedTimeAfterLastImpulse = 0f;
 				}
 				else
@@ -95,7 +149,19 @@ namespace BM
 					// 이벤트 발생 및 타이머 초기화
 					LocomotiveImpulseGenerated?.Invoke(transform.position, currentImpulseForce);
 					m_elapsedTimeAfterLastImpulse = 0f;
+
+#if UNITY_EDITOR
+					m_impulsePositionHistory.Enqueue(new(m_state, transform.position));
+					if (m_impulsePositionHistory.Count > 20)
+					{
+						m_impulsePositionHistory.Dequeue();
+					}
+#endif
 				}
+			}
+			else
+			{
+				m_elapsedTimeAfterLastImpulse = 0f;
 			}
 		}
 
@@ -153,6 +219,35 @@ namespace BM
 
 			Debug.Log($"Impulse generated: {Time.time:F2}, {position:F2}, {force:F2}");
 		}
+
+		[DrawGizmo(GizmoType.Active | GizmoType.Selected)]
+		private static void DrawImpulseHistory(LocomotiveImpulseGenerator target, GizmoType _)
+		{
+			Gizmos.color = Color.magenta;
+			foreach ((LocomotiveAction.State state, Vector3 position) in target.m_impulsePositionHistory)
+			{
+				float radius = 0.2f;
+
+				switch (state)
+				{
+					case LocomotiveAction.State.Idle:
+						radius = 0.1f;
+						break;
+					case LocomotiveAction.State.NormalJog:
+						Gizmos.color = Color.magenta;
+						break;
+					case LocomotiveAction.State.WalkedJog:
+						Gizmos.color = Color.cyan;
+						break;
+					case LocomotiveAction.State.CrouchedJog:
+						Gizmos.color = Color.yellow;
+						break;
+				}
+
+				Gizmos.DrawWireSphere(position, radius: radius);
+			}
+		}
+
 #endif
 
 	}
