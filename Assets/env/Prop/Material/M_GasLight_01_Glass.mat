@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-2474056647830227607
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 7
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: M_GasLight_01_Glass
+  m_Shader: {fileID: -6465566751694194690, guid: 9759fc07fa53b724795c0ea5cb1841ac, type: 3}
+  m_Parent: {fileID: 2100000, guid: 7f3331fab98ea8a4eb63e5e4b0db3bf0, type: 2}
+  m_ModifiedSerializedProperties: 30
+  m_ValidKeywords:
+  - _ALPHAPREMULTIPLY_ON
+  - _SURFACE_TYPE_TRANSPARENT
+  m_InvalidKeywords: []
+  m_LightmapFlags: 1
+  m_EnableInstancingVariants: 1
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 3000
+  stringTagMap:
+    RenderType: Transparent
+  disabledShaderPasses:
+  - DepthOnly
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _01_BaseCol:
+        m_Texture: {fileID: 2800000, guid: 20ca7f5f1552ca347b4d8d5c8f447d45, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _01_Masked:
+        m_Texture: {fileID: 2800000, guid: 7cf84514001cc2e4284d41a4493399bd, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _01_Normal:
+        m_Texture: {fileID: 2800000, guid: 01dad891d22779f42822c768d109d9b9, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Basscol:
+        m_Texture: {fileID: 2800000, guid: 20ca7f5f1552ca347b4d8d5c8f447d45, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DirtBasscol:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MRO:
+        m_Texture: {fileID: 2800000, guid: 7cf84514001cc2e4284d41a4493399bd, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Normal:
+        m_Texture: {fileID: 2800000, guid: 01dad891d22779f42822c768d109d9b9, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _AlphaClip: 0
+    - _AlphaToMask: 0
+    - _Boolean: 1
+    - _Boolean_1: 1
+    - _CastShadows: 1
+    - _Cull: 0
+    - _Dirt_Amount: 0.01
+    - _Dirt_power: 0.01
+    - _DstBlend: 10
+    - _Float: 144.7
+    - _FresnelAmount: -0.002
+    - _FresnelContrast: 2.28
+    - _FresnelIntensity: 0.11
+    - _FresnelPower: 1
+    - _Fresnelrange: 5.78
+    - _GrungeMap_Blend: 0
+    - _GrungeMap_Contrast: 0
+    - _GrungeMap_Power: 0.01
+    - _Grunge_Tiling: 0
+    - _IsUsedFresnel: 0
+    - _Normal_Intensity: 2
+    - _PixelizeAmount: 1000
+    - _QueueControl: 0
+    - _RoughnessContrast: 0.9
+    - _RoughnessPower: 1
+    - _Surface: 1
+    - _TimeSpeed: 2
+    - _Top_Pixelize_step: 0
+    - _UseCameraClipping: 0
+    - _ZTest: 8
+    - _ZWrite: 0
+    - _depth: -24.1
+    m_Colors:
+    - _FresnelColor: {r: 1, g: 0.6156863, b: 0, a: 1}
+    - _FresnelColor2: {r: 1, g: 0, b: 0.5217905, a: 0}
+    - _TintColor: {r: 1, g: 1, b: 1, a: 0}
+  m_BuildTextureStacks: []

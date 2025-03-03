@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5e1dc532bcb41949b58bc4f2abfbb7e, type: 3}
   m_Name: LensDistortion
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   intensity:
     m_OverrideState: 1
     m_Value: 0.2
@@ -86,13 +86,13 @@ MonoBehaviour:
     m_Value: 1
   threshold:
     m_OverrideState: 1
-    m_Value: 0.05
+    m_Value: 0.02
   intensity:
     m_OverrideState: 1
     m_Value: 0.2
   scatter:
     m_OverrideState: 1
-    m_Value: 0.3
+    m_Value: 0.4
   clamp:
     m_OverrideState: 1
     m_Value: 65472
@@ -114,7 +114,7 @@ MonoBehaviour:
     dimension: 1
   dirtIntensity:
     m_OverrideState: 1
-    m_Value: 0.05
+    m_Value: 0.35
 --- !u!114 &-5394651891021724926
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -127,7 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccf1aba9553839d41ae37dd52e9ebcce, type: 3}
   m_Name: MotionBlur
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   mode:
     m_OverrideState: 1
     m_Value: 0
@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29fa0085f50d5e54f8144f766051a691, type: 3}
   m_Name: FilmGrain
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   type:
     m_OverrideState: 1
     m_Value: 0
@@ -230,7 +230,7 @@ MonoBehaviour:
     dimension: 1
   contribution:
     m_OverrideState: 1
-    m_Value: 0.552
+    m_Value: 0.109
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -288,10 +288,10 @@ MonoBehaviour:
   active: 1
   postExposure:
     m_OverrideState: 1
-    m_Value: 0.05
+    m_Value: 0.66
   contrast:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: -13
   colorFilter:
     m_OverrideState: 0
     m_Value: {r: 1, g: 1, b: 1, a: 1}
@@ -313,10 +313,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 558a8e2b6826cf840aae193990ba9f2e, type: 3}
   m_Name: ShadowsMidtonesHighlights
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   shadows:
     m_OverrideState: 1
-    m_Value: {x: 1, y: 0.92641044, z: 0.92407215, w: -0.049046323}
+    m_Value: {x: 1, y: 0.9702443, z: 0.9640064, w: -0.01869159}
   midtones:
     m_OverrideState: 0
     m_Value: {x: 1, y: 1, z: 1, w: 0}
@@ -324,11 +324,11 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: {x: 1, y: 1, z: 1, w: 0}
   shadowsStart:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 0.005
   shadowsEnd:
-    m_OverrideState: 0
-    m_Value: 0.3
+    m_OverrideState: 1
+    m_Value: 0.15
   highlightsStart:
     m_OverrideState: 0
     m_Value: 0.55
@@ -356,10 +356,10 @@ MonoBehaviour:
     m_Value: {x: 0.5, y: 0.5}
   intensity:
     m_OverrideState: 1
-    m_Value: 0.3
+    m_Value: 0.322
   smoothness:
     m_OverrideState: 1
-    m_Value: 0.05
+    m_Value: 0.234
   rounded:
     m_OverrideState: 1
     m_Value: 1
@@ -375,7 +375,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb60a22f311433c4c962b888d1393f88, type: 3}
   m_Name: PaniniProjection
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   distance:
     m_OverrideState: 1
     m_Value: 0.536
@@ -396,11 +396,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   active: 1
   lift:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: {x: 1, y: 1, z: 1, w: 0.0077171936}
   gamma:
     m_OverrideState: 1
-    m_Value: {x: 0.99702084, y: 1, z: 0.97819763, w: 0.112149544}
+    m_Value: {x: 0.99702084, y: 1, z: 0.97819763, w: 0.16822429}
   gain:
     m_OverrideState: 1
-    m_Value: {x: 1, y: 1, z: 1, w: 0.13084112}
+    m_Value: {x: 1, y: 1, z: 1, w: -0.037383176}
